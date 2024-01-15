@@ -1,0 +1,19 @@
+//
+//  Color+Extension.swift
+//  Reserved
+//
+//  Created by Ani's Mac on 15.01.24.
+//
+
+import UIKit
+import SwiftUI
+
+extension UIColor {
+    static let customAccentColor = UIColor(red: 255/255, green: 89/255, blue: 0/255, alpha: 1)
+    static let customBackgroundColor = UIColor(red: 21/255, green: 21/255, blue: 24/255, alpha: 1)
+}
+
+extension Color {
+    static let customAccentColor = Color(UIColor.customAccentColor)
+    static let customBackgroundColor = Color(UIColor.customBackgroundColor)
+}
