@@ -12,7 +12,7 @@ struct LaunchScreenView: View {
     @State private var animateGlasses = false
     @State private var animateText = false
     @State private var animateLogo = false
-
+    
     // MARK: - Body
     var body: some View {
         ZStack {
@@ -45,7 +45,7 @@ struct LaunchScreenView: View {
                 .scaledToFit()
                 .frame(width: 105, height: 156)
                 .offset(x: animateGlasses ? 4 : 0, y: animateGlasses ? -4 : 0)
-
+            
             Image("glassRight")
                 .resizable()
                 .scaledToFit()
