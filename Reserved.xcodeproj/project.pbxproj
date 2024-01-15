@@ -19,6 +19,10 @@
 		EE337F352B559E5F004DBA6B /* AppBenefitTextComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F342B559E5F004DBA6B /* AppBenefitTextComponentView.swift */; };
 		EE337F3B2B55ADAA004DBA6B /* LoginOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F3A2B55ADAA004DBA6B /* LoginOptionsView.swift */; };
 		EE337F3D2B55AFEC004DBA6B /* SecondaryButtonComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F3C2B55AFEC004DBA6B /* SecondaryButtonComponentView.swift */; };
+		EE337F412B55BE81004DBA6B /* SignUpWithEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F402B55BE81004DBA6B /* SignUpWithEmailView.swift */; };
+		EE337F432B55BFD6004DBA6B /* SignUpWithEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F422B55BFD6004DBA6B /* SignUpWithEmailViewModel.swift */; };
+		EE337F452B55C02D004DBA6B /* EmailTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F442B55C02D004DBA6B /* EmailTextField.swift */; };
+		EE337F472B55C6F2004DBA6B /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F462B55C6F2004DBA6B /* PasswordTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +40,10 @@
 		EE337F342B559E5F004DBA6B /* AppBenefitTextComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBenefitTextComponentView.swift; sourceTree = "<group>"; };
 		EE337F3A2B55ADAA004DBA6B /* LoginOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginOptionsView.swift; sourceTree = "<group>"; };
 		EE337F3C2B55AFEC004DBA6B /* SecondaryButtonComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButtonComponentView.swift; sourceTree = "<group>"; };
+		EE337F402B55BE81004DBA6B /* SignUpWithEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithEmailView.swift; sourceTree = "<group>"; };
+		EE337F422B55BFD6004DBA6B /* SignUpWithEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithEmailViewModel.swift; sourceTree = "<group>"; };
+		EE337F442B55C02D004DBA6B /* EmailTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTextField.swift; sourceTree = "<group>"; };
+		EE337F462B55C6F2004DBA6B /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,9 +108,11 @@
 		EE337F372B55A820004DBA6B /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				EE337F342B559E5F004DBA6B /* AppBenefitTextComponentView.swift */,
 				EE337F312B559606004DBA6B /* PrimaryButtonComponentView.swift */,
 				EE337F3C2B55AFEC004DBA6B /* SecondaryButtonComponentView.swift */,
-				EE337F342B559E5F004DBA6B /* AppBenefitTextComponentView.swift */,
+				EE337F442B55C02D004DBA6B /* EmailTextField.swift */,
+				EE337F462B55C6F2004DBA6B /* PasswordTextField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -120,6 +130,8 @@
 			children = (
 				EE337F2F2B55770A004DBA6B /* LaunchScreenView.swift */,
 				EE337F3A2B55ADAA004DBA6B /* LoginOptionsView.swift */,
+				EE337F402B55BE81004DBA6B /* SignUpWithEmailView.swift */,
+				EE337F422B55BFD6004DBA6B /* SignUpWithEmailViewModel.swift */,
 				EE337F372B55A820004DBA6B /* Components */,
 			);
 			path = SwiftUIScenes;
@@ -197,11 +209,15 @@
 			files = (
 				EE337F282B556F9B004DBA6B /* Image+Extension.swift in Sources */,
 				EE337F092B5562D1004DBA6B /* AppDelegate.swift in Sources */,
+				EE337F472B55C6F2004DBA6B /* PasswordTextField.swift in Sources */,
 				EE337F322B559606004DBA6B /* PrimaryButtonComponentView.swift in Sources */,
+				EE337F432B55BFD6004DBA6B /* SignUpWithEmailViewModel.swift in Sources */,
+				EE337F412B55BE81004DBA6B /* SignUpWithEmailView.swift in Sources */,
 				EE337F2A2B5576C7004DBA6B /* SwiftUIHostingController.swift in Sources */,
 				EE337F0B2B5562D1004DBA6B /* SceneDelegate.swift in Sources */,
 				EE337F212B556A8D004DBA6B /* Color+Extension.swift in Sources */,
 				EE337F302B55770A004DBA6B /* LaunchScreenView.swift in Sources */,
+				EE337F452B55C02D004DBA6B /* EmailTextField.swift in Sources */,
 				EE337F3B2B55ADAA004DBA6B /* LoginOptionsView.swift in Sources */,
 				EE337F352B559E5F004DBA6B /* AppBenefitTextComponentView.swift in Sources */,
 				EE337F3D2B55AFEC004DBA6B /* SecondaryButtonComponentView.swift in Sources */,
