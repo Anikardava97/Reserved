@@ -17,6 +17,8 @@
 		EE337F302B55770A004DBA6B /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F2F2B55770A004DBA6B /* LaunchScreenView.swift */; };
 		EE337F322B559606004DBA6B /* PrimaryButtonComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F312B559606004DBA6B /* PrimaryButtonComponentView.swift */; };
 		EE337F352B559E5F004DBA6B /* AppBenefitTextComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F342B559E5F004DBA6B /* AppBenefitTextComponentView.swift */; };
+		EE337F3B2B55ADAA004DBA6B /* LoginOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F3A2B55ADAA004DBA6B /* LoginOptionsView.swift */; };
+		EE337F3D2B55AFEC004DBA6B /* SecondaryButtonComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F3C2B55AFEC004DBA6B /* SecondaryButtonComponentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +33,9 @@
 		EE337F292B5576C7004DBA6B /* SwiftUIHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIHostingController.swift; sourceTree = "<group>"; };
 		EE337F2F2B55770A004DBA6B /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		EE337F312B559606004DBA6B /* PrimaryButtonComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonComponentView.swift; sourceTree = "<group>"; };
-		EE337F342B559E5F004DBA6B /* AppBenefitTextComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppBenefitTextComponentView.swift; path = App/AppBenefitTextComponentView.swift; sourceTree = "<group>"; };
+		EE337F342B559E5F004DBA6B /* AppBenefitTextComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBenefitTextComponentView.swift; sourceTree = "<group>"; };
+		EE337F3A2B55ADAA004DBA6B /* LoginOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginOptionsView.swift; sourceTree = "<group>"; };
+		EE337F3C2B55AFEC004DBA6B /* SecondaryButtonComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButtonComponentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,10 +69,8 @@
 			isa = PBXGroup;
 			children = (
 				EE337F332B559C57004DBA6B /* App */,
-				EE337F292B5576C7004DBA6B /* SwiftUIHostingController.swift */,
-				EE337F312B559606004DBA6B /* PrimaryButtonComponentView.swift */,
-				EE337F342B559E5F004DBA6B /* AppBenefitTextComponentView.swift */,
-				EE337F2F2B55770A004DBA6B /* LaunchScreenView.swift */,
+				EE337F382B55A832004DBA6B /* SwiftUIHostingController */,
+				EE337F392B55A83E004DBA6B /* SwiftUIScenes */,
 				EE337F262B556CA6004DBA6B /* Extensions */,
 				EE337F112B5562D2004DBA6B /* Assets.xcassets */,
 				EE337F132B5562D2004DBA6B /* LaunchScreen.storyboard */,
@@ -93,6 +95,34 @@
 				EE337F0A2B5562D1004DBA6B /* SceneDelegate.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		EE337F372B55A820004DBA6B /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				EE337F312B559606004DBA6B /* PrimaryButtonComponentView.swift */,
+				EE337F3C2B55AFEC004DBA6B /* SecondaryButtonComponentView.swift */,
+				EE337F342B559E5F004DBA6B /* AppBenefitTextComponentView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		EE337F382B55A832004DBA6B /* SwiftUIHostingController */ = {
+			isa = PBXGroup;
+			children = (
+				EE337F292B5576C7004DBA6B /* SwiftUIHostingController.swift */,
+			);
+			path = SwiftUIHostingController;
+			sourceTree = "<group>";
+		};
+		EE337F392B55A83E004DBA6B /* SwiftUIScenes */ = {
+			isa = PBXGroup;
+			children = (
+				EE337F2F2B55770A004DBA6B /* LaunchScreenView.swift */,
+				EE337F3A2B55ADAA004DBA6B /* LoginOptionsView.swift */,
+				EE337F372B55A820004DBA6B /* Components */,
+			);
+			path = SwiftUIScenes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,7 +202,9 @@
 				EE337F0B2B5562D1004DBA6B /* SceneDelegate.swift in Sources */,
 				EE337F212B556A8D004DBA6B /* Color+Extension.swift in Sources */,
 				EE337F302B55770A004DBA6B /* LaunchScreenView.swift in Sources */,
+				EE337F3B2B55ADAA004DBA6B /* LoginOptionsView.swift in Sources */,
 				EE337F352B559E5F004DBA6B /* AppBenefitTextComponentView.swift in Sources */,
+				EE337F3D2B55AFEC004DBA6B /* SecondaryButtonComponentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
