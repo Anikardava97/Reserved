@@ -9,19 +9,29 @@
 /* Begin PBXBuildFile section */
 		EE337F092B5562D1004DBA6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F082B5562D1004DBA6B /* AppDelegate.swift */; };
 		EE337F0B2B5562D1004DBA6B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F0A2B5562D1004DBA6B /* SceneDelegate.swift */; };
-		EE337F0D2B5562D1004DBA6B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F0C2B5562D1004DBA6B /* ViewController.swift */; };
 		EE337F122B5562D2004DBA6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE337F112B5562D2004DBA6B /* Assets.xcassets */; };
 		EE337F152B5562D2004DBA6B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE337F132B5562D2004DBA6B /* LaunchScreen.storyboard */; };
+		EE337F212B556A8D004DBA6B /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F202B556A8D004DBA6B /* Color+Extension.swift */; };
+		EE337F282B556F9B004DBA6B /* Image+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F272B556F9B004DBA6B /* Image+Extension.swift */; };
+		EE337F2A2B5576C7004DBA6B /* SwiftUIHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F292B5576C7004DBA6B /* SwiftUIHostingController.swift */; };
+		EE337F302B55770A004DBA6B /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F2F2B55770A004DBA6B /* LaunchScreenView.swift */; };
+		EE337F322B559606004DBA6B /* PrimaryButtonComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F312B559606004DBA6B /* PrimaryButtonComponentView.swift */; };
+		EE337F352B559E5F004DBA6B /* AppBenefitTextComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F342B559E5F004DBA6B /* AppBenefitTextComponentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		EE337F052B5562D1004DBA6B /* Reserved.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reserved.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE337F082B5562D1004DBA6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE337F0A2B5562D1004DBA6B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		EE337F0C2B5562D1004DBA6B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		EE337F112B5562D2004DBA6B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE337F142B5562D2004DBA6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EE337F162B5562D2004DBA6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE337F202B556A8D004DBA6B /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		EE337F272B556F9B004DBA6B /* Image+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Extension.swift"; sourceTree = "<group>"; };
+		EE337F292B5576C7004DBA6B /* SwiftUIHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIHostingController.swift; sourceTree = "<group>"; };
+		EE337F2F2B55770A004DBA6B /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
+		EE337F312B559606004DBA6B /* PrimaryButtonComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonComponentView.swift; sourceTree = "<group>"; };
+		EE337F342B559E5F004DBA6B /* AppBenefitTextComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppBenefitTextComponentView.swift; path = App/AppBenefitTextComponentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +64,35 @@
 		EE337F072B5562D1004DBA6B /* Reserved */ = {
 			isa = PBXGroup;
 			children = (
-				EE337F082B5562D1004DBA6B /* AppDelegate.swift */,
-				EE337F0A2B5562D1004DBA6B /* SceneDelegate.swift */,
-				EE337F0C2B5562D1004DBA6B /* ViewController.swift */,
+				EE337F332B559C57004DBA6B /* App */,
+				EE337F292B5576C7004DBA6B /* SwiftUIHostingController.swift */,
+				EE337F312B559606004DBA6B /* PrimaryButtonComponentView.swift */,
+				EE337F342B559E5F004DBA6B /* AppBenefitTextComponentView.swift */,
+				EE337F2F2B55770A004DBA6B /* LaunchScreenView.swift */,
+				EE337F262B556CA6004DBA6B /* Extensions */,
 				EE337F112B5562D2004DBA6B /* Assets.xcassets */,
 				EE337F132B5562D2004DBA6B /* LaunchScreen.storyboard */,
 				EE337F162B5562D2004DBA6B /* Info.plist */,
 			);
 			path = Reserved;
+			sourceTree = "<group>";
+		};
+		EE337F262B556CA6004DBA6B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				EE337F202B556A8D004DBA6B /* Color+Extension.swift */,
+				EE337F272B556F9B004DBA6B /* Image+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		EE337F332B559C57004DBA6B /* App */ = {
+			isa = PBXGroup;
+			children = (
+				EE337F082B5562D1004DBA6B /* AppDelegate.swift */,
+				EE337F0A2B5562D1004DBA6B /* SceneDelegate.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -134,9 +165,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE337F0D2B5562D1004DBA6B /* ViewController.swift in Sources */,
+				EE337F282B556F9B004DBA6B /* Image+Extension.swift in Sources */,
 				EE337F092B5562D1004DBA6B /* AppDelegate.swift in Sources */,
+				EE337F322B559606004DBA6B /* PrimaryButtonComponentView.swift in Sources */,
+				EE337F2A2B5576C7004DBA6B /* SwiftUIHostingController.swift in Sources */,
 				EE337F0B2B5562D1004DBA6B /* SceneDelegate.swift in Sources */,
+				EE337F212B556A8D004DBA6B /* Color+Extension.swift in Sources */,
+				EE337F302B55770A004DBA6B /* LaunchScreenView.swift in Sources */,
+				EE337F352B559E5F004DBA6B /* AppBenefitTextComponentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
