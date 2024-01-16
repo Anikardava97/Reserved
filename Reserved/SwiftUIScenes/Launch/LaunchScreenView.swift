@@ -13,6 +13,8 @@ struct LaunchScreenView: View {
     @State private var animateText = false
     @State private var animateLogo = false
     
+    var navigateToLoginOptionsView: () -> Void
+    
     // MARK: - Body
     var body: some View {
         ZStack {
@@ -97,17 +99,17 @@ struct LaunchScreenView: View {
     
     private var getStartedButtonView: some View {
         Button {
-            // TODO: - get started button action
+            navigateToLoginOptionsView()
         } label: {
             PrimaryButtonComponentView(
                 text: "Get Started",
-                textColor: Color.black,
-                backgroundColor: Color.white)
+                textColor: Color.white,
+                backgroundColor: Color.customAccentColor)
         }
     }
 }
 
 // MARK: - Preview
 #Preview {
-    LaunchScreenView()
+    LaunchScreenView(navigateToLoginOptionsView: { })
 }

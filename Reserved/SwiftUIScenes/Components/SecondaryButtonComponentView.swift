@@ -24,16 +24,16 @@ struct SecondaryButtonComponentView: View {
                 .font(.system(size: 16, weight: .medium))
                 .frame(maxWidth: .infinity, maxHeight: 48, alignment: .center)
             
-            HStack {
-                if let icon, let iconSize {
+            if let icon, let iconSize {
+                HStack {
                     icon
                         .resizable()
                         .scaledToFit()
                         .foregroundStyle(iconColor ?? .primary)
                         .frame(width: CGFloat(iconSize), height: CGFloat(iconSize))
                         .padding(.leading, 20)
+                    Spacer()
                 }
-                Spacer()
             }
         }
         .frame(height: 48)

@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct LoginOptionsView: View {
+    // MARK: - Properties
+    var navigateToLoginView: () -> Void
+    
     // MARK: - Body
     var body: some View {
         ZStack {
@@ -79,7 +82,7 @@ struct LoginOptionsView: View {
     
     private var emailLoginView: some View {
         Button {
-            // TODO: - login button action
+            navigateToLoginView()
         } label: {
             SecondaryButtonComponentView(
                 text: "Continue with Email",
@@ -93,5 +96,5 @@ struct LoginOptionsView: View {
 }
 
 #Preview {
-    LoginOptionsView()
+    LoginOptionsView { }
 }

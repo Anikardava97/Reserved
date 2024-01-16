@@ -9,13 +9,14 @@ import SwiftUI
 
 struct SignUpWithEmailView: View {
     @StateObject private var viewModel = SignUpWithEmailViewModel()
-
+    var navigateToLoginView: () -> Void
+    
     // MARK: - Body
     var body: some View {
         ZStack {
             Color.customBackgroundColor.ignoresSafeArea()
             contentView
-        } 
+        }
     }
     
     // MARK: - Content
@@ -38,19 +39,29 @@ struct SignUpWithEmailView: View {
     
     private var emailAndPasswordTextFieldsView: some View {
         VStack(spacing: 20) {
-            EmailTextField(email: $viewModel.email)
-            PasswordTextField(password: $viewModel.password)
+            CustomTextFieldComponentView(text: $viewModel.username, title: "Username", prompt: "Enter your email username", isSecure: false)
+            CustomTextFieldComponentView(text: $viewModel.email, title: "Email address", prompt: "Enter your email address", isSecure: false)
+            CustomTextFieldComponentView(text: $viewModel.password, title: "Password", prompt: "Enter your password", isSecure: true)
         }
     }
     
     private var signUpAndLoginButtons: some View {
         VStack(spacing: 20) {
-            PrimaryButtonComponentView(text: "Sign up", textColor: .black, backgroundColor: .white)
-            SecondaryButtonComponentView(text: "Log in", textColor: .white, strokeColor: .white)
+            Button {
+                // navigateToHome()
+            } label: {
+                PrimaryButtonComponentView(text: "Sign up", textColor: .white, backgroundColor: Color.customAccentColor)
+            }
+            
+            Button {
+                navigateToLoginView()
+            } label: {
+                SecondaryButtonComponentView(text: "Log in", textColor: .white, strokeColor: .white)
+            }
         }
     }
 }
 
 #Preview {
-    SignUpWithEmailView()
+    SignUpWithEmailView { }
 }

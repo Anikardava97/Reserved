@@ -1,14 +1,13 @@
 //
-//  SignUpWithEmailViewModel.swift
+//  LogInWithEmailViewModel.swift
 //  Reserved
 //
-//  Created by Ani's Mac on 15.01.24.
+//  Created by Ani's Mac on 16.01.24.
 //
 
 import Foundation
 
-
-final class SignUpWithEmailViewModel: ObservableObject {
+final class LogInWithEmailViewModel: ObservableObject {
     // MARK: - Properties
     @Published var email = ""
     @Published var password = ""
