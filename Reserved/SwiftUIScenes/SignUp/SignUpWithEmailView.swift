@@ -41,8 +41,8 @@ struct SignUpWithEmailView: View {
     
     private var emailAndPasswordTextFieldsView: some View {
         VStack(spacing: 20) {
-            CustomTextFieldComponentView(text: $viewModel.email, title: "Email address", prompt: "Enter your email address", isSecure: false)
-            CustomTextFieldComponentView(text: $viewModel.password, title: "Password", prompt: "Enter your password", isSecure: true)
+//            CustomTextFieldComponentView(text: $viewModel.email, title: "Email address", prompt: "Enter your email address", isSecure: false)
+//            CustomTextFieldComponentView(text: $viewModel.password, title: "Password", prompt: "Enter your password", isSecure: true)
         }
     }
     

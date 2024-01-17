@@ -8,6 +8,10 @@
 import Foundation
 import FirebaseAuth
  
+protocol AuthenticationValidationProtocol {
+    var isAuthenticationValid: Bool { get }
+}
+
 struct AuthorizationDataResultModel {
     let id: String
     let email: String?

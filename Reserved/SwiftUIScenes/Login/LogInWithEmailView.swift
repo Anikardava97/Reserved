@@ -19,6 +19,9 @@ struct LogInWithEmailView: View {
             Color.customBackgroundColor.ignoresSafeArea()
             contentView
         }
+        .alert("Please enter a valid \(viewModel.validationErrorMessage)", isPresented: $viewModel.showAlert) {
+            Button("OK", role: .cancel) { }
+        }
     }
     
     // MARK: - Content
@@ -62,6 +65,7 @@ struct LogInWithEmailView: View {
         }
     }
 }
+
 
 #Preview {
     LogInWithEmailView { }
