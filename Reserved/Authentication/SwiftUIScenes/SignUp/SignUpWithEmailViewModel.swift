@@ -39,7 +39,7 @@ final class SignUpWithEmailViewModel: ObservableObject {
     }
 }
 
-// MARK: - Extension
+// MARK: - Sign Up Authentication Validation Conditions
 extension SignUpWithEmailViewModel: AuthenticationValidationProtocol {
     var isAuthenticationValid: Bool {
         validatePassword()

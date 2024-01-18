@@ -34,7 +34,7 @@ final class LogInWithEmailViewModel: ObservableObject {
     }
 }
 
-// MARK: - Extension 
+// MARK: - Log In Authentication Validation Conditions
 extension LogInWithEmailViewModel: AuthenticationValidationProtocol {
     var isAuthenticationValid: Bool {
         !email.isEmpty 
