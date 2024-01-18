@@ -19,6 +19,13 @@ struct LogInWithEmailView: View {
             Color.customBackgroundColor.ignoresSafeArea()
             contentView
         }
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(
+                title: Text("Login Error"),
+                message: Text("Please enter a valid information."),
+                dismissButton: .default(Text("OK"))
+            )
+        }
     }
     
     // MARK: - Content
@@ -62,6 +69,7 @@ struct LogInWithEmailView: View {
         }
     }
 }
+
 
 #Preview {
     LogInWithEmailView { }

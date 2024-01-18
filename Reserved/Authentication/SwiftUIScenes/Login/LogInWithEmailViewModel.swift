@@ -13,11 +13,12 @@ final class LogInWithEmailViewModel: ObservableObject {
     // MARK: - Properties
     @Published var email = ""
     @Published var password = ""
-
+    @Published var showAlert = false
+    
     // MARK: - Methods
     func logIn() {
-        // TODO: - handle state when user taps button with no input
-        guard !email.isEmpty, !password.isEmpty else { print("No email of password found")
+        guard isAuthenticationValid else {
+            showAlert = true
             return
         }
         
@@ -30,5 +31,15 @@ final class LogInWithEmailViewModel: ObservableObject {
                 print("Error: \(error.localizedDescription)")
             }
         }
+    }
+}
+
+// MARK: - Log In Authentication Validation Conditions
+extension LogInWithEmailViewModel: AuthenticationValidationProtocol {
+    var isAuthenticationValid: Bool {
+        !email.isEmpty 
+        && email.contains("@")
+        && !password.isEmpty 
+        && password.count > 7
     }
 }

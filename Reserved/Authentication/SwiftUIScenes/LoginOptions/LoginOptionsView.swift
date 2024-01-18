@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LoginOptionsView: View {
     // MARK: - Properties
+    @StateObject private var viewModel = LoginOptionsViewModel()
     var navigateToLoginView: () -> Void
     
     // MARK: - Body
@@ -69,7 +70,13 @@ struct LoginOptionsView: View {
     
     private var googleLoginView: some View {
         Button {
-            // TODO: - login button action
+            Task {
+                do {
+                    try await viewModel.signInGoogle()
+                } catch {
+                    print(error)
+                }
+            }
         } label: {
             SecondaryButtonComponentView(
                 text: "Continue with Google",
