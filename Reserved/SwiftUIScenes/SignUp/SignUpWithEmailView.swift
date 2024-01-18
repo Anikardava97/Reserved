@@ -19,6 +19,13 @@ struct SignUpWithEmailView: View {
             Color.customBackgroundColor.ignoresSafeArea()
             contentView
         }
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(
+                title: Text("Registration Error"),
+                message: Text("Please enter a valid information."),
+                dismissButton: .default(Text("OK"))
+            )
+        }
     }
     
     // MARK: - Content
@@ -40,9 +47,21 @@ struct SignUpWithEmailView: View {
     }
     
     private var emailAndPasswordTextFieldsView: some View {
-        VStack(spacing: 20) {
-//            CustomTextFieldComponentView(text: $viewModel.email, title: "Email address", prompt: "Enter your email address", isSecure: false)
-//            CustomTextFieldComponentView(text: $viewModel.password, title: "Password", prompt: "Enter your password", isSecure: true)
+        VStack(alignment: .leading, spacing: 20) {
+            CustomTextFieldComponentView(text: $viewModel.email, title: "Email address", prompt: "Enter your email address", isSecure: false)
+                .onChange(of: viewModel.email) {
+                    viewModel.validateEmail()
+                }
+            
+            CustomTextFieldComponentView(text: $viewModel.password, title: "Password", prompt: "Enter your password", isSecure: true)
+                .onChange(of: viewModel.password) {
+                    viewModel.validatePassword()
+                }
+            
+            PasswordStrengthChecklist(
+                isPasswordMinimumLengthMet: viewModel.isPasswordMinimumLengthMet,
+                isPasswordUniqueCharacterMet: viewModel.isPasswordUniqueCharacterMet
+            )
         }
     }
     

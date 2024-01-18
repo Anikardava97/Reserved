@@ -27,7 +27,10 @@
 		EE98E0E82B57491D0074962D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = EE98E0E72B57491D0074962D /* FirebaseAnalytics */; };
 		EE98E0EC2B57491D0074962D /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EE98E0EB2B57491D0074962D /* FirebaseAnalyticsSwift */; };
 		EE98E0F32B5749330074962D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = EE98E0F22B5749330074962D /* FirebaseAuth */; };
+		EE98E0F52B5782C90074962D /* AuthorizationDataResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98E0F42B5782C90074962D /* AuthorizationDataResultModel.swift */; };
 		EEA4221D2B570A8200BC4693 /* CustomTextFieldComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4221C2B570A8200BC4693 /* CustomTextFieldComponentView.swift */; };
+		EEDABB732B58FE1600A918EC /* PasswordStrengthChecklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDABB722B58FE1600A918EC /* PasswordStrengthChecklist.swift */; };
+		EEDABB752B58FE9C00A918EC /* ChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDABB742B58FE9C00A918EC /* ChecklistItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,7 +53,10 @@
 		EE337F4A2B56B177004DBA6B /* LogInWithEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInWithEmailViewModel.swift; sourceTree = "<group>"; };
 		EE98E0A02B571D6C0074962D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Extensions/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EE98E0E42B5748580074962D /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		EE98E0F42B5782C90074962D /* AuthorizationDataResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationDataResultModel.swift; sourceTree = "<group>"; };
 		EEA4221C2B570A8200BC4693 /* CustomTextFieldComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldComponentView.swift; sourceTree = "<group>"; };
+		EEDABB722B58FE1600A918EC /* PasswordStrengthChecklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordStrengthChecklist.swift; sourceTree = "<group>"; };
+		EEDABB742B58FE9C00A918EC /* ChecklistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +167,8 @@
 			children = (
 				EE337F422B55BFD6004DBA6B /* SignUpWithEmailViewModel.swift */,
 				EE337F402B55BE81004DBA6B /* SignUpWithEmailView.swift */,
+				EEDABB722B58FE1600A918EC /* PasswordStrengthChecklist.swift */,
+				EEDABB742B58FE9C00A918EC /* ChecklistItem.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -178,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				EE98E0E42B5748580074962D /* AuthenticationManager.swift */,
+				EE98E0F42B5782C90074962D /* AuthorizationDataResultModel.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -275,7 +284,10 @@
 				EEA4221D2B570A8200BC4693 /* CustomTextFieldComponentView.swift in Sources */,
 				EE337F492B56B15A004DBA6B /* LogInWithEmailView.swift in Sources */,
 				EE337F322B559606004DBA6B /* PrimaryButtonComponentView.swift in Sources */,
+				EEDABB752B58FE9C00A918EC /* ChecklistItem.swift in Sources */,
 				EE337F432B55BFD6004DBA6B /* SignUpWithEmailViewModel.swift in Sources */,
+				EEDABB732B58FE1600A918EC /* PasswordStrengthChecklist.swift in Sources */,
+				EE98E0F52B5782C90074962D /* AuthorizationDataResultModel.swift in Sources */,
 				EE337F412B55BE81004DBA6B /* SignUpWithEmailView.swift in Sources */,
 				EE337F0B2B5562D1004DBA6B /* SceneDelegate.swift in Sources */,
 				EE337F212B556A8D004DBA6B /* Color+Extension.swift in Sources */,

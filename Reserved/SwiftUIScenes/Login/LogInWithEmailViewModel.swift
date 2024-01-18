@@ -13,23 +13,10 @@ final class LogInWithEmailViewModel: ObservableObject {
     // MARK: - Properties
     @Published var email = ""
     @Published var password = ""
-    @Published var isEmailValid = true
-    @Published var isPasswordValid = true
     @Published var showAlert = false
     
-    var validationErrorMessage: String {
-            if !isEmailValid {
-                return "email address ✉️"
-            } else if !isPasswordValid {
-                return "password 🔐"
-            } else {
-                return ""
-            }
-        }
-
     // MARK: - Methods
     func logIn() {
-        // TODO: - handle state when user taps button with no input
         guard isAuthenticationValid else {
             showAlert = true
             return
@@ -45,16 +32,14 @@ final class LogInWithEmailViewModel: ObservableObject {
             }
         }
     }
-    
-    func validateInput() {
-           isEmailValid = !email.isEmpty && email.contains("@")
-           isPasswordValid = !password.isEmpty && password.count > 7
-       }
 }
 
+// MARK: - Extension 
 extension LogInWithEmailViewModel: AuthenticationValidationProtocol {
     var isAuthenticationValid: Bool {
-        validateInput()
-        return isEmailValid && isPasswordValid
+        !email.isEmpty 
+        && email.contains("@")
+        && !password.isEmpty 
+        && password.count > 7
     }
 }

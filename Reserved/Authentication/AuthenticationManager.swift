@@ -12,16 +12,6 @@ protocol AuthenticationValidationProtocol {
     var isAuthenticationValid: Bool { get }
 }
 
-struct AuthorizationDataResultModel {
-    let id: String
-    let email: String?
-    
-    init(user: User) {
-        self.id = user.uid
-        self.email = user.email
-    }
-}
- 
 final class AuthenticationManager {
     // MARK: - Properties
     static let shared = AuthenticationManager()

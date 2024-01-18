@@ -13,10 +13,17 @@ final class SignUpWithEmailViewModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""
     
+    @Published var isEmailValid = false
+    @Published var isPasswordMinimumLengthMet = false
+    @Published var isPasswordUniqueCharacterMet = false
+    
+    @Published var showAlert = false
+    @Published var alertMessage = ""
+    
     // MARK: - Methods
     func signUp() {
-        // TODO: - handle state when user taps button with no input
-        guard !email.isEmpty, !password.isEmpty else { print("No email of password found")
+        guard isAuthenticationValid else {
+            showAlert = true
             return
         }
         
@@ -31,3 +38,23 @@ final class SignUpWithEmailViewModel: ObservableObject {
         }
     }
 }
+
+// MARK: - Extension
+extension SignUpWithEmailViewModel: AuthenticationValidationProtocol {
+    var isAuthenticationValid: Bool {
+        validatePassword()
+        validateEmail()
+        return isEmailValid && isPasswordMinimumLengthMet && isPasswordUniqueCharacterMet
+    }
+    
+    func validateEmail() {
+        isEmailValid = email.contains("@")
+    }
+    
+    func validatePassword() {
+        isPasswordMinimumLengthMet = password.count >= 8
+        isPasswordUniqueCharacterMet = password.rangeOfCharacter(from: CharacterSet(charactersIn: "!@#$%^&*(),.?\":{}|<>]")) != nil
+    }
+}
+
+
