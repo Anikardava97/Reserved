@@ -12,20 +12,27 @@ final class TopRestaurantCollectionViewCell: UICollectionViewCell {
     private let restaurantImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.clipsToBounds = true
         return imageView
-    }()
-    
-    private let favoriteButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.tintColor = .red
-        button.setImage(UIImage(systemName: "heart"), for: .normal)
-        return button
     }()
     
     private lazy var topButtonStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [favoriteButton])
         stackView.distribution = .equalSpacing
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    private let favoriteButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = .customAccentColor
+        button.setImage(UIImage(systemName: "heart"), for: .normal)
+        return button
+    }()
+    
+    private lazy var titleCuisineStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, cuisineLabel])
+        stackView.axis = .vertical
+        stackView.spacing = 4
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -46,14 +53,6 @@ final class TopRestaurantCollectionViewCell: UICollectionViewCell {
         label.numberOfLines = 1
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         return label
-    }()
-    
-    private lazy var titleCuisineStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, cuisineLabel])
-        stackView.axis = .vertical
-        stackView.spacing = 4
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
     }()
     
     // MARK: - Init
@@ -90,15 +89,11 @@ final class TopRestaurantCollectionViewCell: UICollectionViewCell {
             restaurantImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             restaurantImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             restaurantImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            restaurantImageView.heightAnchor.constraint(equalToConstant: 135)
-        ])
-        
-        NSLayoutConstraint.activate([
+            restaurantImageView.heightAnchor.constraint(equalToConstant: 135),
+
             topButtonStackView.topAnchor.constraint(equalTo: restaurantImageView.topAnchor, constant: 12),
-            topButtonStackView.trailingAnchor.constraint(equalTo: restaurantImageView.trailingAnchor, constant: -12)
-        ])
-        
-        NSLayoutConstraint.activate([
+            topButtonStackView.trailingAnchor.constraint(equalTo: restaurantImageView.trailingAnchor, constant: -12),
+
             titleCuisineStackView.topAnchor.constraint(equalTo: restaurantImageView.bottomAnchor, constant: 12),
             titleCuisineStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 14),
             titleCuisineStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -14)

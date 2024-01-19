@@ -36,7 +36,7 @@ class RestaurantsViewController: UIViewController {
     private let cuisineLabel: UILabel = {
         let label = UILabel()
         label.text = "Cuisines"
-        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         label.textColor = .white
         return label
     }()
@@ -50,7 +50,7 @@ class RestaurantsViewController: UIViewController {
     private let topRestaurantsLabel: UILabel = {
         let label = UILabel()
         label.text = "Top Restaurants"
-        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         label.textColor = .white
         return label
     }()
@@ -65,20 +65,45 @@ class RestaurantsViewController: UIViewController {
         return collectionView
     }()
     
+    private let allRestaurantsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        return stackView
+    }()
+    
+    private let allRestaurantsLabel: UILabel = {
+        let label = UILabel()
+        label.text = "All Restaurants"
+        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.textColor = .white
+        return label
+    }()
+    
+    private  var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
+    
     // MARK: - ViewLifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
         setupViewModelDelegate()
         viewModel.viewDidLoad()
+        self.tableView.backgroundColor = .customBackgroundColor
     }
     
     // MARK: - Private Methods
     private func setup() {
         setupBackground()
         setupSearchController()
-        addSubviewsToView()
+        setupSubviews()
+        setupConstraints()
+        setupCuisineStackView()
         setupCollectionView()
+        setupTableView()
     }
     
     private func setupBackground() {
@@ -96,55 +121,55 @@ class RestaurantsViewController: UIViewController {
         self.navigationItem.hidesSearchBarWhenScrolling = false
     }
     
-    private func addSubviewsToView() {
-        setupMainStackView()
-        setupCuisineStackView()
-    }
-    
-    private func setupMainStackView() {
+    private func setupSubviews() {
         view.addSubview(mainStackView)
-        mainStackView.addArrangedSubview(cuisineStackView)
-        mainStackView.addArrangedSubview(topRestaurantsLabel)
         
-        NSLayoutConstraint.activate([
-            mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            mainStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
-    }
-    
-    private func setupCuisineStackView() {
+        mainStackView.addArrangedSubview(cuisineStackView)
+        
         cuisineStackView.addArrangedSubview(cuisineLabel)
         cuisineStackView.addArrangedSubview(cuisineButtonsStackView)
-        
-        georgianCuisineButton.configure(with: .customSecondaryColor, icon: UIImage.georgianIcon, name: "Georgian")
-        europeanCuisineButton.configure(with: .customSecondaryColor, icon: UIImage.europeanIcon, name: "European")
-        asianCuisineButton.configure(with: .customSecondaryColor, icon: UIImage.asianIcon, name: "Asian")
         
         cuisineButtonsStackView.addArrangedSubview(georgianCuisineButton)
         cuisineButtonsStackView.addArrangedSubview(asianCuisineButton)
         cuisineButtonsStackView.addArrangedSubview(europeanCuisineButton)
         
-        NSLayoutConstraint.activate([
-            georgianCuisineButton.heightAnchor.constraint(equalToConstant: 40),
-            asianCuisineButton.heightAnchor.constraint(equalToConstant: 40),
-            europeanCuisineButton.heightAnchor.constraint(equalToConstant: 40)
-        ])
+        mainStackView.addArrangedSubview(topRestaurantsLabel)
+        view.addSubview(collectionView)
+        view.addSubview(tableView)
     }
     
-    private func setupCollectionView() {
-        view.addSubview(collectionView)
-        
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
+            mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            mainStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            georgianCuisineButton.heightAnchor.constraint(equalToConstant: 40),
+            asianCuisineButton.heightAnchor.constraint(equalToConstant: 40),
+            europeanCuisineButton.heightAnchor.constraint(equalToConstant: 40),
+            
             collectionView.topAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: 16),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            collectionView.widthAnchor.constraint(equalToConstant: 400),
-            collectionView.heightAnchor.constraint(equalToConstant: 200)
+            collectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            collectionView.heightAnchor.constraint(equalToConstant: 200),
+            
+            tableView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
-        
-        collectionView.register(TopRestaurantCollectionViewCell.self, forCellWithReuseIdentifier: "TopRestaurantsCell")
+    }
+    
+    private func setupCuisineStackView() {
+        georgianCuisineButton.configure(with: .customSecondaryColor, icon: UIImage.georgianIcon, name: "Georgian")
+        europeanCuisineButton.configure(with: .customSecondaryColor, icon: UIImage.europeanIcon, name: "European")
+        asianCuisineButton.configure(with: .customSecondaryColor, icon: UIImage.asianIcon, name: "Asian")
+    }
+    
+    private func setupCollectionView() {
+        collectionView.register(TopRestaurantCollectionViewCell.self, forCellWithReuseIdentifier: "topRestaurantsCell")
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.showsHorizontalScrollIndicator = false
@@ -153,7 +178,15 @@ class RestaurantsViewController: UIViewController {
     private func setupViewModelDelegate() {
         viewModel.delegate = self
     }
+    
+    private func setupTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(AllRestaurantsTableViewCell.self, forCellReuseIdentifier: "allRestaurantsCell")
+        tableView.showsVerticalScrollIndicator = false
+    }
 }
+
 // MARK: - Search Controller Functions
 extension RestaurantsViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
@@ -168,7 +201,7 @@ extension RestaurantsViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopRestaurantsCell", for: indexPath) as? TopRestaurantCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "topRestaurantsCell", for: indexPath) as? TopRestaurantCollectionViewCell else {
             return UICollectionViewCell()
         }
         
@@ -196,6 +229,28 @@ extension RestaurantsViewController: RestaurantsViewModelDelegate {
     
     func showError(_ error: Error) {
         print("error")
+    }
+}
+
+// MARK: - TableViewDataSource
+extension RestaurantsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        restaurants.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "allRestaurantsCell", for: indexPath) as? AllRestaurantsTableViewCell else {
+            return UITableViewCell()
+        }
+        cell.configure(with: restaurants[indexPath.row])
+        return cell
+    }
+}
+
+// MARK: - TableViewDelegate
+extension RestaurantsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        UITableView.automaticDimension
     }
 }
 
