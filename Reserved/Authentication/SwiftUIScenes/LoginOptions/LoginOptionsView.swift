@@ -55,17 +55,16 @@ struct LoginOptionsView: View {
     }
     
     private var appleLoginView: some View {
-        Button {
-            // TODO: - login button action
-        } label: {
-            SecondaryButtonComponentView(
-                text: "Continue with Apple",
-                textColor: .white,
-                strokeColor: .white,
-                icon: Image(systemName: "apple.logo"),
-                iconColor: .white,
-                iconSize: 20)
-        }
+        Button { }
+    label: {
+        SecondaryButtonComponentView(
+            text: "Continue with Apple",
+            textColor: .white,
+            strokeColor: .white,
+            icon: Image(systemName: "apple.logo"),
+            iconColor: .white,
+            iconSize: 20)
+    }
     }
     
     private var googleLoginView: some View {

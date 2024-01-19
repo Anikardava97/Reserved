@@ -57,15 +57,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }
     
-    func sceneDidDisconnect(_ scene: UIScene) { }
+    func presentTabBarController() {
+        let tabBarController = TabBarController()
+        if let window = self.window {
+            window.rootViewController = tabBarController
+            window.makeKeyAndVisible()
+        }
+    }
     
-    func sceneDidBecomeActive(_ scene: UIScene) { }
+    func goBack() {
+        if let navigationController = self.window?.rootViewController as? UINavigationController {
+            navigationController.popViewController(animated: true)
+        }
+    }
+        
+        func sceneDidDisconnect(_ scene: UIScene) { }
+        
+        func sceneDidBecomeActive(_ scene: UIScene) { }
+        
+        func sceneWillResignActive(_ scene: UIScene) { }
+        
+        func sceneWillEnterForeground(_ scene: UIScene) { }
+        
+        func sceneDidEnterBackground(_ scene: UIScene) { }
+        
+    }
     
-    func sceneWillResignActive(_ scene: UIScene) { }
-    
-    func sceneWillEnterForeground(_ scene: UIScene) { }
-    
-    func sceneDidEnterBackground(_ scene: UIScene) { }
-    
-}
-
