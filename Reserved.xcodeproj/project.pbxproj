@@ -22,6 +22,7 @@
 		EE337F432B55BFD6004DBA6B /* SignUpWithEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F422B55BFD6004DBA6B /* SignUpWithEmailViewModel.swift */; };
 		EE337F492B56B15A004DBA6B /* LogInWithEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F482B56B15A004DBA6B /* LogInWithEmailView.swift */; };
 		EE337F4B2B56B177004DBA6B /* LogInWithEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F4A2B56B177004DBA6B /* LogInWithEmailViewModel.swift */; };
+		EE53F17A2B5A6E730019853F /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53F1792B5A6E730019853F /* Restaurant.swift */; };
 		EE8EB8FD2B5A52B000C6FEB9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB8FC2B5A52B000C6FEB9 /* TabBarController.swift */; };
 		EE8EB9002B5A531C00C6FEB9 /* RestaurantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */; };
 		EE8EB9032B5A534000C6FEB9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB9022B5A534000C6FEB9 /* MapViewController.swift */; };
@@ -63,6 +64,7 @@
 		EE337F422B55BFD6004DBA6B /* SignUpWithEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithEmailViewModel.swift; sourceTree = "<group>"; };
 		EE337F482B56B15A004DBA6B /* LogInWithEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInWithEmailView.swift; sourceTree = "<group>"; };
 		EE337F4A2B56B177004DBA6B /* LogInWithEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInWithEmailViewModel.swift; sourceTree = "<group>"; };
+		EE53F1792B5A6E730019853F /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		EE8EB8FC2B5A52B000C6FEB9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsViewController.swift; sourceTree = "<group>"; };
 		EE8EB9022B5A534000C6FEB9 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -238,6 +240,14 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		EE53F1782B5A6E670019853F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EE53F1792B5A6E730019853F /* Restaurant.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		EE8EB8FB2B5A529200C6FEB9 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +259,7 @@
 		EE8EB8FE2B5A52FD00C6FEB9 /* Restaurants */ = {
 			isa = PBXGroup;
 			children = (
+				EE53F1782B5A6E670019853F /* Model */,
 				EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */,
 			);
 			path = Restaurants;
@@ -386,6 +397,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE53F17A2B5A6E730019853F /* Restaurant.swift in Sources */,
 				EE337F282B556F9B004DBA6B /* Image+Extension.swift in Sources */,
 				EE8EB9092B5A539000C6FEB9 /* FavoritesViewController.swift in Sources */,
 				EEDABB852B591C9600A918EC /* SignInGoogleHelper.swift in Sources */,
