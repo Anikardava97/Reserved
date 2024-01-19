@@ -27,6 +27,7 @@
 		EE53F1802B5AA8530019853F /* CuisineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53F17F2B5AA8530019853F /* CuisineButton.swift */; };
 		EE53F1822B5AB3B50019853F /* TopRestaurantCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53F1812B5AB3B50019853F /* TopRestaurantCollectionViewCell.swift */; };
 		EE53F1842B5ABB2D0019853F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53F1832B5ABB2D0019853F /* NetworkManager.swift */; };
+		EE53F1862B5B00F50019853F /* AllRestaurantsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53F1852B5B00F50019853F /* AllRestaurantsTableViewCell.swift */; };
 		EE8EB8FD2B5A52B000C6FEB9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB8FC2B5A52B000C6FEB9 /* TabBarController.swift */; };
 		EE8EB9002B5A531C00C6FEB9 /* RestaurantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */; };
 		EE8EB9032B5A534000C6FEB9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB9022B5A534000C6FEB9 /* MapViewController.swift */; };
@@ -73,6 +74,7 @@
 		EE53F17F2B5AA8530019853F /* CuisineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuisineButton.swift; sourceTree = "<group>"; };
 		EE53F1812B5AB3B50019853F /* TopRestaurantCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRestaurantCollectionViewCell.swift; sourceTree = "<group>"; };
 		EE53F1832B5ABB2D0019853F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		EE53F1852B5B00F50019853F /* AllRestaurantsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRestaurantsTableViewCell.swift; sourceTree = "<group>"; };
 		EE8EB8FC2B5A52B000C6FEB9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsViewController.swift; sourceTree = "<group>"; };
 		EE8EB9022B5A534000C6FEB9 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 				EE53F1782B5A6E670019853F /* Model */,
 				EE53F1832B5ABB2D0019853F /* NetworkManager.swift */,
 				EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */,
+				EE53F1852B5B00F50019853F /* AllRestaurantsTableViewCell.swift */,
 				EE53F17D2B5A858C0019853F /* RestaurantsViewModel.swift */,
 				EE53F1812B5AB3B50019853F /* TopRestaurantCollectionViewCell.swift */,
 				EE53F17F2B5AA8530019853F /* CuisineButton.swift */,
@@ -435,6 +438,7 @@
 				EE8EB90C2B5A53B700C6FEB9 /* ProfileViewController.swift in Sources */,
 				EE98E0F52B5782C90074962D /* AuthorizationDataResultModel.swift in Sources */,
 				EE337F412B55BE81004DBA6B /* SignUpWithEmailView.swift in Sources */,
+				EE53F1862B5B00F50019853F /* AllRestaurantsTableViewCell.swift in Sources */,
 				EE337F0B2B5562D1004DBA6B /* SceneDelegate.swift in Sources */,
 				EE337F212B556A8D004DBA6B /* Color+Extension.swift in Sources */,
 				EE337F302B55770A004DBA6B /* LaunchScreenView.swift in Sources */,
