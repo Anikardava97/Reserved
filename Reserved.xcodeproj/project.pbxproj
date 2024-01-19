@@ -25,6 +25,8 @@
 		EE53F17A2B5A6E730019853F /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53F1792B5A6E730019853F /* Restaurant.swift */; };
 		EE53F17E2B5A858C0019853F /* RestaurantsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53F17D2B5A858C0019853F /* RestaurantsViewModel.swift */; };
 		EE53F1802B5AA8530019853F /* CuisineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53F17F2B5AA8530019853F /* CuisineButton.swift */; };
+		EE53F1822B5AB3B50019853F /* TopRestaurantCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53F1812B5AB3B50019853F /* TopRestaurantCollectionViewCell.swift */; };
+		EE53F1842B5ABB2D0019853F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53F1832B5ABB2D0019853F /* NetworkManager.swift */; };
 		EE8EB8FD2B5A52B000C6FEB9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB8FC2B5A52B000C6FEB9 /* TabBarController.swift */; };
 		EE8EB9002B5A531C00C6FEB9 /* RestaurantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */; };
 		EE8EB9032B5A534000C6FEB9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB9022B5A534000C6FEB9 /* MapViewController.swift */; };
@@ -69,6 +71,8 @@
 		EE53F1792B5A6E730019853F /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		EE53F17D2B5A858C0019853F /* RestaurantsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsViewModel.swift; sourceTree = "<group>"; };
 		EE53F17F2B5AA8530019853F /* CuisineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuisineButton.swift; sourceTree = "<group>"; };
+		EE53F1812B5AB3B50019853F /* TopRestaurantCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRestaurantCollectionViewCell.swift; sourceTree = "<group>"; };
+		EE53F1832B5ABB2D0019853F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		EE8EB8FC2B5A52B000C6FEB9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsViewController.swift; sourceTree = "<group>"; };
 		EE8EB9022B5A534000C6FEB9 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -264,8 +268,10 @@
 			isa = PBXGroup;
 			children = (
 				EE53F1782B5A6E670019853F /* Model */,
+				EE53F1832B5ABB2D0019853F /* NetworkManager.swift */,
 				EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */,
 				EE53F17D2B5A858C0019853F /* RestaurantsViewModel.swift */,
+				EE53F1812B5AB3B50019853F /* TopRestaurantCollectionViewCell.swift */,
 				EE53F17F2B5AA8530019853F /* CuisineButton.swift */,
 			);
 			path = Restaurants;
@@ -406,6 +412,7 @@
 				EE53F17A2B5A6E730019853F /* Restaurant.swift in Sources */,
 				EE337F282B556F9B004DBA6B /* Image+Extension.swift in Sources */,
 				EE8EB9092B5A539000C6FEB9 /* FavoritesViewController.swift in Sources */,
+				EE53F1822B5AB3B50019853F /* TopRestaurantCollectionViewCell.swift in Sources */,
 				EEDABB852B591C9600A918EC /* SignInGoogleHelper.swift in Sources */,
 				EEDABB812B5910E800A918EC /* LoginOptionsViewModel.swift in Sources */,
 				EE337F4B2B56B177004DBA6B /* LogInWithEmailViewModel.swift in Sources */,
@@ -417,6 +424,7 @@
 				EE98E0E52B5748580074962D /* AuthenticationManager.swift in Sources */,
 				EEA4221D2B570A8200BC4693 /* CustomTextFieldComponentView.swift in Sources */,
 				EE8EB9032B5A534000C6FEB9 /* MapViewController.swift in Sources */,
+				EE53F1842B5ABB2D0019853F /* NetworkManager.swift in Sources */,
 				EEDABB872B591C9600A918EC /* GoogleSignInResultModel.swift in Sources */,
 				EE337F492B56B15A004DBA6B /* LogInWithEmailView.swift in Sources */,
 				EE337F322B559606004DBA6B /* PrimaryButtonComponentView.swift in Sources */,
