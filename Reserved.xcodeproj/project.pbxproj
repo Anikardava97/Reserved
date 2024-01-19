@@ -22,6 +22,12 @@
 		EE337F432B55BFD6004DBA6B /* SignUpWithEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F422B55BFD6004DBA6B /* SignUpWithEmailViewModel.swift */; };
 		EE337F492B56B15A004DBA6B /* LogInWithEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F482B56B15A004DBA6B /* LogInWithEmailView.swift */; };
 		EE337F4B2B56B177004DBA6B /* LogInWithEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F4A2B56B177004DBA6B /* LogInWithEmailViewModel.swift */; };
+		EE8EB8FD2B5A52B000C6FEB9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB8FC2B5A52B000C6FEB9 /* TabBarController.swift */; };
+		EE8EB9002B5A531C00C6FEB9 /* RestaurantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */; };
+		EE8EB9032B5A534000C6FEB9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB9022B5A534000C6FEB9 /* MapViewController.swift */; };
+		EE8EB9062B5A535B00C6FEB9 /* ReservationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB9052B5A535B00C6FEB9 /* ReservationsViewController.swift */; };
+		EE8EB9092B5A539000C6FEB9 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB9082B5A539000C6FEB9 /* FavoritesViewController.swift */; };
+		EE8EB90C2B5A53B700C6FEB9 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB90B2B5A53B700C6FEB9 /* ProfileViewController.swift */; };
 		EE98E0E52B5748580074962D /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98E0E42B5748580074962D /* AuthenticationManager.swift */; };
 		EE98E0E82B57491D0074962D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = EE98E0E72B57491D0074962D /* FirebaseAnalytics */; };
 		EE98E0EC2B57491D0074962D /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EE98E0EB2B57491D0074962D /* FirebaseAnalyticsSwift */; };
@@ -57,6 +63,12 @@
 		EE337F422B55BFD6004DBA6B /* SignUpWithEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithEmailViewModel.swift; sourceTree = "<group>"; };
 		EE337F482B56B15A004DBA6B /* LogInWithEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInWithEmailView.swift; sourceTree = "<group>"; };
 		EE337F4A2B56B177004DBA6B /* LogInWithEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInWithEmailViewModel.swift; sourceTree = "<group>"; };
+		EE8EB8FC2B5A52B000C6FEB9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsViewController.swift; sourceTree = "<group>"; };
+		EE8EB9022B5A534000C6FEB9 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		EE8EB9052B5A535B00C6FEB9 /* ReservationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationsViewController.swift; sourceTree = "<group>"; };
+		EE8EB9082B5A539000C6FEB9 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		EE8EB90B2B5A53B700C6FEB9 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		EE98E0E42B5748580074962D /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		EE98E0F42B5782C90074962D /* AuthorizationDataResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationDataResultModel.swift; sourceTree = "<group>"; };
 		EEA4221C2B570A8200BC4693 /* CustomTextFieldComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldComponentView.swift; sourceTree = "<group>"; };
@@ -133,7 +145,13 @@
 			isa = PBXGroup;
 			children = (
 				EE337F332B559C57004DBA6B /* App */,
+				EE8EB8FB2B5A529200C6FEB9 /* TabBar */,
 				EE98E0E32B5748250074962D /* Authentication */,
+				EE8EB8FE2B5A52FD00C6FEB9 /* Restaurants */,
+				EE8EB9012B5A532100C6FEB9 /* Map */,
+				EE8EB9042B5A534400C6FEB9 /* Reservations */,
+				EE8EB9072B5A536000C6FEB9 /* Favorites */,
+				EE8EB90A2B5A53A200C6FEB9 /* Profile */,
 				EE337F262B556CA6004DBA6B /* Extensions */,
 				EEDABB7E2B590F4D00A918EC /* GoogleService-Info.plist */,
 				EE337F112B5562D2004DBA6B /* Assets.xcassets */,
@@ -218,6 +236,54 @@
 				EE337F482B56B15A004DBA6B /* LogInWithEmailView.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		EE8EB8FB2B5A529200C6FEB9 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				EE8EB8FC2B5A52B000C6FEB9 /* TabBarController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		EE8EB8FE2B5A52FD00C6FEB9 /* Restaurants */ = {
+			isa = PBXGroup;
+			children = (
+				EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */,
+			);
+			path = Restaurants;
+			sourceTree = "<group>";
+		};
+		EE8EB9012B5A532100C6FEB9 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				EE8EB9022B5A534000C6FEB9 /* MapViewController.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		EE8EB9042B5A534400C6FEB9 /* Reservations */ = {
+			isa = PBXGroup;
+			children = (
+				EE8EB9052B5A535B00C6FEB9 /* ReservationsViewController.swift */,
+			);
+			path = Reservations;
+			sourceTree = "<group>";
+		};
+		EE8EB9072B5A536000C6FEB9 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				EE8EB9082B5A539000C6FEB9 /* FavoritesViewController.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
+		EE8EB90A2B5A53A200C6FEB9 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				EE8EB90B2B5A53B700C6FEB9 /* ProfileViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		EE98E0E32B5748250074962D /* Authentication */ = {
@@ -321,18 +387,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE337F282B556F9B004DBA6B /* Image+Extension.swift in Sources */,
+				EE8EB9092B5A539000C6FEB9 /* FavoritesViewController.swift in Sources */,
 				EEDABB852B591C9600A918EC /* SignInGoogleHelper.swift in Sources */,
 				EEDABB812B5910E800A918EC /* LoginOptionsViewModel.swift in Sources */,
 				EE337F4B2B56B177004DBA6B /* LogInWithEmailViewModel.swift in Sources */,
+				EE8EB9062B5A535B00C6FEB9 /* ReservationsViewController.swift in Sources */,
 				EE337F092B5562D1004DBA6B /* AppDelegate.swift in Sources */,
+				EE8EB8FD2B5A52B000C6FEB9 /* TabBarController.swift in Sources */,
 				EE98E0E52B5748580074962D /* AuthenticationManager.swift in Sources */,
 				EEA4221D2B570A8200BC4693 /* CustomTextFieldComponentView.swift in Sources */,
+				EE8EB9032B5A534000C6FEB9 /* MapViewController.swift in Sources */,
 				EEDABB872B591C9600A918EC /* GoogleSignInResultModel.swift in Sources */,
 				EE337F492B56B15A004DBA6B /* LogInWithEmailView.swift in Sources */,
 				EE337F322B559606004DBA6B /* PrimaryButtonComponentView.swift in Sources */,
 				EEDABB752B58FE9C00A918EC /* ChecklistItem.swift in Sources */,
 				EE337F432B55BFD6004DBA6B /* SignUpWithEmailViewModel.swift in Sources */,
+				EE8EB9002B5A531C00C6FEB9 /* RestaurantsViewController.swift in Sources */,
 				EEDABB732B58FE1600A918EC /* PasswordStrengthChecklist.swift in Sources */,
+				EE8EB90C2B5A53B700C6FEB9 /* ProfileViewController.swift in Sources */,
 				EE98E0F52B5782C90074962D /* AuthorizationDataResultModel.swift in Sources */,
 				EE337F412B55BE81004DBA6B /* SignUpWithEmailView.swift in Sources */,
 				EE337F0B2B5562D1004DBA6B /* SceneDelegate.swift in Sources */,

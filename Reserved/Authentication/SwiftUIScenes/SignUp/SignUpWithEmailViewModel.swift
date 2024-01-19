@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import Firebase
 
-
+@MainActor
 final class SignUpWithEmailViewModel: ObservableObject {
     // MARK: - Properties
     @Published var email = ""
@@ -29,9 +30,11 @@ final class SignUpWithEmailViewModel: ObservableObject {
         
         Task {
             do {
-                let returnedUserData = try await AuthenticationManager.shared.createUser(email: email, password: password)
-                print("Success")
-                print(returnedUserData)
+                let _ = try await AuthenticationManager.shared.createUser(email: email, password: password)
+
+                if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+                    sceneDelegate.presentTabBarController()
+                }
             } catch {
                 print("Error: \(error.localizedDescription)")
             }

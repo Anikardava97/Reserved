@@ -38,7 +38,7 @@ extension AuthenticationManager {
         return AuthorizationDataResultModel(user: authorizationDataResult.user)
     }
     
-    func loginUser(email: String, password: String) async throws -> AuthorizationDataResultModel {
+    func signInWithEmail(email: String, password: String) async throws -> AuthorizationDataResultModel {
         let authorizationDataResult = try await Auth.auth().signIn(withEmail: email, password: password)
         return AuthorizationDataResultModel(user: authorizationDataResult.user)
     }

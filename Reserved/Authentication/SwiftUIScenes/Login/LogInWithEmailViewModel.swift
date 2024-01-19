@@ -24,9 +24,12 @@ final class LogInWithEmailViewModel: ObservableObject {
         
         Task {
             do {
-                let returnedUserData = try await AuthenticationManager.shared.loginUser(email: email, password: password)
-                print("Success")
-                print(returnedUserData)
+                let _ = try await AuthenticationManager.shared.signInWithEmail(email: email, password: password)
+
+                if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+                    sceneDelegate.presentTabBarController()
+                }
+                
             } catch {
                 print("Error: \(error.localizedDescription)")
             }
