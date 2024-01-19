@@ -8,7 +8,7 @@
 import UIKit
 
 final class TabBarController: UITabBarController {
-    // MARK: - LifeCycles
+    // MARK: - ViewLifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabs()
@@ -29,12 +29,9 @@ final class TabBarController: UITabBarController {
     // MARK: - NavigationController Setup
     private func createNavigationController(title: String, image: UIImage?, viewController: UIViewController) -> UINavigationController {
         let navigationController = UINavigationController(rootViewController: viewController)
-        
-        navigationController.viewControllers.first?.navigationItem.title = title
-        navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        
         navigationController.tabBarItem.title = title
         navigationController.tabBarItem.image = image
+        navigationController.viewControllers.first?.navigationItem.title = title
         return navigationController
     }
     

@@ -23,6 +23,8 @@
 		EE337F492B56B15A004DBA6B /* LogInWithEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F482B56B15A004DBA6B /* LogInWithEmailView.swift */; };
 		EE337F4B2B56B177004DBA6B /* LogInWithEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F4A2B56B177004DBA6B /* LogInWithEmailViewModel.swift */; };
 		EE53F17A2B5A6E730019853F /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53F1792B5A6E730019853F /* Restaurant.swift */; };
+		EE53F17E2B5A858C0019853F /* RestaurantsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53F17D2B5A858C0019853F /* RestaurantsViewModel.swift */; };
+		EE53F1802B5AA8530019853F /* CuisineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53F17F2B5AA8530019853F /* CuisineButton.swift */; };
 		EE8EB8FD2B5A52B000C6FEB9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB8FC2B5A52B000C6FEB9 /* TabBarController.swift */; };
 		EE8EB9002B5A531C00C6FEB9 /* RestaurantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */; };
 		EE8EB9032B5A534000C6FEB9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB9022B5A534000C6FEB9 /* MapViewController.swift */; };
@@ -65,6 +67,8 @@
 		EE337F482B56B15A004DBA6B /* LogInWithEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInWithEmailView.swift; sourceTree = "<group>"; };
 		EE337F4A2B56B177004DBA6B /* LogInWithEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInWithEmailViewModel.swift; sourceTree = "<group>"; };
 		EE53F1792B5A6E730019853F /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
+		EE53F17D2B5A858C0019853F /* RestaurantsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsViewModel.swift; sourceTree = "<group>"; };
+		EE53F17F2B5AA8530019853F /* CuisineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuisineButton.swift; sourceTree = "<group>"; };
 		EE8EB8FC2B5A52B000C6FEB9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsViewController.swift; sourceTree = "<group>"; };
 		EE8EB9022B5A534000C6FEB9 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -261,6 +265,8 @@
 			children = (
 				EE53F1782B5A6E670019853F /* Model */,
 				EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */,
+				EE53F17D2B5A858C0019853F /* RestaurantsViewModel.swift */,
+				EE53F17F2B5AA8530019853F /* CuisineButton.swift */,
 			);
 			path = Restaurants;
 			sourceTree = "<group>";
@@ -404,6 +410,8 @@
 				EEDABB812B5910E800A918EC /* LoginOptionsViewModel.swift in Sources */,
 				EE337F4B2B56B177004DBA6B /* LogInWithEmailViewModel.swift in Sources */,
 				EE8EB9062B5A535B00C6FEB9 /* ReservationsViewController.swift in Sources */,
+				EE53F1802B5AA8530019853F /* CuisineButton.swift in Sources */,
+				EE53F17E2B5A858C0019853F /* RestaurantsViewModel.swift in Sources */,
 				EE337F092B5562D1004DBA6B /* AppDelegate.swift in Sources */,
 				EE8EB8FD2B5A52B000C6FEB9 /* TabBarController.swift in Sources */,
 				EE98E0E52B5748580074962D /* AuthenticationManager.swift in Sources */,
