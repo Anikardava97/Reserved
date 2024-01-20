@@ -46,8 +46,16 @@ final class RestaurantDetailsViewController: UIViewController {
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 20
+        stackView.spacing = 24
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    private lazy var headerStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [restaurantNameAndFavoriteButtonStackView, cuisineLabel, ratingStackView])
+        stackView.axis = .vertical
+        stackView.spacing = 12
+        stackView.distribution = .fill
         return stackView
     }()
     
@@ -145,6 +153,49 @@ final class RestaurantDetailsViewController: UIViewController {
         return label
     }()
     
+    private lazy var openStatusAndChevronStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [openStatusStackView, chevronImageView])
+        stackView.distribution = .equalSpacing
+        return stackView
+    }()
+    
+    private lazy var openStatusStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [openStatusLabel, openHoursLabel])
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        return stackView
+    }()
+    
+    private let openStatusLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Open Now"
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        label.textColor = .white
+        return label
+    }()
+    
+    private let openHoursLabel: UILabel = {
+        let label = UILabel()
+        label.text = "12:00 PM - 12:00 AM"
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .white.withAlphaComponent(0.6)
+        return label
+    }()
+    
+    private let chevronImageView: UIButton = {
+        let button = UIButton(type: .system)
+        let chevronImage = UIImage(systemName: "chevron.right")
+        button.setImage(chevronImage, for: .normal)
+        button.tintColor = .white
+        return button
+    }()
+    
+    private let reservationButton = MainButtonComponent(
+        text: "Reserve a table",
+        textColor: .white,
+        backgroundColor: .customAccentColor
+    )
+    
     private lazy var aboutSectionStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [aboutSectionTitleLabel, restaurantDescriptionLabel])
         stackView.axis = .vertical
@@ -178,12 +229,6 @@ final class RestaurantDetailsViewController: UIViewController {
         label.attributedText = attributedText
         return label
     }()
-    
-    private let reservationButton = MainButtonComponent(
-        text: "Reserve a table",
-        textColor: .white,
-        backgroundColor: .customAccentColor
-    )
     
     private lazy var locationSectionStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [locationSectionLabel, locationMapView])
@@ -343,13 +388,12 @@ final class RestaurantDetailsViewController: UIViewController {
         scrollStackViewContainer.addArrangedSubview(imagePageControl)
         scrollStackViewContainer.addArrangedSubview(mainStackView)
         
-        mainStackView.addArrangedSubview(restaurantNameAndFavoriteButtonStackView)
+        mainStackView.addArrangedSubview(headerStackView)
         restaurantNameAndFavoriteButtonStackView.addArrangedSubview(restaurantNameLabel)
         restaurantNameAndFavoriteButtonStackView.addArrangedSubview(favoriteButton)
         
-        mainStackView.addArrangedSubview(cuisineLabel)
-        mainStackView.addArrangedSubview(ratingStackView)
         mainStackView.addArrangedSubview(urlStackView)
+        mainStackView.addArrangedSubview(openStatusAndChevronStackView)
         mainStackView.addArrangedSubview(reservationButton)
         mainStackView.addArrangedSubview(aboutSectionStackView)
         mainStackView.addArrangedSubview(locationSectionStackView)
@@ -387,12 +431,12 @@ final class RestaurantDetailsViewController: UIViewController {
             starImageView.heightAnchor.constraint(equalToConstant: 20),
             
             locationMapView.heightAnchor.constraint(equalToConstant: 160),
-
+            
             addressIconImageView.widthAnchor.constraint(equalToConstant: 20),
             addressIconImageView.heightAnchor.constraint(equalToConstant: 20),
             
             numberIconImageView.widthAnchor.constraint(equalToConstant: 20),
-            numberIconImageView.heightAnchor.constraint(equalToConstant: 20),
+            numberIconImageView.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
     
@@ -494,7 +538,8 @@ final class RestaurantDetailsViewController: UIViewController {
         
         let copyAddressAction = UIAlertAction(title: "Copy Address", style: .default) { [weak self] _ in
             UIPasteboard.general.string = mockRestaurant.location.address
-            ConfirmationBanner.show(in: self!.view, message: "Address copied to clipboard")
+            guard let strongSelf = self, let window = strongSelf.view.window else { return }
+            ConfirmationBanner.show(in: window, message: "Address copied to clipboard")
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -510,7 +555,7 @@ final class RestaurantDetailsViewController: UIViewController {
     
     @objc private func numberLabelDidTap() {
         let phoneNumber = mockRestaurant.phoneNumber
-
+        
         let alertController = UIAlertController(title: "Phone Number", message: nil, preferredStyle: .actionSheet)
         
         let callAction = UIAlertAction(title: "Call", style: .default) { [weak self] _ in
@@ -520,12 +565,12 @@ final class RestaurantDetailsViewController: UIViewController {
         }
         
         let copyAction = UIAlertAction(title: "Copy Number", style: .default) { [weak self] _ in
-                UIPasteboard.general.string = phoneNumber
-            ConfirmationBanner.show(in: self!.view, message: "Phone number copied to clipboard")
-        }
+            UIPasteboard.general.string = phoneNumber
+            guard let strongSelf = self, let window = strongSelf.view.window else { return }
+            ConfirmationBanner.show(in: window, message: "Phone number copied to clipboard")        }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-
+        
         alertController.addAction(callAction)
         alertController.addAction(copyAction)
         alertController.addAction(cancelAction)
