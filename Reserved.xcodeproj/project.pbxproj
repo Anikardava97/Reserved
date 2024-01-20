@@ -40,6 +40,8 @@
 		EE98E0F32B5749330074962D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = EE98E0F22B5749330074962D /* FirebaseAuth */; };
 		EE98E0F52B5782C90074962D /* AuthorizationDataResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98E0F42B5782C90074962D /* AuthorizationDataResultModel.swift */; };
 		EEA4221D2B570A8200BC4693 /* CustomTextFieldComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4221C2B570A8200BC4693 /* CustomTextFieldComponentView.swift */; };
+		EED210532B5BECB600039A98 /* RestaurantDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED210522B5BECB600039A98 /* RestaurantDetailsViewController.swift */; };
+		EED210552B5BECF700039A98 /* RestaurantImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED210542B5BECF700039A98 /* RestaurantImagesCollectionViewCell.swift */; };
 		EEDABB732B58FE1600A918EC /* PasswordStrengthChecklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDABB722B58FE1600A918EC /* PasswordStrengthChecklist.swift */; };
 		EEDABB752B58FE9C00A918EC /* ChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDABB742B58FE9C00A918EC /* ChecklistItem.swift */; };
 		EEDABB792B590E8B00A918EC /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = EEDABB782B590E8B00A918EC /* GoogleSignIn */; };
@@ -84,6 +86,8 @@
 		EE98E0E42B5748580074962D /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		EE98E0F42B5782C90074962D /* AuthorizationDataResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationDataResultModel.swift; sourceTree = "<group>"; };
 		EEA4221C2B570A8200BC4693 /* CustomTextFieldComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldComponentView.swift; sourceTree = "<group>"; };
+		EED210522B5BECB600039A98 /* RestaurantDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsViewController.swift; sourceTree = "<group>"; };
+		EED210542B5BECF700039A98 /* RestaurantImagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantImagesCollectionViewCell.swift; sourceTree = "<group>"; };
 		EEDABB722B58FE1600A918EC /* PasswordStrengthChecklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordStrengthChecklist.swift; sourceTree = "<group>"; };
 		EEDABB742B58FE9C00A918EC /* ChecklistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistItem.swift; sourceTree = "<group>"; };
 		EEDABB7E2B590F4D00A918EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -271,11 +275,9 @@
 			children = (
 				EE53F1782B5A6E670019853F /* Model */,
 				EE53F1832B5ABB2D0019853F /* NetworkManager.swift */,
-				EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */,
-				EE53F1852B5B00F50019853F /* AllRestaurantsTableViewCell.swift */,
-				EE53F17D2B5A858C0019853F /* RestaurantsViewModel.swift */,
-				EE53F1812B5AB3B50019853F /* TopRestaurantCollectionViewCell.swift */,
+				EED210572B5BED7A00039A98 /* Restaurants */,
 				EE53F17F2B5AA8530019853F /* CuisineButton.swift */,
+				EED2105A2B5BEDC900039A98 /* Details */,
 			);
 			path = Restaurants;
 			sourceTree = "<group>";
@@ -328,6 +330,42 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EED210572B5BED7A00039A98 /* Restaurants */ = {
+			isa = PBXGroup;
+			children = (
+				EE53F17D2B5A858C0019853F /* RestaurantsViewModel.swift */,
+				EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */,
+				EED210582B5BED9600039A98 /* TableViewCell */,
+				EED210592B5BEDA900039A98 /* CollectionViewCell */,
+			);
+			path = Restaurants;
+			sourceTree = "<group>";
+		};
+		EED210582B5BED9600039A98 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				EE53F1852B5B00F50019853F /* AllRestaurantsTableViewCell.swift */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		EED210592B5BEDA900039A98 /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				EE53F1812B5AB3B50019853F /* TopRestaurantCollectionViewCell.swift */,
+			);
+			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		EED2105A2B5BEDC900039A98 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				EED210522B5BECB600039A98 /* RestaurantDetailsViewController.swift */,
+				EED210542B5BECF700039A98 /* RestaurantImagesCollectionViewCell.swift */,
+			);
+			path = Details;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -418,12 +456,14 @@
 				EE53F1822B5AB3B50019853F /* TopRestaurantCollectionViewCell.swift in Sources */,
 				EEDABB852B591C9600A918EC /* SignInGoogleHelper.swift in Sources */,
 				EEDABB812B5910E800A918EC /* LoginOptionsViewModel.swift in Sources */,
+				EED210532B5BECB600039A98 /* RestaurantDetailsViewController.swift in Sources */,
 				EE337F4B2B56B177004DBA6B /* LogInWithEmailViewModel.swift in Sources */,
 				EE8EB9062B5A535B00C6FEB9 /* ReservationsViewController.swift in Sources */,
 				EE53F1802B5AA8530019853F /* CuisineButton.swift in Sources */,
 				EE53F17E2B5A858C0019853F /* RestaurantsViewModel.swift in Sources */,
 				EE337F092B5562D1004DBA6B /* AppDelegate.swift in Sources */,
 				EE8EB8FD2B5A52B000C6FEB9 /* TabBarController.swift in Sources */,
+				EED210552B5BECF700039A98 /* RestaurantImagesCollectionViewCell.swift in Sources */,
 				EE98E0E52B5748580074962D /* AuthenticationManager.swift in Sources */,
 				EEA4221D2B570A8200BC4693 /* CustomTextFieldComponentView.swift in Sources */,
 				EE8EB9032B5A534000C6FEB9 /* MapViewController.swift in Sources */,
