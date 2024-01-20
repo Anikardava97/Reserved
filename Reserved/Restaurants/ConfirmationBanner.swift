@@ -1,5 +1,5 @@
 //
-//  ConfirmationBannerComponentView.swift
+//  ConfirmationBanner.swift
 //  Reserved
 //
 //  Created by Ani's Mac on 20.01.24.

@@ -179,6 +179,12 @@ final class RestaurantDetailsViewController: UIViewController {
         return label
     }()
     
+    private let reservationButton = MainButtonComponent(
+        text: "Reserve a table",
+        textColor: .white,
+        backgroundColor: .customAccentColor
+    )
+    
     private lazy var locationSectionStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [locationSectionLabel, locationMapView])
         stackView.axis = .vertical
@@ -344,6 +350,7 @@ final class RestaurantDetailsViewController: UIViewController {
         mainStackView.addArrangedSubview(cuisineLabel)
         mainStackView.addArrangedSubview(ratingStackView)
         mainStackView.addArrangedSubview(urlStackView)
+        mainStackView.addArrangedSubview(reservationButton)
         mainStackView.addArrangedSubview(aboutSectionStackView)
         mainStackView.addArrangedSubview(locationSectionStackView)
         mainStackView.addArrangedSubview(addressSectionStackView)
