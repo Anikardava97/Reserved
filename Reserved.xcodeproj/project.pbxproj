@@ -42,6 +42,7 @@
 		EEA4221D2B570A8200BC4693 /* CustomTextFieldComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4221C2B570A8200BC4693 /* CustomTextFieldComponentView.swift */; };
 		EED210532B5BECB600039A98 /* RestaurantDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED210522B5BECB600039A98 /* RestaurantDetailsViewController.swift */; };
 		EED210552B5BECF700039A98 /* RestaurantImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED210542B5BECF700039A98 /* RestaurantImagesCollectionViewCell.swift */; };
+		EED2105C2B5C139400039A98 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED2105B2B5C139400039A98 /* CustomAnnotationView.swift */; };
 		EEDABB732B58FE1600A918EC /* PasswordStrengthChecklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDABB722B58FE1600A918EC /* PasswordStrengthChecklist.swift */; };
 		EEDABB752B58FE9C00A918EC /* ChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDABB742B58FE9C00A918EC /* ChecklistItem.swift */; };
 		EEDABB792B590E8B00A918EC /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = EEDABB782B590E8B00A918EC /* GoogleSignIn */; };
@@ -88,6 +89,7 @@
 		EEA4221C2B570A8200BC4693 /* CustomTextFieldComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldComponentView.swift; sourceTree = "<group>"; };
 		EED210522B5BECB600039A98 /* RestaurantDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsViewController.swift; sourceTree = "<group>"; };
 		EED210542B5BECF700039A98 /* RestaurantImagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantImagesCollectionViewCell.swift; sourceTree = "<group>"; };
+		EED2105B2B5C139400039A98 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
 		EEDABB722B58FE1600A918EC /* PasswordStrengthChecklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordStrengthChecklist.swift; sourceTree = "<group>"; };
 		EEDABB742B58FE9C00A918EC /* ChecklistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistItem.swift; sourceTree = "<group>"; };
 		EEDABB7E2B590F4D00A918EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 			isa = PBXGroup;
 			children = (
 				EED210522B5BECB600039A98 /* RestaurantDetailsViewController.swift */,
+				EED2105B2B5C139400039A98 /* CustomAnnotationView.swift */,
 				EED210542B5BECF700039A98 /* RestaurantImagesCollectionViewCell.swift */,
 			);
 			path = Details;
@@ -471,6 +474,7 @@
 				EEDABB872B591C9600A918EC /* GoogleSignInResultModel.swift in Sources */,
 				EE337F492B56B15A004DBA6B /* LogInWithEmailView.swift in Sources */,
 				EE337F322B559606004DBA6B /* PrimaryButtonComponentView.swift in Sources */,
+				EED2105C2B5C139400039A98 /* CustomAnnotationView.swift in Sources */,
 				EEDABB752B58FE9C00A918EC /* ChecklistItem.swift in Sources */,
 				EE337F432B55BFD6004DBA6B /* SignUpWithEmailViewModel.swift in Sources */,
 				EE8EB9002B5A531C00C6FEB9 /* RestaurantsViewController.swift in Sources */,

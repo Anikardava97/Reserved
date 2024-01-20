@@ -55,3 +55,34 @@ enum StartTime: String, Decodable {
     case the800Am = "8: 00 AM"
     case the900Am = "9: 00 AM"
 }
+
+let mockRestaurant = Restaurant(
+    id: 1,
+    name: "Gourmet Haven",
+    cuisine: "European",
+    mainImageURL: "https://example.com/images/main.jpg",
+    images: [
+        "https://example.com/images/image1.jpg",
+        "https://example.com/images/image2.jpg",
+        "https://example.com/images/image3.jpg"
+    ],
+    openHours: OpenHours(
+        monday: Day(startTime: .the900Am, endTime: .the1200Am),
+        tuesday: Day(startTime: .the900Am, endTime: .the1200Am),
+        wednesday: Day(startTime: .the900Am, endTime: .the1200Am),
+        thursday: Day(startTime: .the900Am, endTime: .the1200Am),
+        friday: Day(startTime: .the800Am, endTime: .the200Am),
+        saturday: Day(startTime: .the800Am, endTime: .the200Am),
+        sunday: Day(startTime: .the800Am, endTime: .the200Am)
+    ),
+    location: Location(
+        address: "45a Merab Kostava St, Tbilisi 0179",
+        latitude: 41.70911855004739,
+        longitude: 44.78554397976136
+    ),
+    description: "Gourmet Haven offers a unique blend of modern European cuisine with a local twist. Enjoy our chef's specials in a cozy and elegant setting.",
+    websiteURL: "https://gourmethaven.com",
+    menuURL: "https://gourmethaven.com/menu",
+    phoneNumber: "1234567890",
+    reviewStars: 4.5
+)
