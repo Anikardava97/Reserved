@@ -231,7 +231,7 @@ final class RestaurantDetailsViewController: UIViewController {
         return label
     }()
     
-    private let restaurantAddressLabel: UILabel = {
+    private lazy var restaurantAddressLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .white
@@ -244,6 +244,60 @@ final class RestaurantDetailsViewController: UIViewController {
             ]
         )
         label.attributedText = underlineAttributedString
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(addressLabelDidTap))
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(tapGesture)
+        return label
+    }()
+    
+    private lazy var numberStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [numberTitleStackView, numberLabel])
+        stackView.axis = .vertical
+        stackView.spacing = 12
+        return stackView
+    }()
+    
+    private lazy var numberTitleStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [numberIconImageView, numberTitleLabel])
+        stackView.spacing = 12
+        return stackView
+    }()
+    
+    private let numberIconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(systemName: "phone.fill")
+        imageView.tintColor = .white
+        
+        return imageView
+    }()
+    
+    private let numberTitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Number"
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = .white
+        return label
+    }()
+    
+    private lazy var numberLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .white
+        
+        let underlineAttributedString = NSAttributedString(
+            string: mockRestaurant.phoneNumber,
+            attributes: [
+                NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue,
+                NSAttributedString.Key.foregroundColor: UIColor.white
+            ]
+        )
+        label.attributedText = underlineAttributedString
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(numberLabelDidTap))
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(tapGesture)
         return label
     }()
     
@@ -293,6 +347,7 @@ final class RestaurantDetailsViewController: UIViewController {
         mainStackView.addArrangedSubview(aboutSectionStackView)
         mainStackView.addArrangedSubview(locationSectionStackView)
         mainStackView.addArrangedSubview(addressSectionStackView)
+        mainStackView.addArrangedSubview(numberStackView)
     }
     
     private func setupConstraints() {
@@ -324,10 +379,13 @@ final class RestaurantDetailsViewController: UIViewController {
             starImageView.widthAnchor.constraint(equalToConstant: 20),
             starImageView.heightAnchor.constraint(equalToConstant: 20),
             
+            locationMapView.heightAnchor.constraint(equalToConstant: 160),
+
             addressIconImageView.widthAnchor.constraint(equalToConstant: 20),
             addressIconImageView.heightAnchor.constraint(equalToConstant: 20),
             
-            locationMapView.heightAnchor.constraint(equalToConstant: 160),
+            numberIconImageView.widthAnchor.constraint(equalToConstant: 20),
+            numberIconImageView.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
     
@@ -380,6 +438,93 @@ final class RestaurantDetailsViewController: UIViewController {
         
         let websiteTapGesture = UITapGestureRecognizer(target: self, action: #selector(websiteLabelDidTap))
         websiteLabel.addGestureRecognizer(websiteTapGesture)
+    }
+    
+    private func openInMaps() {
+        let latitude = mockRestaurant.location.latitude
+        let longitude = mockRestaurant.location.longitude
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        
+        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate))
+        mapItem.name = mockRestaurant.name
+        mapItem.openInMaps()
+    }
+    
+    private func openInGoogleMaps() {
+        let latitude = mockRestaurant.location.latitude
+        let longitude = mockRestaurant.location.longitude
+        
+        let googleMapsURLString = "comgooglemaps://?center=\(latitude),\(longitude)&zoom=14"
+        
+        if let url = URL(string: googleMapsURLString) {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                print("Google Maps app is not installed.")
+            }
+        }
+    }
+    
+    private func makePhoneCall(phoneNumber: String) {
+        if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
+            let application = UIApplication.shared
+            if application.canOpenURL(phoneCallURL) {
+                application.open(phoneCallURL, options: [:], completionHandler: nil)
+            }
+        }
+    }
+    
+    @objc private func addressLabelDidTap() {
+        let alertController = UIAlertController(title: "Address", message: nil, preferredStyle: .actionSheet)
+        
+        let openInMapsAction = UIAlertAction(title: "Open in Maps", style: .default) { [weak self] _ in
+            self?.openInMaps()
+        }
+        
+        let openInGoogleMapsAction = UIAlertAction(title: "Open in Google Maps", style: .default) { [weak self] _ in
+            self?.openInGoogleMaps()
+        }
+        
+        let copyAddressAction = UIAlertAction(title: "Copy Address", style: .default) { [weak self] _ in
+            UIPasteboard.general.string = mockRestaurant.location.address
+            ConfirmationBanner.show(in: self!.view, message: "Address copied to clipboard")
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(openInMapsAction)
+        alertController.addAction(openInGoogleMapsAction)
+        alertController.addAction(copyAddressAction)
+        alertController.addAction(cancelAction)
+        
+        alertController.view.tintColor = .customAccentColor
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    @objc private func numberLabelDidTap() {
+        let phoneNumber = mockRestaurant.phoneNumber
+
+        let alertController = UIAlertController(title: "Phone Number", message: nil, preferredStyle: .actionSheet)
+        
+        let callAction = UIAlertAction(title: "Call", style: .default) { [weak self] _ in
+            if !phoneNumber.isEmpty {
+                self?.makePhoneCall(phoneNumber: phoneNumber)
+            }
+        }
+        
+        let copyAction = UIAlertAction(title: "Copy Number", style: .default) { [weak self] _ in
+                UIPasteboard.general.string = phoneNumber
+            ConfirmationBanner.show(in: self!.view, message: "Phone number copied to clipboard")
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+
+        alertController.addAction(callAction)
+        alertController.addAction(copyAction)
+        alertController.addAction(cancelAction)
+        
+        alertController.view.tintColor = .customAccentColor
+        present(alertController, animated: true, completion: nil)
     }
     
     @objc private func menuLabelDidTap() {
