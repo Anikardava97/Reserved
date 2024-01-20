@@ -17,7 +17,7 @@ final class TabBarController: UITabBarController {
     
     // MARK: - Tab Setup
     private func setupTabs() {
-        let restaurants = createNavigationController(title: "Explore", image: UIImage(systemName: "fork.knife"), viewController: RestaurantsViewController())
+        let restaurants = createNavigationController(title: "Explore", image: UIImage(systemName: "fork.knife"), viewController: RestaurantDetailsViewController())
         let map = createNavigationController(title: "Nearby", image: UIImage(systemName: "location"), viewController: MapViewController())
         let reservations = createNavigationController(title: "Reservations", image: UIImage(systemName: "clock"), viewController: ReservationsViewController())
         let favourites = createNavigationController(title: "Saved", image: UIImage(systemName: "heart"), viewController: FavoritesViewController())
