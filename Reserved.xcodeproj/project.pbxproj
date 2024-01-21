@@ -58,6 +58,7 @@
 		EEDABB832B591C9600A918EC /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDABB822B591C9600A918EC /* Utilities.swift */; };
 		EEDABB852B591C9600A918EC /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDABB842B591C9600A918EC /* SignInGoogleHelper.swift */; };
 		EEDABB872B591C9600A918EC /* GoogleSignInResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDABB862B591C9600A918EC /* GoogleSignInResultModel.swift */; };
+		EEEC43482B5D4CE900E9F87D /* ReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEC43472B5D4CE900E9F87D /* ReservationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,6 +109,7 @@
 		EEDABB822B591C9600A918EC /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		EEDABB842B591C9600A918EC /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
 		EEDABB862B591C9600A918EC /* GoogleSignInResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInResultModel.swift; sourceTree = "<group>"; };
+		EEEC43472B5D4CE900E9F87D /* ReservationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -300,6 +302,7 @@
 				EED210572B5BED7A00039A98 /* Restaurants */,
 				EED2105A2B5BEDC900039A98 /* Details */,
 				EE65E9EF2B5D3C29009B6602 /* OpenHours */,
+				EEEC43462B5D4CA700E9F87D /* Reservation */,
 				EED210612B5C6FCF00039A98 /* RestaurantHoursManager.swift */,
 				EED2105D2B5C58E000039A98 /* ConfirmationBanner.swift */,
 				EE53F17F2B5AA8530019853F /* CuisineButton.swift */,
@@ -396,6 +399,14 @@
 			path = Details;
 			sourceTree = "<group>";
 		};
+		EEEC43462B5D4CA700E9F87D /* Reservation */ = {
+			isa = PBXGroup;
+			children = (
+				EEEC43472B5D4CE900E9F87D /* ReservationViewController.swift */,
+			);
+			path = Reservation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -486,6 +497,7 @@
 				EE8EB9092B5A539000C6FEB9 /* FavoritesViewController.swift in Sources */,
 				EE53F1822B5AB3B50019853F /* TopRestaurantCollectionViewCell.swift in Sources */,
 				EEDABB852B591C9600A918EC /* SignInGoogleHelper.swift in Sources */,
+				EEEC43482B5D4CE900E9F87D /* ReservationViewController.swift in Sources */,
 				EEDABB812B5910E800A918EC /* LoginOptionsViewModel.swift in Sources */,
 				EED210532B5BECB600039A98 /* RestaurantDetailsViewController.swift in Sources */,
 				EE337F4B2B56B177004DBA6B /* LogInWithEmailViewModel.swift in Sources */,
