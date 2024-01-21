@@ -28,6 +28,8 @@
 		EE53F1822B5AB3B50019853F /* TopRestaurantCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53F1812B5AB3B50019853F /* TopRestaurantCollectionViewCell.swift */; };
 		EE53F1842B5ABB2D0019853F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53F1832B5ABB2D0019853F /* NetworkManager.swift */; };
 		EE53F1862B5B00F50019853F /* AllRestaurantsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53F1852B5B00F50019853F /* AllRestaurantsTableViewCell.swift */; };
+		EE65E9EA2B5D2E36009B6602 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = EE65E9E92B5D2E36009B6602 /* Lottie */; };
+		EE65E9EE2B5D3804009B6602 /* Animation - 1705836632095.json in Resources */ = {isa = PBXBuildFile; fileRef = EE65E9ED2B5D3804009B6602 /* Animation - 1705836632095.json */; };
 		EE8EB8FD2B5A52B000C6FEB9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB8FC2B5A52B000C6FEB9 /* TabBarController.swift */; };
 		EE8EB9002B5A531C00C6FEB9 /* RestaurantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */; };
 		EE8EB9032B5A534000C6FEB9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB9022B5A534000C6FEB9 /* MapViewController.swift */; };
@@ -46,6 +48,7 @@
 		EED2105E2B5C58E000039A98 /* ConfirmationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED2105D2B5C58E000039A98 /* ConfirmationBanner.swift */; };
 		EED210602B5C5EEC00039A98 /* MainButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED2105F2B5C5EEC00039A98 /* MainButtonComponent.swift */; };
 		EED210622B5C6FCF00039A98 /* RestaurantHoursManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED210612B5C6FCF00039A98 /* RestaurantHoursManager.swift */; };
+		EED210642B5D10BE00039A98 /* OpenHoursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED210632B5D10BE00039A98 /* OpenHoursViewController.swift */; };
 		EEDABB732B58FE1600A918EC /* PasswordStrengthChecklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDABB722B58FE1600A918EC /* PasswordStrengthChecklist.swift */; };
 		EEDABB752B58FE9C00A918EC /* ChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDABB742B58FE9C00A918EC /* ChecklistItem.swift */; };
 		EEDABB792B590E8B00A918EC /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = EEDABB782B590E8B00A918EC /* GoogleSignIn */; };
@@ -81,6 +84,7 @@
 		EE53F1812B5AB3B50019853F /* TopRestaurantCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRestaurantCollectionViewCell.swift; sourceTree = "<group>"; };
 		EE53F1832B5ABB2D0019853F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		EE53F1852B5B00F50019853F /* AllRestaurantsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRestaurantsTableViewCell.swift; sourceTree = "<group>"; };
+		EE65E9ED2B5D3804009B6602 /* Animation - 1705836632095.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Animation - 1705836632095.json"; sourceTree = "<group>"; };
 		EE8EB8FC2B5A52B000C6FEB9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsViewController.swift; sourceTree = "<group>"; };
 		EE8EB9022B5A534000C6FEB9 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +100,7 @@
 		EED2105D2B5C58E000039A98 /* ConfirmationBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationBanner.swift; sourceTree = "<group>"; };
 		EED2105F2B5C5EEC00039A98 /* MainButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButtonComponent.swift; sourceTree = "<group>"; };
 		EED210612B5C6FCF00039A98 /* RestaurantHoursManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantHoursManager.swift; sourceTree = "<group>"; };
+		EED210632B5D10BE00039A98 /* OpenHoursViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenHoursViewController.swift; sourceTree = "<group>"; };
 		EEDABB722B58FE1600A918EC /* PasswordStrengthChecklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordStrengthChecklist.swift; sourceTree = "<group>"; };
 		EEDABB742B58FE9C00A918EC /* ChecklistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistItem.swift; sourceTree = "<group>"; };
 		EEDABB7E2B590F4D00A918EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -115,6 +120,7 @@
 				EEDABB792B590E8B00A918EC /* GoogleSignIn in Frameworks */,
 				EE98E0F32B5749330074962D /* FirebaseAuth in Frameworks */,
 				EE98E0E82B57491D0074962D /* FirebaseAnalytics in Frameworks */,
+				EE65E9EA2B5D2E36009B6602 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +184,7 @@
 				EE8EB90A2B5A53A200C6FEB9 /* Profile */,
 				EE337F262B556CA6004DBA6B /* Extensions */,
 				EEDABB7E2B590F4D00A918EC /* GoogleService-Info.plist */,
+				EE65E9ED2B5D3804009B6602 /* Animation - 1705836632095.json */,
 				EE337F112B5562D2004DBA6B /* Assets.xcassets */,
 				EE337F132B5562D2004DBA6B /* LaunchScreen.storyboard */,
 				EE337F162B5562D2004DBA6B /* Info.plist */,
@@ -270,6 +277,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		EE65E9EF2B5D3C29009B6602 /* OpenHours */ = {
+			isa = PBXGroup;
+			children = (
+				EED210632B5D10BE00039A98 /* OpenHoursViewController.swift */,
+			);
+			path = OpenHours;
+			sourceTree = "<group>";
+		};
 		EE8EB8FB2B5A529200C6FEB9 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,6 +299,7 @@
 				EE53F1782B5A6E670019853F /* Model */,
 				EED210572B5BED7A00039A98 /* Restaurants */,
 				EED2105A2B5BEDC900039A98 /* Details */,
+				EE65E9EF2B5D3C29009B6602 /* OpenHours */,
 				EED210612B5C6FCF00039A98 /* RestaurantHoursManager.swift */,
 				EED2105D2B5C58E000039A98 /* ConfirmationBanner.swift */,
 				EE53F17F2B5AA8530019853F /* CuisineButton.swift */,
@@ -402,6 +418,7 @@
 				EE98E0F22B5749330074962D /* FirebaseAuth */,
 				EEDABB782B590E8B00A918EC /* GoogleSignIn */,
 				EEDABB7A2B590E8B00A918EC /* GoogleSignInSwift */,
+				EE65E9E92B5D2E36009B6602 /* Lottie */,
 			);
 			productName = Reserved;
 			productReference = EE337F052B5562D1004DBA6B /* Reserved.app */;
@@ -434,6 +451,7 @@
 			packageReferences = (
 				EE98E0E62B57491D0074962D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				EEDABB772B590E8B00A918EC /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				EE65E9E82B5D2E35009B6602 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = EE337F062B5562D1004DBA6B /* Products */;
 			projectDirPath = "";
@@ -449,6 +467,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE65E9EE2B5D3804009B6602 /* Animation - 1705836632095.json in Resources */,
 				EE337F152B5562D2004DBA6B /* LaunchScreen.storyboard in Resources */,
 				EEDABB7F2B590F4D00A918EC /* GoogleService-Info.plist in Resources */,
 				EE337F122B5562D2004DBA6B /* Assets.xcassets in Resources */,
@@ -474,6 +493,7 @@
 				EE53F1802B5AA8530019853F /* CuisineButton.swift in Sources */,
 				EE53F17E2B5A858C0019853F /* RestaurantsViewModel.swift in Sources */,
 				EE337F092B5562D1004DBA6B /* AppDelegate.swift in Sources */,
+				EED210642B5D10BE00039A98 /* OpenHoursViewController.swift in Sources */,
 				EE8EB8FD2B5A52B000C6FEB9 /* TabBarController.swift in Sources */,
 				EED210552B5BECF700039A98 /* RestaurantImagesCollectionViewCell.swift in Sources */,
 				EE98E0E52B5748580074962D /* AuthenticationManager.swift in Sources */,
@@ -720,6 +740,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		EE65E9E82B5D2E35009B6602 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.3.4;
+			};
+		};
 		EE98E0E62B57491D0074962D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -739,6 +767,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		EE65E9E92B5D2E36009B6602 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE65E9E82B5D2E35009B6602 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		EE98E0E72B57491D0074962D /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EE98E0E62B57491D0074962D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

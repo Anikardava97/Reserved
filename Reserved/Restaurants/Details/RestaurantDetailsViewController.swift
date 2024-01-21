@@ -19,16 +19,6 @@ final class RestaurantDetailsViewController: UIViewController {
         return pageControl
     }()
     
-    private let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .clear
-        return collectionView
-    }()
-    
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -41,6 +31,16 @@ final class RestaurantDetailsViewController: UIViewController {
         view.spacing = 0
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    
+    private let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .clear
+        return collectionView
     }()
     
     private let mainStackView: UIStackView = {
@@ -156,6 +156,10 @@ final class RestaurantDetailsViewController: UIViewController {
     private lazy var openStatusAndChevronStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [openStatusStackView, chevronImageView])
         stackView.distribution = .equalSpacing
+        
+        stackView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openHoursDidTap))
+        stackView.addGestureRecognizer(tapGesture)
         return stackView
     }()
     
@@ -591,6 +595,11 @@ final class RestaurantDetailsViewController: UIViewController {
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
         }
+    }
+    
+    @objc private func openHoursDidTap() {
+        let openHoursViewController = OpenHoursViewController()
+        self.navigationController?.pushViewController(openHoursViewController, animated: true)
     }
 }
 
