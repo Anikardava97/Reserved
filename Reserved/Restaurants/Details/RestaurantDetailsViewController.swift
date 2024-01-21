@@ -168,7 +168,7 @@ final class RestaurantDetailsViewController: UIViewController {
     
     private let openStatusLabel: UILabel = {
         let label = UILabel()
-        label.text = "Open Now"
+        label.text = RestaurantHoursManager.isRestaurantOpen(from: mockRestaurant) ? "Open Now" : "Closed"
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.textColor = .white
         return label
@@ -176,7 +176,7 @@ final class RestaurantDetailsViewController: UIViewController {
     
     private let openHoursLabel: UILabel = {
         let label = UILabel()
-        label.text = "12:00 PM - 12:00 AM"
+        label.text = RestaurantHoursManager.getTodaysOpeningHours(from: mockRestaurant)
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .white.withAlphaComponent(0.6)
         return label

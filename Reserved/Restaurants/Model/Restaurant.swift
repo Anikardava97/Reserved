@@ -72,8 +72,8 @@ let mockRestaurant = Restaurant(
         wednesday: Day(startTime: .the900Am, endTime: .the1200Am),
         thursday: Day(startTime: .the900Am, endTime: .the1200Am),
         friday: Day(startTime: .the800Am, endTime: .the200Am),
-        saturday: Day(startTime: .the800Am, endTime: .the200Am),
-        sunday: Day(startTime: .the800Am, endTime: .the200Am)
+        saturday: Day(startTime: .the800Am, endTime: .the1200Am),
+        sunday: Day(startTime: .the800Am, endTime: .the1200Am)
     ),
     location: Location(
         address: "45a Merab Kostava St, Tbilisi 0179",
