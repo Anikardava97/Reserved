@@ -197,8 +197,8 @@ class ReservationViewController: UIViewController {
         return label
     }()
     
-    private let reservationButton = MainButtonComponent(
-        text: "Reserve",
+    private let nextButton = MainButtonComponent(
+        text: "Next",
         textColor: .white,
         backgroundColor: .customAccentColor
     )
@@ -238,7 +238,7 @@ class ReservationViewController: UIViewController {
         
         guestsSectionView.addSubview(selectGuestsStackView)
         mainStackView.addArrangedSubview(guestsSectionView)
-        mainStackView.addArrangedSubview(reservationButton)
+        mainStackView.addArrangedSubview(nextButton)
     }
     
     private func setupConstraints() {
@@ -278,8 +278,8 @@ class ReservationViewController: UIViewController {
             selectGuestsStackView.topAnchor.constraint(equalTo: guestsSectionView.topAnchor, constant: 16),
             selectGuestsStackView.bottomAnchor.constraint(equalTo: guestsSectionView.bottomAnchor, constant: -16),
             
-            reservationButton.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 16),
-            reservationButton.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -16)
+            nextButton.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 16),
+            nextButton.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -16)
         ])
     }
     
@@ -364,7 +364,7 @@ class ReservationViewController: UIViewController {
     }
     
     @objc private func incrementGuestCount() {
-        if guestCount < 15 {
+        if guestCount < 12 {
             guestCount += 1
             guestCountLabel.text = "\(guestCount)"
         }

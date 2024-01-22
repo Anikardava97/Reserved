@@ -42,7 +42,8 @@ final class RestaurantImagesCollectionViewCell: UICollectionViewCell {
             restaurantImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             restaurantImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             restaurantImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            restaurantImageView.heightAnchor.constraint(equalToConstant: 400)
+            restaurantImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+
         ])
     }
 }

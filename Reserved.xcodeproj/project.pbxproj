@@ -42,6 +42,8 @@
 		EE98E0F32B5749330074962D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = EE98E0F22B5749330074962D /* FirebaseAuth */; };
 		EE98E0F52B5782C90074962D /* AuthorizationDataResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98E0F42B5782C90074962D /* AuthorizationDataResultModel.swift */; };
 		EEA4221D2B570A8200BC4693 /* CustomTextFieldComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4221C2B570A8200BC4693 /* CustomTextFieldComponentView.swift */; };
+		EEB37E732B5E6B5800D39BEA /* TablesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E722B5E6B5800D39BEA /* TablesViewController.swift */; };
+		EEB37E762B5E6BAA00D39BEA /* TablesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E752B5E6BAA00D39BEA /* TablesCollectionViewCell.swift */; };
 		EED210532B5BECB600039A98 /* RestaurantDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED210522B5BECB600039A98 /* RestaurantDetailsViewController.swift */; };
 		EED210552B5BECF700039A98 /* RestaurantImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED210542B5BECF700039A98 /* RestaurantImagesCollectionViewCell.swift */; };
 		EED2105C2B5C139400039A98 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED2105B2B5C139400039A98 /* CustomAnnotationView.swift */; };
@@ -95,6 +97,8 @@
 		EE98E0E42B5748580074962D /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		EE98E0F42B5782C90074962D /* AuthorizationDataResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationDataResultModel.swift; sourceTree = "<group>"; };
 		EEA4221C2B570A8200BC4693 /* CustomTextFieldComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldComponentView.swift; sourceTree = "<group>"; };
+		EEB37E722B5E6B5800D39BEA /* TablesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesViewController.swift; sourceTree = "<group>"; };
+		EEB37E752B5E6BAA00D39BEA /* TablesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesCollectionViewCell.swift; sourceTree = "<group>"; };
 		EED210522B5BECB600039A98 /* RestaurantDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsViewController.swift; sourceTree = "<group>"; };
 		EED210542B5BECF700039A98 /* RestaurantImagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantImagesCollectionViewCell.swift; sourceTree = "<group>"; };
 		EED2105B2B5C139400039A98 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
@@ -304,6 +308,7 @@
 				EE65E9EF2B5D3C29009B6602 /* OpenHours */,
 				EEEC43462B5D4CA700E9F87D /* Reservation */,
 				EED210612B5C6FCF00039A98 /* RestaurantHoursManager.swift */,
+				EEB37E742B5E6B6500D39BEA /* Tables */,
 				EED2105D2B5C58E000039A98 /* ConfirmationBanner.swift */,
 				EE53F17F2B5AA8530019853F /* CuisineButton.swift */,
 				EED2105F2B5C5EEC00039A98 /* MainButtonComponent.swift */,
@@ -360,6 +365,15 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EEB37E742B5E6B6500D39BEA /* Tables */ = {
+			isa = PBXGroup;
+			children = (
+				EEB37E722B5E6B5800D39BEA /* TablesViewController.swift */,
+				EEB37E752B5E6BAA00D39BEA /* TablesCollectionViewCell.swift */,
+			);
+			path = Tables;
 			sourceTree = "<group>";
 		};
 		EED210572B5BED7A00039A98 /* Restaurants */ = {
@@ -504,6 +518,7 @@
 				EE8EB9062B5A535B00C6FEB9 /* ReservationsViewController.swift in Sources */,
 				EE53F1802B5AA8530019853F /* CuisineButton.swift in Sources */,
 				EE53F17E2B5A858C0019853F /* RestaurantsViewModel.swift in Sources */,
+				EEB37E732B5E6B5800D39BEA /* TablesViewController.swift in Sources */,
 				EE337F092B5562D1004DBA6B /* AppDelegate.swift in Sources */,
 				EED210642B5D10BE00039A98 /* OpenHoursViewController.swift in Sources */,
 				EE8EB8FD2B5A52B000C6FEB9 /* TabBarController.swift in Sources */,
@@ -514,6 +529,7 @@
 				EE53F1842B5ABB2D0019853F /* NetworkManager.swift in Sources */,
 				EEDABB872B591C9600A918EC /* GoogleSignInResultModel.swift in Sources */,
 				EED2105E2B5C58E000039A98 /* ConfirmationBanner.swift in Sources */,
+				EEB37E762B5E6BAA00D39BEA /* TablesCollectionViewCell.swift in Sources */,
 				EED210622B5C6FCF00039A98 /* RestaurantHoursManager.swift in Sources */,
 				EE337F492B56B15A004DBA6B /* LogInWithEmailView.swift in Sources */,
 				EE337F322B559606004DBA6B /* PrimaryButtonComponentView.swift in Sources */,
