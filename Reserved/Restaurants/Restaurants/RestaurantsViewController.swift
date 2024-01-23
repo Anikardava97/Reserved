@@ -18,12 +18,18 @@ class RestaurantsViewController: UIViewController {
     private let europeanCuisineButton = CuisineButton()
     private let asianCuisineButton = CuisineButton()
     
-    private let mainStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 20
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    private let scrollStackViewContainer: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     private let cuisineStackView: UIStackView = {
@@ -92,18 +98,18 @@ class RestaurantsViewController: UIViewController {
         setup()
         setupViewModelDelegate()
         viewModel.viewDidLoad()
-        self.tableView.backgroundColor = .customBackgroundColor
     }
     
     // MARK: - Private Methods
     private func setup() {
         setupBackground()
+        setupCollectionView()
+        setupTableView()
         setupSearchController()
+        setupScrollView()
         setupSubviews()
         setupConstraints()
         setupCuisineStackView()
-        setupCollectionView()
-        setupTableView()
     }
     
     private func setupBackground() {
@@ -121,47 +127,66 @@ class RestaurantsViewController: UIViewController {
         self.navigationItem.hidesSearchBarWhenScrolling = false
     }
     
+    private func setupScrollView() {
+        scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height)
+        scrollView.showsVerticalScrollIndicator = false
+    }
+    
     private func setupSubviews() {
-        view.addSubview(mainStackView)
+        view.addSubview(scrollView)
+        scrollView.addSubview(scrollStackViewContainer)
         
-        mainStackView.addArrangedSubview(cuisineStackView)
-        
+        scrollStackViewContainer.addArrangedSubview(cuisineStackView)
+        scrollStackViewContainer.addArrangedSubview(topRestaurantsLabel)
+        scrollStackViewContainer.addArrangedSubview(collectionView)
+        scrollStackViewContainer.addArrangedSubview(allRestaurantsLabel)
+        scrollStackViewContainer.addArrangedSubview(tableView)
+            
         cuisineStackView.addArrangedSubview(cuisineLabel)
         cuisineStackView.addArrangedSubview(cuisineButtonsStackView)
         
         cuisineButtonsStackView.addArrangedSubview(georgianCuisineButton)
         cuisineButtonsStackView.addArrangedSubview(asianCuisineButton)
         cuisineButtonsStackView.addArrangedSubview(europeanCuisineButton)
-        
-        mainStackView.addArrangedSubview(topRestaurantsLabel)
-        view.addSubview(collectionView)
-        view.addSubview(tableView)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            mainStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            scrollStackViewContainer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            scrollStackViewContainer.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            scrollStackViewContainer.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            scrollStackViewContainer.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            scrollStackViewContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
             georgianCuisineButton.heightAnchor.constraint(equalToConstant: 40),
             asianCuisineButton.heightAnchor.constraint(equalToConstant: 40),
             europeanCuisineButton.heightAnchor.constraint(equalToConstant: 40),
             
-            collectionView.topAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: 16),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            collectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 200),
+            cuisineStackView.bottomAnchor.constraint(equalTo: topRestaurantsLabel.topAnchor, constant: -24),
             
-            tableView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            topRestaurantsLabel.leadingAnchor.constraint(equalTo: scrollStackViewContainer.leadingAnchor),
+            topRestaurantsLabel.trailingAnchor.constraint(equalTo: scrollStackViewContainer.trailingAnchor),
+            topRestaurantsLabel.bottomAnchor.constraint(equalTo: collectionView.topAnchor, constant: -16),
+            
+            collectionView.topAnchor.constraint(equalTo: topRestaurantsLabel.bottomAnchor, constant: 16),
+            collectionView.widthAnchor.constraint(equalTo: scrollStackViewContainer.widthAnchor),
+            collectionView.heightAnchor.constraint(equalToConstant: 200),
+            collectionView.bottomAnchor.constraint(equalTo: allRestaurantsLabel.topAnchor, constant: -24),
+            
+            allRestaurantsLabel.bottomAnchor.constraint(equalTo: tableView.topAnchor,constant: -16),
+            
+            tableView.topAnchor.constraint(equalTo: allRestaurantsLabel.bottomAnchor, constant: 16),
+            tableView.widthAnchor.constraint(equalTo: scrollStackViewContainer.widthAnchor),
+            tableView.heightAnchor.constraint(equalToConstant: 5000),
+            tableView.bottomAnchor.constraint(equalTo: scrollStackViewContainer.bottomAnchor)
         ])
     }
-    
+
     private func setupCuisineStackView() {
         georgianCuisineButton.configure(with: .customSecondaryColor, icon: UIImage.georgianIcon, name: "Georgian")
         europeanCuisineButton.configure(with: .customSecondaryColor, icon: UIImage.europeanIcon, name: "European")
@@ -183,7 +208,9 @@ class RestaurantsViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(AllRestaurantsTableViewCell.self, forCellReuseIdentifier: "allRestaurantsCell")
-        tableView.showsVerticalScrollIndicator = false
+        
+        tableView.backgroundColor = .customBackgroundColor
+        tableView.isScrollEnabled = false
     }
 }
 
@@ -224,6 +251,7 @@ extension RestaurantsViewController: RestaurantsViewModelDelegate {
         self.restaurants = restaurants
         DispatchQueue.main.async {
             self.collectionView.reloadData()
+            self.tableView.reloadData()
         }
     }
     

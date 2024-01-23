@@ -9,7 +9,7 @@ import UIKit
 
 final class NetworkManager {
     static let shared = NetworkManager()
-    private let baseURL = "https://mocki.io/v1/eddb6fbd-1ab7-4daf-a758-95b7410b3359"
+    private let baseURL = "https://mocki.io/v1/d4ca07c9-38fc-4671-aa93-fb50ecf4469e"
     
     private init() {}
     
@@ -44,7 +44,7 @@ final class NetworkManager {
     
     // MARK: - Download Image
     func downloadImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
-        guard let url = URL(string: "https://img.itinari.com/page/content/original/9517d133-96b2-46f1-8c71-0736fe0731c9-stampa-hotel-cafe-interior-design-m-08-r.jpg?ch=DPR&dpr=2.625&w=994&s=23a3a6a4030bf98d74a9806886946098") else {
+        guard let url = URL(string: urlString) else {
             completion(nil)
             return
         }
@@ -59,4 +59,3 @@ final class NetworkManager {
         }.resume()
     }
 }
-

@@ -71,7 +71,7 @@ final class TopRestaurantCollectionViewCell: UICollectionViewCell {
     // MARK: - CellLifeCycle
     override func prepareForReuse() {
         super.prepareForReuse()
-        
+        restaurantImageView.image = nil
         titleLabel.text = nil
         cuisineLabel.text = nil
         favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
@@ -91,8 +91,8 @@ final class TopRestaurantCollectionViewCell: UICollectionViewCell {
             restaurantImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             restaurantImageView.heightAnchor.constraint(equalToConstant: 135),
 
-            topButtonStackView.topAnchor.constraint(equalTo: restaurantImageView.topAnchor, constant: 12),
-            topButtonStackView.trailingAnchor.constraint(equalTo: restaurantImageView.trailingAnchor, constant: -12),
+            topButtonStackView.topAnchor.constraint(equalTo: restaurantImageView.topAnchor, constant: 10),
+            topButtonStackView.trailingAnchor.constraint(equalTo: restaurantImageView.trailingAnchor, constant: -10),
 
             titleCuisineStackView.topAnchor.constraint(equalTo: restaurantImageView.bottomAnchor, constant: 12),
             titleCuisineStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 14),
@@ -138,7 +138,9 @@ final class TopRestaurantCollectionViewCell: UICollectionViewCell {
     private func setImage(from url: String) {
         NetworkManager.shared.downloadImage(from: url) { [weak self] image in
             DispatchQueue.main.async {
-                self?.restaurantImageView.image = image
+                if let weakSelf = self, weakSelf.restaurantImageView.image == nil {
+                    weakSelf.restaurantImageView.image = image
+                }
             }
         }
     }

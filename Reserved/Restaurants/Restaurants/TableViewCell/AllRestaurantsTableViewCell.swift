@@ -9,6 +9,8 @@ import UIKit
 
 class AllRestaurantsTableViewCell: UITableViewCell {
     // MARK: - Properties
+    private static var imageCache: [String: UIImage] = [:]
+    
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.spacing = 20
@@ -120,7 +122,7 @@ class AllRestaurantsTableViewCell: UITableViewCell {
     // MARK: - PrepareForReuse
     override func prepareForReuse() {
         super.prepareForReuse()
-        
+        restaurantImageView.image = nil
         titleLabel.text = nil
         ratingLabel.text = nil
         cuisineLabel.text = nil
@@ -194,9 +196,16 @@ class AllRestaurantsTableViewCell: UITableViewCell {
     }
     
     private func setImage(from url: String) {
-        NetworkManager.shared.downloadImage(from: url) { [weak self] image in
-            DispatchQueue.main.async {
-                self?.restaurantImageView.image = image
+        if let cachedImage = AllRestaurantsTableViewCell.imageCache[url] {
+            restaurantImageView.image = cachedImage
+        } else {
+            NetworkManager.shared.downloadImage(from: url) { [weak self] image in
+                DispatchQueue.main.async {
+                    if let weakSelf = self, weakSelf.restaurantImageView.image == nil {
+                        weakSelf.restaurantImageView.image = image
+                        AllRestaurantsTableViewCell.imageCache[url] = image
+                    }
+                }
             }
         }
     }
