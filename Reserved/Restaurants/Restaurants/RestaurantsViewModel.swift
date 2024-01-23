@@ -10,15 +10,25 @@ import Foundation
 protocol RestaurantsViewModelDelegate: AnyObject {
     func restaurantsFetched(_ restaurants: [Restaurant])
     func showError(_ error: Error)
+    func navigateToRestaurantDetails(with restaurant: Restaurant)
 }
 
 final class RestaurantsViewModel {
+    // MARK: - Properties
     private var restaurants: [Restaurant]?
     
     weak var delegate: RestaurantsViewModelDelegate?
     
+    // MARK: - Methods
     func viewDidLoad() {
         fetchRestaurants()
+    }
+    
+    func didSelectRestaurant(at indexPath: IndexPath) {
+        if let selectedRestaurant = restaurants?[indexPath.row] {
+            delegate?.navigateToRestaurantDetails(with: selectedRestaurant)
+            print("navigate")
+        }
     }
     
     private func fetchRestaurants() {

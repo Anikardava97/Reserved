@@ -31,10 +31,13 @@ final class RestaurantHoursManager {
             
         case "thursday":
             return "\(openHours.thursday.startTime.rawValue) - \(openHours.thursday.endTime.rawValue)"
+            
         case "friday":
             return "\(openHours.friday.startTime.rawValue) - \(openHours.friday.endTime.rawValue)"
+            
         case "saturday":
             return "\(openHours.saturday.startTime.rawValue) - \(openHours.saturday.endTime.rawValue)"
+            
         case "sunday":
             return "\(openHours.sunday.startTime.rawValue) - \(openHours.sunday.endTime.rawValue)"
             

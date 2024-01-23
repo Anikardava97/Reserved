@@ -9,6 +9,8 @@ import UIKit
 
 final class TopRestaurantCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
+    private var restaurantId: Int?
+
     private let restaurantImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -90,10 +92,10 @@ final class TopRestaurantCollectionViewCell: UICollectionViewCell {
             restaurantImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             restaurantImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             restaurantImageView.heightAnchor.constraint(equalToConstant: 135),
-
+            
             topButtonStackView.topAnchor.constraint(equalTo: restaurantImageView.topAnchor, constant: 10),
             topButtonStackView.trailingAnchor.constraint(equalTo: restaurantImageView.trailingAnchor, constant: -10),
-
+            
             titleCuisineStackView.topAnchor.constraint(equalTo: restaurantImageView.bottomAnchor, constant: 12),
             titleCuisineStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 14),
             titleCuisineStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -14)
@@ -130,19 +132,21 @@ final class TopRestaurantCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Configuration
     func configure(with restaurant: Restaurant) {
+        self.restaurantId = restaurant.id
         titleLabel.text = restaurant.name
         cuisineLabel.text = restaurant.cuisine
-        setImage(from: restaurant.mainImageURL)
+        setImage(from: restaurant.mainImageURL, for: restaurant.id)
     }
     
-    private func setImage(from url: String) {
+    private func setImage(from url: String, for currentRestaurantId: Int) {
         NetworkManager.shared.downloadImage(from: url) { [weak self] image in
             DispatchQueue.main.async {
-                if let weakSelf = self, weakSelf.restaurantImageView.image == nil {
-                    weakSelf.restaurantImageView.image = image
+                if self?.restaurantId == currentRestaurantId {
+                    self?.restaurantImageView.image = image
                 }
             }
         }
     }
 }
+
 
