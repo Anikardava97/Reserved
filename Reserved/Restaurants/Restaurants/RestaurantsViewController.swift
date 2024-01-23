@@ -27,7 +27,7 @@ class RestaurantsViewController: UIViewController {
     private let scrollStackViewContainer: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.spacing = 0
+        view.spacing = 24
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -86,7 +86,7 @@ class RestaurantsViewController: UIViewController {
     }()
     
     private  var tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = SelfSizedTableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -96,12 +96,12 @@ class RestaurantsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        setupViewModelDelegate()
         viewModel.viewDidLoad()
     }
     
     // MARK: - Private Methods
     private func setup() {
+        setupViewModelDelegate()
         setupBackground()
         setupCollectionView()
         setupTableView()
@@ -110,6 +110,10 @@ class RestaurantsViewController: UIViewController {
         setupSubviews()
         setupConstraints()
         setupCuisineStackView()
+    }
+    
+    private func setupViewModelDelegate() {
+        viewModel.delegate = self
     }
     
     private func setupBackground() {
@@ -127,11 +131,6 @@ class RestaurantsViewController: UIViewController {
         self.navigationItem.hidesSearchBarWhenScrolling = false
     }
     
-    private func setupScrollView() {
-        scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height)
-        scrollView.showsVerticalScrollIndicator = false
-    }
-    
     private func setupSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(scrollStackViewContainer)
@@ -141,7 +140,7 @@ class RestaurantsViewController: UIViewController {
         scrollStackViewContainer.addArrangedSubview(collectionView)
         scrollStackViewContainer.addArrangedSubview(allRestaurantsLabel)
         scrollStackViewContainer.addArrangedSubview(tableView)
-            
+        
         cuisineStackView.addArrangedSubview(cuisineLabel)
         cuisineStackView.addArrangedSubview(cuisineButtonsStackView)
         
@@ -156,35 +155,24 @@ class RestaurantsViewController: UIViewController {
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
+
             scrollStackViewContainer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             scrollStackViewContainer.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             scrollStackViewContainer.topAnchor.constraint(equalTo: scrollView.topAnchor),
             scrollStackViewContainer.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             scrollStackViewContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            
+
             georgianCuisineButton.heightAnchor.constraint(equalToConstant: 40),
             asianCuisineButton.heightAnchor.constraint(equalToConstant: 40),
             europeanCuisineButton.heightAnchor.constraint(equalToConstant: 40),
-            
-            cuisineStackView.bottomAnchor.constraint(equalTo: topRestaurantsLabel.topAnchor, constant: -24),
-            
-            topRestaurantsLabel.leadingAnchor.constraint(equalTo: scrollStackViewContainer.leadingAnchor),
-            topRestaurantsLabel.trailingAnchor.constraint(equalTo: scrollStackViewContainer.trailingAnchor),
-            topRestaurantsLabel.bottomAnchor.constraint(equalTo: collectionView.topAnchor, constant: -16),
-            
-            collectionView.topAnchor.constraint(equalTo: topRestaurantsLabel.bottomAnchor, constant: 16),
-            collectionView.widthAnchor.constraint(equalTo: scrollStackViewContainer.widthAnchor),
+
             collectionView.heightAnchor.constraint(equalToConstant: 200),
-            collectionView.bottomAnchor.constraint(equalTo: allRestaurantsLabel.topAnchor, constant: -24),
-            
-            allRestaurantsLabel.bottomAnchor.constraint(equalTo: tableView.topAnchor,constant: -16),
-            
-            tableView.topAnchor.constraint(equalTo: allRestaurantsLabel.bottomAnchor, constant: 16),
-            tableView.widthAnchor.constraint(equalTo: scrollStackViewContainer.widthAnchor),
-            tableView.heightAnchor.constraint(equalToConstant: 5000),
-            tableView.bottomAnchor.constraint(equalTo: scrollStackViewContainer.bottomAnchor)
         ])
+    }
+    
+    private func setupScrollView() {
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
     }
 
     private func setupCuisineStackView() {
@@ -198,10 +186,6 @@ class RestaurantsViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.showsHorizontalScrollIndicator = false
-    }
-    
-    private func setupViewModelDelegate() {
-        viewModel.delegate = self
     }
     
     private func setupTableView() {
@@ -246,17 +230,10 @@ extension RestaurantsViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension RestaurantsViewController: RestaurantsViewModelDelegate {
-    func restaurantsFetched(_ restaurants: [Restaurant]) {
-        self.restaurants = restaurants
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-            self.tableView.reloadData()
-        }
-    }
-    
-    func showError(_ error: Error) {
-        print("error")
+// MARK: - UICollectionViewDelegate
+extension RestaurantsViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.didSelectRestaurant(at: indexPath)
     }
 }
 
@@ -280,8 +257,35 @@ extension RestaurantsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         UITableView.automaticDimension
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.didSelectRestaurant(at: indexPath)
+    }
+}
+
+// MARK: - RestaurantsViewModelDelegate
+extension RestaurantsViewController: RestaurantsViewModelDelegate {
+    func restaurantsFetched(_ restaurants: [Restaurant]) {
+        self.restaurants = restaurants
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+            self.tableView.reloadData()
+        }
+    }
+    
+    func showError(_ error: Error) {
+        print("error")
+    }
+    
+    func navigateToRestaurantDetails(with restaurant: Restaurant) {
+        let restaurantDetailsViewController = RestaurantDetailsViewController()
+        restaurantDetailsViewController.configure(with: restaurant)
+        navigationController?.pushViewController(restaurantDetailsViewController, animated: true)
+    }
 }
 
 #Preview {
     RestaurantsViewController()
 }
+
+

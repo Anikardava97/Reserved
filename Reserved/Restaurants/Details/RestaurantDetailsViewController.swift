@@ -11,7 +11,8 @@ import MapKit
 
 final class RestaurantDetailsViewController: UIViewController {
     // MARK: - Properties
-    private let mockImages = ["Stamba1", "Stamba2", "Stamba3"]
+    private var viewModel = RestaurantDetailsViewModel()
+    private var restaurant: Restaurant?
     private var currentCellIndex = 0
     private let  imagePageControl: UIPageControl = {
         let pageControl = UIPageControl()
@@ -67,7 +68,6 @@ final class RestaurantDetailsViewController: UIViewController {
     
     private let restaurantNameLabel: UILabel = {
         let label = UILabel()
-        label.text = mockRestaurant.name
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.textColor = .white
         return label
@@ -82,7 +82,6 @@ final class RestaurantDetailsViewController: UIViewController {
     
     private let cuisineLabel: UILabel = {
         let label = UILabel()
-        label.text = mockRestaurant.cuisine
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .white
         return label
@@ -105,7 +104,6 @@ final class RestaurantDetailsViewController: UIViewController {
     
     private let ratingLabel: UILabel = {
         let label = UILabel()
-        label.text = String(mockRestaurant.reviewStars)
         label.textAlignment = .left
         label.textColor = .white
         label.numberOfLines = 1
@@ -172,7 +170,6 @@ final class RestaurantDetailsViewController: UIViewController {
     
     private let openStatusLabel: UILabel = {
         let label = UILabel()
-        label.text = RestaurantHoursManager.isRestaurantOpen(from: mockRestaurant) ? "Open Now" : "Closed"
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.textColor = .white
         return label
@@ -180,7 +177,6 @@ final class RestaurantDetailsViewController: UIViewController {
     
     private let openHoursLabel: UILabel = {
         let label = UILabel()
-        label.text = RestaurantHoursManager.getTodaysOpeningHours(from: mockRestaurant)
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .white.withAlphaComponent(0.6)
         return label
@@ -215,16 +211,16 @@ final class RestaurantDetailsViewController: UIViewController {
         return label
     }()
     
-    private let restaurantDescriptionLabel: UILabel = {
+    private lazy var restaurantDescriptionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .white
-        label.numberOfLines = 3
+        label.numberOfLines = 0
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 6
         
-        let attributedText = NSMutableAttributedString(string: mockRestaurant.description)
+        let attributedText = NSMutableAttributedString(string: restaurant?.description ?? "")
         attributedText.addAttribute(
             NSAttributedString.Key.paragraphStyle,
             value: paragraphStyle,
@@ -292,7 +288,7 @@ final class RestaurantDetailsViewController: UIViewController {
         label.textColor = .white
         
         let underlineAttributedString = NSAttributedString(
-            string: mockRestaurant.location.address,
+            string: restaurant?.location.address ?? "",
             attributes: [
                 NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue,
                 NSAttributedString.Key.foregroundColor: UIColor.white
@@ -342,7 +338,7 @@ final class RestaurantDetailsViewController: UIViewController {
         label.textColor = .white
         
         let underlineAttributedString = NSAttributedString(
-            string: mockRestaurant.phoneNumber,
+            string: restaurant?.phoneNumber ?? "",
             attributes: [
                 NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue,
                 NSAttributedString.Key.foregroundColor: UIColor.white
@@ -380,7 +376,6 @@ final class RestaurantDetailsViewController: UIViewController {
     }
     
     private func setupScrollView() {
-        scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height)
         scrollView.showsVerticalScrollIndicator = false
     }
     
@@ -409,7 +404,7 @@ final class RestaurantDetailsViewController: UIViewController {
         NSLayoutConstraint.activate([
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: -80),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             scrollStackViewContainer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
@@ -422,7 +417,7 @@ final class RestaurantDetailsViewController: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: scrollStackViewContainer.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: scrollStackViewContainer.trailingAnchor),
             collectionView.widthAnchor.constraint(equalTo: scrollStackViewContainer.widthAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 400),
+            collectionView.heightAnchor.constraint(equalToConstant: 340),
             
             imagePageControl.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: -50),
             imagePageControl.centerXAnchor.constraint(equalTo: scrollStackViewContainer.centerXAnchor),
@@ -453,7 +448,7 @@ final class RestaurantDetailsViewController: UIViewController {
     }
     
     private func setupImagePageController() {
-        imagePageControl.numberOfPages = mockImages.count
+        imagePageControl.numberOfPages = restaurant?.images.count ?? 0
     }
     
     private func setupFavoriteButtonAction() {
@@ -468,15 +463,15 @@ final class RestaurantDetailsViewController: UIViewController {
             for: .touchUpInside
         )
     }
-    
+
     private func setupMapView() {
         let initialLocation = CLLocationCoordinate2D(
-            latitude: mockRestaurant.location.latitude,
-            longitude: mockRestaurant.location.longitude)
+            latitude: restaurant?.location.latitude ?? 0.0,
+            longitude: restaurant?.location.longitude ?? 0.0)
         
         let annotation = MKPointAnnotation()
         annotation.coordinate = initialLocation
-        annotation.title = mockRestaurant.name
+        annotation.title = restaurant?.name
         
         locationMapView.addAnnotation(annotation)
         
@@ -496,20 +491,26 @@ final class RestaurantDetailsViewController: UIViewController {
     }
     
     private func openInMaps() {
-        let latitude = mockRestaurant.location.latitude
-        let longitude = mockRestaurant.location.longitude
-        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        
-        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate))
-        mapItem.name = mockRestaurant.name
-        mapItem.openInMaps()
+        if let latitude = restaurant?.location.latitude,
+           let longitude = restaurant?.location.longitude {
+            let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            
+            let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate))
+            mapItem.name = restaurant?.name
+            mapItem.openInMaps()
+        } else {
+            let alertController = UIAlertController(title: "Error", message: "Location information is not available", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            present(alertController, animated: true, completion: nil)
+        }
     }
     
     private func openInGoogleMaps() {
-        let latitude = mockRestaurant.location.latitude
-        let longitude = mockRestaurant.location.longitude
+        let latitude = restaurant?.location.latitude
+        let longitude = restaurant?.location.longitude
         
-        let googleMapsURLString = "comgooglemaps://?center=\(latitude),\(longitude)&zoom=14"
+        let googleMapsURLString = "comgooglemaps://?center=\(String(describing: latitude)),\(String(describing: longitude))&zoom=14"
         
         if let url = URL(string: googleMapsURLString) {
             if UIApplication.shared.canOpenURL(url) {
@@ -558,7 +559,7 @@ final class RestaurantDetailsViewController: UIViewController {
     }
     
     @objc private func numberLabelDidTap() {
-        let phoneNumber = mockRestaurant.phoneNumber
+        let phoneNumber = restaurant?.phoneNumber ?? ""
         
         let alertController = UIAlertController(title: "Phone Number", message: nil, preferredStyle: .actionSheet)
         
@@ -584,14 +585,14 @@ final class RestaurantDetailsViewController: UIViewController {
     }
     
     @objc private func menuLabelDidTap() {
-        if let url = URL(string: mockRestaurant.menuURL) {
+        if let url = URL(string: restaurant?.menuURL ?? "") {
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
         }
     }
     
     @objc private func websiteLabelDidTap() {
-        if let url = URL(string: mockRestaurant.websiteURL) {
+        if let url = URL(string: restaurant?.websiteURL ?? "") {
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
         }
@@ -599,14 +600,38 @@ final class RestaurantDetailsViewController: UIViewController {
     
     @objc private func openHoursDidTap() {
         let openHoursViewController = OpenHoursViewController()
+        openHoursViewController.restaurant = restaurant
         self.navigationController?.pushViewController(openHoursViewController, animated: true)
+    }
+    
+    // MARK: - Configure
+    func configure(with restaurant: Restaurant) {
+        self.restaurant = restaurant
+        
+        restaurantNameLabel.text = restaurant.name
+        cuisineLabel.text = restaurant.cuisine
+        ratingLabel.text = String(restaurant.reviewStars)
+        openStatusLabel.text = RestaurantHoursManager.isRestaurantOpen(from: restaurant) ? "Open Now" : "Closed"
+        openHoursLabel.text = RestaurantHoursManager.getTodaysOpeningHours(from: restaurant)
+        restaurantDescriptionLabel.text = restaurant.description
+    }
+    
+    // MARK: - Set Image
+    private func setImage(from url: String, for indexPath: IndexPath) {
+        NetworkManager.shared.downloadImage(from: url) { [weak self] image in
+            DispatchQueue.main.async {
+                if let cell = self?.collectionView.cellForItem(at: indexPath) as? RestaurantImagesCollectionViewCell {
+                    cell.restaurantImageView.image = image
+                }
+            }
+        }
     }
 }
 
 // MARK: - CollectionView DataSource
 extension RestaurantDetailsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        mockImages.count
+        restaurant?.images.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -614,7 +639,10 @@ extension RestaurantDetailsViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.restaurantImageView.image = UIImage(named: mockImages[indexPath.row])
+        if let urlString = restaurant?.images[indexPath.row] {
+              setImage(from: urlString, for: indexPath)
+          }
+        
         return cell
     }
 }

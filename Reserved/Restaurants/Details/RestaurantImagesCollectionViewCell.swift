@@ -12,6 +12,7 @@ final class RestaurantImagesCollectionViewCell: UICollectionViewCell {
     let restaurantImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     

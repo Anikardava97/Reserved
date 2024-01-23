@@ -9,7 +9,7 @@ import UIKit
 
 class AllRestaurantsTableViewCell: UITableViewCell {
     // MARK: - Properties
-    private static var imageCache: [String: UIImage] = [:]
+    private var restaurantId: Int?
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -97,7 +97,6 @@ class AllRestaurantsTableViewCell: UITableViewCell {
     
     private let openNowLabel: UILabel = {
         let label = UILabel()
-        label.text = "Open now"
         label.textAlignment = .left
         label.textColor = .white
         label.numberOfLines = 1
@@ -131,10 +130,12 @@ class AllRestaurantsTableViewCell: UITableViewCell {
     
     // MARK: - Configure
     func configure(with restaurant: Restaurant) {
+        self.restaurantId = restaurant.id
         titleLabel.text = restaurant.name
         ratingLabel.text = String(restaurant.reviewStars)
         cuisineLabel.text = restaurant.cuisine
-        setImage(from: restaurant.mainImageURL)
+        setImage(from: restaurant.mainImageURL, for: restaurant.id)
+        setOpenStatusLabel(for: restaurant)
         
         backgroundColor = .customBackgroundColor
     }
@@ -195,19 +196,19 @@ class AllRestaurantsTableViewCell: UITableViewCell {
         )
     }
     
-    private func setImage(from url: String) {
-        if let cachedImage = AllRestaurantsTableViewCell.imageCache[url] {
-            restaurantImageView.image = cachedImage
-        } else {
-            NetworkManager.shared.downloadImage(from: url) { [weak self] image in
-                DispatchQueue.main.async {
-                    if let weakSelf = self, weakSelf.restaurantImageView.image == nil {
-                        weakSelf.restaurantImageView.image = image
-                        AllRestaurantsTableViewCell.imageCache[url] = image
-                    }
+    private func setOpenStatusLabel(for restaurant: Restaurant) {
+        openNowLabel.text = RestaurantHoursManager.isRestaurantOpen(from: restaurant) ? "Open Now" : "Closed"
+    }
+    
+    private func setImage(from url: String, for currentRestaurantId: Int) {
+        NetworkManager.shared.downloadImage(from: url) { [weak self] image in
+            DispatchQueue.main.async {
+                if self?.restaurantId == currentRestaurantId {
+                    self?.restaurantImageView.image = image
                 }
             }
         }
     }
 }
+
 

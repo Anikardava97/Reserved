@@ -16,6 +16,7 @@ struct DaySchedule {
 final class OpenHoursViewController: UIViewController {
     // MARK: - Properties
     private var animationView: LottieAnimationView!
+    var restaurant: Restaurant?
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -40,22 +41,27 @@ final class OpenHoursViewController: UIViewController {
         return stackView
     }()
     
-    private let daySchedules = [
-        DaySchedule(day: "Monday",
-                    hours: "\(mockRestaurant.openHours.monday.startTime.rawValue) - \(mockRestaurant.openHours.monday.endTime.rawValue)"),
-        DaySchedule(day: "Tuesday",
-                    hours: "\(mockRestaurant.openHours.tuesday.startTime.rawValue) - \(mockRestaurant.openHours.tuesday.endTime.rawValue)"),
-        DaySchedule(day: "Wednesday",
-                    hours: "\(mockRestaurant.openHours.wednesday.startTime.rawValue) - \(mockRestaurant.openHours.wednesday.endTime.rawValue)"),
-        DaySchedule(day: "Thursday",
-                    hours: "\(mockRestaurant.openHours.thursday.startTime.rawValue) - \(mockRestaurant.openHours.thursday.endTime.rawValue)"),
-        DaySchedule(day: "Friday",
-                    hours: "\(mockRestaurant.openHours.friday.startTime.rawValue) - \(mockRestaurant.openHours.friday.endTime.rawValue)"),
-        DaySchedule(day: "Saturday",
-                    hours: "\(mockRestaurant.openHours.saturday.startTime.rawValue) - \(mockRestaurant.openHours.saturday.endTime.rawValue)"),
-        DaySchedule(day: "Sunday",
-                    hours: "\(mockRestaurant.openHours.sunday.startTime.rawValue) - \(mockRestaurant.openHours.sunday.endTime.rawValue)")
-    ]
+    private lazy var daySchedules: [DaySchedule] = {
+        var schedules: [DaySchedule] = []
+        
+        if let restaurant = restaurant {
+            schedules.append(DaySchedule(day: "Monday", hours: "\(restaurant.openHours.monday.startTime.rawValue) - \(restaurant.openHours.monday.endTime.rawValue)"))
+            
+            schedules.append(DaySchedule(day: "Tuesday", hours: "\(restaurant.openHours.tuesday.startTime.rawValue) - \(restaurant.openHours.tuesday.endTime.rawValue)"))
+            
+            schedules.append(DaySchedule(day: "Wednesday", hours: "\(restaurant.openHours.wednesday.startTime.rawValue) - \(restaurant.openHours.wednesday.endTime.rawValue)"))
+            
+            schedules.append(DaySchedule(day: "Thursday", hours: "\(restaurant.openHours.thursday.startTime.rawValue) - \(restaurant.openHours.thursday.endTime.rawValue)"))
+            
+            schedules.append(DaySchedule(day: "Friday", hours: "\(restaurant.openHours.friday.startTime.rawValue) - \(restaurant.openHours.friday.endTime.rawValue)"))
+            
+            schedules.append(DaySchedule(day: "Saturday", hours: "\(restaurant.openHours.saturday.startTime.rawValue) - \(restaurant.openHours.saturday.endTime.rawValue)"))
+            
+            schedules.append(DaySchedule(day: "Sunday", hours: "\(restaurant.openHours.sunday.startTime.rawValue) - \(restaurant.openHours.sunday.endTime.rawValue)"))
+        }
+        
+        return schedules
+    }()
     
     // MARK: - ViewLifeCycles
     override func viewDidLoad() {
