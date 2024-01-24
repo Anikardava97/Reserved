@@ -6,17 +6,16 @@
 //
 
 import UIKit
-
-class RestaurantsViewController: UIViewController {
+ 
+final class RestaurantsViewController: UIViewController {
     // MARK: - Properties
     private let viewModel = RestaurantsViewModel()
     private var restaurants = [Restaurant]()
+    private var filteredCuisineRestaurants = [Restaurant]()
+    private var filteredTopRestaurants = [Restaurant]()
+    private var selectedCuisineType: String?
     
     private let searchController = UISearchController(searchResultsController: nil)
-    
-    private let georgianCuisineButton = CuisineButton()
-    private let europeanCuisineButton = CuisineButton()
-    private let asianCuisineButton = CuisineButton()
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -27,30 +26,9 @@ class RestaurantsViewController: UIViewController {
     private let scrollStackViewContainer: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.spacing = 24
+        view.spacing = 18
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
-    }()
-    
-    private let cuisineStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 12
-        return stackView
-    }()
-    
-    private let cuisineLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Cuisines"
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        label.textColor = .white
-        return label
-    }()
-    
-    private let cuisineButtonsStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.distribution = .equalSpacing
-        return stackView
     }()
     
     private let topRestaurantsLabel: UILabel = {
@@ -85,6 +63,31 @@ class RestaurantsViewController: UIViewController {
         return label
     }()
     
+    private lazy var contentSegmentedControl: UISegmentedControl = {
+        let segmentedControl = UISegmentedControl(items: ["All", "Georgian", "Asian", "European"])
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
+        selectedCuisineType = nil
+        
+        segmentedControl.tintColor = .customSecondaryColor
+        segmentedControl.selectedSegmentTintColor = .customAccentColor
+        
+        let normalTextAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.white.withAlphaComponent(0.8),
+            .font: UIFont.systemFont(ofSize: 16)
+        ]
+        let selectedTextAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.white,
+            .font: UIFont.boldSystemFont(ofSize: 16)
+        ]
+        
+        
+        segmentedControl.setTitleTextAttributes(normalTextAttributes, for: .normal)
+        segmentedControl.setTitleTextAttributes(selectedTextAttributes, for: .selected)
+        return segmentedControl
+    }()
+    
+    
     private  var tableView: UITableView = {
         let tableView = SelfSizedTableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -109,7 +112,6 @@ class RestaurantsViewController: UIViewController {
         setupScrollView()
         setupSubviews()
         setupConstraints()
-        setupCuisineStackView()
     }
     
     private func setupViewModelDelegate() {
@@ -135,18 +137,11 @@ class RestaurantsViewController: UIViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(scrollStackViewContainer)
         
-        scrollStackViewContainer.addArrangedSubview(cuisineStackView)
         scrollStackViewContainer.addArrangedSubview(topRestaurantsLabel)
         scrollStackViewContainer.addArrangedSubview(collectionView)
         scrollStackViewContainer.addArrangedSubview(allRestaurantsLabel)
+        scrollStackViewContainer.addArrangedSubview(contentSegmentedControl)
         scrollStackViewContainer.addArrangedSubview(tableView)
-        
-        cuisineStackView.addArrangedSubview(cuisineLabel)
-        cuisineStackView.addArrangedSubview(cuisineButtonsStackView)
-        
-        cuisineButtonsStackView.addArrangedSubview(georgianCuisineButton)
-        cuisineButtonsStackView.addArrangedSubview(asianCuisineButton)
-        cuisineButtonsStackView.addArrangedSubview(europeanCuisineButton)
     }
     
     private func setupConstraints() {
@@ -155,18 +150,14 @@ class RestaurantsViewController: UIViewController {
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-
+            
             scrollStackViewContainer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             scrollStackViewContainer.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             scrollStackViewContainer.topAnchor.constraint(equalTo: scrollView.topAnchor),
             scrollStackViewContainer.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             scrollStackViewContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-
-            georgianCuisineButton.heightAnchor.constraint(equalToConstant: 40),
-            asianCuisineButton.heightAnchor.constraint(equalToConstant: 40),
-            europeanCuisineButton.heightAnchor.constraint(equalToConstant: 40),
-
             collectionView.heightAnchor.constraint(equalToConstant: 200),
+            contentSegmentedControl.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
     
@@ -174,11 +165,25 @@ class RestaurantsViewController: UIViewController {
         scrollView.showsVerticalScrollIndicator = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
     }
-
-    private func setupCuisineStackView() {
-        georgianCuisineButton.configure(with: .customSecondaryColor, icon: UIImage.georgianIcon, name: "Georgian")
-        europeanCuisineButton.configure(with: .customSecondaryColor, icon: UIImage.europeanIcon, name: "European")
-        asianCuisineButton.configure(with: .customSecondaryColor, icon: UIImage.asianIcon, name: "Asian")
+    
+    @objc private func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+        let selectedTitle = sender.titleForSegment(at: sender.selectedSegmentIndex) ?? "All"
+        selectedCuisineType = selectedTitle
+        filteredCuisineRestaurants = filterRestaurantsByCuisine(selectedTitle)
+        tableView.reloadData()
+    }
+    
+    private func filterRestaurantsByCuisine(_ cuisine: String) -> [Restaurant] {
+        switch cuisine {
+        case "Georgian":
+            return restaurants.filter { $0.cuisine == "Georgian" }
+        case "Asian":
+            return restaurants.filter { $0.cuisine == "Asian" }
+        case "European":
+            return restaurants.filter { $0.cuisine == "European" }
+        default:
+            return restaurants
+        }
     }
     
     private func setupCollectionView() {
@@ -197,18 +202,29 @@ class RestaurantsViewController: UIViewController {
         tableView.isScrollEnabled = false
     }
 }
-
+ 
 // MARK: - Search Controller Functions
 extension RestaurantsViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        print("")
+        guard let searchText = searchController.searchBar.text else {
+            return
+        }
+        
+        if !searchText.isEmpty {
+            let filteredRestaurants = restaurants.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+            restaurants = filteredRestaurants
+        } else {
+            print("!2")
+        }
+        
+        tableView.reloadData()
     }
 }
-
+ 
 // MARK: - CollectionView DataSource
 extension RestaurantsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        restaurants.count
+        filteredTopRestaurants.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -216,11 +232,13 @@ extension RestaurantsViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.configure(with: restaurants[indexPath.row])
+        if indexPath.row < filteredCuisineRestaurants.count {
+            cell.configure(with: filteredTopRestaurants[indexPath.row])
+        }
         return cell
     }
 }
-
+ 
 // MARK: - CollectionView FlowLayoutDelegate
 extension RestaurantsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -229,29 +247,29 @@ extension RestaurantsViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: width, height: height)
     }
 }
-
+ 
 // MARK: - UICollectionViewDelegate
 extension RestaurantsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.didSelectRestaurant(at: indexPath)
     }
 }
-
+ 
 // MARK: - TableViewDataSource
 extension RestaurantsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        restaurants.count
+        filteredCuisineRestaurants.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "allRestaurantsCell", for: indexPath) as? AllRestaurantsTableViewCell else {
             return UITableViewCell()
         }
-        cell.configure(with: restaurants[indexPath.row])
+        cell.configure(with: filteredCuisineRestaurants[indexPath.row])
         return cell
     }
 }
-
+ 
 // MARK: - TableViewDelegate
 extension RestaurantsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -262,11 +280,15 @@ extension RestaurantsViewController: UITableViewDelegate {
         viewModel.didSelectRestaurant(at: indexPath)
     }
 }
-
+ 
 // MARK: - RestaurantsViewModelDelegate
 extension RestaurantsViewController: RestaurantsViewModelDelegate {
     func restaurantsFetched(_ restaurants: [Restaurant]) {
+        let filteredTopRestaurants = restaurants.filter { $0.reviewStars >= 4.5 }
         self.restaurants = restaurants
+        self.filteredTopRestaurants = filteredTopRestaurants
+        self.filteredCuisineRestaurants = restaurants
+        
         DispatchQueue.main.async {
             self.collectionView.reloadData()
             self.tableView.reloadData()
@@ -283,9 +305,7 @@ extension RestaurantsViewController: RestaurantsViewModelDelegate {
         navigationController?.pushViewController(restaurantDetailsViewController, animated: true)
     }
 }
-
+ 
 #Preview {
     RestaurantsViewController()
 }
-
-
