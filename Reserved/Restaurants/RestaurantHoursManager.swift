@@ -55,51 +55,43 @@ final class RestaurantHoursManager {
         dateFormatter.dateFormat = "h:mm a"
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         
+        var startTime: String = ""
+        var endTime: String = ""
+        
         switch day {
         case "monday":
-            return isNowBetween(startTime: openHours.monday.startTime.rawValue,
-                                endTime: openHours.monday.endTime.rawValue,
-                                currentDate: now,
-                                dateFormatter: dateFormatter)
+            startTime = openHours.monday.startTime.rawValue
+            endTime = openHours.monday.endTime.rawValue
             
         case "tuesday":
-            return isNowBetween(startTime: openHours.tuesday.startTime.rawValue,
-                                endTime: openHours.tuesday.endTime.rawValue,
-                                currentDate: now,
-                                dateFormatter: dateFormatter)
+            startTime = openHours.tuesday.startTime.rawValue
+            endTime = openHours.tuesday.endTime.rawValue
             
         case "wednesday":
-            return isNowBetween(startTime: openHours.wednesday.startTime.rawValue,
-                                endTime: openHours.wednesday.endTime.rawValue,
-                                currentDate: now,
-                                dateFormatter: dateFormatter)
+            startTime = openHours.wednesday.startTime.rawValue
+            endTime = openHours.wednesday.endTime.rawValue
             
         case "thursday":
-            return isNowBetween(startTime: openHours.thursday.startTime.rawValue,
-                                endTime: openHours.thursday.endTime.rawValue,
-                                currentDate: now,
-                                dateFormatter: dateFormatter)
+            startTime = openHours.thursday.startTime.rawValue
+            endTime = openHours.thursday.endTime.rawValue
             
         case "friday":
-            return isNowBetween(startTime: openHours.friday.startTime.rawValue,
-                                endTime: openHours.friday.endTime.rawValue,
-                                currentDate: now,
-                                dateFormatter: dateFormatter)
+            startTime = openHours.friday.startTime.rawValue
+            endTime = openHours.friday.endTime.rawValue
             
         case "saturday":
-            return isNowBetween(startTime: openHours.saturday.startTime.rawValue,
-                                endTime: openHours.saturday.endTime.rawValue,
-                                currentDate: now,
-                                dateFormatter: dateFormatter)
+            startTime = openHours.saturday.startTime.rawValue
+            endTime = openHours.saturday.endTime.rawValue
             
         case "sunday":
-            return isNowBetween(startTime: openHours.sunday.startTime.rawValue,
-                                endTime: openHours.sunday.endTime.rawValue,
-                                currentDate: now,
-                                dateFormatter: dateFormatter)
+            startTime = openHours.sunday.startTime.rawValue
+            endTime = openHours.sunday.endTime.rawValue
+            
         default:
             return false
         }
+        
+        return isNowBetween(startTime: startTime, endTime: endTime, currentDate: now, dateFormatter: dateFormatter)
     }
     
     static func isNowBetween(startTime: String, endTime: String, currentDate: Date, dateFormatter: DateFormatter) -> Bool {
@@ -111,10 +103,15 @@ final class RestaurantHoursManager {
             adjustedEndTime = Calendar.current.date(byAdding: .day, value: 1, to: end)!
         }
         
-        let startDateTime = Calendar.current.startOfDay(for: currentDate) + start.timeIntervalSince1970
-        let endDateTime = Calendar.current.startOfDay(for: currentDate) + adjustedEndTime.timeIntervalSince1970
+        let calendar = Calendar.current
+        let currentDateTimeComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: currentDate)
+        let startDateTimeComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: start)
+        let adjustedEndDateTimeComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: adjustedEndTime)
         
-        return currentDate >= startDateTime && currentDate <= endDateTime
+        let startDateTime = calendar.date(bySettingHour: startDateTimeComponents.hour!, minute: startDateTimeComponents.minute!, second: 0, of: currentDate)!
+        let adjustedEndDateTime = calendar.date(bySettingHour: adjustedEndDateTimeComponents.hour!, minute: adjustedEndDateTimeComponents.minute!, second: 0, of: currentDate)!
+        
+        return currentDate >= startDateTime && currentDate <= adjustedEndDateTime
     }
 }
 

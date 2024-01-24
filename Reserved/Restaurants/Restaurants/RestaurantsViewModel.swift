@@ -24,11 +24,9 @@ final class RestaurantsViewModel {
         fetchRestaurants()
     }
     
-    func didSelectRestaurant(at indexPath: IndexPath) {
-        if let selectedRestaurant = restaurants?[indexPath.row] {
-            delegate?.navigateToRestaurantDetails(with: selectedRestaurant)
-            print("navigate")
-        }
+    func navigateToRestaurantDetails(with restaurant: Restaurant) {
+        delegate?.navigateToRestaurantDetails(with: restaurant)
+        print("navigate")
     }
     
     private func fetchRestaurants() {
