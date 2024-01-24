@@ -6,7 +6,7 @@
 //
 
 import UIKit
- 
+
 final class RestaurantsViewController: UIViewController {
     // MARK: - Properties
     private let viewModel = RestaurantsViewModel()
@@ -49,12 +49,6 @@ final class RestaurantsViewController: UIViewController {
         return collectionView
     }()
     
-    private let allRestaurantsStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        return stackView
-    }()
-    
     private let allRestaurantsLabel: UILabel = {
         let label = UILabel()
         label.text = "All Restaurants"
@@ -74,11 +68,11 @@ final class RestaurantsViewController: UIViewController {
         
         let normalTextAttributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.white.withAlphaComponent(0.8),
-            .font: UIFont.systemFont(ofSize: 16)
+            .font: UIFont.systemFont(ofSize: 14)
         ]
         let selectedTextAttributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.white,
-            .font: UIFont.boldSystemFont(ofSize: 16)
+            .font: UIFont.boldSystemFont(ofSize: 14)
         ]
         
         
@@ -87,13 +81,11 @@ final class RestaurantsViewController: UIViewController {
         return segmentedControl
     }()
     
-    
     private  var tableView: UITableView = {
         let tableView = SelfSizedTableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-    
     
     // MARK: - ViewLifeCycle
     override func viewDidLoad() {
@@ -127,6 +119,8 @@ final class RestaurantsViewController: UIViewController {
         self.searchController.obscuresBackgroundDuringPresentation = false
         self.searchController.hidesNavigationBarDuringPresentation = false
         self.searchController.searchBar.placeholder = "Where to?"
+        
+        self.searchController.searchBar.delegate = self
         
         self.navigationItem.searchController = searchController
         self.definesPresentationContext = false
@@ -202,25 +196,39 @@ final class RestaurantsViewController: UIViewController {
         tableView.isScrollEnabled = false
     }
 }
- 
+
 // MARK: - Search Controller Functions
 extension RestaurantsViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text else {
             return
         }
-        
         if !searchText.isEmpty {
-            let filteredRestaurants = restaurants.filter { $0.name.lowercased().contains(searchText.lowercased()) }
-            restaurants = filteredRestaurants
+            filteredCuisineRestaurants = restaurants.filter { $0.name.lowercased().contains(searchText.lowercased()) }
         } else {
-            print("!2")
+            filteredCuisineRestaurants = restaurants
         }
-        
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
 }
- 
+
+// MARK: - UISearchBarDelegate
+extension RestaurantsViewController: UISearchBarDelegate {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        topRestaurantsLabel.isHidden = true
+        allRestaurantsLabel.isHidden = true
+        collectionView.isHidden = true
+        contentSegmentedControl.isHidden = true
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        topRestaurantsLabel.isHidden = false
+        allRestaurantsLabel.isHidden = false
+        collectionView.isHidden = false
+        contentSegmentedControl.isHidden = false
+    }
+}
+
 // MARK: - CollectionView DataSource
 extension RestaurantsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -232,13 +240,13 @@ extension RestaurantsViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        if indexPath.row < filteredCuisineRestaurants.count {
+        if indexPath.row < filteredTopRestaurants.count {
             cell.configure(with: filteredTopRestaurants[indexPath.row])
         }
         return cell
     }
 }
- 
+
 // MARK: - CollectionView FlowLayoutDelegate
 extension RestaurantsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -247,14 +255,17 @@ extension RestaurantsViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: width, height: height)
     }
 }
- 
+
 // MARK: - UICollectionViewDelegate
 extension RestaurantsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.didSelectRestaurant(at: indexPath)
+        if indexPath.row < filteredTopRestaurants.count {
+            let selectedRestaurant = filteredTopRestaurants[indexPath.row]
+            viewModel.navigateToRestaurantDetails(with: selectedRestaurant)
+        }
     }
 }
- 
+
 // MARK: - TableViewDataSource
 extension RestaurantsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -269,7 +280,7 @@ extension RestaurantsViewController: UITableViewDataSource {
         return cell
     }
 }
- 
+
 // MARK: - TableViewDelegate
 extension RestaurantsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -277,10 +288,13 @@ extension RestaurantsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.didSelectRestaurant(at: indexPath)
+        if indexPath.row < filteredCuisineRestaurants.count {
+            let selectedRestaurant = filteredCuisineRestaurants[indexPath.row]
+            viewModel.navigateToRestaurantDetails(with: selectedRestaurant)
+        }
     }
 }
- 
+
 // MARK: - RestaurantsViewModelDelegate
 extension RestaurantsViewController: RestaurantsViewModelDelegate {
     func restaurantsFetched(_ restaurants: [Restaurant]) {
@@ -305,7 +319,7 @@ extension RestaurantsViewController: RestaurantsViewModelDelegate {
         navigationController?.pushViewController(restaurantDetailsViewController, animated: true)
     }
 }
- 
+
 #Preview {
     RestaurantsViewController()
 }
