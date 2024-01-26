@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		EE2EE45F2B62A18F009C0DD2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = EE2EE45E2B62A18F009C0DD2 /* FirebaseFirestore */; };
 		EE2EE4612B62A195009C0DD2 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EE2EE4602B62A195009C0DD2 /* FirebaseFirestoreSwift */; };
+		EE2EE4632B64499C009C0DD2 /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2EE4622B64499C009C0DD2 /* ConfirmationViewController.swift */; };
 		EE337F092B5562D1004DBA6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F082B5562D1004DBA6B /* AppDelegate.swift */; };
 		EE337F0B2B5562D1004DBA6B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F0A2B5562D1004DBA6B /* SceneDelegate.swift */; };
 		EE337F122B5562D2004DBA6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE337F112B5562D2004DBA6B /* Assets.xcassets */; };
@@ -68,6 +69,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EE2EE4622B64499C009C0DD2 /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		EE337F052B5562D1004DBA6B /* Reserved.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reserved.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE337F082B5562D1004DBA6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE337F0A2B5562D1004DBA6B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 			children = (
 				EEB37E722B5E6B5800D39BEA /* TablesViewController.swift */,
 				EEB37E752B5E6BAA00D39BEA /* TablesCollectionViewCell.swift */,
+				EE2EE4622B64499C009C0DD2 /* ConfirmationViewController.swift */,
 			);
 			path = Tables;
 			sourceTree = "<group>";
@@ -542,6 +545,7 @@
 				EEEC43482B5D4CE900E9F87D /* ReservationViewController.swift in Sources */,
 				EEDABB812B5910E800A918EC /* LoginOptionsViewModel.swift in Sources */,
 				EEB37E7A2B60378500D39BEA /* SelfSizedTableView.swift in Sources */,
+				EE2EE4632B64499C009C0DD2 /* ConfirmationViewController.swift in Sources */,
 				EED210532B5BECB600039A98 /* RestaurantDetailsViewController.swift in Sources */,
 				EE337F4B2B56B177004DBA6B /* LogInWithEmailViewModel.swift in Sources */,
 				EE8EB9062B5A535B00C6FEB9 /* ReservationsViewController.swift in Sources */,

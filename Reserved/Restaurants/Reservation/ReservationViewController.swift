@@ -348,11 +348,11 @@ final class ReservationViewController: UIViewController {
     }
     
     @objc private func nextButtonDidTap() {
-        guard let selectedDate = selectedDate else {
+        if selectedDate == nil {
             showDateSelectionAlert()
-            return
+        } else {
+            validateReservation()
         }
-        validateReservation()
     }
     
     private func showDateSelectionAlert() {

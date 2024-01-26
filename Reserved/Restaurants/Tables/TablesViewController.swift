@@ -79,12 +79,6 @@ class TablesViewController: UIViewController {
         return collectionView
     }()
     
-    private let reservationButton = MainButtonComponent(
-        text: "Reserve",
-        textColor: .white,
-        backgroundColor: .customAccentColor
-    )
-    
     // MARK: - ViewLifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,7 +101,6 @@ class TablesViewController: UIViewController {
         view.addSubview(chooseTableStackView)
         chooseTableStackView.addArrangedSubview(chooseTableTitleLabel)
         chooseTableStackView.addArrangedSubview(collectionView)
-        //  chooseTableStackView.addArrangedSubview(reservationButton)
     }
     
     private func setupConstraints() {
@@ -134,6 +127,11 @@ class TablesViewController: UIViewController {
         let tableCapacity = tables[tableIndex].capacity
         
         return tableCapacity == guests
+    }
+    
+    private func handleReservation() {
+        let confirmationViewController = ConfirmationViewController()
+        navigationController?.pushViewController(confirmationViewController, animated: true)
     }
 }
 
@@ -166,7 +164,18 @@ extension TablesViewController: UICollectionViewDelegate {
         let isAvailable = isTableAvailable(forGuests: guests, tableIndex: indexPath.row)
         
         if isAvailable {
-            print("Table at index \(indexPath.row) selected")
+            let confirmationAlert = UIAlertController(title: "Confirm Reservation", message: "Are you sure you want to reserve this table for \(guests) guests on \(selectedDate ?? "") at \(selectedTime ?? "")?", preferredStyle: .alert)
+            
+            let confirmAction = UIAlertAction(title: "Confirm", style: .default) { [weak self] _ in
+                self?.handleReservation()
+            }
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            confirmationAlert.addAction(confirmAction)
+            confirmationAlert.addAction(cancelAction)
+            
+            present(confirmationAlert, animated: true, completion: nil)
         } else {
             let unavailableTableAlert = UIAlertController(title: "Table Unavailable 😳", message: "This table is not available for \(guests) guests. Please choose a different table.", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
