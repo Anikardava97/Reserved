@@ -7,9 +7,25 @@
 
 import UIKit
 
-class ReservationViewController: UIViewController {
+final class ReservationViewController: UIViewController {
     // MARK: - Properties
     private var guestCount = 2
+    var selectedRestaurant: Restaurant?
+    private var selectedDate: Date?
+    
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    private let scrollStackViewContainer: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 18
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -52,7 +68,6 @@ class ReservationViewController: UIViewController {
     
     private let restaurantImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "Stamba1")
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 32
         imageView.clipsToBounds = true
@@ -69,8 +84,7 @@ class ReservationViewController: UIViewController {
     
     private let restaurantNameLabel: UILabel = {
         let label = UILabel()
-        label.text = mockRestaurant.name
-        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 30, weight: .medium)
         label.textColor = .white
         return label
     }()
@@ -197,11 +211,15 @@ class ReservationViewController: UIViewController {
         return label
     }()
     
-    private let nextButton = MainButtonComponent(
-        text: "Next",
-        textColor: .white,
-        backgroundColor: .customAccentColor
-    )
+    private lazy var nextButton: MainButtonComponent = {
+        let button = MainButtonComponent(
+            text: "Next",
+            textColor: .white,
+            backgroundColor: .customAccentColor
+        )
+        button.addTarget(self, action: #selector(nextButtonDidTap), for: .touchUpInside)
+        return button
+    }()
     
     // MARK: - Body
     override func viewDidLoad() {
@@ -211,6 +229,8 @@ class ReservationViewController: UIViewController {
     
     private func setup() {
         setupBackground()
+        setupScrollView()
+        setupSelectedRestaurantImageAndName()
         setupSubviews()
         setupConstraints()
         setupDateButton()
@@ -221,8 +241,37 @@ class ReservationViewController: UIViewController {
         view.backgroundColor = .customBackgroundColor
     }
     
+    private func setupScrollView() {
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupSelectedRestaurantImageAndName() {
+        if let restaurant = selectedRestaurant {
+            setRestaurantImage(from: restaurant.mainImageURL)
+            setFormattedRestaurantName(restaurant.name.uppercased())
+        }
+    }
+    
+    private func setFormattedRestaurantName(_ name: String) {
+        let formattedName = name.map { String($0) }.joined(separator: " ")
+        restaurantNameLabel.text = formattedName
+    }
+    
+    private func setRestaurantImage(from url: String) {
+        NetworkManager.shared.downloadImage(from: url) { [weak self] image in
+            DispatchQueue.main.async {
+                self?.restaurantImageView.image = image
+            }
+        }
+    }
+    
     private func setupSubviews() {
-        view.addSubview(mainStackView)
+        view.addSubview(scrollView)
+        scrollView.addSubview(scrollStackViewContainer)
+        
+        scrollStackViewContainer.addArrangedSubview(mainStackView)
+        
         mainStackView.addArrangedSubview(restaurantImageView)
         
         restaurantImageView.addSubview(overlayView)
@@ -243,9 +292,16 @@ class ReservationViewController: UIViewController {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            mainStackView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            scrollStackViewContainer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            scrollStackViewContainer.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            scrollStackViewContainer.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            scrollStackViewContainer.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            scrollStackViewContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
             restaurantImageView.heightAnchor.constraint(equalToConstant: 260),
             
@@ -260,26 +316,17 @@ class ReservationViewController: UIViewController {
             selectDateButton.heightAnchor.constraint(equalToConstant: 48),
             selectTimeButton.heightAnchor.constraint(equalToConstant: 48),
             
-            dateSectionView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 16),
-            dateSectionView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -16),
             selectDateStackView.centerXAnchor.constraint(equalTo: dateSectionView.centerXAnchor),
             selectDateStackView.topAnchor.constraint(equalTo: dateSectionView.topAnchor, constant: 16),
             selectDateStackView.bottomAnchor.constraint(equalTo: dateSectionView.bottomAnchor, constant: -16),
             
-            timeSectionView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 16),
-            timeSectionView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -16),
             selectTimeStackView.centerXAnchor.constraint(equalTo: timeSectionView.centerXAnchor),
             selectTimeStackView.topAnchor.constraint(equalTo: timeSectionView.topAnchor, constant: 16),
             selectTimeStackView.bottomAnchor.constraint(equalTo: timeSectionView.bottomAnchor, constant: -16),
             
-            guestsSectionView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 16),
-            guestsSectionView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -16),
             selectGuestsStackView.centerXAnchor.constraint(equalTo: guestsSectionView.centerXAnchor),
             selectGuestsStackView.topAnchor.constraint(equalTo: guestsSectionView.topAnchor, constant: 16),
             selectGuestsStackView.bottomAnchor.constraint(equalTo: guestsSectionView.bottomAnchor, constant: -16),
-            
-            nextButton.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 16),
-            nextButton.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -16)
         ])
     }
     
@@ -298,6 +345,115 @@ class ReservationViewController: UIViewController {
     
     private func setupTimeButton() {
         selectTimeButton.addTarget(self, action: #selector(selectTimeButtonDidTap), for: .touchUpInside)
+    }
+    
+    @objc private func nextButtonDidTap() {
+        if selectedDate == nil {
+            showDateSelectionAlert()
+        } else {
+            validateReservation()
+        }
+    }
+    
+    private func showDateSelectionAlert() {
+        let alert = UIAlertController(
+            title: "Select Valid Date 😳",
+            message: "Please choose your desired reservation date.",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func validateReservation() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm:ss"
+        
+        guard let selectedDate = selectedDate,
+              let selectedTimeText = selectTimeButton.title(for: .normal),
+              let selectedGuests = Int(guestCountLabel.text ?? "2"),
+              let selectedRestaurant = selectedRestaurant,
+              let reservations = selectedRestaurant.reservations else {
+            return
+        }
+        
+        let formattedDate = dateFormatter.string(from: selectedDate)
+        let formattedTime = timeFormatter.string(from: timeFormatter.date(from: selectedTimeText + ":00") ?? Date())
+        
+        let reservedTables = reservations.filter { reservation in
+            return reservation.date == formattedDate && reservation.time == formattedTime && reservation.guestCount == selectedGuests
+        }
+        
+        if reservedTables.count >= 2 {
+            showNoAvailableTablesAlert()
+        } else {
+            performReservation()
+        }
+    }
+    
+    private func showNoAvailableTablesAlert() {
+        let alert = UIAlertController(
+            title: "No Available Tables😔",
+            message: "There are no available tables for the selected date, time, and guest count. Please choose a different option👩🏻‍🍳",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func performReservation() {
+        let tablesViewController = TablesViewController()
+        tablesViewController.selectedDate = selectDateButton.title(for: .normal)
+        tablesViewController.selectedTime = selectTimeButton.title(for: .normal)
+        tablesViewController.selectedGuests = Int(guestCountLabel.text ?? "2")
+        navigationController?.pushViewController(tablesViewController, animated: true)
+    }
+    
+    func getTodayOpenHours(for restaurant: Restaurant) -> (open: Date?, close: Date?) {
+        let todayHours = RestaurantHoursManager.getTodaysOpeningHours(from: restaurant)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        let calendar = Calendar.current
+        let now = Date()
+        let currentYear = calendar.component(.year, from: now)
+        let currentMonth = calendar.component(.month, from: now)
+        let currentDay = calendar.component(.day, from: now)
+        
+        let hoursArray = todayHours.components(separatedBy: " - ")
+        guard hoursArray.count == 2 else { return (nil, nil) }
+        
+        let openTimeStr = hoursArray[0]
+        let closeTimeStr = hoursArray[1]
+        
+        guard let openTime = dateFormatter.date(from: openTimeStr),
+              let closeTime = dateFormatter.date(from: closeTimeStr) else {
+            return (nil, nil)
+        }
+        
+        var openDateComponents = calendar.dateComponents([.hour, .minute], from: openTime)
+        openDateComponents.year = currentYear
+        openDateComponents.month = currentMonth
+        openDateComponents.day = currentDay
+        
+        var closeDateComponents = calendar.dateComponents([.hour, .minute], from: closeTime)
+        closeDateComponents.year = currentYear
+        closeDateComponents.month = currentMonth
+        closeDateComponents.day = currentDay
+        
+        if closeTime < openTime {
+            closeDateComponents.day = currentDay + 1
+        }
+        
+        let finalOpenDate = calendar.date(from: openDateComponents)
+        let finalCloseDate = calendar.date(from: closeDateComponents)
+        
+        return (finalOpenDate, finalCloseDate)
     }
     
     private func dateDidChange(datePicker: UIDatePicker) {
@@ -319,6 +475,9 @@ class ReservationViewController: UIViewController {
         datePicker.preferredDatePickerStyle = .inline
         datePicker.datePickerMode = .date
         
+        datePicker.minimumDate = Date()
+        
+        
         let alert = UIAlertController(title: "Select Date", message: "", preferredStyle: .actionSheet)
         alert.view.tintColor = .customAccentColor
         alert.view.addSubview(datePicker)
@@ -332,6 +491,7 @@ class ReservationViewController: UIViewController {
         ])
         
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { _ in
+            self.selectedDate = datePicker.date
             self.dateDidChange(datePicker: datePicker)
         }))
         
@@ -342,6 +502,40 @@ class ReservationViewController: UIViewController {
         let timePicker = UIDatePicker()
         timePicker.preferredDatePickerStyle = .wheels
         timePicker.datePickerMode = .time
+        
+        if let restaurant = selectedRestaurant {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "h:mm a"
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+            
+            let todayHours = RestaurantHoursManager.getTodaysOpeningHours(from: restaurant)
+            let hoursArray = todayHours.components(separatedBy: " - ")
+            guard hoursArray.count == 2,
+                  let openTime = dateFormatter.date(from: hoursArray[0]),
+                  let closeTime = dateFormatter.date(from: hoursArray[1]) else {
+                return
+            }
+            
+            let now = Date()
+            let calendar = Calendar.current
+            
+            let openDateTime = calendar.date(bySettingHour: calendar.component(.hour, from: openTime),
+                                             minute: calendar.component(.minute, from: openTime),
+                                             second: 0,
+                                             of: now)!
+            
+            var closeDateTime = calendar.date(bySettingHour: calendar.component(.hour, from: closeTime),
+                                              minute: calendar.component(.minute, from: closeTime),
+                                              second: 0,
+                                              of: now)!
+            
+            if closeTime < openTime {
+                closeDateTime = calendar.date(byAdding: .day, value: 1, to: closeDateTime)!
+            }
+            
+            timePicker.minimumDate = openDateTime
+            timePicker.maximumDate = closeDateTime
+        }
         timePicker.minuteInterval = 30
         
         let alert = UIAlertController(title: "Select Time", message: "", preferredStyle: .alert)
