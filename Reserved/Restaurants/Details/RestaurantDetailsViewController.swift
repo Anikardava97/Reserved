@@ -190,11 +190,22 @@ final class RestaurantDetailsViewController: UIViewController {
         return button
     }()
     
-    private let reservationButton = MainButtonComponent(
-        text: "Reserve a table",
-        textColor: .white,
-        backgroundColor: .customAccentColor
-    )
+    private lazy var reservationButton: MainButtonComponent = {
+        let button = MainButtonComponent(
+            text: "Reserve a table",
+            textColor: .white,
+            backgroundColor: .customAccentColor
+        )
+        button.addTarget(self, action: #selector(reservationButtonDidTap), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc private func reservationButtonDidTap() {
+        let reservationViewController = ReservationViewController()
+        reservationViewController.selectedRestaurant = self.restaurant
+
+        self.navigationController?.pushViewController(reservationViewController, animated: true)
+    }
     
     private lazy var aboutSectionStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [aboutSectionTitleLabel, restaurantDescriptionLabel])
@@ -542,7 +553,7 @@ final class RestaurantDetailsViewController: UIViewController {
         }
         
         let copyAddressAction = UIAlertAction(title: "Copy Address", style: .default) { [weak self] _ in
-            UIPasteboard.general.string = mockRestaurant.location.address
+            UIPasteboard.general.string = self?.restaurant?.location.address
             guard let strongSelf = self, let window = strongSelf.view.window else { return }
             ConfirmationBanner.show(in: window, message: "Address copied to clipboard")
         }

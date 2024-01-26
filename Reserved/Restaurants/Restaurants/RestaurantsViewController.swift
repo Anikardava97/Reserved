@@ -118,8 +118,11 @@ final class RestaurantsViewController: UIViewController {
         self.searchController.searchResultsUpdater = self
         self.searchController.obscuresBackgroundDuringPresentation = false
         self.searchController.hidesNavigationBarDuringPresentation = false
-        self.searchController.searchBar.placeholder = "Where to?"
-        
+        if let searchTextField = self.searchController.searchBar.value(forKey: "searchField") as? UITextField {
+            searchTextField.attributedPlaceholder = NSAttributedString(
+                string: "Where to?",
+                attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+        }
         self.searchController.searchBar.delegate = self
         
         self.navigationItem.searchController = searchController
@@ -209,6 +212,10 @@ extension RestaurantsViewController: UISearchResultsUpdating {
             filteredCuisineRestaurants = restaurants
         }
         self.tableView.reloadData()
+        
+        if let searchTextField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+            searchTextField.textColor = .white
+        }
     }
 }
 

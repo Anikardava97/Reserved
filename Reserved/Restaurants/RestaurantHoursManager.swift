@@ -104,7 +104,6 @@ final class RestaurantHoursManager {
         }
         
         let calendar = Calendar.current
-        let currentDateTimeComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: currentDate)
         let startDateTimeComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: start)
         let adjustedEndDateTimeComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: adjustedEndTime)
         

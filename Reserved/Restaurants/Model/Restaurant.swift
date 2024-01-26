@@ -26,8 +26,7 @@ struct Restaurant: Decodable {
     let menuURL: String
     let phoneNumber: String
     let reviewStars: Double
-   // var reviews: [Review]
-    //var tables: [Table]
+    var reservations: [Reservation]?
 }
 
 struct OpenHours: Decodable {
@@ -39,25 +38,11 @@ struct Location: Decodable {
     let latitude, longitude: Double
 }
 
-//struct Review: Codable {
-//    let username: String
-//    let rating: Double
-//    let comment: String
-//}
-//
-//struct Table: Codable {
-//    let tableID: Int
-//    let tableNumber: Int
-//    let capacity: Int
-//    var isAvailable: Bool
-//    var reservations: [Reservation]
-//}
-
-struct Reservation: Codable {
-    let restaurantID: Int
-    let tableID: Int
-    let date: Date
-    let numberOfGuests: Int
+struct Reservation: Decodable {
+    let date: String
+    let time: String
+    let guestCount: Int
+    let tableNumber: Int
 }
 
 struct Day: Decodable {
@@ -148,69 +133,3 @@ enum EndTime: String, Decodable {
 }
 
 
-
-//struct User {
-//    let uid: String
-//    var reservations: [Reservation]
-//    var reservedTables: [Table]
-//    var favoriteRestaurants: [Restaurant]
-//}
-
-// MARK: - Mock Info
-let mockRestaurant = Restaurant(
-    id: 1,
-    name: "Stamba",
-    cuisine: "European",
-    mainImageURL: "https://example.com/images/main.jpg",
-    images: [
-        "https://example.com/images/image1.jpg",
-        "https://example.com/images/image2.jpg",
-        "https://example.com/images/image3.jpg"
-    ],
-    openHours: OpenHours(
-        monday: Day(startTime: .the900Am, endTime: .the1200Am),
-        tuesday: Day(startTime: .the900Am, endTime: .the1200Am),
-        wednesday: Day(startTime: .the900Am, endTime: .the1200Am),
-        thursday: Day(startTime: .the900Am, endTime: .the1200Am),
-        friday: Day(startTime: .the800Am, endTime: .the200Am),
-        saturday: Day(startTime: .the800Am, endTime: .the1200Am),
-        sunday: Day(startTime: .the800Am, endTime: .the1200Am)
-    ),
-    location: Location(
-        address: "45a Merab Kostava St, Tbilisi 0179",
-        latitude: 41.70911855004739,
-        longitude: 44.78554397976136
-    ),
-    description: "Gourmet Haven offers a unique blend of modern European cuisine with a local twist. Enjoy our chef's specials in a cozy and elegant setting.",
-    websiteURL: "https://gourmethaven.com",
-    menuURL: "https://gourmethaven.com/menu",
-    phoneNumber: "1234567890",
-    reviewStars: 4.0
-    //reviews: [],
-//    tables: [
-//            Table(tableID: 1, tableNumber: 1, capacity: 12, isAvailable: true, reservations: []),
-//            Table(tableID: 2, tableNumber: 2, capacity: 2, isAvailable: true, reservations: []),
-//            Table(tableID: 3, tableNumber: 3, capacity: 8, isAvailable: true, reservations: []),
-//            Table(tableID: 4, tableNumber: 4, capacity: 9, isAvailable: true, reservations: []),
-//            Table(tableID: 5, tableNumber: 5, capacity: 6, isAvailable: true, reservations: []),
-//            Table(tableID: 6, tableNumber: 6, capacity: 4, isAvailable: true, reservations: []),
-//            Table(tableID: 7, tableNumber: 7, capacity: 10, isAvailable: true, reservations: []),
-//            Table(tableID: 8, tableNumber: 8, capacity: 3, isAvailable: true, reservations: []),
-//            Table(tableID: 9, tableNumber: 9, capacity: 2, isAvailable: true, reservations: []),
-//            Table(tableID: 10, tableNumber: 10, capacity: 5, isAvailable: true, reservations: []),
-//            Table(tableID: 11, tableNumber: 11, capacity: 7, isAvailable: true, reservations: []),
-//            Table(tableID: 12, tableNumber: 12, capacity: 1, isAvailable: true, reservations: []),
-//            Table(tableID: 13, tableNumber: 13, capacity: 11, isAvailable: true, reservations: []),
-//            Table(tableID: 14, tableNumber: 14, capacity: 5, isAvailable: true, reservations: []),
-//            Table(tableID: 15, tableNumber: 15, capacity: 2, isAvailable: true, reservations: []),
-//            Table(tableID: 16, tableNumber: 16, capacity: 3, isAvailable: true, reservations: []),
-//            Table(tableID: 17, tableNumber: 17, capacity: 8, isAvailable: true, reservations: []),
-//            Table(tableID: 18, tableNumber: 18, capacity: 4, isAvailable: true, reservations: []),
-//            Table(tableID: 19, tableNumber: 19, capacity: 12, isAvailable: true, reservations: []),
-//            Table(tableID: 20, tableNumber: 20, capacity: 9, isAvailable: true, reservations: []),
-//            Table(tableID: 21, tableNumber: 21, capacity: 6, isAvailable: true, reservations: []),
-//            Table(tableID: 22, tableNumber: 22, capacity: 10, isAvailable: true, reservations: []),
-//            Table(tableID: 23, tableNumber: 23, capacity: 1, isAvailable: true, reservations: []),
-//            Table(tableID: 24, tableNumber: 24, capacity: 7, isAvailable: true, reservations: []),
-//        ]
-)

@@ -9,7 +9,7 @@ import UIKit
 
 final class NetworkManager {
     static let shared = NetworkManager()
-    private let baseURL = "https://mocki.io/v1/d4ca07c9-38fc-4671-aa93-fb50ecf4469e"
+    private let baseURL = "https://mocki.io/v1/e5515592-d151-4fc6-8399-f2fc7235ccd3"
     
     private init() {}
     
