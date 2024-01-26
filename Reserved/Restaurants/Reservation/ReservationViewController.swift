@@ -10,6 +10,21 @@ import UIKit
 class ReservationViewController: UIViewController {
     // MARK: - Properties
     private var guestCount = 2
+    var selectedRestaurant: Restaurant?
+    
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    private let scrollStackViewContainer: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 18
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -52,7 +67,6 @@ class ReservationViewController: UIViewController {
     
     private let restaurantImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "Stamba1")
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 32
         imageView.clipsToBounds = true
@@ -69,8 +83,7 @@ class ReservationViewController: UIViewController {
     
     private let restaurantNameLabel: UILabel = {
         let label = UILabel()
-        label.text = mockRestaurant.name
-        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 30, weight: .medium)
         label.textColor = .white
         return label
     }()
@@ -211,6 +224,8 @@ class ReservationViewController: UIViewController {
     
     private func setup() {
         setupBackground()
+        setupSelectedRestaurantImageAndName()
+        setupScrollView()
         setupSubviews()
         setupConstraints()
         setupDateButton()
@@ -221,8 +236,41 @@ class ReservationViewController: UIViewController {
         view.backgroundColor = .customBackgroundColor
     }
     
+    private func setupSelectedRestaurantImageAndName() {
+        if let restaurant = selectedRestaurant {
+            setRestaurantImage(from: restaurant.mainImageURL)
+            setFormattedRestaurantName(restaurant.name.uppercased())
+        }
+    }
+    
+    private func setFormattedRestaurantName(_ name: String) {
+        let formattedName = name.map { String($0) }.joined(separator: " ")
+        restaurantNameLabel.text = formattedName
+    }
+
+    private func formatTextVertically(_ text: String) -> String {
+        return text.map { String($0) }.joined(separator: "\n")
+    }
+
+    private func setRestaurantImage(from url: String) {
+        NetworkManager.shared.downloadImage(from: url) { [weak self] image in
+            DispatchQueue.main.async {
+                self?.restaurantImageView.image = image
+            }
+        }
+    }
+    
+    private func setupScrollView() {
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     private func setupSubviews() {
-        view.addSubview(mainStackView)
+        view.addSubview(scrollView)
+        scrollView.addSubview(scrollStackViewContainer)
+
+        scrollStackViewContainer.addArrangedSubview(mainStackView)
+
         mainStackView.addArrangedSubview(restaurantImageView)
         
         restaurantImageView.addSubview(overlayView)
@@ -243,9 +291,16 @@ class ReservationViewController: UIViewController {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            mainStackView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            scrollStackViewContainer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            scrollStackViewContainer.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            scrollStackViewContainer.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            scrollStackViewContainer.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            scrollStackViewContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
             restaurantImageView.heightAnchor.constraint(equalToConstant: 260),
             
@@ -260,26 +315,17 @@ class ReservationViewController: UIViewController {
             selectDateButton.heightAnchor.constraint(equalToConstant: 48),
             selectTimeButton.heightAnchor.constraint(equalToConstant: 48),
             
-            dateSectionView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 16),
-            dateSectionView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -16),
             selectDateStackView.centerXAnchor.constraint(equalTo: dateSectionView.centerXAnchor),
             selectDateStackView.topAnchor.constraint(equalTo: dateSectionView.topAnchor, constant: 16),
             selectDateStackView.bottomAnchor.constraint(equalTo: dateSectionView.bottomAnchor, constant: -16),
             
-            timeSectionView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 16),
-            timeSectionView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -16),
             selectTimeStackView.centerXAnchor.constraint(equalTo: timeSectionView.centerXAnchor),
             selectTimeStackView.topAnchor.constraint(equalTo: timeSectionView.topAnchor, constant: 16),
             selectTimeStackView.bottomAnchor.constraint(equalTo: timeSectionView.bottomAnchor, constant: -16),
             
-            guestsSectionView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 16),
-            guestsSectionView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -16),
             selectGuestsStackView.centerXAnchor.constraint(equalTo: guestsSectionView.centerXAnchor),
             selectGuestsStackView.topAnchor.constraint(equalTo: guestsSectionView.topAnchor, constant: 16),
             selectGuestsStackView.bottomAnchor.constraint(equalTo: guestsSectionView.bottomAnchor, constant: -16),
-            
-            nextButton.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 16),
-            nextButton.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -16)
         ])
     }
     

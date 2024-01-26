@@ -26,8 +26,7 @@ struct Restaurant: Decodable {
     let menuURL: String
     let phoneNumber: String
     let reviewStars: Double
-   // var reviews: [Review]
-    //var tables: [Table]
+    var reservations: [Reservation]?
 }
 
 struct OpenHours: Decodable {
@@ -39,25 +38,11 @@ struct Location: Decodable {
     let latitude, longitude: Double
 }
 
-//struct Review: Codable {
-//    let username: String
-//    let rating: Double
-//    let comment: String
-//}
-//
-//struct Table: Codable {
-//    let tableID: Int
-//    let tableNumber: Int
-//    let capacity: Int
-//    var isAvailable: Bool
-//    var reservations: [Reservation]
-//}
-
-struct Reservation: Codable {
-    let restaurantID: Int
-    let tableID: Int
-    let date: Date
-    let numberOfGuests: Int
+struct Reservation: Decodable {
+    let date: String
+    let time: String
+    let guestCount: Int
+    let tableNumber: Int
 }
 
 struct Day: Decodable {
