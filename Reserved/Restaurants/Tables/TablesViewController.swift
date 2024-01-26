@@ -17,6 +17,10 @@ class TablesViewController: UIViewController {
                                "Table8", "Table4","Table12", "Table9",
                                "Table6", "Table10", "Table1", "Table7"]
     
+    var selectedDate: String?
+    var selectedTime: String?
+    var selectedGuests: Int?
+    
     private lazy var chooseTableStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical

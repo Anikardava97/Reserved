@@ -11,6 +11,7 @@ class ReservationViewController: UIViewController {
     // MARK: - Properties
     private var guestCount = 2
     var selectedRestaurant: Restaurant?
+    private var selectedDate: Date?
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -210,11 +211,15 @@ class ReservationViewController: UIViewController {
         return label
     }()
     
-    private let nextButton = MainButtonComponent(
-        text: "Next",
-        textColor: .white,
-        backgroundColor: .customAccentColor
-    )
+    private lazy var nextButton: MainButtonComponent = {
+        let button = MainButtonComponent(
+            text: "Next",
+            textColor: .white,
+            backgroundColor: .customAccentColor
+        )
+        button.addTarget(self, action: #selector(nextButtonDidTap), for: .touchUpInside)
+        return button
+    }()
     
     // MARK: - Body
     override func viewDidLoad() {
@@ -224,8 +229,8 @@ class ReservationViewController: UIViewController {
     
     private func setup() {
         setupBackground()
-        setupSelectedRestaurantImageAndName()
         setupScrollView()
+        setupSelectedRestaurantImageAndName()
         setupSubviews()
         setupConstraints()
         setupDateButton()
@@ -234,6 +239,11 @@ class ReservationViewController: UIViewController {
     
     private func setupBackground() {
         view.backgroundColor = .customBackgroundColor
+    }
+    
+    private func setupScrollView() {
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setupSelectedRestaurantImageAndName() {
@@ -247,11 +257,7 @@ class ReservationViewController: UIViewController {
         let formattedName = name.map { String($0) }.joined(separator: " ")
         restaurantNameLabel.text = formattedName
     }
-
-    private func formatTextVertically(_ text: String) -> String {
-        return text.map { String($0) }.joined(separator: "\n")
-    }
-
+    
     private func setRestaurantImage(from url: String) {
         NetworkManager.shared.downloadImage(from: url) { [weak self] image in
             DispatchQueue.main.async {
@@ -260,17 +266,12 @@ class ReservationViewController: UIViewController {
         }
     }
     
-    private func setupScrollView() {
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
     private func setupSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(scrollStackViewContainer)
-
+        
         scrollStackViewContainer.addArrangedSubview(mainStackView)
-
+        
         mainStackView.addArrangedSubview(restaurantImageView)
         
         restaurantImageView.addSubview(overlayView)
@@ -346,6 +347,102 @@ class ReservationViewController: UIViewController {
         selectTimeButton.addTarget(self, action: #selector(selectTimeButtonDidTap), for: .touchUpInside)
     }
     
+    @objc private func nextButtonDidTap() {
+        validateReservation()
+    }
+    
+    private func validateReservation() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm:ss"
+        
+        guard let selectedDate = selectedDate,
+              let selectedTimeText = selectTimeButton.title(for: .normal),
+              let selectedGuests = Int(guestCountLabel.text ?? "2"),
+              let selectedRestaurant = selectedRestaurant,
+              let reservations = selectedRestaurant.reservations else {
+            return
+        }
+        
+        let formattedDate = dateFormatter.string(from: selectedDate)
+        let formattedTime = timeFormatter.string(from: timeFormatter.date(from: selectedTimeText + ":00") ?? Date())
+        print("Formatted Date: \(formattedDate), Time: \(formattedTime), Guests: \(selectedGuests)")
+        
+        let reservedTables = reservations.filter { reservation in
+            return reservation.date == formattedDate && reservation.time == formattedTime && reservation.guestCount == selectedGuests
+        }
+        
+        if reservedTables.count >= 2 {
+            showNoAvailableTablesAlert()
+        } else {
+            performReservation()
+        }
+    }
+    
+    private func showNoAvailableTablesAlert() {
+        let alert = UIAlertController(
+            title: "No Available Tables😔",
+            message: "There are no available tables for the selected date, time, and guest count. Please choose a different option👩🏻‍🍳",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func performReservation() {
+        let tablesViewController = TablesViewController()
+        tablesViewController.selectedDate = selectDateButton.title(for: .normal)
+        tablesViewController.selectedTime = selectTimeButton.title(for: .normal)
+        tablesViewController.selectedGuests = Int(guestCountLabel.text ?? "2")
+        navigationController?.pushViewController(tablesViewController, animated: true)
+    }
+    
+    func getTodayOpenHours(for restaurant: Restaurant) -> (open: Date?, close: Date?) {
+        let todayHours = RestaurantHoursManager.getTodaysOpeningHours(from: restaurant)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        let calendar = Calendar.current
+        let now = Date()
+        let currentYear = calendar.component(.year, from: now)
+        let currentMonth = calendar.component(.month, from: now)
+        let currentDay = calendar.component(.day, from: now)
+        
+        let hoursArray = todayHours.components(separatedBy: " - ")
+        guard hoursArray.count == 2 else { return (nil, nil) }
+        
+        let openTimeStr = hoursArray[0]
+        let closeTimeStr = hoursArray[1]
+        
+        guard let openTime = dateFormatter.date(from: openTimeStr),
+              let closeTime = dateFormatter.date(from: closeTimeStr) else {
+            return (nil, nil)
+        }
+        
+        var openDateComponents = calendar.dateComponents([.hour, .minute], from: openTime)
+        openDateComponents.year = currentYear
+        openDateComponents.month = currentMonth
+        openDateComponents.day = currentDay
+        
+        var closeDateComponents = calendar.dateComponents([.hour, .minute], from: closeTime)
+        closeDateComponents.year = currentYear
+        closeDateComponents.month = currentMonth
+        closeDateComponents.day = currentDay
+        
+        if closeTime < openTime {
+            closeDateComponents.day = currentDay + 1
+        }
+        
+        let finalOpenDate = calendar.date(from: openDateComponents)
+        let finalCloseDate = calendar.date(from: closeDateComponents)
+        
+        return (finalOpenDate, finalCloseDate)
+    }
+    
     private func dateDidChange(datePicker: UIDatePicker) {
         let selectedDate = datePicker.date
         let dateFormatter = DateFormatter()
@@ -378,6 +475,7 @@ class ReservationViewController: UIViewController {
         ])
         
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { _ in
+            self.selectedDate = datePicker.date
             self.dateDidChange(datePicker: datePicker)
         }))
         
@@ -388,6 +486,40 @@ class ReservationViewController: UIViewController {
         let timePicker = UIDatePicker()
         timePicker.preferredDatePickerStyle = .wheels
         timePicker.datePickerMode = .time
+        
+        if let restaurant = selectedRestaurant {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "h:mm a"
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+            
+            let todayHours = RestaurantHoursManager.getTodaysOpeningHours(from: restaurant)
+            let hoursArray = todayHours.components(separatedBy: " - ")
+            guard hoursArray.count == 2,
+                  let openTime = dateFormatter.date(from: hoursArray[0]),
+                  let closeTime = dateFormatter.date(from: hoursArray[1]) else {
+                return
+            }
+            
+            let now = Date()
+            let calendar = Calendar.current
+            
+            let openDateTime = calendar.date(bySettingHour: calendar.component(.hour, from: openTime),
+                                             minute: calendar.component(.minute, from: openTime),
+                                             second: 0,
+                                             of: now)!
+            
+            var closeDateTime = calendar.date(bySettingHour: calendar.component(.hour, from: closeTime),
+                                              minute: calendar.component(.minute, from: closeTime),
+                                              second: 0,
+                                              of: now)!
+            
+            if closeTime < openTime {
+                closeDateTime = calendar.date(byAdding: .day, value: 1, to: closeDateTime)!
+            }
+            
+            timePicker.minimumDate = openDateTime
+            timePicker.maximumDate = closeDateTime
+        }
         timePicker.minuteInterval = 30
         
         let alert = UIAlertController(title: "Select Time", message: "", preferredStyle: .alert)
