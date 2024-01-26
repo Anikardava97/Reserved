@@ -553,7 +553,7 @@ final class RestaurantDetailsViewController: UIViewController {
         }
         
         let copyAddressAction = UIAlertAction(title: "Copy Address", style: .default) { [weak self] _ in
-            UIPasteboard.general.string = mockRestaurant.location.address
+            UIPasteboard.general.string = self?.restaurant?.location.address
             guard let strongSelf = self, let window = strongSelf.view.window else { return }
             ConfirmationBanner.show(in: window, message: "Address copied to clipboard")
         }

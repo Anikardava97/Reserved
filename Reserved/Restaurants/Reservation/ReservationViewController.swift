@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ReservationViewController: UIViewController {
+final class ReservationViewController: UIViewController {
     // MARK: - Properties
     private var guestCount = 2
     var selectedRestaurant: Restaurant?
@@ -348,7 +348,21 @@ class ReservationViewController: UIViewController {
     }
     
     @objc private func nextButtonDidTap() {
+        guard let selectedDate = selectedDate else {
+            showDateSelectionAlert()
+            return
+        }
         validateReservation()
+    }
+    
+    private func showDateSelectionAlert() {
+        let alert = UIAlertController(
+            title: "Select Valid Date 😳",
+            message: "Please choose your desired reservation date.",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     private func validateReservation() {
@@ -368,7 +382,6 @@ class ReservationViewController: UIViewController {
         
         let formattedDate = dateFormatter.string(from: selectedDate)
         let formattedTime = timeFormatter.string(from: timeFormatter.date(from: selectedTimeText + ":00") ?? Date())
-        print("Formatted Date: \(formattedDate), Time: \(formattedTime), Guests: \(selectedGuests)")
         
         let reservedTables = reservations.filter { reservation in
             return reservation.date == formattedDate && reservation.time == formattedTime && reservation.guestCount == selectedGuests
@@ -461,6 +474,9 @@ class ReservationViewController: UIViewController {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .inline
         datePicker.datePickerMode = .date
+        
+        datePicker.minimumDate = Date()
+        
         
         let alert = UIAlertController(title: "Select Date", message: "", preferredStyle: .actionSheet)
         alert.view.tintColor = .customAccentColor

@@ -9,14 +9,7 @@ import UIKit
 
 class TablesCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
-    let tableButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 12
-        button.backgroundColor = .black.withAlphaComponent(0.1)
-        button.clipsToBounds = true
-        return button
-    }()
+    private var isAvailable = false
     
     let tableImageView: UIImageView = {
         let imageView = UIImageView()
@@ -45,21 +38,26 @@ class TablesCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Methods
     private func addSubview() {
-        contentView.addSubview(tableButton)
-        tableButton.addSubview(tableImageView)
+        contentView.addSubview(tableImageView)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-                   tableButton.topAnchor.constraint(equalTo: contentView.topAnchor),
-                   tableButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                   tableButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-                   tableButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-                   
-                   tableImageView.centerXAnchor.constraint(equalTo: tableButton.centerXAnchor),
-                   tableImageView.centerYAnchor.constraint(equalTo: tableButton.centerYAnchor),
-                   tableImageView.widthAnchor.constraint(equalTo: tableButton.widthAnchor, multiplier: 0.8),
-                   tableImageView.heightAnchor.constraint(equalTo: tableButton.heightAnchor, multiplier: 0.8)
-               ])
+            tableImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            tableImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            tableImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            tableImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+        ])
+    }
+    
+    func animateAvailability(isAvailable: Bool) {
+        if isAvailable {
+            let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+            rotationAnimation.toValue = NSNumber(value: Double.pi * 2.0)
+            rotationAnimation.duration = 2.5
+            rotationAnimation.isCumulative = true
+            rotationAnimation.repeatCount = Float.greatestFiniteMagnitude
+            self.layer.add(rotationAnimation, forKey: "rotationAnimation")
+        }
     }
 }

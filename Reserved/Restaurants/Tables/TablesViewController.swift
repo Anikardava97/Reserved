@@ -7,6 +7,11 @@
 
 import UIKit
 
+struct Table {
+    let imageName: String
+    let capacity: Int
+}
+
 class TablesViewController: UIViewController {
     // MARK: - Properties
     private let tableImages = ["Table12", "Table2", "Table8", "Table9",
@@ -21,10 +26,37 @@ class TablesViewController: UIViewController {
     var selectedTime: String?
     var selectedGuests: Int?
     
+    private let tables = [
+        Table(imageName: "Table12", capacity: 12),
+        Table(imageName: "Table2", capacity: 2),
+        Table(imageName: "Table8", capacity: 8),
+        Table(imageName: "Table9", capacity: 9),
+        Table(imageName: "Table6", capacity: 6),
+        Table(imageName: "Table4", capacity: 4),
+        Table(imageName: "Table10", capacity: 10),
+        Table(imageName: "Table3", capacity: 3),
+        Table(imageName: "Table2", capacity: 2),
+        Table(imageName: "Table5", capacity: 5),
+        Table(imageName: "Table7", capacity: 7),
+        Table(imageName: "Table1", capacity: 1),
+        Table(imageName: "Table11", capacity: 11),
+        Table(imageName: "Table5", capacity: 5),
+        Table(imageName: "Table2", capacity: 2),
+        Table(imageName: "Table3", capacity: 3),
+        Table(imageName: "Table8", capacity: 8),
+        Table(imageName: "Table4", capacity: 4),
+        Table(imageName: "Table12", capacity: 12),
+        Table(imageName: "Table9", capacity: 9),
+        Table(imageName: "Table6", capacity: 6),
+        Table(imageName: "Table10", capacity: 10),
+        Table(imageName: "Table1", capacity: 1),
+        Table(imageName: "Table7", capacity: 7),
+    ]
+    
     private lazy var chooseTableStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 32
+        stackView.spacing = 24
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -75,7 +107,7 @@ class TablesViewController: UIViewController {
         view.addSubview(chooseTableStackView)
         chooseTableStackView.addArrangedSubview(chooseTableTitleLabel)
         chooseTableStackView.addArrangedSubview(collectionView)
-        chooseTableStackView.addArrangedSubview(reservationButton)
+        //  chooseTableStackView.addArrangedSubview(reservationButton)
     }
     
     private func setupConstraints() {
@@ -84,10 +116,9 @@ class TablesViewController: UIViewController {
             chooseTableStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             chooseTableStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -32),
-            collectionView.heightAnchor.constraint(equalToConstant: 540),
+            collectionView.leadingAnchor.constraint(equalTo: chooseTableStackView.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: chooseTableStackView.trailingAnchor),
+            collectionView.heightAnchor.constraint(equalTo: view.heightAnchor)
         ])
     }
     
@@ -97,6 +128,12 @@ class TablesViewController: UIViewController {
         collectionView.delegate = self
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isPagingEnabled = true
+    }
+    
+    private func isTableAvailable(forGuests guests: Int, tableIndex: Int) -> Bool {
+        let tableCapacity = tables[tableIndex].capacity
+        
+        return tableCapacity == guests
     }
 }
 
@@ -112,7 +149,30 @@ extension TablesViewController: UICollectionViewDataSource {
         }
         
         cell.tableImageView.image = UIImage(named: tableImages[indexPath.row])
+        
+        if let guests = selectedGuests {
+            let isAvailable = isTableAvailable(forGuests: guests, tableIndex: indexPath.row)
+            cell.tableImageView.alpha = isAvailable ? 1.0 : 0.4
+            cell.animateAvailability(isAvailable: isAvailable)
+        }
         return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension TablesViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let guests = selectedGuests ?? 0
+        let isAvailable = isTableAvailable(forGuests: guests, tableIndex: indexPath.row)
+        
+        if isAvailable {
+            print("Table at index \(indexPath.row) selected")
+        } else {
+            let unavailableTableAlert = UIAlertController(title: "Table Unavailable 😳", message: "This table is not available for \(guests) guests. Please choose a different table.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            unavailableTableAlert.addAction(okAction)
+            present(unavailableTableAlert, animated: true, completion: nil)
+        }
     }
 }
 
