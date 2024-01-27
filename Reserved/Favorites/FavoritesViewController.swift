@@ -7,23 +7,110 @@
 
 import UIKit
 
-class FavoritesViewController: UIViewController {
+struct FavoriteRestaurant: Codable {
+    let id: Int
+}
 
+struct MockRestaurant {
+    var name: String
+    var cuisine: String
+    var image: UIImage
+}
+
+final class FavoritesViewController: UIViewController {
+    // MARK: - Properties
+    var favoriteRestaurants: [Restaurant] = []
+
+    private var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
+    private var mockRestaurants = [
+        MockRestaurant(name: "Stamba", cuisine: "Georgian", image: UIImage(named: "Ono1")!),
+        MockRestaurant(name: "Stamba", cuisine: "Georgian", image: UIImage(named: "Ono1")!),
+        MockRestaurant(name: "Stamba", cuisine: "Georgian", image: UIImage(named: "Ono1")!),
+    ]
+    
+    // MARK: - ViewLifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setup()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // MARK: - Private Methods
+    private func setup() {
+        setupBackground()
+        setupTableView()
+        setupSubviews()
+        setupConstraints()
     }
-    */
-
+    
+    private func setupBackground() {
+        view.backgroundColor = .customBackgroundColor
+    }
+    
+    private func setupSubviews() {
+        view.addSubview(tableView)
+    }
+    
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24)
+        ])
+    }
+    
+    private func setupTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(FavoriteRestaurantsTableViewCell.self, forCellReuseIdentifier: "favoriteRestaurantsCell")
+        
+        tableView.backgroundColor = .customBackgroundColor
+        tableView.isScrollEnabled = false
+    }
 }
+
+// MARK: - TableViewDataSource
+extension FavoritesViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        mockRestaurants.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteRestaurantsCell", for: indexPath) as? FavoriteRestaurantsTableViewCell else {
+            return UITableViewCell()
+        }
+        let restaurant = mockRestaurants[indexPath.row]
+        cell.configure(with: restaurant)
+
+        return cell
+    }
+}
+
+// MARK: - TableViewDelegate
+extension FavoritesViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+       
+        }
+    }
+
+#Preview {
+    FavoritesViewController()
+}
+
+
+
+
+
+
+
+
+
