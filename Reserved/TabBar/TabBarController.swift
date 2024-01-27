@@ -20,7 +20,7 @@ final class TabBarController: UITabBarController {
         let restaurants = createNavigationController(title: "Explore", image: UIImage(systemName: "fork.knife"), viewController: RestaurantsViewController())
         let map = createNavigationController(title: "Nearby", image: UIImage(systemName: "location"), viewController: MapViewController())
         let reservations = createNavigationController(title: "Reservations", image: UIImage(systemName: "clock"), viewController: ReservationsViewController())
-        let favourites = createNavigationController(title: "Saved", image: UIImage(systemName: "heart"), viewController: FavoritesViewController())
+        let favourites = createNavigationController(title: "Favorites", image: UIImage(systemName: "heart"), viewController: FavoritesViewController())
         let profile = createNavigationController(title: "Profile", image: UIImage(systemName: "person"), viewController: ProfileViewController())
         
         setViewControllers([restaurants, map, reservations, favourites, profile], animated: true)

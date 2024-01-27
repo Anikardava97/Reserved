@@ -15,6 +15,7 @@ class ConfirmationViewController: UIViewController {
     var selectedTime: String?
     var selectedGuests: Int?
     private var animationView: LottieAnimationView!
+    private var waitLabel: UILabel?
     
     private let mainStackView: UIStackView = {
         let view = UIStackView()
@@ -130,6 +131,7 @@ class ConfirmationViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) { [weak self] in
             self?.animationView.stop()
             self?.animationView.isHidden = true
+            self?.waitLabel?.isHidden = true
             self?.setup()
         }
     }
@@ -156,6 +158,21 @@ class ConfirmationViewController: UIViewController {
         animationView.animationSpeed = 0.6
         view.addSubview(animationView)
         animationView.play()
+        
+        let label = UILabel()
+        label.text = "Please wait for a few seconds..."
+        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.textColor = .white
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+        
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: animationView.centerXAnchor),
+            label.topAnchor.constraint(equalTo: animationView.bottomAnchor, constant: 16),
+        ])
+        
+        self.waitLabel = label
     }
     
     private func setupConfettiAnimationView() {
