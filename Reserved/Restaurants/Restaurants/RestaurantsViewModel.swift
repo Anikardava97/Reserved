@@ -19,6 +19,9 @@ final class RestaurantsViewModel {
     
     weak var delegate: RestaurantsViewModelDelegate?
     
+    private let networkManager = NetworkManager()
+    private let baseURL = "https://mocki.io/v1/31a554b3-685d-4863-aa6a-7f30877f5555"
+    
     // MARK: - Methods
     func viewDidLoad() {
         fetchRestaurants()
@@ -30,11 +33,11 @@ final class RestaurantsViewModel {
     }
     
     private func fetchRestaurants() {
-        NetworkManager.shared.fetchRestaurants { [weak self] result in
+        networkManager.fetch(from: baseURL) { [weak self] (result: Result<RestaurantResponse, NetworkError>) in
             switch result {
-            case .success(let restaurants):
-                self?.restaurants = restaurants
-                self?.delegate?.restaurantsFetched(restaurants)
+            case .success(let fetchedRestaurants):
+                self?.restaurants = fetchedRestaurants.restaurants
+                self?.delegate?.restaurantsFetched(fetchedRestaurants.restaurants)
             case .failure(let error):
                 self?.delegate?.showError(error)
             }

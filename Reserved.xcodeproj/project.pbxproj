@@ -26,6 +26,13 @@
 		EE337F492B56B15A004DBA6B /* LogInWithEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F482B56B15A004DBA6B /* LogInWithEmailView.swift */; };
 		EE337F4B2B56B177004DBA6B /* LogInWithEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F4A2B56B177004DBA6B /* LogInWithEmailViewModel.swift */; };
 		EE487F5E2B6558D9001E8CEA /* FavoriteRestaurantsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE487F5D2B6558D9001E8CEA /* FavoriteRestaurantsTableViewCell.swift */; };
+		EE487F602B658C48001E8CEA /* LocationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE487F5F2B658C48001E8CEA /* LocationsView.swift */; };
+		EE487F622B6590C4001E8CEA /* LocationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE487F612B6590C4001E8CEA /* LocationsViewModel.swift */; };
+		EE487F662B6598B8001E8CEA /* RestaurantLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE487F652B6598B8001E8CEA /* RestaurantLocation.swift */; };
+		EE487F682B663ADA001E8CEA /* LocationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE487F672B663ADA001E8CEA /* LocationsListView.swift */; };
+		EE487F6D2B66463F001E8CEA /* LocationPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE487F6C2B66463F001E8CEA /* LocationPreviewView.swift */; };
+		EE487F6F2B666031001E8CEA /* LocationMapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE487F6E2B666031001E8CEA /* LocationMapAnnotationView.swift */; };
+		EE487F712B666770001E8CEA /* LocationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE487F702B666770001E8CEA /* LocationDetailsView.swift */; };
 		EE53F17A2B5A6E730019853F /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53F1792B5A6E730019853F /* Restaurant.swift */; };
 		EE53F17E2B5A858C0019853F /* RestaurantsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53F17D2B5A858C0019853F /* RestaurantsViewModel.swift */; };
 		EE53F1802B5AA8530019853F /* CuisineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53F17F2B5AA8530019853F /* CuisineButton.swift */; };
@@ -36,7 +43,6 @@
 		EE65E9EE2B5D3804009B6602 /* Animation - 1705836632095.json in Resources */ = {isa = PBXBuildFile; fileRef = EE65E9ED2B5D3804009B6602 /* Animation - 1705836632095.json */; };
 		EE8EB8FD2B5A52B000C6FEB9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB8FC2B5A52B000C6FEB9 /* TabBarController.swift */; };
 		EE8EB9002B5A531C00C6FEB9 /* RestaurantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */; };
-		EE8EB9032B5A534000C6FEB9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB9022B5A534000C6FEB9 /* MapViewController.swift */; };
 		EE8EB9062B5A535B00C6FEB9 /* ReservationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB9052B5A535B00C6FEB9 /* ReservationsViewController.swift */; };
 		EE8EB9092B5A539000C6FEB9 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB9082B5A539000C6FEB9 /* FavoritesViewController.swift */; };
 		EE8EB90C2B5A53B700C6FEB9 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB90B2B5A53B700C6FEB9 /* ProfileViewController.swift */; };
@@ -91,6 +97,13 @@
 		EE337F482B56B15A004DBA6B /* LogInWithEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInWithEmailView.swift; sourceTree = "<group>"; };
 		EE337F4A2B56B177004DBA6B /* LogInWithEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInWithEmailViewModel.swift; sourceTree = "<group>"; };
 		EE487F5D2B6558D9001E8CEA /* FavoriteRestaurantsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRestaurantsTableViewCell.swift; sourceTree = "<group>"; };
+		EE487F5F2B658C48001E8CEA /* LocationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsView.swift; sourceTree = "<group>"; };
+		EE487F612B6590C4001E8CEA /* LocationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsViewModel.swift; sourceTree = "<group>"; };
+		EE487F652B6598B8001E8CEA /* RestaurantLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantLocation.swift; sourceTree = "<group>"; };
+		EE487F672B663ADA001E8CEA /* LocationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsListView.swift; sourceTree = "<group>"; };
+		EE487F6C2B66463F001E8CEA /* LocationPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPreviewView.swift; sourceTree = "<group>"; };
+		EE487F6E2B666031001E8CEA /* LocationMapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMapAnnotationView.swift; sourceTree = "<group>"; };
+		EE487F702B666770001E8CEA /* LocationDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailsView.swift; sourceTree = "<group>"; };
 		EE53F1792B5A6E730019853F /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		EE53F17D2B5A858C0019853F /* RestaurantsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsViewModel.swift; sourceTree = "<group>"; };
 		EE53F17F2B5AA8530019853F /* CuisineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuisineButton.swift; sourceTree = "<group>"; };
@@ -100,7 +113,6 @@
 		EE65E9ED2B5D3804009B6602 /* Animation - 1705836632095.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Animation - 1705836632095.json"; sourceTree = "<group>"; };
 		EE8EB8FC2B5A52B000C6FEB9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsViewController.swift; sourceTree = "<group>"; };
-		EE8EB9022B5A534000C6FEB9 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		EE8EB9052B5A535B00C6FEB9 /* ReservationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationsViewController.swift; sourceTree = "<group>"; };
 		EE8EB9082B5A539000C6FEB9 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		EE8EB90B2B5A53B700C6FEB9 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -309,6 +321,34 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		EE487F692B6645DB001E8CEA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EE487F5F2B658C48001E8CEA /* LocationsView.swift */,
+				EE487F672B663ADA001E8CEA /* LocationsListView.swift */,
+				EE487F6C2B66463F001E8CEA /* LocationPreviewView.swift */,
+				EE487F6E2B666031001E8CEA /* LocationMapAnnotationView.swift */,
+				EE487F702B666770001E8CEA /* LocationDetailsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		EE487F6A2B6645E8001E8CEA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EE487F612B6590C4001E8CEA /* LocationsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EE487F6B2B66460E001E8CEA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EE487F652B6598B8001E8CEA /* RestaurantLocation.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		EE53F1782B5A6E670019853F /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -354,7 +394,9 @@
 		EE8EB9012B5A532100C6FEB9 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				EE8EB9022B5A534000C6FEB9 /* MapViewController.swift */,
+				EE487F6B2B66460E001E8CEA /* Model */,
+				EE487F692B6645DB001E8CEA /* Views */,
+				EE487F6A2B6645E8001E8CEA /* ViewModel */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -549,11 +591,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE487F5E2B6558D9001E8CEA /* FavoriteRestaurantsTableViewCell.swift in Sources */,
+				EE487F682B663ADA001E8CEA /* LocationsListView.swift in Sources */,
 				EE53F17A2B5A6E730019853F /* Restaurant.swift in Sources */,
 				EE337F282B556F9B004DBA6B /* Image+Extension.swift in Sources */,
+				EE487F712B666770001E8CEA /* LocationDetailsView.swift in Sources */,
 				EE8EB9092B5A539000C6FEB9 /* FavoritesViewController.swift in Sources */,
 				EE53F1822B5AB3B50019853F /* TopRestaurantCollectionViewCell.swift in Sources */,
 				EEDABB852B591C9600A918EC /* SignInGoogleHelper.swift in Sources */,
+				EE487F602B658C48001E8CEA /* LocationsView.swift in Sources */,
 				EEEC43482B5D4CE900E9F87D /* ReservationViewController.swift in Sources */,
 				EEDABB812B5910E800A918EC /* LoginOptionsViewModel.swift in Sources */,
 				EEB37E7A2B60378500D39BEA /* SelfSizedTableView.swift in Sources */,
@@ -564,13 +609,14 @@
 				EE53F1802B5AA8530019853F /* CuisineButton.swift in Sources */,
 				EE53F17E2B5A858C0019853F /* RestaurantsViewModel.swift in Sources */,
 				EEB37E732B5E6B5800D39BEA /* TablesViewController.swift in Sources */,
+				EE487F6D2B66463F001E8CEA /* LocationPreviewView.swift in Sources */,
 				EE337F092B5562D1004DBA6B /* AppDelegate.swift in Sources */,
+				EE487F662B6598B8001E8CEA /* RestaurantLocation.swift in Sources */,
 				EED210642B5D10BE00039A98 /* OpenHoursViewController.swift in Sources */,
 				EE8EB8FD2B5A52B000C6FEB9 /* TabBarController.swift in Sources */,
 				EED210552B5BECF700039A98 /* RestaurantImagesCollectionViewCell.swift in Sources */,
 				EE98E0E52B5748580074962D /* AuthenticationManager.swift in Sources */,
 				EEA4221D2B570A8200BC4693 /* CustomTextFieldComponentView.swift in Sources */,
-				EE8EB9032B5A534000C6FEB9 /* MapViewController.swift in Sources */,
 				EE53F1842B5ABB2D0019853F /* NetworkManager.swift in Sources */,
 				EEDABB872B591C9600A918EC /* GoogleSignInResultModel.swift in Sources */,
 				EED2105E2B5C58E000039A98 /* ConfirmationBanner.swift in Sources */,
@@ -578,6 +624,7 @@
 				EED210622B5C6FCF00039A98 /* RestaurantHoursManager.swift in Sources */,
 				EE337F492B56B15A004DBA6B /* LogInWithEmailView.swift in Sources */,
 				EE337F322B559606004DBA6B /* PrimaryButtonComponentView.swift in Sources */,
+				EE487F6F2B666031001E8CEA /* LocationMapAnnotationView.swift in Sources */,
 				EED2105C2B5C139400039A98 /* CustomAnnotationView.swift in Sources */,
 				EEDABB752B58FE9C00A918EC /* ChecklistItem.swift in Sources */,
 				EE337F432B55BFD6004DBA6B /* SignUpWithEmailViewModel.swift in Sources */,
@@ -596,6 +643,7 @@
 				EE337F352B559E5F004DBA6B /* AppBenefitTextComponentView.swift in Sources */,
 				EEDABB832B591C9600A918EC /* Utilities.swift in Sources */,
 				EE337F3D2B55AFEC004DBA6B /* SecondaryButtonComponentView.swift in Sources */,
+				EE487F622B6590C4001E8CEA /* LocationsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
