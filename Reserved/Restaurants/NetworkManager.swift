@@ -7,37 +7,43 @@
 
 import UIKit
 
+enum NetworkError: Error {
+    case invalidURL
+    case noData
+    case decodingError
+    case other(Error)
+}
+
 final class NetworkManager {
     static let shared = NetworkManager()
-    private let baseURL = "https://mocki.io/v1/31a554b3-685d-4863-aa6a-7f30877f5555"
     
-    private init() {}
+    init() {}
     
     // MARK: - Fetch Movies
-    func fetchRestaurants(completion: @escaping (Result<[Restaurant], Error>) -> Void) {
-        let urlStr = baseURL
-        
-        guard let url = URL(string: urlStr) else {
-            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+    public func fetch<T: Decodable>(from urlString: String, completion: @escaping (Result<T, NetworkError>) -> Void) {
+        guard let url = URL(string: urlString) else {
+            completion(.failure(.invalidURL))
             return
         }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
-                completion(.failure(error))
+                completion(.failure(.other(error)))
                 return
             }
             
             guard let data = data else {
-                completion(.failure(NSError(domain: "", code: -2, userInfo: [NSLocalizedDescriptionKey: "No data received"])))
+                completion(.failure(.noData))
                 return
             }
             
             do {
-                let restaurantsResponse = try JSONDecoder().decode(RestaurantResponse.self, from: data)
-                completion(.success(restaurantsResponse.restaurants))
+                let decodedData = try JSONDecoder().decode(T.self, from: data)
+                DispatchQueue.main.async{
+                    completion(.success(decodedData))
+                }
             } catch {
-                completion(.failure(error))
+                completion(.failure(.decodingError))
             }
         }.resume()
     }

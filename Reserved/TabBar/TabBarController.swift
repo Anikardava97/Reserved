@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 final class TabBarController: UITabBarController {
     // MARK: - ViewLifeCycle
@@ -18,12 +19,14 @@ final class TabBarController: UITabBarController {
     // MARK: - Tab Setup
     private func setupTabs() {
         let restaurants = createNavigationController(title: "Explore", image: UIImage(systemName: "fork.knife"), viewController: RestaurantsViewController())
-        let map = createNavigationController(title: "Nearby", image: UIImage(systemName: "location"), viewController: MapViewController())
+        let locationsView = LocationsView()
+        let mapHostingController = UIHostingController(rootView: locationsView)
+        mapHostingController.tabBarItem = UITabBarItem(title: "Nearby", image: UIImage(systemName: "location"), selectedImage: nil)
         let reservations = createNavigationController(title: "Reservations", image: UIImage(systemName: "clock"), viewController: ReservationsViewController())
         let favourites = createNavigationController(title: "Favorites", image: UIImage(systemName: "heart"), viewController: FavoritesViewController())
         let profile = createNavigationController(title: "Profile", image: UIImage(systemName: "person"), viewController: ProfileViewController())
         
-        setViewControllers([restaurants, map, reservations, favourites, profile], animated: true)
+        setViewControllers([restaurants, mapHostingController, reservations, favourites, profile], animated: true)
     }
     
     // MARK: - NavigationController Setup
