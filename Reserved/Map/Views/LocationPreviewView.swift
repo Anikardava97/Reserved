@@ -9,8 +9,8 @@ import SwiftUI
 
 struct LocationPreviewView: View {
     // MARK: - Properties
-    let location: RestaurantLocation
     @ObservedObject var viewModel: LocationsViewModel
+    let location: RestaurantLocation
     
     // MARK: - Body
     var body: some View {
@@ -39,6 +39,7 @@ struct LocationPreviewView: View {
     }
 }
 
+// MARK: - Extensions
 extension LocationPreviewView {
     private var imageSection: some View {
         ZStack {

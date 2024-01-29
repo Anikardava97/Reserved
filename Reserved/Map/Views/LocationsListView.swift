@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct LocationsListView: View {
+    // MARK: - Properties
     @ObservedObject var viewModel: LocationsViewModel
     
+    // MARK: - Body
     var body: some View {
         List {
             ForEach(viewModel.locations, id: \.id) { location in
@@ -26,6 +28,7 @@ struct LocationsListView: View {
     }
 }
 
+// MARK: - Extensions
 extension LocationsListView {
     private func listRowView(location: RestaurantLocation) -> some View {
         HStack(spacing: 12) {

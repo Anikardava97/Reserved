@@ -130,6 +130,11 @@ final class RestaurantsViewController: UIViewController {
         self.navigationItem.hidesSearchBarWhenScrolling = false
     }
     
+    private func setupScrollView() {
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     private func setupSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(scrollStackViewContainer)
@@ -156,11 +161,6 @@ final class RestaurantsViewController: UIViewController {
             collectionView.heightAnchor.constraint(equalToConstant: 200),
             contentSegmentedControl.heightAnchor.constraint(equalToConstant: 44)
         ])
-    }
-    
-    private func setupScrollView() {
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     @objc private func segmentedControlValueChanged(_ sender: UISegmentedControl) {

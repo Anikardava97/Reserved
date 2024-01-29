@@ -133,6 +133,7 @@ class ConfirmationViewController: UIViewController {
             self?.animationView.isHidden = true
             self?.waitLabel?.isHidden = true
             self?.setup()
+            self?.userCompletedReservation()
         }
     }
     // MARK: - Private Methods
@@ -199,6 +200,16 @@ class ConfirmationViewController: UIViewController {
             mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
         ])
+    }
+    
+    private func userCompletedReservation() {
+        let reservationManager = ReservationManager.shared
+        reservationManager.storeReservation(
+            restaurantName: selectedRestaurant?.name ?? "",
+            reservationDate: selectedDate ?? "",
+            reservationTime: selectedTime ?? "",
+            guestsCount: selectedGuests ?? 0
+        )
     }
     
     @objc private func exploreButtonDidTap() {

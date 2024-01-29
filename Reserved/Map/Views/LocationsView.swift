@@ -9,8 +9,10 @@ import SwiftUI
 import MapKit
 
 struct LocationsView: View {
+    // MARK: - Properties
     @StateObject private var viewModel = LocationsViewModel()
     
+    // MARK: - Body
     var body: some View {
         ZStack {
             mapLayer
@@ -25,7 +27,7 @@ struct LocationsView: View {
         }
         .environment(\.colorScheme, .dark)
         .sheet(item: $viewModel.sheetLocation, onDismiss: nil, content: { location in
-            LocationDetailsView(location: location, viewModel: viewModel)
+            LocationDetailsView(viewModel: viewModel, location: location)
         })
         .onAppear {
             viewModel.fetchRestaurantsLocations()
@@ -33,6 +35,7 @@ struct LocationsView: View {
     }
 }
 
+// MARK: - Extensions
 extension LocationsView {
     private var header: some View {
         VStack {
@@ -70,7 +73,7 @@ extension LocationsView {
             ForEach(viewModel.locations, id: \.id) { location in
                 Annotation("", coordinate: location.coordinates) {
                     LocationMapAnnotationView()
-                        .scaleEffect(viewModel.mapLocation == location ? 1.0 : 0.7)
+                        .scaleEffect(viewModel.mapLocation == location ? 1.2 : 0.7)
                         .shadow(radius: 10)
                         .onTapGesture {
                             viewModel.showNextLocation(location: location)
@@ -84,7 +87,7 @@ extension LocationsView {
         ZStack {
             ForEach(viewModel.locations, id: \.id) { location in
                 if viewModel.mapLocation == location {
-                    LocationPreviewView(location: location, viewModel: viewModel)
+                    LocationPreviewView(viewModel: viewModel, location: location)
                         .shadow(color: .black.opacity(0.3), radius: 20)
                         .padding()
                         .frame(maxWidth: .infinity)
