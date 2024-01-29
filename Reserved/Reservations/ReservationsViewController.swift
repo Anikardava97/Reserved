@@ -197,8 +197,14 @@ class ReservationsViewController: UIViewController {
     @objc private func cancelReservation(_ sender: UIButton) {
         let index = sender.tag
         if index < ReservationManager.shared.myReservations.count {
-            ReservationManager.shared.myReservations.remove(at: index)
-            showReservationsHistory()
+            let alertController = UIAlertController(title: "Cancel Reservation", message: "Are you sure you want to cancel this reservation?", preferredStyle: .alert)
+            
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alertController.addAction(UIAlertAction(title: "Confirm", style: .destructive) { [weak self] _ in
+                ReservationManager.shared.myReservations.remove(at: index)
+                self?.showReservationsHistory()
+            })
+            present(alertController, animated: true, completion: nil)
         } else {
             print("Invalid reservation index.")
         }
