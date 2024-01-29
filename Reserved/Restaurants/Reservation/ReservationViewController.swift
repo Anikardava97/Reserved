@@ -460,7 +460,7 @@ final class ReservationViewController: UIViewController {
     private func dateDidChange(datePicker: UIDatePicker) {
         let selectedDate = datePicker.date
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
+        dateFormatter.dateStyle = .long
         selectDateButton.setTitle(dateFormatter.string(from: selectedDate), for: .normal)
     }
     
