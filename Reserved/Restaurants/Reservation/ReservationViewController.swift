@@ -409,7 +409,7 @@ final class ReservationViewController: UIViewController {
         tablesViewController.selectedDate = selectDateButton.title(for: .normal)
         tablesViewController.selectedTime = selectTimeButton.title(for: .normal)
         tablesViewController.selectedGuests = Int(guestCountLabel.text ?? "2")
-        tablesViewController.selectedRestaurant = selectedRestaurant 
+        tablesViewController.selectedRestaurant = selectedRestaurant
         navigationController?.pushViewController(tablesViewController, animated: true)
     }
     
@@ -537,6 +537,13 @@ final class ReservationViewController: UIViewController {
             timePicker.minimumDate = openDateTime
             timePicker.maximumDate = closeDateTime
         }
+        
+        if let oneHourLater = Calendar.current.date(byAdding: .hour, value: 1, to: Date()) {
+            timePicker.minimumDate = oneHourLater
+        } else {
+            timePicker.minimumDate = Date()
+        }
+        
         timePicker.minuteInterval = 30
         
         let alert = UIAlertController(title: "Select Time", message: "", preferredStyle: .alert)
