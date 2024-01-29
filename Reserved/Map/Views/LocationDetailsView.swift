@@ -10,9 +10,8 @@ import MapKit
 
 struct LocationDetailsView: View {
     // MARK: - Properties
-    let location: RestaurantLocation
     @ObservedObject var viewModel: LocationsViewModel
-    
+    let location: RestaurantLocation
     
     // MARK: - Body
     var body: some View {
@@ -35,6 +34,7 @@ struct LocationDetailsView: View {
     }
 }
 
+// MARK: - Extensions
 extension LocationDetailsView {
     private var imageSectionView: some View {
         TabView {
