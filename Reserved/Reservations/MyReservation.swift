@@ -8,8 +8,8 @@
 import Foundation
 
 struct MyReservation {
-    let restaurantName: String
-    let reservationDate: String
-    let reservationTime: String
-    let guestsCount: Int
+    var restaurantName: String
+    var reservationDate: String
+    var reservationTime: String
+    var guestsCount: Int
 }

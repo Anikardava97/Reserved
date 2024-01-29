@@ -27,25 +27,31 @@ class ReservationsViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-
+    
     // MARK: - ViewLifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
-         super.viewWillAppear(animated)
-         showReservationsHistory()
-     }
+        super.viewWillAppear(animated)
+        showReservationsHistory()
+    }
     
     // MARK: - Methods
+    private func updateReservationBadgeCount() {
+        let count = ReservationManager.shared.myReservations.count
+        self.tabBarController?.tabBar.items?[2].badgeValue = count > 0 ? "\(count)" : nil
+    }
+    
     private func showReservationsHistory() {
         DispatchQueue.main.async { [weak self] in
             self?.scrollStackViewContainer.arrangedSubviews.forEach { $0.removeFromSuperview() }
-
+            
             let reservations = ReservationManager.shared.getAllReservations()
-
+            self?.updateReservationBadgeCount()
+            
             if reservations.isEmpty {
                 self?.showEmptyState()
             } else {
@@ -58,15 +64,15 @@ class ReservationsViewController: UIViewController {
             }
         }
     }
-
+    
     private func configureDetailsSection(with reservation: MyReservation, index: Int) -> UIView {
         let view = createSectionWrapperView()
         
         let cancelButton = UIButton()
-            cancelButton.setTitle("Cancel Reservation", for: .normal)
-            cancelButton.setTitleColor(.customAccentColor, for: .normal)
-            cancelButton.tag = index
-            cancelButton.addTarget(self, action: #selector(cancelReservation(_:)), for: .touchUpInside)
+        cancelButton.setTitle("Cancel Reservation", for: .normal)
+        cancelButton.setTitleColor(.customAccentColor, for: .normal)
+        cancelButton.tag = index
+        cancelButton.addTarget(self, action: #selector(cancelReservation(_:)), for: .touchUpInside)
         
         let restaurantNameLabel: UILabel = {
             let label = UILabel()
@@ -149,7 +155,7 @@ class ReservationsViewController: UIViewController {
         emptyStateViewController.view.frame = view.bounds
         emptyStateViewController.didMove(toParent: self)
     }
-
+    
     private func hideEmptyState() {
         if children.contains(emptyStateViewController) {
             emptyStateViewController.willMove(toParent: nil)
@@ -203,6 +209,7 @@ class ReservationsViewController: UIViewController {
             alertController.addAction(UIAlertAction(title: "Confirm", style: .destructive) { [weak self] _ in
                 ReservationManager.shared.myReservations.remove(at: index)
                 self?.showReservationsHistory()
+                self?.updateReservationBadgeCount()
             })
             present(alertController, animated: true, completion: nil)
         } else {

@@ -10,9 +10,9 @@ import Foundation
 final class ReservationManager {
     static let shared = ReservationManager()
     private init() {}
-
+    
     var myReservations: [MyReservation] = []
-
+    
     func storeReservation(restaurantName: String, reservationDate: String, reservationTime: String, guestsCount: Int) {
         let newReservation = MyReservation(
             restaurantName: restaurantName,
@@ -31,7 +31,7 @@ final class ReservationManager {
             $0.guestsCount == guestsCount
         }
     }
-
+    
     func getAllReservations() -> [MyReservation] {
         return myReservations
     }
