@@ -7,12 +7,17 @@
 
 import Foundation
 
+protocol ReservationManagerDelegate: AnyObject {
+    func reservationManagerDidUpdateReservations()
+}
+
 final class ReservationManager {
     static let shared = ReservationManager()
     private init() {}
     
     var myReservations: [MyReservation] = []
-    
+    weak var delegate: ReservationManagerDelegate?
+
     func storeReservation(restaurantName: String, reservationDate: String, reservationTime: String, guestsCount: Int) {
         let newReservation = MyReservation(
             restaurantName: restaurantName,
