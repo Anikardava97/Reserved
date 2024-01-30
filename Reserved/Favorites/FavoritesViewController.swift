@@ -21,6 +21,11 @@ final class FavoritesViewController: UIViewController {
     // MARK: - Properties
     var favoriteRestaurants: [Restaurant] = []
 
+    let emptyStateViewController = EmptyStateViewController(
+        title: "Start your list",
+        description: "When you find a property you like, tap the heart icon to save it here",
+        animationName: "Animation - 1706506113575")
+    
     private var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -37,9 +42,26 @@ final class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        //showEmptyState()
     }
     
     // MARK: - Private Methods
+    private func showEmptyState() {
+        if children.contains(emptyStateViewController) { return }
+        addChild(emptyStateViewController)
+        view.addSubview(emptyStateViewController.view)
+        emptyStateViewController.view.frame = view.bounds
+        emptyStateViewController.didMove(toParent: self)
+    }
+    
+    private func hideEmptyState() {
+        if children.contains(emptyStateViewController) {
+            emptyStateViewController.willMove(toParent: nil)
+            emptyStateViewController.view.removeFromSuperview()
+            emptyStateViewController.removeFromParent()
+        }
+    }
+    
     private func setup() {
         setupBackground()
         setupTableView()

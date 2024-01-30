@@ -10,6 +10,7 @@ import UIKit
 class AllRestaurantsTableViewCell: UITableViewCell {
     // MARK: - Properties
     private var restaurantId: Int?
+    private var restaurant: Restaurant?
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -130,12 +131,16 @@ class AllRestaurantsTableViewCell: UITableViewCell {
     
     // MARK: - Configure
     func configure(with restaurant: Restaurant) {
+        self.restaurant = restaurant
         self.restaurantId = restaurant.id
         titleLabel.text = restaurant.name
         ratingLabel.text = String(restaurant.reviewStars)
         cuisineLabel.text = restaurant.cuisine
         setImage(from: restaurant.mainImageURL, for: restaurant.id)
         setOpenStatusLabel(for: restaurant)
+        
+        let isFavorite = FavoritesManager.shared.isFavorite(restaurant: restaurant)
+        favoriteButton.setImage(UIImage(systemName: isFavorite ? "heart.fill" : "heart"), for: .normal)
         
         backgroundColor = .customBackgroundColor
     }
@@ -188,8 +193,15 @@ class AllRestaurantsTableViewCell: UITableViewCell {
             UIAction(
                 title: "",
                 handler: { [weak self] _ in
-                    let isFavorite = self?.favoriteButton.currentImage == UIImage(systemName: "heart.fill")
-                    self?.favoriteButton.setImage(UIImage(systemName: isFavorite ? "heart" : "heart.fill"), for: .normal)
+                    guard let self = self, let restaurant = self.restaurant else { return }
+                    let isFavorite = FavoritesManager.shared.isFavorite(restaurant: restaurant)
+                    if isFavorite {
+                        FavoritesManager.shared.removeFavorite(restaurant: restaurant)
+                        self.favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                    } else {
+                        FavoritesManager.shared.addFavorite(restaurant: restaurant)
+                        self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                    }
                 }
             ),
             for: .touchUpInside
