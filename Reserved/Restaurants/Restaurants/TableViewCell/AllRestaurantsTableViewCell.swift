@@ -11,6 +11,7 @@ class AllRestaurantsTableViewCell: UITableViewCell {
     // MARK: - Properties
     private var restaurantId: Int?
     private var restaurant: Restaurant?
+    var favoriteButtonDidTap: (() -> Void)?
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -130,7 +131,7 @@ class AllRestaurantsTableViewCell: UITableViewCell {
     }
     
     // MARK: - Configure
-    func configure(with restaurant: Restaurant) {
+    func configure(with restaurant: Restaurant, isFavorite: Bool) {
         self.restaurant = restaurant
         self.restaurantId = restaurant.id
         titleLabel.text = restaurant.name
@@ -139,9 +140,8 @@ class AllRestaurantsTableViewCell: UITableViewCell {
         setImage(from: restaurant.mainImageURL, for: restaurant.id)
         setOpenStatusLabel(for: restaurant)
         
-        let isFavorite = FavoritesManager.shared.isFavorite(restaurant: restaurant)
-        favoriteButton.setImage(UIImage(systemName: isFavorite ? "heart.fill" : "heart"), for: .normal)
-        
+        let favoriteImageName = isFavorite ? "heart.fill" : "heart"
+        favoriteButton.setImage(UIImage(systemName: favoriteImageName), for: .normal)
         backgroundColor = .customBackgroundColor
     }
     
@@ -189,23 +189,9 @@ class AllRestaurantsTableViewCell: UITableViewCell {
     }
     
     private func setupFavoriteButtonAction() {
-        favoriteButton.addAction(
-            UIAction(
-                title: "",
-                handler: { [weak self] _ in
-                    guard let self = self, let restaurant = self.restaurant else { return }
-                    let isFavorite = FavoritesManager.shared.isFavorite(restaurant: restaurant)
-                    if isFavorite {
-                        FavoritesManager.shared.removeFavorite(restaurant: restaurant)
-                        self.favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
-                    } else {
-                        FavoritesManager.shared.addFavorite(restaurant: restaurant)
-                        self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                    }
-                }
-            ),
-            for: .touchUpInside
-        )
+        favoriteButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.favoriteButtonDidTap?()
+        }), for: .touchUpInside)
     }
     
     private func setOpenStatusLabel(for restaurant: Restaurant) {

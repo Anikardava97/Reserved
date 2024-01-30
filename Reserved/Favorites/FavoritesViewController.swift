@@ -7,20 +7,11 @@
 
 import UIKit
 
-struct FavoriteRestaurant: Codable {
-    let id: Int
-}
-
-struct MockRestaurant {
-    var name: String
-    var cuisine: String
-    var image: UIImage
-}
-
 final class FavoritesViewController: UIViewController {
+    
     // MARK: - Properties
-    var favoriteRestaurants: [Restaurant] = []
-
+    private var viewModel = FavoritesViewModel()
+    
     let emptyStateViewController = EmptyStateViewController(
         title: "Start your list",
         description: "When you find a property you like, tap the heart icon to save it here",
@@ -32,20 +23,34 @@ final class FavoritesViewController: UIViewController {
         return tableView
     }()
     
-    private var mockRestaurants = [
-        MockRestaurant(name: "Stamba", cuisine: "Georgian", image: UIImage(named: "Ono1")!),
-        MockRestaurant(name: "Stamba", cuisine: "Georgian", image: UIImage(named: "Ono1")!),
-        MockRestaurant(name: "Stamba", cuisine: "Georgian", image: UIImage(named: "Ono1")!),
-    ]
-    
-    // MARK: - ViewLifeCycle
+    // MARK: - ViewLifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        //showEmptyState()
+        FavoritesManager.shared.delegate = self
+        
+        viewModel.onFavoritesUpdated = { [weak self] in
+            guard let self = self else { return }
+            self.tableView.reloadData()
+            if self.viewModel.numberOfFavorites == 0 {
+                self.showEmptyState()
+            } else {
+                self.hideEmptyState()
+            }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.loadFavorites()
     }
     
     // MARK: - Private Methods
+    func updateFavoritesBadgeCount() {
+        let count = FavoritesManager.shared.favoriteRestaurants.count
+        self.tabBarController?.tabBar.items?[3].badgeValue = count > 0 ? "\(count)" : nil
+    }
+    
     private func showEmptyState() {
         if children.contains(emptyStateViewController) { return }
         addChild(emptyStateViewController)
@@ -92,23 +97,25 @@ final class FavoritesViewController: UIViewController {
         tableView.register(FavoriteRestaurantsTableViewCell.self, forCellReuseIdentifier: "favoriteRestaurantsCell")
         
         tableView.backgroundColor = .customBackgroundColor
-        tableView.isScrollEnabled = false
+        tableView.showsVerticalScrollIndicator = false
     }
 }
 
 // MARK: - TableViewDataSource
 extension FavoritesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        mockRestaurants.count
+        FavoritesManager.shared.getAllFavorites().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteRestaurantsCell", for: indexPath) as? FavoriteRestaurantsTableViewCell else {
             return UITableViewCell()
         }
-        let restaurant = mockRestaurants[indexPath.row]
+        let restaurant = viewModel.favoriteAt(index: indexPath.row)
         cell.configure(with: restaurant)
-
+        cell.onFavoriteDidTap = { [weak self] in
+            self?.viewModel.toggleFavorite(restaurant: restaurant)
+        }
         return cell
     }
 }
@@ -120,19 +127,16 @@ extension FavoritesViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
-        }
+        
     }
+}
 
 #Preview {
     FavoritesViewController()
 }
 
-
-
-
-
-
-
-
-
+extension FavoritesViewController: FavoritesManagerDelegate {
+    func favoritesManagerDidUpdateFavorites() {
+        updateFavoritesBadgeCount()
+    }
+}

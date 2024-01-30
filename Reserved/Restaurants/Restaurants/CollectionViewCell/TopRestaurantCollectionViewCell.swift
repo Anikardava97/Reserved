@@ -10,7 +10,9 @@ import UIKit
 final class TopRestaurantCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
     private var restaurantId: Int?
-
+    private var restaurant: Restaurant?
+    var favoriteButtonDidTap: (() -> Void)?
+    
     private let restaurantImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -118,24 +120,21 @@ final class TopRestaurantCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupFavoriteButtonAction() {
-        favoriteButton.addAction(
-            UIAction(
-                title: "",
-                handler: { [weak self] _ in
-                    let isFavorite = self?.favoriteButton.currentImage == UIImage(systemName: "heart.fill")
-                    self?.favoriteButton.setImage(UIImage(systemName: isFavorite ? "heart" : "heart.fill"), for: .normal)
-                }
-            ),
-            for: .touchUpInside
-        )
+        favoriteButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.favoriteButtonDidTap?()
+        }), for: .touchUpInside)
     }
     
     // MARK: - Configuration
-    func configure(with restaurant: Restaurant) {
+    func configure(with restaurant: Restaurant, isFavorite: Bool) {
+        self.restaurant = restaurant
         self.restaurantId = restaurant.id
         titleLabel.text = restaurant.name
         cuisineLabel.text = restaurant.cuisine
         setImage(from: restaurant.mainImageURL, for: restaurant.id)
+        
+        let favoriteImageName = isFavorite ? "heart.fill" : "heart"
+        favoriteButton.setImage(UIImage(systemName: favoriteImageName), for: .normal)
     }
     
     private func setImage(from url: String, for currentRestaurantId: Int) {
