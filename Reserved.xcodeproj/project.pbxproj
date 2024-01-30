@@ -59,6 +59,8 @@
 		EE98E0F32B5749330074962D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = EE98E0F22B5749330074962D /* FirebaseAuth */; };
 		EE98E0F52B5782C90074962D /* AuthorizationDataResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98E0F42B5782C90074962D /* AuthorizationDataResultModel.swift */; };
 		EEA4221D2B570A8200BC4693 /* CustomTextFieldComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4221C2B570A8200BC4693 /* CustomTextFieldComponentView.swift */; };
+		EEAB7C842B68D8540004FCC2 /* FavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7C832B68D8540004FCC2 /* FavoritesManager.swift */; };
+		EEAB7C862B68E93C0004FCC2 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7C852B68E93C0004FCC2 /* FavoritesViewModel.swift */; };
 		EEB37E732B5E6B5800D39BEA /* TablesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E722B5E6B5800D39BEA /* TablesViewController.swift */; };
 		EEB37E762B5E6BAA00D39BEA /* TablesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E752B5E6BAA00D39BEA /* TablesCollectionViewCell.swift */; };
 		EEB37E782B5FF34A00D39BEA /* RestaurantDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E772B5FF34A00D39BEA /* RestaurantDetailsViewModel.swift */; };
@@ -131,6 +133,8 @@
 		EE98E0E42B5748580074962D /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		EE98E0F42B5782C90074962D /* AuthorizationDataResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationDataResultModel.swift; sourceTree = "<group>"; };
 		EEA4221C2B570A8200BC4693 /* CustomTextFieldComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldComponentView.swift; sourceTree = "<group>"; };
+		EEAB7C832B68D8540004FCC2 /* FavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManager.swift; sourceTree = "<group>"; };
+		EEAB7C852B68E93C0004FCC2 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
 		EEB37E722B5E6B5800D39BEA /* TablesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesViewController.swift; sourceTree = "<group>"; };
 		EEB37E752B5E6BAA00D39BEA /* TablesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesCollectionViewCell.swift; sourceTree = "<group>"; };
 		EEB37E772B5FF34A00D39BEA /* RestaurantDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsViewModel.swift; sourceTree = "<group>"; };
@@ -427,8 +431,10 @@
 		EE8EB9072B5A536000C6FEB9 /* Favorites */ = {
 			isa = PBXGroup;
 			children = (
+				EEAB7C852B68E93C0004FCC2 /* FavoritesViewModel.swift */,
 				EE8EB9082B5A539000C6FEB9 /* FavoritesViewController.swift */,
 				EE487F5D2B6558D9001E8CEA /* FavoriteRestaurantsTableViewCell.swift */,
+				EEAB7C832B68D8540004FCC2 /* FavoritesManager.swift */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";
@@ -629,6 +635,7 @@
 				EE53F17E2B5A858C0019853F /* RestaurantsViewModel.swift in Sources */,
 				EEB37E732B5E6B5800D39BEA /* TablesViewController.swift in Sources */,
 				EE487F6D2B66463F001E8CEA /* LocationPreviewView.swift in Sources */,
+				EEAB7C862B68E93C0004FCC2 /* FavoritesViewModel.swift in Sources */,
 				EE337F092B5562D1004DBA6B /* AppDelegate.swift in Sources */,
 				EE487F662B6598B8001E8CEA /* RestaurantLocation.swift in Sources */,
 				EED210642B5D10BE00039A98 /* OpenHoursViewController.swift in Sources */,
@@ -662,6 +669,7 @@
 				EE337F3B2B55ADAA004DBA6B /* LoginOptionsView.swift in Sources */,
 				EE337F352B559E5F004DBA6B /* AppBenefitTextComponentView.swift in Sources */,
 				EEDABB832B591C9600A918EC /* Utilities.swift in Sources */,
+				EEAB7C842B68D8540004FCC2 /* FavoritesManager.swift in Sources */,
 				EE337F3D2B55AFEC004DBA6B /* SecondaryButtonComponentView.swift in Sources */,
 				EE487F622B6590C4001E8CEA /* LocationsViewModel.swift in Sources */,
 			);

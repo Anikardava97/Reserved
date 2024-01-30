@@ -13,7 +13,7 @@ struct RestaurantResponse: Decodable {
 }
 
 // MARK: - Restaurant
-struct Restaurant: Decodable {
+class Restaurant: Decodable {
     let id: Int
     let name: String
     let cuisine: String

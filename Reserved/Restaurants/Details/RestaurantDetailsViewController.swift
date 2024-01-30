@@ -53,16 +53,10 @@ final class RestaurantDetailsViewController: UIViewController {
     }()
     
     private lazy var headerStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [restaurantNameAndFavoriteButtonStackView, cuisineLabel, ratingStackView])
+        let stackView = UIStackView(arrangedSubviews: [restaurantNameLabel, cuisineLabel, ratingStackView])
         stackView.axis = .vertical
         stackView.spacing = 12
         stackView.distribution = .fill
-        return stackView
-    }()
-    
-    private let restaurantNameAndFavoriteButtonStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.distribution = .equalSpacing
         return stackView
     }()
     
@@ -71,13 +65,6 @@ final class RestaurantDetailsViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.textColor = .white
         return label
-    }()
-    
-    private let favoriteButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.tintColor = .white
-        button.setImage(UIImage(systemName: "heart"), for: .normal)
-        return button
     }()
     
     private let cuisineLabel: UILabel = {
@@ -377,7 +364,6 @@ final class RestaurantDetailsViewController: UIViewController {
         setupConstraints()
         setupCollectionView()
         setupImagePageController()
-        setupFavoriteButtonAction()
         setupLabelActions()
         setupMapView()
     }
@@ -399,8 +385,6 @@ final class RestaurantDetailsViewController: UIViewController {
         scrollStackViewContainer.addArrangedSubview(mainStackView)
         
         mainStackView.addArrangedSubview(headerStackView)
-        restaurantNameAndFavoriteButtonStackView.addArrangedSubview(restaurantNameLabel)
-        restaurantNameAndFavoriteButtonStackView.addArrangedSubview(favoriteButton)
         
         mainStackView.addArrangedSubview(urlStackView)
         mainStackView.addArrangedSubview(openStatusAndChevronStackView)
@@ -461,19 +445,7 @@ final class RestaurantDetailsViewController: UIViewController {
     private func setupImagePageController() {
         imagePageControl.numberOfPages = restaurant?.images.count ?? 0
     }
-    
-    private func setupFavoriteButtonAction() {
-        favoriteButton.addAction(
-            UIAction(
-                title: "",
-                handler: { [weak self] _ in
-                    let isFavorite = self?.favoriteButton.currentImage == UIImage(systemName: "heart.fill")
-                    self?.favoriteButton.setImage(UIImage(systemName: isFavorite ? "heart" : "heart.fill"), for: .normal)
-                }
-            ),
-            for: .touchUpInside
-        )
-    }
+
 
     private func setupMapView() {
         let initialLocation = CLLocationCoordinate2D(
