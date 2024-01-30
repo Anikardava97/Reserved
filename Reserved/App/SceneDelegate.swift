@@ -70,16 +70,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             navigationController.popViewController(animated: true)
         }
     }
-        
-        func sceneDidDisconnect(_ scene: UIScene) { }
-        
-        func sceneDidBecomeActive(_ scene: UIScene) { }
-        
-        func sceneWillResignActive(_ scene: UIScene) { }
-        
-        func sceneWillEnterForeground(_ scene: UIScene) { }
-        
-        func sceneDidEnterBackground(_ scene: UIScene) { }
-        
+    
+    func navigateToLaunchScreen() {
+        let rootView = LaunchScreenView { self.showRootView() }
+        let hostingController = UIHostingController(rootView: rootView)
+        window?.rootViewController = UINavigationController(rootViewController: hostingController)
     }
     
+    func sceneDidDisconnect(_ scene: UIScene) { }
+    
+    func sceneDidBecomeActive(_ scene: UIScene) { }
+    
+    func sceneWillResignActive(_ scene: UIScene) { }
+    
+    func sceneWillEnterForeground(_ scene: UIScene) { }
+    
+    func sceneDidEnterBackground(_ scene: UIScene) { }
+    
+}
+

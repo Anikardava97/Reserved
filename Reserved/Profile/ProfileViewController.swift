@@ -10,7 +10,7 @@ import UIKit
 final class ProfileViewController: UIViewController {
     // MARK: - Properties
     private let maxReservationsForFullProgress = 10
-
+    
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -31,7 +31,7 @@ final class ProfileViewController: UIViewController {
         stackView.layoutMargins = UIEdgeInsets(top: 16, left: 24, bottom: 16, right: 24)
         return stackView
     }()
-
+    
     private let missionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
@@ -76,7 +76,7 @@ final class ProfileViewController: UIViewController {
         stackView.distribution = .equalSpacing
         return stackView
     }()
-
+    
     private let startLabel: UILabel = {
         let label = UILabel()
         label.text = "0"
@@ -84,7 +84,7 @@ final class ProfileViewController: UIViewController {
         label.textColor = .white.withAlphaComponent(0.8)
         return label
     }()
-
+    
     private let endLabel: UILabel = {
         let label = UILabel()
         label.text = "10"
@@ -197,7 +197,7 @@ final class ProfileViewController: UIViewController {
         button.addTarget(self, action: #selector(signOutDidTap), for: .touchUpInside)
         return button
     }()
-
+    
     // MARK: - ViewLifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -222,11 +222,11 @@ final class ProfileViewController: UIViewController {
         setupSubviews()
         setupConstraints()
     }
-  
+    
     private func setupBackground() {
         view.backgroundColor = .customBackgroundColor
     }
-   
+    
     private func setupSubviews() {
         view.addSubview(mainStackView)
         mainStackView.addArrangedSubview(avatarImageView)
@@ -241,7 +241,7 @@ final class ProfileViewController: UIViewController {
             mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mainStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
-           
+            
             avatarImageView.heightAnchor.constraint(equalToConstant: 100),
             avatarImageView.widthAnchor.constraint(equalToConstant: 100),
             
@@ -271,12 +271,26 @@ final class ProfileViewController: UIViewController {
         progressView.setProgress(progress, animated: true)
     }
     
-    @objc private func signOutDidTap() {
+    private func confirmSignOut() {
         do {
             try AuthenticationManager.shared.signOut()
+            if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+                sceneDelegate.navigateToLaunchScreen()
+            }
         } catch {
             print("Error signing out: \(error)")
         }
+    }
+    
+    @objc private func signOutDidTap() {
+        let alert = UIAlertController(title: "Sign Out", message: "Are you sure you want to sign out?", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Sign Out", style: .destructive, handler: { [weak self] _ in
+            self?.confirmSignOut()
+        }))
+        
+        present(alert, animated: true)
     }
 }
 
