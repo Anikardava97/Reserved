@@ -160,7 +160,6 @@ final class ProfileViewController: UIViewController {
     private let favoritesLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        label.text = "Favorites"
         label.textColor = .white
         return label
     }()
@@ -196,10 +195,17 @@ final class ProfileViewController: UIViewController {
         return button
     }()
 
-    // MARK: - ViewLifeCycle
+    // MARK: - ViewLifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        FavoritesManager.shared.delegate = self
+        updateFavoritesLabel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateFavoritesLabel()
     }
     
     // MARK: - Methods
@@ -244,8 +250,19 @@ final class ProfileViewController: UIViewController {
                 
         ])
     }
+    
+    private func updateFavoritesLabel() {
+        let count = FavoritesManager.shared.favoriteRestaurants.count
+        favoritesLabel.text = "Favorites: \(count)"
+    }
 }
 
 #Preview {
     ProfileViewController()
+}
+
+extension ProfileViewController: FavoritesManagerDelegate {
+    func favoritesManagerDidUpdateFavorites() {
+        updateFavoritesLabel()
+    }
 }
