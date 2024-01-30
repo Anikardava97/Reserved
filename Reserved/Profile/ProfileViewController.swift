@@ -9,6 +9,8 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
     // MARK: - Properties
+    private let maxReservationsForFullProgress = 10
+
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -64,6 +66,7 @@ final class ProfileViewController: UIViewController {
         progressView.progressTintColor = .customAccentColor
         progressView.backgroundColor = .white
         progressView.layer.cornerRadius = 3
+        progressView.layer.masksToBounds = true
         return progressView
     }()
     
@@ -181,7 +184,6 @@ final class ProfileViewController: UIViewController {
     private let reservationsLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        label.text = "Active Reservations"
         label.textColor = .white
         return label
     }()
@@ -192,6 +194,7 @@ final class ProfileViewController: UIViewController {
             textColor: .white,
             backgroundColor: .customAccentColor
         )
+        button.addTarget(self, action: #selector(signOutDidTap), for: .touchUpInside)
         return button
     }()
 
@@ -201,11 +204,16 @@ final class ProfileViewController: UIViewController {
         setup()
         FavoritesManager.shared.delegate = self
         updateFavoritesLabel()
+        ReservationManager.shared.delegate = self
+        updateReservationsLabel()
+        updateProgressView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateFavoritesLabel()
+        updateReservationsLabel()
+        updateProgressView()
     }
     
     // MARK: - Methods
@@ -222,12 +230,9 @@ final class ProfileViewController: UIViewController {
     private func setupSubviews() {
         view.addSubview(mainStackView)
         mainStackView.addArrangedSubview(avatarImageView)
-
         mainStackView.addArrangedSubview(gamificationStackView)
-
         mainStackView.addArrangedSubview(userInfoStackView)
         mainStackView.addArrangedSubview(signOutButton)
-
     }
     
     private func setupConstraints() {
@@ -246,14 +251,32 @@ final class ProfileViewController: UIViewController {
             badgeImage.heightAnchor.constraint(equalToConstant: 80),
             badgeImage.widthAnchor.constraint(equalToConstant: 80),
             
-            progressView.heightAnchor.constraint(equalToConstant: 6),
-                
+            progressView.heightAnchor.constraint(equalToConstant: 6)
         ])
     }
     
     private func updateFavoritesLabel() {
         let count = FavoritesManager.shared.favoriteRestaurants.count
         favoritesLabel.text = "Favorites: \(count)"
+    }
+    
+    private func updateReservationsLabel() {
+        let count = ReservationManager.shared.myReservations.count
+        reservationsLabel.text = "Active Reservations: \(count)"
+    }
+    
+    private func updateProgressView() {
+        let currentReservationsCount = ReservationManager.shared.myReservations.count
+        let progress = min(Float(currentReservationsCount) / Float(maxReservationsForFullProgress), 1.0)
+        progressView.setProgress(progress, animated: true)
+    }
+    
+    @objc private func signOutDidTap() {
+        do {
+            try AuthenticationManager.shared.signOut()
+        } catch {
+            print("Error signing out: \(error)")
+        }
     }
 }
 
@@ -264,5 +287,11 @@ final class ProfileViewController: UIViewController {
 extension ProfileViewController: FavoritesManagerDelegate {
     func favoritesManagerDidUpdateFavorites() {
         updateFavoritesLabel()
+    }
+}
+
+extension ProfileViewController: ReservationManagerDelegate {
+    func reservationManagerDidUpdateReservations() {
+        updateReservationsLabel()
     }
 }
