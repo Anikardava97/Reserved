@@ -75,7 +75,6 @@ final class RestaurantsViewController: UIViewController {
             .font: UIFont.boldSystemFont(ofSize: 14)
         ]
         
-        
         segmentedControl.setTitleTextAttributes(normalTextAttributes, for: .normal)
         segmentedControl.setTitleTextAttributes(selectedTextAttributes, for: .selected)
         return segmentedControl
@@ -87,11 +86,17 @@ final class RestaurantsViewController: UIViewController {
         return tableView
     }()
     
-    // MARK: - ViewLifeCycle
+    // MARK: - ViewLifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
         viewModel.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+        collectionView.reloadData()
     }
     
     // MARK: - Private Methods
@@ -161,6 +166,27 @@ final class RestaurantsViewController: UIViewController {
             collectionView.heightAnchor.constraint(equalToConstant: 200),
             contentSegmentedControl.heightAnchor.constraint(equalToConstant: 44)
         ])
+    }
+    
+    func toggleFavorite(for restaurant: Restaurant) {
+        let isFavorite = FavoritesManager.shared.isFavorite(restaurant: restaurant)
+        if isFavorite {
+            FavoritesManager.shared.removeFavorite(restaurant: restaurant)
+        } else {
+            FavoritesManager.shared.addFavorite(restaurant: restaurant)
+        }
+        
+        if let collectionIndex = filteredTopRestaurants.firstIndex(where: { $0.id == restaurant.id }) {
+            filteredTopRestaurants[collectionIndex] = restaurant
+            let indexPath = IndexPath(item: collectionIndex, section: 0)
+            collectionView.reloadItems(at: [indexPath])
+        }
+        
+        if let tableIndex = filteredCuisineRestaurants.firstIndex(where: { $0.id == restaurant.id }) {
+            filteredCuisineRestaurants[tableIndex] = restaurant
+            let indexPath = IndexPath(row: tableIndex, section: 0)
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        }  
     }
     
     @objc private func segmentedControlValueChanged(_ sender: UISegmentedControl) {
@@ -247,8 +273,12 @@ extension RestaurantsViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
+        let restaurant = filteredTopRestaurants[indexPath.row]
         if indexPath.row < filteredTopRestaurants.count {
-            cell.configure(with: filteredTopRestaurants[indexPath.row])
+            cell.configure(with: restaurant, isFavorite: FavoritesManager.shared.isFavorite(restaurant: restaurant))
+            cell.favoriteButtonDidTap = { [weak self] in
+                self?.toggleFavorite(for: restaurant)
+            }
         }
         return cell
     }
@@ -283,7 +313,12 @@ extension RestaurantsViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "allRestaurantsCell", for: indexPath) as? AllRestaurantsTableViewCell else {
             return UITableViewCell()
         }
-        cell.configure(with: filteredCuisineRestaurants[indexPath.row])
+        
+        let restaurant = filteredCuisineRestaurants[indexPath.row]
+        cell.configure(with: restaurant, isFavorite: FavoritesManager.shared.isFavorite(restaurant: restaurant))
+        cell.favoriteButtonDidTap = { [weak self] in
+            self?.toggleFavorite(for: restaurant)
+        }
         return cell
     }
 }

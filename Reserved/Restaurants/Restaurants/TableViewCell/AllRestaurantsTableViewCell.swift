@@ -10,6 +10,8 @@ import UIKit
 class AllRestaurantsTableViewCell: UITableViewCell {
     // MARK: - Properties
     private var restaurantId: Int?
+    private var restaurant: Restaurant?
+    var favoriteButtonDidTap: (() -> Void)?
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -129,7 +131,8 @@ class AllRestaurantsTableViewCell: UITableViewCell {
     }
     
     // MARK: - Configure
-    func configure(with restaurant: Restaurant) {
+    func configure(with restaurant: Restaurant, isFavorite: Bool) {
+        self.restaurant = restaurant
         self.restaurantId = restaurant.id
         titleLabel.text = restaurant.name
         ratingLabel.text = String(restaurant.reviewStars)
@@ -137,6 +140,8 @@ class AllRestaurantsTableViewCell: UITableViewCell {
         setImage(from: restaurant.mainImageURL, for: restaurant.id)
         setOpenStatusLabel(for: restaurant)
         
+        let favoriteImageName = isFavorite ? "heart.fill" : "heart"
+        favoriteButton.setImage(UIImage(systemName: favoriteImageName), for: .normal)
         backgroundColor = .customBackgroundColor
     }
     
@@ -184,16 +189,9 @@ class AllRestaurantsTableViewCell: UITableViewCell {
     }
     
     private func setupFavoriteButtonAction() {
-        favoriteButton.addAction(
-            UIAction(
-                title: "",
-                handler: { [weak self] _ in
-                    let isFavorite = self?.favoriteButton.currentImage == UIImage(systemName: "heart.fill")
-                    self?.favoriteButton.setImage(UIImage(systemName: isFavorite ? "heart" : "heart.fill"), for: .normal)
-                }
-            ),
-            for: .touchUpInside
-        )
+        favoriteButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.favoriteButtonDidTap?()
+        }), for: .touchUpInside)
     }
     
     private func setOpenStatusLabel(for restaurant: Restaurant) {
