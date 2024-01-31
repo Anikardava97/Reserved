@@ -20,8 +20,6 @@ final class ReservationManager {
     
     // MARK: - Properties
     var myReservations: [MyReservation] = []
-    
-    // MARK: - Delegate
     weak var delegate: ReservationManagerDelegate?
 
     // MARK: - Methods

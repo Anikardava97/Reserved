@@ -1,17 +1,17 @@
 //
-//  FavoriteRestaurantsTableViewCell.swift
+//  AllRestaurantsTableViewCell.swift
 //  Reserved
 //
-//  Created by Ani's Mac on 27.01.24.
+//  Created by Ani's Mac on 19.01.24.
 //
 
 import UIKit
 
-final class FavoriteRestaurantsTableViewCell: UITableViewCell {
+class AllRestaurantsTableViewCell: UITableViewCell {
     // MARK: - Properties
     private var restaurant: Restaurant?
     private var restaurantId: Int?
-    var onFavoriteDidTap: (() -> Void)?
+    var favoriteButtonDidTap: (() -> Void)?
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -26,9 +26,8 @@ final class FavoriteRestaurantsTableViewCell: UITableViewCell {
     private let restaurantImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.cornerRadius = 12
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 60
-        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -40,9 +39,9 @@ final class FavoriteRestaurantsTableViewCell: UITableViewCell {
     }()
     
     private lazy var detailsStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, cuisineLabel, UIView(), ratingStackView])
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, ratingStackView, cuisineAndOpenNowStackView])
         stackView.axis = .vertical
-        stackView.spacing = 14
+        stackView.spacing = 12
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -52,16 +51,7 @@ final class FavoriteRestaurantsTableViewCell: UITableViewCell {
         label.textAlignment = .left
         label.textColor = .white
         label.numberOfLines = 1
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        return label
-    }()
-    
-    private let cuisineLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .left
-        label.textColor = .white
-        label.numberOfLines = 1
-        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         return label
     }()
     
@@ -86,7 +76,33 @@ final class FavoriteRestaurantsTableViewCell: UITableViewCell {
         label.textAlignment = .left
         label.textColor = .white
         label.numberOfLines = 1
-        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        return label
+    }()
+    
+    private lazy var cuisineAndOpenNowStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [cuisineLabel, openNowLabel])
+        stackView.axis = .vertical
+        stackView.spacing = 4
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    private let cuisineLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.textColor = .white
+        label.numberOfLines = 1
+        label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
+        return label
+    }()
+    
+    private let openNowLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.textColor = .white
+        label.numberOfLines = 1
+        label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
         return label
     }()
     
@@ -107,24 +123,13 @@ final class FavoriteRestaurantsTableViewCell: UITableViewCell {
     // MARK: - PrepareForReuse
     override func prepareForReuse() {
         super.prepareForReuse()
+        
         restaurantImageView.image = nil
         titleLabel.text = nil
         ratingLabel.text = nil
         cuisineLabel.text = nil
-    }
-    
-    // MARK: - Configure
-    func configure(with restaurant: Restaurant) {
-        self.restaurant = restaurant
-        titleLabel.text = restaurant.name
-        cuisineLabel.text = restaurant.cuisine
-        ratingLabel.text = String(restaurant.reviewStars)
-        setImage(from: restaurant.mainImageURL, for: restaurant.id)
-        
-        let isFavorite = FavoritesManager.shared.isFavorite(restaurant: restaurant)
-        favoriteButton.setImage(UIImage(systemName: isFavorite ? "heart.fill" : "heart"), for: .normal)
-        
-        backgroundColor = .customBackgroundColor
+        openNowLabel.text = nil
+        favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
     }
     
     // MARK: - Private Methods
@@ -165,25 +170,50 @@ final class FavoriteRestaurantsTableViewCell: UITableViewCell {
             favoriteButton.widthAnchor.constraint(equalToConstant: 28),
             favoriteButton.heightAnchor.constraint(equalToConstant: 24),
             
-            starImageView.widthAnchor.constraint(equalToConstant: 18),
-            starImageView.heightAnchor.constraint(equalToConstant: 18)
+            starImageView.widthAnchor.constraint(equalToConstant: 16),
+            starImageView.heightAnchor.constraint(equalToConstant: 16)
         ])
     }
     
     private func setupFavoriteButtonAction() {
-        favoriteButton.removeTarget(nil, action: nil, for: .allEvents)
-        favoriteButton.addAction(UIAction { [weak self] _ in
-            self?.onFavoriteDidTap?()
-        }, for: .touchUpInside)
+        favoriteButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.favoriteButtonDidTap?()
+        }), for: .touchUpInside)
+    }
+    
+    private func setOpenStatusLabel(for restaurant: Restaurant) {
+        openNowLabel.text = RestaurantHoursManager.isRestaurantOpen(from: restaurant) ? "Open Now" : "Closed"
     }
     
     private func setImage(from url: String, for currentRestaurantId: Int) {
         NetworkManager.shared.downloadImage(from: url) { [weak self] image in
             DispatchQueue.main.async {
-                if self?.restaurant?.id == currentRestaurantId {
+                if self?.restaurantId == currentRestaurantId {
                     self?.restaurantImageView.image = image
                 }
             }
         }
     }
+    
+    // MARK: - Configure
+    func configure(with restaurant: Restaurant, isFavorite: Bool) {
+        self.restaurant = restaurant
+        self.restaurantId = restaurant.id
+        titleLabel.text = restaurant.name
+        ratingLabel.text = String(restaurant.reviewStars)
+        cuisineLabel.text = restaurant.cuisine
+        
+        if let imageURL = restaurant.mainImageURL {
+            setImage(from: imageURL, for: restaurant.id)
+        }
+        
+        setOpenStatusLabel(for: restaurant)
+        
+        let favoriteImageName = isFavorite ? "heart.fill" : "heart"
+        favoriteButton.setImage(UIImage(systemName: favoriteImageName), for: .normal)
+        
+        backgroundColor = .customBackgroundColor
+    }
 }
+
+

@@ -19,7 +19,7 @@ final class NetworkManager {
     static let shared = NetworkManager()
     
     // MARK: - Private Init
-    init() {}
+    private init() {}
     
     // MARK: - Fetch Restaurants
     public func fetch<T: Decodable>(from urlString: String, completion: @escaping (Result<T, NetworkError>) -> Void) {
@@ -50,17 +50,26 @@ final class NetworkManager {
     
     // MARK: - Download Image
     func downloadImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
+        if let cachedImage = ImageCacheManager.shared.getImage(for: urlString) {
+            completion(cachedImage)
+            return
+        }
+        
         guard let url = URL(string: urlString) else {
             completion(nil)
             return
         }
         
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil, let image = UIImage(data: data) else {
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, let downloadedImage = UIImage(data: data) else {
                 completion(nil)
                 return
             }
-            completion(image)
-        }.resume()
+            ImageCacheManager.shared.setImage(downloadedImage, for: urlString)
+            completion(downloadedImage)
+        }
+        task.resume()
     }
 }
+
+

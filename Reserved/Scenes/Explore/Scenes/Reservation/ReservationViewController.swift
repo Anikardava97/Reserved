@@ -248,7 +248,9 @@ final class ReservationViewController: UIViewController {
     
     private func setupSelectedRestaurantImageAndName() {
         if let restaurant = selectedRestaurant {
-            setRestaurantImage(from: restaurant.mainImageURL)
+            if let imageURL = restaurant.mainImageURL {
+                setRestaurantImage(from: imageURL)
+            }
             setFormattedRestaurantName(restaurant.name.uppercased())
         }
     }

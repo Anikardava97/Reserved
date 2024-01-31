@@ -10,12 +10,11 @@ import UIKit
 final class RestaurantsViewController: UIViewController {
     // MARK: - Properties
     private let viewModel = RestaurantsViewModel()
+    private let searchController = UISearchController(searchResultsController: nil)
     private var restaurants = [Restaurant]()
     private var filteredCuisineRestaurants = [Restaurant]()
     private var filteredTopRestaurants = [Restaurant]()
     private var selectedCuisineType: String?
-    
-    private let searchController = UISearchController(searchResultsController: nil)
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -44,8 +43,8 @@ final class RestaurantsViewController: UIViewController {
         layout.scrollDirection = .horizontal
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .clear
+        collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
     
@@ -60,11 +59,9 @@ final class RestaurantsViewController: UIViewController {
     private lazy var contentSegmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: ["All", "Georgian", "Asian", "European"])
         segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
-        selectedCuisineType = nil
-        
         segmentedControl.tintColor = .customSecondaryColor
         segmentedControl.selectedSegmentTintColor = .customAccentColor
+        segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
         
         let normalTextAttributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.white.withAlphaComponent(0.8),
@@ -82,7 +79,8 @@ final class RestaurantsViewController: UIViewController {
     
     private  var tableView: UITableView = {
         let tableView = SelfSizedTableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .clear
+        tableView.isScrollEnabled = false
         return tableView
     }()
     
@@ -103,10 +101,10 @@ final class RestaurantsViewController: UIViewController {
     private func setup() {
         setupViewModelDelegate()
         setupBackground()
-        setupCollectionView()
-        setupTableView()
         setupSearchController()
         setupScrollView()
+        setupCollectionView()
+        setupTableView()
         setupSubviews()
         setupConstraints()
     }
@@ -129,7 +127,6 @@ final class RestaurantsViewController: UIViewController {
                 attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
         }
         self.searchController.searchBar.delegate = self
-        
         self.navigationItem.searchController = searchController
         self.definesPresentationContext = false
         self.navigationItem.hidesSearchBarWhenScrolling = false
@@ -137,13 +134,23 @@ final class RestaurantsViewController: UIViewController {
     
     private func setupScrollView() {
         scrollView.showsVerticalScrollIndicator = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupCollectionView() {
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(TopRestaurantCollectionViewCell.self, forCellWithReuseIdentifier: "topRestaurantsCell")
+    }
+    
+    private func setupTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(AllRestaurantsTableViewCell.self, forCellReuseIdentifier: "allRestaurantsCell")
     }
     
     private func setupSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(scrollStackViewContainer)
-        
         scrollStackViewContainer.addArrangedSubview(topRestaurantsLabel)
         scrollStackViewContainer.addArrangedSubview(collectionView)
         scrollStackViewContainer.addArrangedSubview(allRestaurantsLabel)
@@ -153,85 +160,35 @@ final class RestaurantsViewController: UIViewController {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
+            scrollStackViewContainer.topAnchor.constraint(equalTo: scrollView.topAnchor),
             scrollStackViewContainer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             scrollStackViewContainer.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            scrollStackViewContainer.topAnchor.constraint(equalTo: scrollView.topAnchor),
             scrollStackViewContainer.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             scrollStackViewContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
             collectionView.heightAnchor.constraint(equalToConstant: 200),
             contentSegmentedControl.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
     
-    func toggleFavorite(for restaurant: Restaurant) {
-        let isFavorite = FavoritesManager.shared.isFavorite(restaurant: restaurant)
-        if isFavorite {
-            FavoritesManager.shared.removeFavorite(restaurant: restaurant)
-        } else {
-            FavoritesManager.shared.addFavorite(restaurant: restaurant)
-        }
-        
-        if let collectionIndex = filteredTopRestaurants.firstIndex(where: { $0.id == restaurant.id }) {
-            filteredTopRestaurants[collectionIndex] = restaurant
-            let indexPath = IndexPath(item: collectionIndex, section: 0)
-            collectionView.reloadItems(at: [indexPath])
-        }
-        
-        if let tableIndex = filteredCuisineRestaurants.firstIndex(where: { $0.id == restaurant.id }) {
-            filteredCuisineRestaurants[tableIndex] = restaurant
-            let indexPath = IndexPath(row: tableIndex, section: 0)
-            tableView.reloadRows(at: [indexPath], with: .automatic)
-        }  
-    }
-    
+    // MARK: - Actions
     @objc private func segmentedControlValueChanged(_ sender: UISegmentedControl) {
         let selectedTitle = sender.titleForSegment(at: sender.selectedSegmentIndex) ?? "All"
         selectedCuisineType = selectedTitle
-        filteredCuisineRestaurants = filterRestaurantsByCuisine(selectedTitle)
+        filteredCuisineRestaurants = viewModel.filterRestaurantsByCuisine(selectedTitle)
         tableView.reloadData()
-    }
-    
-    private func filterRestaurantsByCuisine(_ cuisine: String) -> [Restaurant] {
-        switch cuisine {
-        case "Georgian":
-            return restaurants.filter { $0.cuisine == "Georgian" }
-        case "Asian":
-            return restaurants.filter { $0.cuisine == "Asian" }
-        case "European":
-            return restaurants.filter { $0.cuisine == "European" }
-        default:
-            return restaurants
-        }
-    }
-    
-    private func setupCollectionView() {
-        collectionView.register(TopRestaurantCollectionViewCell.self, forCellWithReuseIdentifier: "topRestaurantsCell")
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.showsHorizontalScrollIndicator = false
-    }
-    
-    private func setupTableView() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(AllRestaurantsTableViewCell.self, forCellReuseIdentifier: "allRestaurantsCell")
-        
-        tableView.backgroundColor = .customBackgroundColor
-        tableView.isScrollEnabled = false
     }
 }
 
-// MARK: - Search Controller Functions
+// MARK: - Extension: Search Controller Functions
 extension RestaurantsViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let searchText = searchController.searchBar.text else {
-            return
-        }
+        guard let searchText = searchController.searchBar.text else { return }
         if !searchText.isEmpty {
             filteredCuisineRestaurants = restaurants.filter { $0.name.lowercased().contains(searchText.lowercased()) }
         } else {
@@ -245,7 +202,7 @@ extension RestaurantsViewController: UISearchResultsUpdating {
     }
 }
 
-// MARK: - UISearchBarDelegate
+// MARK:  Extension: UISearchBarDelegate
 extension RestaurantsViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         topRestaurantsLabel.isHidden = true
@@ -262,11 +219,9 @@ extension RestaurantsViewController: UISearchBarDelegate {
     }
 }
 
-// MARK: - CollectionView DataSource
+// MARK: - Extension: UICollectionViewDataSource
 extension RestaurantsViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        filteredTopRestaurants.count
-    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { filteredTopRestaurants.count }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "topRestaurantsCell", for: indexPath) as? TopRestaurantCollectionViewCell else {
@@ -274,26 +229,18 @@ extension RestaurantsViewController: UICollectionViewDataSource {
         }
         
         let restaurant = filteredTopRestaurants[indexPath.row]
-        if indexPath.row < filteredTopRestaurants.count {
-            cell.configure(with: restaurant, isFavorite: FavoritesManager.shared.isFavorite(restaurant: restaurant))
-            cell.favoriteButtonDidTap = { [weak self] in
-                self?.toggleFavorite(for: restaurant)
-            }
+        cell.configure(
+            with: restaurant,
+            isFavorite: FavoritesManager.shared.isFavorite(restaurant: restaurant)
+        )
+        cell.favoriteButtonDidTap = { [weak self] in
+            self?.viewModel.toggleFavorite(for: restaurant)
         }
         return cell
     }
 }
 
-// MARK: - CollectionView FlowLayoutDelegate
-extension RestaurantsViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = Int((collectionView.bounds.width) / 2.5)
-        let height = 200
-        return CGSize(width: width, height: height)
-    }
-}
-
-// MARK: - UICollectionViewDelegate
+// MARK:  Extension: UICollectionViewDelegate
 extension RestaurantsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row < filteredTopRestaurants.count {
@@ -303,7 +250,16 @@ extension RestaurantsViewController: UICollectionViewDelegate {
     }
 }
 
-// MARK: - TableViewDataSource
+// MARK:  Extension: UICollectionViewDelegateFlowLayout
+extension RestaurantsViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = Int((collectionView.bounds.width) / 2.5)
+        let height = 200
+        return CGSize(width: width, height: height)
+    }
+}
+
+// MARK: - Extension: TableViewDataSource
 extension RestaurantsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         filteredCuisineRestaurants.count
@@ -315,15 +271,20 @@ extension RestaurantsViewController: UITableViewDataSource {
         }
         
         let restaurant = filteredCuisineRestaurants[indexPath.row]
-        cell.configure(with: restaurant, isFavorite: FavoritesManager.shared.isFavorite(restaurant: restaurant))
-        cell.favoriteButtonDidTap = { [weak self] in
-            self?.toggleFavorite(for: restaurant)
+        if indexPath.row < filteredTopRestaurants.count {
+            cell.configure(
+                with: restaurant,
+                isFavorite: FavoritesManager.shared.isFavorite(restaurant: restaurant)
+            )
+            cell.favoriteButtonDidTap = { [weak self] in
+                self?.viewModel.toggleFavorite(for: restaurant)
+            }
         }
         return cell
     }
 }
 
-// MARK: - TableViewDelegate
+// MARK:  Extension: TableViewDelegate
 extension RestaurantsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         UITableView.automaticDimension
@@ -337,28 +298,47 @@ extension RestaurantsViewController: UITableViewDelegate {
     }
 }
 
-// MARK: - RestaurantsViewModelDelegate
+// MARK: - Extension: RestaurantsViewModelDelegate
 extension RestaurantsViewController: RestaurantsViewModelDelegate {
     func restaurantsFetched(_ restaurants: [Restaurant]) {
-        let filteredTopRestaurants = restaurants.filter { $0.reviewStars >= 4.5 }
         self.restaurants = restaurants
-        self.filteredTopRestaurants = filteredTopRestaurants
-        self.filteredCuisineRestaurants = restaurants
         
+        let filteredTopRestaurants = restaurants.filter { $0.reviewStars >= 4.5 }
+        self.filteredTopRestaurants = filteredTopRestaurants
         DispatchQueue.main.async {
             self.collectionView.reloadData()
-            self.tableView.reloadData()
+        }
+        
+        if selectedCuisineType == nil || selectedCuisineType == "All" {
+            self.filteredCuisineRestaurants = restaurants
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
     
     func showError(_ error: Error) {
-        print("error")
+        print(error)
     }
     
     func navigateToRestaurantDetails(with restaurant: Restaurant) {
         let restaurantDetailsViewController = RestaurantDetailsViewController()
         restaurantDetailsViewController.configure(with: restaurant)
         navigationController?.pushViewController(restaurantDetailsViewController, animated: true)
+    }
+    
+    func favoriteStatusChanged(for restaurant: Restaurant) {
+        if let collectionIndex = filteredTopRestaurants.firstIndex(where: { $0.id == restaurant.id }) {
+            filteredTopRestaurants[collectionIndex] = restaurant
+            let indexPath = IndexPath(item: collectionIndex, section: 0)
+            collectionView.reloadItems(at: [indexPath])
+        }
+        
+        if let tableIndex = filteredCuisineRestaurants.firstIndex(where: { $0.id == restaurant.id }) {
+            filteredCuisineRestaurants[tableIndex] = restaurant
+            let indexPath = IndexPath(row: tableIndex, section: 0)
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
     }
 }
 

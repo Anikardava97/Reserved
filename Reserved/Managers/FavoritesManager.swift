@@ -20,8 +20,6 @@ final class FavoritesManager {
     
     // MARK: - Properties
     var favoriteRestaurants: [Restaurant] = []
-    
-    // MARK: - Delegate
     weak var delegate: FavoritesManagerDelegate?
     
     // MARK: - Methods

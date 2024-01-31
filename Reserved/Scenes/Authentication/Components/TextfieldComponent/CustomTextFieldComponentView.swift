@@ -10,7 +10,6 @@ import SwiftUI
 struct CustomTextFieldComponentView: View {
     // MARK: - Properties
     @Binding var text: String
-    
     var title: String
     var prompt: String
     var isSecure: Bool

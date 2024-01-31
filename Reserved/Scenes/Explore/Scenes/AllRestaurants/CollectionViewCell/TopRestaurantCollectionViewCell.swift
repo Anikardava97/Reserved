@@ -9,8 +9,8 @@ import UIKit
 
 final class TopRestaurantCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
-    private var restaurantId: Int?
     private var restaurant: Restaurant?
+    private var restaurantId: Int?
     var favoriteButtonDidTap: (() -> Void)?
     
     private let restaurantImageView: UIImageView = {
@@ -19,7 +19,7 @@ final class TopRestaurantCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    private lazy var topButtonStackView: UIStackView = {
+    private lazy var favoriteButtonStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [favoriteButton])
         stackView.distribution = .equalSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -75,6 +75,7 @@ final class TopRestaurantCollectionViewCell: UICollectionViewCell {
     // MARK: - CellLifeCycle
     override func prepareForReuse() {
         super.prepareForReuse()
+        
         restaurantImageView.image = nil
         titleLabel.text = nil
         cuisineLabel.text = nil
@@ -84,7 +85,7 @@ final class TopRestaurantCollectionViewCell: UICollectionViewCell {
     // MARK: - Private Methods
     private func addSubview() {
         contentView.addSubview(restaurantImageView)
-        contentView.addSubview(topButtonStackView)
+        contentView.addSubview(favoriteButtonStackView)
         contentView.addSubview(titleCuisineStackView)
     }
     
@@ -95,8 +96,8 @@ final class TopRestaurantCollectionViewCell: UICollectionViewCell {
             restaurantImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             restaurantImageView.heightAnchor.constraint(equalToConstant: 135),
             
-            topButtonStackView.topAnchor.constraint(equalTo: restaurantImageView.topAnchor, constant: 10),
-            topButtonStackView.trailingAnchor.constraint(equalTo: restaurantImageView.trailingAnchor, constant: -10),
+            favoriteButtonStackView.topAnchor.constraint(equalTo: restaurantImageView.topAnchor, constant: 10),
+            favoriteButtonStackView.trailingAnchor.constraint(equalTo: restaurantImageView.trailingAnchor, constant: -10),
             
             titleCuisineStackView.topAnchor.constraint(equalTo: restaurantImageView.bottomAnchor, constant: 12),
             titleCuisineStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 14),
@@ -125,18 +126,6 @@ final class TopRestaurantCollectionViewCell: UICollectionViewCell {
         }), for: .touchUpInside)
     }
     
-    // MARK: - Configuration
-    func configure(with restaurant: Restaurant, isFavorite: Bool) {
-        self.restaurant = restaurant
-        self.restaurantId = restaurant.id
-        titleLabel.text = restaurant.name
-        cuisineLabel.text = restaurant.cuisine
-        setImage(from: restaurant.mainImageURL, for: restaurant.id)
-        
-        let favoriteImageName = isFavorite ? "heart.fill" : "heart"
-        favoriteButton.setImage(UIImage(systemName: favoriteImageName), for: .normal)
-    }
-    
     private func setImage(from url: String, for currentRestaurantId: Int) {
         NetworkManager.shared.downloadImage(from: url) { [weak self] image in
             DispatchQueue.main.async {
@@ -146,6 +135,20 @@ final class TopRestaurantCollectionViewCell: UICollectionViewCell {
             }
         }
     }
+    
+    // MARK: - Configuration
+    func configure(with restaurant: Restaurant, isFavorite: Bool) {
+        self.restaurant = restaurant
+        self.restaurantId = restaurant.id
+        titleLabel.text = restaurant.name
+        cuisineLabel.text = restaurant.cuisine
+        
+        if let imageURL = restaurant.mainImageURL {
+            setImage(from: imageURL, for: restaurant.id)
+        }
+        
+        let favoriteImageName = isFavorite ? "heart.fill" : "heart"
+        favoriteButton.setImage(UIImage(systemName: favoriteImageName), for: .normal)
+    }
 }
-
 

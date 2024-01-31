@@ -22,13 +22,12 @@ final class LocationsViewModel: ObservableObject {
         }
     }
     let mapSpan = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-    private let networkManager = NetworkManager()
     private let baseURL = "https://mocki.io/v1/980db280-b83b-4799-93d9-3e4ef34ee78a"
     
     
     // MARK: - Methods
     func fetchRestaurantsLocations() {
-        networkManager.fetch(from: baseURL) { [weak self] (result: Result<LocationResponse, NetworkError>) in
+        NetworkManager.shared.fetch(from: baseURL) { [weak self] (result: Result<LocationResponse, NetworkError>) in
             switch result {
             case .success(let fetchedLocations):
                 self?.locations = fetchedLocations.locations

@@ -17,8 +17,8 @@ class Restaurant: Decodable {
     let id: Int
     let name: String
     let cuisine: String
-    let mainImageURL: String
-    let images: [String]
+    let mainImageURL: String?
+    let images: [String]?
     let openHours: OpenHours
     let location: Location
     let description: String

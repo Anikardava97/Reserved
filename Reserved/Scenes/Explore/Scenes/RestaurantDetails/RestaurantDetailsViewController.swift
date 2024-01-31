@@ -443,7 +443,7 @@ final class RestaurantDetailsViewController: UIViewController {
     }
     
     private func setupImagePageController() {
-        imagePageControl.numberOfPages = restaurant?.images.count ?? 0
+        imagePageControl.numberOfPages = restaurant?.images?.count ?? 0
     }
 
 
@@ -614,7 +614,7 @@ final class RestaurantDetailsViewController: UIViewController {
 // MARK: - CollectionView DataSource
 extension RestaurantDetailsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        restaurant?.images.count ?? 0
+        restaurant?.images?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -622,7 +622,7 @@ extension RestaurantDetailsViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        if let urlString = restaurant?.images[indexPath.row] {
+        if let urlString = restaurant?.images?[indexPath.row] {
               setImage(from: urlString, for: indexPath)
           }
         
