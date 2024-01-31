@@ -15,11 +15,13 @@ enum NetworkError: Error {
 }
 
 final class NetworkManager {
+    // MARK: - Shared Instance
     static let shared = NetworkManager()
     
+    // MARK: - Private Init
     init() {}
     
-    // MARK: - Fetch Movies
+    // MARK: - Fetch Restaurants
     public func fetch<T: Decodable>(from urlString: String, completion: @escaping (Result<T, NetworkError>) -> Void) {
         guard let url = URL(string: urlString) else {
             completion(.failure(.invalidURL))
@@ -42,9 +44,7 @@ final class NetworkManager {
                 DispatchQueue.main.async{
                     completion(.success(decodedData))
                 }
-            } catch {
-                completion(.failure(.decodingError))
-            }
+            } catch { completion(.failure(.decodingError)) }
         }.resume()
     }
     
@@ -60,7 +60,6 @@ final class NetworkManager {
                 completion(nil)
                 return
             }
-            
             completion(image)
         }.resume()
     }

@@ -61,6 +61,7 @@
 		EEA4221D2B570A8200BC4693 /* CustomTextFieldComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4221C2B570A8200BC4693 /* CustomTextFieldComponentView.swift */; };
 		EEAB7C842B68D8540004FCC2 /* FavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7C832B68D8540004FCC2 /* FavoritesManager.swift */; };
 		EEAB7C862B68E93C0004FCC2 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7C852B68E93C0004FCC2 /* FavoritesViewModel.swift */; };
+		EEAB7C882B6A73BC0004FCC2 /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7C872B6A73BC0004FCC2 /* NavigationManager.swift */; };
 		EEB37E732B5E6B5800D39BEA /* TablesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E722B5E6B5800D39BEA /* TablesViewController.swift */; };
 		EEB37E762B5E6BAA00D39BEA /* TablesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E752B5E6BAA00D39BEA /* TablesCollectionViewCell.swift */; };
 		EEB37E782B5FF34A00D39BEA /* RestaurantDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E772B5FF34A00D39BEA /* RestaurantDetailsViewModel.swift */; };
@@ -135,6 +136,7 @@
 		EEA4221C2B570A8200BC4693 /* CustomTextFieldComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldComponentView.swift; sourceTree = "<group>"; };
 		EEAB7C832B68D8540004FCC2 /* FavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManager.swift; sourceTree = "<group>"; };
 		EEAB7C852B68E93C0004FCC2 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
+		EEAB7C872B6A73BC0004FCC2 /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
 		EEB37E722B5E6B5800D39BEA /* TablesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesViewController.swift; sourceTree = "<group>"; };
 		EEB37E752B5E6BAA00D39BEA /* TablesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesCollectionViewCell.swift; sourceTree = "<group>"; };
 		EEB37E772B5FF34A00D39BEA /* RestaurantDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsViewModel.swift; sourceTree = "<group>"; };
@@ -202,20 +204,6 @@
 			path = PasswordCheckComponents;
 			sourceTree = "<group>";
 		};
-		EE2EE4582B629B7E009C0DD2 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		EE2EE45B2B62A074009C0DD2 /* Firestore */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Firestore;
-			sourceTree = "<group>";
-		};
 		EE337EFC2B5562D1004DBA6B = {
 			isa = PBXGroup;
 			children = (
@@ -238,9 +226,9 @@
 			children = (
 				EE337F332B559C57004DBA6B /* App */,
 				EE8EB8FB2B5A529200C6FEB9 /* TabBar */,
+				EEAB7C892B6A75E90004FCC2 /* Managers */,
+				EE29638F2B58FAEF0047938C /* Models */,
 				EE98E0E32B5748250074962D /* Authentication */,
-				EE2EE45B2B62A074009C0DD2 /* Firestore */,
-				EE2EE4582B629B7E009C0DD2 /* Core */,
 				EE8EB8FE2B5A52FD00C6FEB9 /* Restaurants */,
 				EE8EB9012B5A532100C6FEB9 /* Map */,
 				EE8EB9042B5A534400C6FEB9 /* Reservations */,
@@ -397,12 +385,10 @@
 				EED2105A2B5BEDC900039A98 /* Details */,
 				EE65E9EF2B5D3C29009B6602 /* OpenHours */,
 				EEEC43462B5D4CA700E9F87D /* Reservation */,
-				EED210612B5C6FCF00039A98 /* RestaurantHoursManager.swift */,
 				EEB37E742B5E6B6500D39BEA /* Tables */,
 				EED2105D2B5C58E000039A98 /* ConfirmationBanner.swift */,
 				EE53F17F2B5AA8530019853F /* CuisineButton.swift */,
 				EED2105F2B5C5EEC00039A98 /* MainButtonComponent.swift */,
-				EE53F1832B5ABB2D0019853F /* NetworkManager.swift */,
 				EE487F762B677F53001E8CEA /* EmptyStateViewController.swift */,
 			);
 			path = Restaurants;
@@ -422,7 +408,6 @@
 			isa = PBXGroup;
 			children = (
 				EE8EB9052B5A535B00C6FEB9 /* ReservationsViewController.swift */,
-				EE487F782B679767001E8CEA /* ReservationsManager.swift */,
 				EE487F7C2B6797B4001E8CEA /* MyReservation.swift */,
 			);
 			path = Reservations;
@@ -434,7 +419,6 @@
 				EEAB7C852B68E93C0004FCC2 /* FavoritesViewModel.swift */,
 				EE8EB9082B5A539000C6FEB9 /* FavoritesViewController.swift */,
 				EE487F5D2B6558D9001E8CEA /* FavoriteRestaurantsTableViewCell.swift */,
-				EEAB7C832B68D8540004FCC2 /* FavoritesManager.swift */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";
@@ -450,8 +434,6 @@
 		EE98E0E32B5748250074962D /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				EE98E0E42B5748580074962D /* AuthenticationManager.swift */,
-				EE29638F2B58FAEF0047938C /* Models */,
 				EE2963902B58FB0D0047938C /* Helpers */,
 				EE337F392B55A83E004DBA6B /* SwiftUIScenes */,
 			);
@@ -463,6 +445,18 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EEAB7C892B6A75E90004FCC2 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				EEAB7C872B6A73BC0004FCC2 /* NavigationManager.swift */,
+				EE53F1832B5ABB2D0019853F /* NetworkManager.swift */,
+				EE98E0E42B5748580074962D /* AuthenticationManager.swift */,
+				EE487F782B679767001E8CEA /* ReservationsManager.swift */,
+				EEAB7C832B68D8540004FCC2 /* FavoritesManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		EEB37E742B5E6B6500D39BEA /* Tables */ = {
@@ -478,6 +472,7 @@
 		EED210572B5BED7A00039A98 /* Restaurants */ = {
 			isa = PBXGroup;
 			children = (
+				EED210612B5C6FCF00039A98 /* RestaurantHoursManager.swift */,
 				EE53F17D2B5A858C0019853F /* RestaurantsViewModel.swift */,
 				EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */,
 				EED210582B5BED9600039A98 /* TableViewCell */,
@@ -642,6 +637,7 @@
 				EE8EB8FD2B5A52B000C6FEB9 /* TabBarController.swift in Sources */,
 				EED210552B5BECF700039A98 /* RestaurantImagesCollectionViewCell.swift in Sources */,
 				EE98E0E52B5748580074962D /* AuthenticationManager.swift in Sources */,
+				EEAB7C882B6A73BC0004FCC2 /* NavigationManager.swift in Sources */,
 				EEA4221D2B570A8200BC4693 /* CustomTextFieldComponentView.swift in Sources */,
 				EE53F1842B5ABB2D0019853F /* NetworkManager.swift in Sources */,
 				EEDABB872B591C9600A918EC /* GoogleSignInResultModel.swift in Sources */,

@@ -15,9 +15,8 @@ final class LoginOptionsViewModel: ObservableObject {
         let helper = SignInGoogleHelper()
         let tokens = try await helper.signIn()
         try await AuthenticationManager.shared.signInWithGoogle(tokens: tokens)
-        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-            sceneDelegate.presentTabBarController()
-        }
+        NavigationManager.shared.presentTabBarController()
+
     }
 }
 

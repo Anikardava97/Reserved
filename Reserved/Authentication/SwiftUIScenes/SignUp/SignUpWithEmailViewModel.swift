@@ -31,10 +31,8 @@ final class SignUpWithEmailViewModel: ObservableObject {
         Task {
             do {
                 let _ = try await AuthenticationManager.shared.createUser(email: email, password: password)
+                NavigationManager.shared.presentTabBarController()
 
-                if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-                    sceneDelegate.presentTabBarController()
-                }
             } catch {
                 print("Error: \(error.localizedDescription)")
             }

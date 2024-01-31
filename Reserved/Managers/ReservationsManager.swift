@@ -12,12 +12,19 @@ protocol ReservationManagerDelegate: AnyObject {
 }
 
 final class ReservationManager {
+    // MARK: - Shared Instance
     static let shared = ReservationManager()
+    
+    // MARK: - Private Init
     private init() {}
     
+    // MARK: - Properties
     var myReservations: [MyReservation] = []
+    
+    // MARK: - Delegate
     weak var delegate: ReservationManagerDelegate?
 
+    // MARK: - Methods
     func storeReservation(restaurantName: String, reservationDate: String, reservationTime: String, guestsCount: Int) {
         let newReservation = MyReservation(
             restaurantName: restaurantName,
