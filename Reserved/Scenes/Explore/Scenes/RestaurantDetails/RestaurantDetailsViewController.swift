@@ -11,12 +11,11 @@ import MapKit
 
 final class RestaurantDetailsViewController: UIViewController {
     // MARK: - Properties
-    private var viewModel = RestaurantDetailsViewModel()
     private var restaurant: Restaurant?
     private var currentCellIndex = 0
-    private let  imagePageControl: UIPageControl = {
+    
+    private let imagePageControl: UIPageControl = {
         let pageControl = UIPageControl()
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
         return pageControl
     }()
     
@@ -29,7 +28,6 @@ final class RestaurantDetailsViewController: UIViewController {
     private let scrollStackViewContainer: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.spacing = 0
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -37,10 +35,10 @@ final class RestaurantDetailsViewController: UIViewController {
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .clear
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.isPagingEnabled = true
         return collectionView
     }()
     
@@ -48,7 +46,6 @@ final class RestaurantDetailsViewController: UIViewController {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 24
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
@@ -169,12 +166,12 @@ final class RestaurantDetailsViewController: UIViewController {
         return label
     }()
     
-    private let chevronImageView: UIButton = {
-        let button = UIButton(type: .system)
-        let chevronImage = UIImage(systemName: "chevron.right")
-        button.setImage(chevronImage, for: .normal)
-        button.tintColor = .white
-        return button
+    private let chevronImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "chevron.right")
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .white
+        return imageView
     }()
     
     private lazy var reservationButton: MainButtonComponent = {
@@ -186,13 +183,6 @@ final class RestaurantDetailsViewController: UIViewController {
         button.addTarget(self, action: #selector(reservationButtonDidTap), for: .touchUpInside)
         return button
     }()
-    
-    @objc private func reservationButtonDidTap() {
-        let reservationViewController = ReservationViewController()
-        reservationViewController.selectedRestaurant = self.restaurant
-
-        self.navigationController?.pushViewController(reservationViewController, animated: true)
-    }
     
     private lazy var aboutSectionStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [aboutSectionTitleLabel, restaurantDescriptionLabel])
@@ -265,10 +255,8 @@ final class RestaurantDetailsViewController: UIViewController {
     
     private let addressIconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(systemName: "mappin.and.ellipse")
         imageView.tintColor = .white
-        
         return imageView
     }()
     
@@ -315,10 +303,8 @@ final class RestaurantDetailsViewController: UIViewController {
     
     private let numberIconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(systemName: "phone.fill")
         imageView.tintColor = .white
-        
         return imageView
     }()
     
@@ -343,9 +329,9 @@ final class RestaurantDetailsViewController: UIViewController {
             ]
         )
         label.attributedText = underlineAttributedString
+        label.isUserInteractionEnabled = true
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(numberLabelDidTap))
-        label.isUserInteractionEnabled = true
         label.addGestureRecognizer(tapGesture)
         return label
     }()
@@ -385,7 +371,6 @@ final class RestaurantDetailsViewController: UIViewController {
         scrollStackViewContainer.addArrangedSubview(mainStackView)
         
         mainStackView.addArrangedSubview(headerStackView)
-        
         mainStackView.addArrangedSubview(urlStackView)
         mainStackView.addArrangedSubview(openStatusAndChevronStackView)
         mainStackView.addArrangedSubview(reservationButton)
@@ -396,31 +381,12 @@ final class RestaurantDetailsViewController: UIViewController {
     }
     
     private func setupConstraints() {
+        setupScrollViewAndScrollStackViewConstraints()
+        setupCollectionViewConstraints()
+        setupImagePageControlConstraints()
+        setupMainStackViewConstraints()
+        
         NSLayoutConstraint.activate([
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            scrollStackViewContainer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            scrollStackViewContainer.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            scrollStackViewContainer.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            scrollStackViewContainer.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            scrollStackViewContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            
-            collectionView.topAnchor.constraint(equalTo: scrollStackViewContainer.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: scrollStackViewContainer.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: scrollStackViewContainer.trailingAnchor),
-            collectionView.widthAnchor.constraint(equalTo: scrollStackViewContainer.widthAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 340),
-            
-            imagePageControl.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: -50),
-            imagePageControl.centerXAnchor.constraint(equalTo: scrollStackViewContainer.centerXAnchor),
-            
-            mainStackView.leadingAnchor.constraint(equalTo: scrollStackViewContainer.leadingAnchor, constant: 16),
-            mainStackView.trailingAnchor.constraint(equalTo: scrollStackViewContainer.trailingAnchor, constant: -16),
-            mainStackView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20),
-            
             starImageView.widthAnchor.constraint(equalToConstant: 20),
             starImageView.heightAnchor.constraint(equalToConstant: 20),
             
@@ -434,19 +400,64 @@ final class RestaurantDetailsViewController: UIViewController {
         ])
     }
     
+    private func setupScrollViewAndScrollStackViewConstraints() {
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            scrollStackViewContainer.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            scrollStackViewContainer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            scrollStackViewContainer.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            scrollStackViewContainer.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            scrollStackViewContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
+    }
+    
+    private func setupCollectionViewConstraints() {
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: scrollStackViewContainer.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: scrollStackViewContainer.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: scrollStackViewContainer.trailingAnchor),
+            collectionView.widthAnchor.constraint(equalTo: scrollStackViewContainer.widthAnchor),
+            collectionView.heightAnchor.constraint(equalToConstant: 340)
+        ])
+    }
+    
+    private func setupImagePageControlConstraints() {
+        NSLayoutConstraint.activate([
+            imagePageControl.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: -50),
+            imagePageControl.centerXAnchor.constraint(equalTo: scrollStackViewContainer.centerXAnchor)
+        ])
+    }
+    
+    private func setupMainStackViewConstraints() {
+        NSLayoutConstraint.activate([
+            mainStackView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20),
+            mainStackView.leadingAnchor.constraint(equalTo: scrollStackViewContainer.leadingAnchor, constant: 16),
+            mainStackView.trailingAnchor.constraint(equalTo: scrollStackViewContainer.trailingAnchor, constant: -16),
+        ])
+    }
+    
     private func setupCollectionView() {
-        collectionView.register(RestaurantImagesCollectionViewCell.self, forCellWithReuseIdentifier: "ImageSlider")
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.isPagingEnabled = true
+        collectionView.register(RestaurantImagesCollectionViewCell.self, forCellWithReuseIdentifier: "imageSlider")
     }
     
     private func setupImagePageController() {
         imagePageControl.numberOfPages = restaurant?.images?.count ?? 0
     }
-
-
+    
+    private func setupLabelActions() {
+        let menuTapGesture = UITapGestureRecognizer(target: self, action: #selector(menuLabelDidTap))
+        menuLabel.addGestureRecognizer(menuTapGesture)
+        
+        let websiteTapGesture = UITapGestureRecognizer(target: self, action: #selector(websiteLabelDidTap))
+        websiteLabel.addGestureRecognizer(websiteTapGesture)
+    }
+    
     private func setupMapView() {
         let initialLocation = CLLocationCoordinate2D(
             latitude: restaurant?.location.latitude ?? 0.0,
@@ -463,14 +474,6 @@ final class RestaurantDetailsViewController: UIViewController {
         locationMapView.setRegion(region, animated: true)
         
         locationMapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-    }
-    
-    private func setupLabelActions() {
-        let menuTapGesture = UITapGestureRecognizer(target: self, action: #selector(menuLabelDidTap))
-        menuLabel.addGestureRecognizer(menuTapGesture)
-        
-        let websiteTapGesture = UITapGestureRecognizer(target: self, action: #selector(websiteLabelDidTap))
-        websiteLabel.addGestureRecognizer(websiteTapGesture)
     }
     
     private func openInMaps() {
@@ -511,6 +514,44 @@ final class RestaurantDetailsViewController: UIViewController {
                 application.open(phoneCallURL, options: [:], completionHandler: nil)
             }
         }
+    }
+    
+    // MARK: - Configure
+    func configure(with restaurant: Restaurant) {
+        self.restaurant = restaurant
+        restaurantNameLabel.text = restaurant.name
+        cuisineLabel.text = restaurant.cuisine
+        ratingLabel.text = String(restaurant.reviewStars)
+        openStatusLabel.text = RestaurantHoursManager.isRestaurantOpen(from: restaurant) ? "Open Now" : "Closed"
+        openHoursLabel.text = RestaurantHoursManager.getTodaysOpeningHours(from: restaurant)
+        restaurantDescriptionLabel.text = restaurant.description
+    }
+    
+    // MARK: - Actions
+    @objc private func menuLabelDidTap() {
+        if let url = URL(string: restaurant?.menuURL ?? "") {
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+        }
+    }
+    
+    @objc private func websiteLabelDidTap() {
+        if let url = URL(string: restaurant?.websiteURL ?? "") {
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+        }
+    }
+    
+    @objc private func openHoursDidTap() {
+        let openHoursViewController = OpenHoursViewController()
+        openHoursViewController.restaurant = restaurant
+        self.navigationController?.pushViewController(openHoursViewController, animated: true)
+    }
+    
+    @objc private func reservationButtonDidTap() {
+        let reservationViewController = ReservationViewController()
+        reservationViewController.selectedRestaurant = self.restaurant
+        self.navigationController?.pushViewController(reservationViewController, animated: true)
     }
     
     @objc private func addressLabelDidTap() {
@@ -566,88 +607,28 @@ final class RestaurantDetailsViewController: UIViewController {
         alertController.view.tintColor = .customAccentColor
         present(alertController, animated: true, completion: nil)
     }
-    
-    @objc private func menuLabelDidTap() {
-        if let url = URL(string: restaurant?.menuURL ?? "") {
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
-        }
-    }
-    
-    @objc private func websiteLabelDidTap() {
-        if let url = URL(string: restaurant?.websiteURL ?? "") {
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
-        }
-    }
-    
-    @objc private func openHoursDidTap() {
-        let openHoursViewController = OpenHoursViewController()
-        openHoursViewController.restaurant = restaurant
-        self.navigationController?.pushViewController(openHoursViewController, animated: true)
-    }
-    
-    // MARK: - Configure
-    func configure(with restaurant: Restaurant) {
-        self.restaurant = restaurant
-        
-        restaurantNameLabel.text = restaurant.name
-        cuisineLabel.text = restaurant.cuisine
-        ratingLabel.text = String(restaurant.reviewStars)
-        openStatusLabel.text = RestaurantHoursManager.isRestaurantOpen(from: restaurant) ? "Open Now" : "Closed"
-        openHoursLabel.text = RestaurantHoursManager.getTodaysOpeningHours(from: restaurant)
-        restaurantDescriptionLabel.text = restaurant.description
-    }
-    
-    // MARK: - Set Image
-    private func setImage(from url: String, for indexPath: IndexPath) {
-        NetworkManager.shared.downloadImage(from: url) { [weak self] image in
-            DispatchQueue.main.async {
-                if let cell = self?.collectionView.cellForItem(at: indexPath) as? RestaurantImagesCollectionViewCell {
-                    cell.restaurantImageView.image = image
-                }
-            }
-        }
-    }
 }
 
-// MARK: - CollectionView DataSource
+// MARK: - UICollectionViewDataSource
 extension RestaurantDetailsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         restaurant?.images?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageSlider", for: indexPath) as? RestaurantImagesCollectionViewCell else {
-            return UICollectionViewCell()
-        }
-        
-        if let urlString = restaurant?.images?[indexPath.row] {
-              setImage(from: urlString, for: indexPath)
-          }
-        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageSlider", for: indexPath) as? RestaurantImagesCollectionViewCell,
+              let imageURL = restaurant?.images?[indexPath.row]
+        else { return UICollectionViewCell() }
+        cell.configure(with: imageURL)
         return cell
     }
 }
 
-// MARK: - CollectionView FlowLayoutDelegate
+// MARK:  UICollectionViewDelegateFlowLayout
 extension RestaurantDetailsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = Int((collectionView.frame.width))
         let height = Int((collectionView.frame.height))
         return CGSize(width: width, height: height)
     }
-}
-
-// MARK: - UIScrollViewDelegate
-extension RestaurantDetailsViewController: UIScrollViewDelegate {
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let pageWidth = collectionView.frame.size.width
-        currentCellIndex = Int(collectionView.contentOffset.x / pageWidth)
-        imagePageControl.currentPage = currentCellIndex
-    }
-}
-
-#Preview {
-    RestaurantDetailsViewController()
 }

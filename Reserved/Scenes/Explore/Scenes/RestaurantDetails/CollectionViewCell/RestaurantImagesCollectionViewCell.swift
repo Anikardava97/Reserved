@@ -13,6 +13,7 @@ final class RestaurantImagesCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -43,8 +44,16 @@ final class RestaurantImagesCollectionViewCell: UICollectionViewCell {
             restaurantImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             restaurantImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             restaurantImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            restaurantImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-
+            restaurantImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
+    }
+    
+    // MARK: - Configure
+    func configure(with imageURL: String) {
+        NetworkManager.shared.downloadImage(from: imageURL) { [weak self] image in
+            DispatchQueue.main.async {
+                self?.restaurantImageView.image = image
+            }
+        }
     }
 }

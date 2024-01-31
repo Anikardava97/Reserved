@@ -342,6 +342,3 @@ extension RestaurantsViewController: RestaurantsViewModelDelegate {
     }
 }
 
-#Preview {
-    RestaurantsViewController()
-}

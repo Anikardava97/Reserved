@@ -59,7 +59,6 @@ final class OpenHoursViewController: UIViewController {
             
             schedules.append(DaySchedule(day: "Sunday", hours: "\(restaurant.openHours.sunday.startTime.rawValue) - \(restaurant.openHours.sunday.endTime.rawValue)"))
         }
-        
         return schedules
     }()
     
@@ -95,9 +94,9 @@ final class OpenHoursViewController: UIViewController {
     
     private func setupMainStackViewConstraints() {
         NSLayoutConstraint.activate([
+            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
             mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
             mainStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
@@ -145,6 +144,3 @@ final class OpenHoursViewController: UIViewController {
     }
 }
 
-#Preview {
-    OpenHoursViewController()
-}

@@ -9,8 +9,8 @@ import UIKit
 
 final class ReservationViewController: UIViewController {
     // MARK: - Properties
-    private var guestCount = 2
     var selectedRestaurant: Restaurant?
+    private var guestCount = 2
     private var selectedDate: Date?
     
     private let scrollView: UIScrollView = {
