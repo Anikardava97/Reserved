@@ -9,10 +9,13 @@ import Foundation
 import UIKit
 
 final class Utilities {
+    // MARK: - Shared Instance
     static let shared = Utilities()
     
+    // MARK: - Private Init
     private init() {}
     
+    // MARK: - Methods
     @MainActor
     func topViewController(controller: UIViewController? = nil) -> UIViewController? {
         let controller = controller ?? UIApplication.shared.connectedScenes

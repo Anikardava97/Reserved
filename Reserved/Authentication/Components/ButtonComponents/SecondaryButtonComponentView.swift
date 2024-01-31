@@ -45,11 +45,3 @@ struct SecondaryButtonComponentView: View {
     }
 }
 
-#Preview {
-    SecondaryButtonComponentView(
-        text: "Button",
-        textColor: .black,
-        strokeColor: .black,
-        icon: Image(systemName: "star"),
-        iconSize: 20)
-}

@@ -10,6 +10,7 @@ import SwiftUI
 struct LoginOptionsView: View {
     // MARK: - Properties
     @StateObject private var viewModel = LoginOptionsViewModel()
+    
     var navigateToLoginView: () -> Void
     
     // MARK: - Body
@@ -55,8 +56,6 @@ struct LoginOptionsView: View {
     }
     
     private var appleLoginView: some View {
-        Button { }
-    label: {
         SecondaryButtonComponentView(
             text: "Continue with Apple",
             textColor: .white,
@@ -64,7 +63,6 @@ struct LoginOptionsView: View {
             icon: Image(systemName: "apple.logo"),
             iconColor: .white,
             iconSize: 20)
-    }
     }
     
     private var googleLoginView: some View {
@@ -99,8 +97,4 @@ struct LoginOptionsView: View {
                 iconSize: 20)
         }
     }
-}
-
-#Preview {
-    LoginOptionsView { }
 }

@@ -48,8 +48,18 @@ struct LogInWithEmailView: View {
     
     private var emailAndPasswordTextFieldsView: some View {
         VStack(spacing: 20) {
-            CustomTextFieldComponentView(text: $viewModel.email, title: "Email address", prompt: "Enter your email address", isSecure: false)
-            CustomTextFieldComponentView(text: $viewModel.password, title: "Password", prompt: "Enter your password", isSecure: true)
+            CustomTextFieldComponentView(
+                text: $viewModel.email,
+                title: "Email address",
+                prompt: "Enter your email address",
+                isSecure: false
+            )
+            CustomTextFieldComponentView(
+                text: $viewModel.password,
+                title: "Password",
+                prompt: "Enter your password",
+                isSecure: true
+            )
         }
     }
     
@@ -58,19 +68,24 @@ struct LogInWithEmailView: View {
             Button {
                 viewModel.logIn()
             } label: {
-                PrimaryButtonComponentView(text: "Log In", textColor: .white, backgroundColor: Color.customAccentColor)
+                PrimaryButtonComponentView(
+                    text: "Log In",
+                    textColor: .white,
+                    backgroundColor: Color.customAccentColor
+                )
             }
             
             Button {
                 navigateToSignUpView()
             } label: {
-                SecondaryButtonComponentView(text: "Sign Up", textColor: .white, strokeColor: .white)
+                SecondaryButtonComponentView(
+                    text: "Sign Up",
+                    textColor: .white,
+                    strokeColor: .white
+                )
             }
         }
     }
 }
 
 
-#Preview {
-    LogInWithEmailView { }
-}

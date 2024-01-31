@@ -48,15 +48,25 @@ struct SignUpWithEmailView: View {
     
     private var emailAndPasswordTextFieldsView: some View {
         VStack(alignment: .leading, spacing: 20) {
-            CustomTextFieldComponentView(text: $viewModel.email, title: "Email address", prompt: "Enter your email address", isSecure: false)
-                .onChange(of: viewModel.email) {
-                    viewModel.validateEmail()
-                }
+            CustomTextFieldComponentView(
+                text: $viewModel.email,
+                title: "Email address",
+                prompt: "Enter your email address",
+                isSecure: false
+            )
+            .onChange(of: viewModel.email) {
+                viewModel.validateEmail()
+            }
             
-            CustomTextFieldComponentView(text: $viewModel.password, title: "Password", prompt: "Enter your password", isSecure: true)
-                .onChange(of: viewModel.password) {
-                    viewModel.validatePassword()
-                }
+            CustomTextFieldComponentView(
+                text: $viewModel.password,
+                title: "Password",
+                prompt: "Enter your password",
+                isSecure: true
+            )
+            .onChange(of: viewModel.password) {
+                viewModel.validatePassword()
+            }
             
             PasswordStrengthChecklist(
                 isPasswordMinimumLengthMet: viewModel.isPasswordMinimumLengthMet,
@@ -70,13 +80,21 @@ struct SignUpWithEmailView: View {
             Button {
                 viewModel.signUp()
             } label: {
-                PrimaryButtonComponentView(text: "Sign up", textColor: .white, backgroundColor: Color.customAccentColor)
+                PrimaryButtonComponentView(
+                    text: "Sign up",
+                    textColor: .white,
+                    backgroundColor: Color.customAccentColor
+                )
             }
             
             Button {
                 navigateToLoginView()
             } label: {
-                SecondaryButtonComponentView(text: "Log in", textColor: .white, strokeColor: .white)
+                SecondaryButtonComponentView(
+                    text: "Log in",
+                    textColor: .white,
+                    strokeColor: .white
+                )
             }
         }
     }

@@ -29,10 +29,6 @@ class Restaurant: Decodable {
     var reservations: [Reservation]?
 }
 
-struct OpenHours: Decodable {
-    let monday, tuesday, wednesday, thursday, friday, saturday, sunday: Day
-}
-
 struct Location: Decodable {
     let address: String
     let latitude, longitude: Double
@@ -43,6 +39,10 @@ struct Reservation: Decodable {
     let time: String
     let guestCount: Int
     let tableNumber: Int
+}
+
+struct OpenHours: Decodable {
+    let monday, tuesday, wednesday, thursday, friday, saturday, sunday: Day
 }
 
 struct Day: Decodable {
@@ -92,7 +92,6 @@ enum StartTime: String, Decodable {
     case the300Am = "3:00 AM"
 }
 
-
 enum EndTime: String, Decodable {
     case the800Pm = "8:00 PM"
     case the830Pm = "8:30 PM"
@@ -129,7 +128,7 @@ enum EndTime: String, Decodable {
     case the1000Am = "10:00 AM"
     case the1030Am = "10:30 AM"
     case the100Pm = "1:00 PM"
-    case the200Pm = "2:00 PM" 
+    case the200Pm = "2:00 PM"
 }
 
 

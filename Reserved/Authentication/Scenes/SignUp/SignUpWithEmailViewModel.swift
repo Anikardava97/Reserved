@@ -27,15 +27,11 @@ final class SignUpWithEmailViewModel: ObservableObject {
             showAlert = true
             return
         }
-        
         Task {
             do {
                 let _ = try await AuthenticationManager.shared.createUser(email: email, password: password)
                 NavigationManager.shared.presentTabBarController()
-
-            } catch {
-                print("Error: \(error.localizedDescription)")
-            }
+            } catch { print("Error: \(error.localizedDescription)") }
         }
     }
 }

@@ -39,15 +39,12 @@ struct LaunchScreenView: View {
     
     private var glassLeftSideImageView: some View {
         HStack(spacing: 8) {
-            
             Spacer()
-            
             Image("glassLeft")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 105, height: 156)
                 .offset(x: animateGlasses ? 4 : 0, y: animateGlasses ? -4 : 0)
-            
             Image("glassRight")
                 .resizable()
                 .scaledToFit()
@@ -72,7 +69,6 @@ struct LaunchScreenView: View {
                         animateText = true
                     }
                 }
-            
             Image.logoImage
                 .resizable()
                 .scaledToFit()
@@ -109,7 +105,3 @@ struct LaunchScreenView: View {
     }
 }
 
-// MARK: - Preview
-#Preview {
-    LaunchScreenView(navigateToLoginOptionsView: { })
-}

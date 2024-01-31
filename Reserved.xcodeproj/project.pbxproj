@@ -182,6 +182,8 @@
 			children = (
 				EE98E0F42B5782C90074962D /* AuthorizationDataResultModel.swift */,
 				EEDABB862B591C9600A918EC /* GoogleSignInResultModel.swift */,
+				EE53F1792B5A6E730019853F /* Restaurant.swift */,
+				EE487F652B6598B8001E8CEA /* RestaurantLocation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -269,24 +271,23 @@
 		EE337F372B55A820004DBA6B /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				EE337F342B559E5F004DBA6B /* AppBenefitTextComponentView.swift */,
-				EE337F312B559606004DBA6B /* PrimaryButtonComponentView.swift */,
-				EE337F3C2B55AFEC004DBA6B /* SecondaryButtonComponentView.swift */,
-				EEA4221C2B570A8200BC4693 /* CustomTextFieldComponentView.swift */,
+				EE2963912B58FC570047938C /* PasswordCheckComponents */,
+				EEAB7C8A2B6A8EB70004FCC2 /* ButtonComponents */,
+				EEAB7C8B2B6A8EDA0004FCC2 /* TextfieldComponent */,
+				EEAB7C8C2B6A8EF50004FCC2 /* BenefitsTextComponent */,
 			);
 			path = Components;
 			sourceTree = "<group>";
 		};
-		EE337F392B55A83E004DBA6B /* SwiftUIScenes */ = {
+		EE337F392B55A83E004DBA6B /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
 				EE337F4C2B56B241004DBA6B /* Launch */,
 				EE337F4D2B56B24D004DBA6B /* LoginOptions */,
 				EE337F4F2B56B25E004DBA6B /* Login */,
 				EE337F4E2B56B255004DBA6B /* SignUp */,
-				EE337F372B55A820004DBA6B /* Components */,
 			);
-			path = SwiftUIScenes;
+			path = Scenes;
 			sourceTree = "<group>";
 		};
 		EE337F4C2B56B241004DBA6B /* Launch */ = {
@@ -300,8 +301,8 @@
 		EE337F4D2B56B24D004DBA6B /* LoginOptions */ = {
 			isa = PBXGroup;
 			children = (
-				EEDABB802B5910E800A918EC /* LoginOptionsViewModel.swift */,
 				EE337F3A2B55ADAA004DBA6B /* LoginOptionsView.swift */,
+				EEDABB802B5910E800A918EC /* LoginOptionsViewModel.swift */,
 			);
 			path = LoginOptions;
 			sourceTree = "<group>";
@@ -309,9 +310,8 @@
 		EE337F4E2B56B255004DBA6B /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
-				EE337F422B55BFD6004DBA6B /* SignUpWithEmailViewModel.swift */,
 				EE337F402B55BE81004DBA6B /* SignUpWithEmailView.swift */,
-				EE2963912B58FC570047938C /* PasswordCheckComponents */,
+				EE337F422B55BFD6004DBA6B /* SignUpWithEmailViewModel.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -319,8 +319,8 @@
 		EE337F4F2B56B25E004DBA6B /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				EE337F4A2B56B177004DBA6B /* LogInWithEmailViewModel.swift */,
 				EE337F482B56B15A004DBA6B /* LogInWithEmailView.swift */,
+				EE337F4A2B56B177004DBA6B /* LogInWithEmailViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -345,22 +345,6 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		EE487F6B2B66460E001E8CEA /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				EE487F652B6598B8001E8CEA /* RestaurantLocation.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		EE53F1782B5A6E670019853F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				EE53F1792B5A6E730019853F /* Restaurant.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		EE65E9EF2B5D3C29009B6602 /* OpenHours */ = {
 			isa = PBXGroup;
 			children = (
@@ -380,7 +364,6 @@
 		EE8EB8FE2B5A52FD00C6FEB9 /* Restaurants */ = {
 			isa = PBXGroup;
 			children = (
-				EE53F1782B5A6E670019853F /* Model */,
 				EED210572B5BED7A00039A98 /* Restaurants */,
 				EED2105A2B5BEDC900039A98 /* Details */,
 				EE65E9EF2B5D3C29009B6602 /* OpenHours */,
@@ -397,7 +380,6 @@
 		EE8EB9012B5A532100C6FEB9 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				EE487F6B2B66460E001E8CEA /* Model */,
 				EE487F692B6645DB001E8CEA /* Views */,
 				EE487F6A2B6645E8001E8CEA /* ViewModel */,
 			);
@@ -434,8 +416,10 @@
 		EE98E0E32B5748250074962D /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				EEAB7C8D2B6A8F860004FCC2 /* Manager */,
+				EE337F392B55A83E004DBA6B /* Scenes */,
 				EE2963902B58FB0D0047938C /* Helpers */,
-				EE337F392B55A83E004DBA6B /* SwiftUIScenes */,
+				EE337F372B55A820004DBA6B /* Components */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -452,11 +436,43 @@
 			children = (
 				EEAB7C872B6A73BC0004FCC2 /* NavigationManager.swift */,
 				EE53F1832B5ABB2D0019853F /* NetworkManager.swift */,
-				EE98E0E42B5748580074962D /* AuthenticationManager.swift */,
 				EE487F782B679767001E8CEA /* ReservationsManager.swift */,
 				EEAB7C832B68D8540004FCC2 /* FavoritesManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		EEAB7C8A2B6A8EB70004FCC2 /* ButtonComponents */ = {
+			isa = PBXGroup;
+			children = (
+				EE337F312B559606004DBA6B /* PrimaryButtonComponentView.swift */,
+				EE337F3C2B55AFEC004DBA6B /* SecondaryButtonComponentView.swift */,
+			);
+			path = ButtonComponents;
+			sourceTree = "<group>";
+		};
+		EEAB7C8B2B6A8EDA0004FCC2 /* TextfieldComponent */ = {
+			isa = PBXGroup;
+			children = (
+				EEA4221C2B570A8200BC4693 /* CustomTextFieldComponentView.swift */,
+			);
+			path = TextfieldComponent;
+			sourceTree = "<group>";
+		};
+		EEAB7C8C2B6A8EF50004FCC2 /* BenefitsTextComponent */ = {
+			isa = PBXGroup;
+			children = (
+				EE337F342B559E5F004DBA6B /* AppBenefitTextComponentView.swift */,
+			);
+			path = BenefitsTextComponent;
+			sourceTree = "<group>";
+		};
+		EEAB7C8D2B6A8F860004FCC2 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				EE98E0E42B5748580074962D /* AuthenticationManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		EEB37E742B5E6B6500D39BEA /* Tables */ = {

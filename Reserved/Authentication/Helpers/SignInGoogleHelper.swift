@@ -10,20 +10,18 @@ import GoogleSignIn
 import GoogleSignInSwift
 
 final class SignInGoogleHelper {
-    
     @MainActor
+    // MARK: - Method
     func signIn() async throws -> GoogleSignInResultModel {
-        guard let topViewController = Utilities.shared.topViewController() else {
-            throw URLError(.cannotFindHost)
-        }
+        guard let topViewController = Utilities.shared.topViewController() else { throw URLError(.cannotFindHost) }
         
         let googleSignInResult = try await GIDSignIn.sharedInstance.signIn(withPresenting: topViewController)
-
+        
         guard let idToken = googleSignInResult.user.idToken?.tokenString else {
             throw URLError(.badServerResponse)
         }
         let accessToken = googleSignInResult.user.accessToken.tokenString
-                
+        
         let tokens = GoogleSignInResultModel(idToken: idToken, accessToken:  accessToken)
         return tokens
     }

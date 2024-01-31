@@ -17,4 +17,4 @@ struct AuthorizationDataResultModel {
         self.email = user.email
     }
 }
- 
+

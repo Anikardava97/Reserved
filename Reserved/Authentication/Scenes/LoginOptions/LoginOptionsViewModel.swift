@@ -16,7 +16,6 @@ final class LoginOptionsViewModel: ObservableObject {
         let tokens = try await helper.signIn()
         try await AuthenticationManager.shared.signInWithGoogle(tokens: tokens)
         NavigationManager.shared.presentTabBarController()
-
     }
 }
 
