@@ -27,7 +27,6 @@ final class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        FavoritesManager.shared.delegate = self
         
         viewModel.onFavoritesUpdated = { [weak self] in
             guard let self = self else { return }

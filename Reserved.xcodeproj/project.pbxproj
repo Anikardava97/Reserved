@@ -369,12 +369,12 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
-		EE8EB9042B5A534400C6FEB9 /* Reservations */ = {
+		EE8EB9042B5A534400C6FEB9 /* ReservationHistory */ = {
 			isa = PBXGroup;
 			children = (
 				EEAB7CAA2B6BD9BF0004FCC2 /* ReservationsHistoryViewController.swift */,
 			);
-			path = Reservations;
+			path = ReservationHistory;
 			sourceTree = "<group>";
 		};
 		EE8EB9072B5A536000C6FEB9 /* Favorites */ = {
@@ -464,7 +464,7 @@
 				EE98E0E32B5748250074962D /* Authentication */,
 				EEAB7C932B6AB2340004FCC2 /* Explore */,
 				EE8EB9012B5A532100C6FEB9 /* Map */,
-				EE8EB9042B5A534400C6FEB9 /* Reservations */,
+				EE8EB9042B5A534400C6FEB9 /* ReservationHistory */,
 				EE8EB9072B5A536000C6FEB9 /* Favorites */,
 				EE8EB90A2B5A53A200C6FEB9 /* Profile */,
 			);

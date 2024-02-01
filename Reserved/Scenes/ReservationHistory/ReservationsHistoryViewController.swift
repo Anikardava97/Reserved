@@ -37,6 +37,7 @@ final class ReservationsHistoryViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showReservationsHistory()
+        ReservationManager.shared.delegate = self
     }
     
     // MARK: - Methods
@@ -50,7 +51,6 @@ final class ReservationsHistoryViewController: UIViewController {
             self?.scrollStackViewContainer.arrangedSubviews.forEach { $0.removeFromSuperview() }
             
             let reservations = ReservationManager.shared.getAllReservations()
-            self?.updateReservationBadgeCount()
             
             if reservations.isEmpty {
                 self?.showEmptyState()
@@ -218,3 +218,9 @@ final class ReservationsHistoryViewController: UIViewController {
     }
 }
 
+// MARK: - Extension: ReservationManagerDelegate
+extension ReservationsHistoryViewController: ReservationManagerDelegate {
+    func reservationManagerDidUpdateReservations() {
+        updateReservationBadgeCount()
+    }
+}
