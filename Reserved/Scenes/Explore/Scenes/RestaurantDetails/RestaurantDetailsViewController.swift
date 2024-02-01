@@ -386,19 +386,10 @@ final class RestaurantDetailsViewController: UIViewController {
         setupCollectionViewConstraints()
         setupImagePageControlConstraints()
         setupMainStackViewConstraints()
-        
-        NSLayoutConstraint.activate([
-            starImageView.widthAnchor.constraint(equalToConstant: 20),
-            starImageView.heightAnchor.constraint(equalToConstant: 20),
-            
-            locationMapView.heightAnchor.constraint(equalToConstant: 160),
-            
-            addressIconImageView.widthAnchor.constraint(equalToConstant: 20),
-            addressIconImageView.heightAnchor.constraint(equalToConstant: 20),
-            
-            numberIconImageView.widthAnchor.constraint(equalToConstant: 20),
-            numberIconImageView.heightAnchor.constraint(equalToConstant: 20)
-        ])
+        setupStarImageViewConstraints()
+        setupLocationMapConstraints()
+        setupAddressIconImageViewConstraints()
+        setupNumberIconImageViewConstraints()
     }
     
     private func setupScrollViewAndScrollStackViewConstraints() {
@@ -427,10 +418,8 @@ final class RestaurantDetailsViewController: UIViewController {
     }
     
     private func setupImagePageControlConstraints() {
-        NSLayoutConstraint.activate([
-            imagePageControl.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: -50),
-            imagePageControl.centerXAnchor.constraint(equalTo: scrollStackViewContainer.centerXAnchor)
-        ])
+        imagePageControl.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: -50).isActive = true
+        imagePageControl.centerXAnchor.constraint(equalTo: scrollStackViewContainer.centerXAnchor).isActive = true
     }
     
     private func setupMainStackViewConstraints() {
@@ -439,6 +428,25 @@ final class RestaurantDetailsViewController: UIViewController {
             mainStackView.leadingAnchor.constraint(equalTo: scrollStackViewContainer.leadingAnchor, constant: 16),
             mainStackView.trailingAnchor.constraint(equalTo: scrollStackViewContainer.trailingAnchor, constant: -16),
         ])
+    }
+    
+    private func setupStarImageViewConstraints() {
+        starImageView.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        starImageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+    }
+    
+    private func setupLocationMapConstraints() {
+        locationMapView.heightAnchor.constraint(equalToConstant: 160).isActive = true
+    }
+    
+    private func setupAddressIconImageViewConstraints() {
+        addressIconImageView.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        addressIconImageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+    }
+    
+    private func setupNumberIconImageViewConstraints() {
+        numberIconImageView.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        numberIconImageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
     }
     
     private func setupCollectionView() {
