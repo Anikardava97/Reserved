@@ -14,19 +14,19 @@ final class FavoritesViewModel {
             self.onFavoritesUpdated?()
         }
     }
-
+    
     var onFavoritesUpdated: (() -> Void)?
-
+    
     // MARK: - Init
     init(favorites: [Restaurant] = []) {
         self.favorites = favorites
     }
-
+    
     // MARK: - Methods
     func loadFavorites() {
         self.favorites = FavoritesManager.shared.getAllFavorites()
     }
-
+    
     func toggleFavorite(restaurant: Restaurant) {
         if isFavorite(restaurant: restaurant) {
             FavoritesManager.shared.removeFavorite(restaurant: restaurant)
@@ -35,15 +35,15 @@ final class FavoritesViewModel {
         }
         loadFavorites()
     }
-
+    
     func isFavorite(restaurant: Restaurant) -> Bool {
         return FavoritesManager.shared.isFavorite(restaurant: restaurant)
     }
-
+    
     var numberOfFavorites: Int {
         return favorites.count
     }
-
+    
     func favoriteAt(index: Int) -> Restaurant {
         return favorites[index]
     }

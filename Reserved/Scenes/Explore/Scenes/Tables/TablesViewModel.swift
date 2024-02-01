@@ -34,10 +34,6 @@ final class TablesViewModel {
     
     // MARK: - Methods
     func isTableAvailable(forGuests guests: Int, tableIndex: Int) -> Bool {
-        guard let selectedRestaurant = selectedRestaurant else {
-            return false
-        }
-        
         let tableCapacity = Table.tables[tableIndex].capacity
         return tableCapacity == guests
     }

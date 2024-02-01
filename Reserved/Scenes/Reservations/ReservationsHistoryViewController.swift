@@ -1,13 +1,13 @@
 //
-//  ReservationsViewController.swift
+//  ReservationsHistoryViewController.swift
 //  Reserved
 //
-//  Created by Ani's Mac on 18.01.24.
+//  Created by Ani's Mac on 01.02.24.
 //
 
 import UIKit
 
-class ReservationsViewController: UIViewController {
+final class ReservationsHistoryViewController: UIViewController {
     // MARK: - Properties
     let emptyStateViewController = EmptyStateViewController(
         title: "Start your culinary journey",
@@ -218,6 +218,3 @@ class ReservationsViewController: UIViewController {
     }
 }
 
-#Preview {
-    ReservationsViewController()
-}

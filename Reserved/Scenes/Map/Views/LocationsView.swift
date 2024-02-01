@@ -100,8 +100,3 @@ extension LocationsView {
     }
 }
 
-#Preview {
-    LocationsView()
-}
-
-

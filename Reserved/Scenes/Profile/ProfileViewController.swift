@@ -281,6 +281,7 @@ final class ProfileViewController: UIViewController {
         }
     }
     
+    // MARK: - Actions
     @objc private func signOutDidTap() {
         let alert = UIAlertController(title: "Sign Out", message: "Are you sure you want to sign out?", preferredStyle: .alert)
         
@@ -293,10 +294,7 @@ final class ProfileViewController: UIViewController {
     }
 }
 
-#Preview {
-    ProfileViewController()
-}
-
+// MARK: - Extensions:
 extension ProfileViewController: FavoritesManagerDelegate {
     func favoritesManagerDidUpdateFavorites() {
         updateFavoritesLabel()

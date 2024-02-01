@@ -44,6 +44,7 @@ final class ReservationViewController: UIViewController {
     private let overlayView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -67,6 +68,7 @@ final class ReservationViewController: UIViewController {
         stackView.axis = .vertical
         stackView.spacing = 8
         stackView.alignment = .center
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     

@@ -120,7 +120,7 @@ extension FavoritesViewController: UITableViewDataSource {
     }
 }
 
-// MARK: - TableViewDelegate
+// MARK: - Extension: TableViewDelegate
 extension FavoritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         UITableView.automaticDimension
@@ -131,10 +131,7 @@ extension FavoritesViewController: UITableViewDelegate {
     }
 }
 
-#Preview {
-    FavoritesViewController()
-}
-
+// MARK: - Extension: FavoritesManagerDelegate
 extension FavoritesViewController: FavoritesManagerDelegate {
     func favoritesManagerDidUpdateFavorites() {
         updateFavoritesBadgeCount()

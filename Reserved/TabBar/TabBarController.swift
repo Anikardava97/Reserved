@@ -24,7 +24,7 @@ final class TabBarController: UITabBarController {
         let mapHostingController = UIHostingController(rootView: locationsView)
         mapHostingController.tabBarItem = UITabBarItem(title: "Nearby", image: UIImage(systemName: "location"), selectedImage: nil)
         
-        let reservations = createNavigationController(title: "Reservations", image: UIImage(systemName: "clock"), viewController: ReservationsViewController())
+        let reservations = createNavigationController(title: "Reservations", image: UIImage(systemName: "clock"), viewController: ReservationsHistoryViewController())
         
         let favourites = createNavigationController(title: "Favorites", image: UIImage(systemName: "heart"), viewController: FavoritesViewController())
         
