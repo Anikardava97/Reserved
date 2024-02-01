@@ -11,6 +11,7 @@ import MapKit
 
 final class RestaurantDetailsViewController: UIViewController {
     // MARK: - Properties
+    private var viewModel: RestaurantDetailsViewModel?
     private var restaurant: Restaurant?
     private var currentCellIndex = 0
     
@@ -50,7 +51,7 @@ final class RestaurantDetailsViewController: UIViewController {
     }()
     
     private lazy var headerStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [restaurantNameLabel, cuisineLabel, ratingStackView])
+        let stackView = UIStackView(arrangedSubviews: [restaurantNameLabel, restaurantCuisineLabel, ratingStackView])
         stackView.axis = .vertical
         stackView.spacing = 12
         stackView.distribution = .fill
@@ -64,7 +65,7 @@ final class RestaurantDetailsViewController: UIViewController {
         return label
     }()
     
-    private let cuisineLabel: UILabel = {
+    private let restaurantCuisineLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .white
@@ -72,7 +73,7 @@ final class RestaurantDetailsViewController: UIViewController {
     }()
     
     private lazy var ratingStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [starImageView, ratingLabel])
+        let stackView = UIStackView(arrangedSubviews: [starImageView, restaurantRatingLabel])
         stackView.spacing = 6
         stackView.distribution = .fill
         return stackView
@@ -86,7 +87,7 @@ final class RestaurantDetailsViewController: UIViewController {
         return imageView
     }()
     
-    private let ratingLabel: UILabel = {
+    private let restaurantRatingLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         label.textColor = .white
@@ -146,20 +147,20 @@ final class RestaurantDetailsViewController: UIViewController {
     }()
     
     private lazy var openStatusStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [openStatusLabel, openHoursLabel])
+        let stackView = UIStackView(arrangedSubviews: [restaurantOpenStatusLabel, restaurantOpenHoursLabel])
         stackView.axis = .vertical
         stackView.spacing = 8
         return stackView
     }()
     
-    private let openStatusLabel: UILabel = {
+    private let restaurantOpenStatusLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.textColor = .white
         return label
     }()
     
-    private let openHoursLabel: UILabel = {
+    private let restaurantOpenHoursLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .white.withAlphaComponent(0.6)
@@ -208,7 +209,7 @@ final class RestaurantDetailsViewController: UIViewController {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 6
         
-        let attributedText = NSMutableAttributedString(string: restaurant?.description ?? "")
+        let attributedText = NSMutableAttributedString(string: viewModel?.description ?? "")
         attributedText.addAttribute(
             NSAttributedString.Key.paragraphStyle,
             value: paragraphStyle,
@@ -274,7 +275,7 @@ final class RestaurantDetailsViewController: UIViewController {
         label.textColor = .white
         
         let underlineAttributedString = NSAttributedString(
-            string: restaurant?.location.address ?? "",
+            string: viewModel?.address ?? "",
             attributes: [
                 NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue,
                 NSAttributedString.Key.foregroundColor: UIColor.white
@@ -289,7 +290,7 @@ final class RestaurantDetailsViewController: UIViewController {
     }()
     
     private lazy var numberStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [numberTitleStackView, numberLabel])
+        let stackView = UIStackView(arrangedSubviews: [numberTitleStackView, restaurantNumberLabel])
         stackView.axis = .vertical
         stackView.spacing = 12
         return stackView
@@ -316,22 +317,22 @@ final class RestaurantDetailsViewController: UIViewController {
         return label
     }()
     
-    private lazy var numberLabel: UILabel = {
+    private lazy var restaurantNumberLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .white
         
         let underlineAttributedString = NSAttributedString(
-            string: restaurant?.phoneNumber ?? "",
+            string: viewModel?.phoneNumber ?? "",
             attributes: [
                 NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue,
                 NSAttributedString.Key.foregroundColor: UIColor.white
             ]
         )
         label.attributedText = underlineAttributedString
-        label.isUserInteractionEnabled = true
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(numberLabelDidTap))
+        label.isUserInteractionEnabled = true
         label.addGestureRecognizer(tapGesture)
         return label
     }()
@@ -447,7 +448,7 @@ final class RestaurantDetailsViewController: UIViewController {
     }
     
     private func setupImagePageController() {
-        imagePageControl.numberOfPages = restaurant?.images?.count ?? 0
+        imagePageControl.numberOfPages = viewModel?.images?.count ?? 0
     }
     
     private func setupLabelActions() {
@@ -460,12 +461,12 @@ final class RestaurantDetailsViewController: UIViewController {
     
     private func setupMapView() {
         let initialLocation = CLLocationCoordinate2D(
-            latitude: restaurant?.location.latitude ?? 0.0,
-            longitude: restaurant?.location.longitude ?? 0.0)
+            latitude: viewModel?.latitude ?? 0.0,
+            longitude: viewModel?.longitude ?? 0.0)
         
         let annotation = MKPointAnnotation()
         annotation.coordinate = initialLocation
-        annotation.title = restaurant?.name
+        annotation.title = viewModel?.restaurantName
         
         locationMapView.addAnnotation(annotation)
         
@@ -477,12 +478,12 @@ final class RestaurantDetailsViewController: UIViewController {
     }
     
     private func openInMaps() {
-        if let latitude = restaurant?.location.latitude,
-           let longitude = restaurant?.location.longitude {
+        if let latitude = viewModel?.latitude,
+           let longitude = viewModel?.longitude {
             let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             
             let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate))
-            mapItem.name = restaurant?.name
+            mapItem.name = viewModel?.restaurantName
             mapItem.openInMaps()
         } else {
             let alertController = UIAlertController(title: "Error", message: "Location information is not available", preferredStyle: .alert)
@@ -493,8 +494,8 @@ final class RestaurantDetailsViewController: UIViewController {
     }
     
     private func openInGoogleMaps() {
-        let latitude = restaurant?.location.latitude
-        let longitude = restaurant?.location.longitude
+        let latitude = viewModel?.latitude
+        let longitude = viewModel?.longitude
         
         let googleMapsURLString = "comgooglemaps://?center=\(String(describing: latitude)),\(String(describing: longitude))&zoom=14"
         
@@ -518,25 +519,28 @@ final class RestaurantDetailsViewController: UIViewController {
     
     // MARK: - Configure
     func configure(with restaurant: Restaurant) {
-        self.restaurant = restaurant
-        restaurantNameLabel.text = restaurant.name
-        cuisineLabel.text = restaurant.cuisine
-        ratingLabel.text = String(restaurant.reviewStars)
-        openStatusLabel.text = RestaurantHoursManager.isRestaurantOpen(from: restaurant) ? "Open Now" : "Closed"
-        openHoursLabel.text = RestaurantHoursManager.getTodaysOpeningHours(from: restaurant)
-        restaurantDescriptionLabel.text = restaurant.description
+        viewModel = RestaurantDetailsViewModel(restaurant: restaurant)
+        
+        restaurantNameLabel.text = viewModel?.restaurantName
+        restaurantCuisineLabel.text = viewModel?.cuisine
+        restaurantRatingLabel.text = viewModel?.reviewStars
+        restaurantOpenStatusLabel.text = viewModel?.isOpenNow ?? false ? "Open Now" : "Closed"
+        restaurantOpenHoursLabel.text = viewModel?.openingHours
+        restaurantDescriptionLabel.text = viewModel?.description
+        restaurantAddressLabel.text = viewModel?.address
+        restaurantNumberLabel.text = viewModel?.phoneNumber
     }
     
     // MARK: - Actions
     @objc private func menuLabelDidTap() {
-        if let url = URL(string: restaurant?.menuURL ?? "") {
+        if let url = URL(string: viewModel?.menuURL ?? "") {
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
         }
     }
     
     @objc private func websiteLabelDidTap() {
-        if let url = URL(string: restaurant?.websiteURL ?? "") {
+        if let url = URL(string: viewModel?.websiteURL ?? "") {
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
         }
@@ -544,13 +548,13 @@ final class RestaurantDetailsViewController: UIViewController {
     
     @objc private func openHoursDidTap() {
         let openHoursViewController = OpenHoursViewController()
-        openHoursViewController.restaurant = restaurant
+        openHoursViewController.restaurant = viewModel?.restaurant
         self.navigationController?.pushViewController(openHoursViewController, animated: true)
     }
     
     @objc private func reservationButtonDidTap() {
         let reservationViewController = ReservationViewController()
-        reservationViewController.selectedRestaurant = self.restaurant
+        reservationViewController.selectedRestaurant = viewModel?.restaurant
         self.navigationController?.pushViewController(reservationViewController, animated: true)
     }
     
@@ -612,12 +616,12 @@ final class RestaurantDetailsViewController: UIViewController {
 // MARK: - UICollectionViewDataSource
 extension RestaurantDetailsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        restaurant?.images?.count ?? 0
+        viewModel?.images?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageSlider", for: indexPath) as? RestaurantImagesCollectionViewCell,
-              let imageURL = restaurant?.images?[indexPath.row]
+              let imageURL = viewModel?.images?[indexPath.row]
         else { return UICollectionViewCell() }
         cell.configure(with: imageURL)
         return cell
@@ -630,5 +634,14 @@ extension RestaurantDetailsViewController: UICollectionViewDelegateFlowLayout {
         let width = Int((collectionView.frame.width))
         let height = Int((collectionView.frame.height))
         return CGSize(width: width, height: height)
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension RestaurantDetailsViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let pageWidth = collectionView.frame.size.width
+        currentCellIndex = Int(collectionView.contentOffset.x / pageWidth)
+        imagePageControl.currentPage = currentCellIndex
     }
 }
