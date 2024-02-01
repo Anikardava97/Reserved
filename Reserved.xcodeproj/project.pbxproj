@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EE2EE45F2B62A18F009C0DD2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = EE2EE45E2B62A18F009C0DD2 /* FirebaseFirestore */; };
-		EE2EE4612B62A195009C0DD2 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EE2EE4602B62A195009C0DD2 /* FirebaseFirestoreSwift */; };
 		EE2EE4632B64499C009C0DD2 /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2EE4622B64499C009C0DD2 /* ConfirmationViewController.swift */; };
 		EE337F092B5562D1004DBA6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F082B5562D1004DBA6B /* AppDelegate.swift */; };
 		EE337F0B2B5562D1004DBA6B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE337F0A2B5562D1004DBA6B /* SceneDelegate.swift */; };
@@ -179,8 +177,6 @@
 				EE98E0F32B5749330074962D /* FirebaseAuth in Frameworks */,
 				EE98E0E82B57491D0074962D /* FirebaseAnalytics in Frameworks */,
 				EE65E9EA2B5D2E36009B6602 /* Lottie in Frameworks */,
-				EE2EE45F2B62A18F009C0DD2 /* FirebaseFirestore in Frameworks */,
-				EE2EE4612B62A195009C0DD2 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,8 +663,6 @@
 				EEDABB782B590E8B00A918EC /* GoogleSignIn */,
 				EEDABB7A2B590E8B00A918EC /* GoogleSignInSwift */,
 				EE65E9E92B5D2E36009B6602 /* Lottie */,
-				EE2EE45E2B62A18F009C0DD2 /* FirebaseFirestore */,
-				EE2EE4602B62A195009C0DD2 /* FirebaseFirestoreSwift */,
 			);
 			productName = Reserved;
 			productReference = EE337F052B5562D1004DBA6B /* Reserved.app */;
@@ -948,8 +942,9 @@
 				INFOPLIST_FILE = Reserved/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -979,8 +974,9 @@
 				INFOPLIST_FILE = Reserved/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1045,16 +1041,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		EE2EE45E2B62A18F009C0DD2 /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EE98E0E62B57491D0074962D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
-		};
-		EE2EE4602B62A195009C0DD2 /* FirebaseFirestoreSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EE98E0E62B57491D0074962D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestoreSwift;
-		};
 		EE65E9E92B5D2E36009B6602 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EE65E9E82B5D2E35009B6602 /* XCRemoteSwiftPackageReference "lottie-ios" */;

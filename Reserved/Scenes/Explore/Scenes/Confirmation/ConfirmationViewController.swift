@@ -218,6 +218,3 @@ class ConfirmationViewController: UIViewController {
     }
 }
 
-#Preview {
-    ConfirmationViewController()
-}

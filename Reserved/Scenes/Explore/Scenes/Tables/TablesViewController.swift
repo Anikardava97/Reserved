@@ -198,6 +198,3 @@ extension TablesViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-#Preview {
-    TablesViewController()
-}

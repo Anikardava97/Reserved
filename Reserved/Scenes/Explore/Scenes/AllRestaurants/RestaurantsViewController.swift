@@ -271,7 +271,7 @@ extension RestaurantsViewController: UITableViewDataSource {
         }
         
         let restaurant = filteredCuisineRestaurants[indexPath.row]
-        if indexPath.row < filteredTopRestaurants.count {
+        if indexPath.row < filteredCuisineRestaurants.count {
             cell.configure(
                 with: restaurant,
                 isFavorite: FavoritesManager.shared.isFavorite(restaurant: restaurant)
