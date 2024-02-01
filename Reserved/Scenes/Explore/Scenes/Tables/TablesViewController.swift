@@ -7,51 +7,9 @@
 
 import UIKit
 
-struct Table {
-    let imageName: String
-    let capacity: Int
-}
-
-class TablesViewController: UIViewController {
+final class TablesViewController: UIViewController {
     // MARK: - Properties
-    private let tableImages = ["Table12", "Table2", "Table8", "Table9",
-                               "Table6", "Table4", "Table10", "Table3",
-                               "Table2", "Table5", "Table7", "Table1",
-                               
-                               "Table11", "Table5", "Table2", "Table3",
-                               "Table8", "Table4","Table12", "Table9",
-                               "Table6", "Table10", "Table1", "Table7"]
-    var selectedRestaurant: Restaurant?
-    var selectedDate: String?
-    var selectedTime: String?
-    var selectedGuests: Int?
-    
-    private let tables = [
-        Table(imageName: "Table12", capacity: 12),
-        Table(imageName: "Table2", capacity: 2),
-        Table(imageName: "Table8", capacity: 8),
-        Table(imageName: "Table9", capacity: 9),
-        Table(imageName: "Table6", capacity: 6),
-        Table(imageName: "Table4", capacity: 4),
-        Table(imageName: "Table10", capacity: 10),
-        Table(imageName: "Table3", capacity: 3),
-        Table(imageName: "Table2", capacity: 2),
-        Table(imageName: "Table5", capacity: 5),
-        Table(imageName: "Table7", capacity: 7),
-        Table(imageName: "Table1", capacity: 1),
-        Table(imageName: "Table11", capacity: 11),
-        Table(imageName: "Table5", capacity: 5),
-        Table(imageName: "Table2", capacity: 2),
-        Table(imageName: "Table3", capacity: 3),
-        Table(imageName: "Table8", capacity: 8),
-        Table(imageName: "Table4", capacity: 4),
-        Table(imageName: "Table12", capacity: 12),
-        Table(imageName: "Table9", capacity: 9),
-        Table(imageName: "Table6", capacity: 6),
-        Table(imageName: "Table10", capacity: 10),
-        Table(imageName: "Table1", capacity: 1),
-        Table(imageName: "Table7", capacity: 7),
-    ]
+    private var viewModel: TablesViewModel?
     
     private lazy var chooseTableStackView: UIStackView = {
         let stackView = UIStackView()
@@ -72,10 +30,11 @@ class TablesViewController: UIViewController {
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .customBackgroundColor
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.isPagingEnabled = true
         return collectionView
     }()
     
@@ -91,6 +50,10 @@ class TablesViewController: UIViewController {
         setupSubviews()
         setupConstraints()
         setupCollectionView()
+    }
+    
+    func setup(with viewModel: TablesViewModel) {
+        self.viewModel = viewModel
     }
     
     private func setupBackground() {
@@ -116,25 +79,28 @@ class TablesViewController: UIViewController {
     }
     
     private func setupCollectionView() {
-        collectionView.register(TablesCollectionViewCell.self, forCellWithReuseIdentifier: "table")
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.isPagingEnabled = true
+        collectionView.register(TablesCollectionViewCell.self, forCellWithReuseIdentifier: "table")
     }
     
     private func isTableAvailable(forGuests guests: Int, tableIndex: Int) -> Bool {
-        let tableCapacity = tables[tableIndex].capacity
-        
-        return tableCapacity == guests
+        return viewModel?.isTableAvailable(forGuests: guests, tableIndex: tableIndex) ?? false
     }
     
-    private func handleReservation() {
+    private func performReservation() {
+        guard let viewModel = viewModel,
+              let selectedDate = viewModel.selectedDate,
+              let selectedTime = viewModel.selectedTime,
+              let selectedGuests = viewModel.selectedGuests,
+              let selectedRestaurant = viewModel.selectedRestaurant else { return }
+        
         let confirmationViewController = ConfirmationViewController()
         confirmationViewController.selectedRestaurant = selectedRestaurant
         confirmationViewController.selectedDate = selectedDate
         confirmationViewController.selectedTime = selectedTime
         confirmationViewController.selectedGuests = selectedGuests
+        
         navigationController?.pushViewController(confirmationViewController, animated: true)
     }
 }
@@ -142,7 +108,7 @@ class TablesViewController: UIViewController {
 // MARK: - CollectionView DataSource
 extension TablesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        tableImages.count
+        viewModel?.tableImages.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -150,9 +116,11 @@ extension TablesViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.tableImageView.image = UIImage(named: tableImages[indexPath.row])
+        if let imageName = viewModel?.tableImages[indexPath.row] {
+            cell.tableImageView.image = UIImage(named: imageName)
+        }
         
-        if let guests = selectedGuests {
+        if let guests = viewModel?.selectedGuests {
             let isAvailable = isTableAvailable(forGuests: guests, tableIndex: indexPath.row)
             cell.tableImageView.alpha = isAvailable ? 1.0 : 0.4
             cell.animateAvailability(isAvailable: isAvailable)
@@ -164,39 +132,59 @@ extension TablesViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension TablesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let guests = selectedGuests ?? 0
+        handleTableSelection(at: indexPath)
+    }
+    
+    // MARK: - Helper Methods
+    private func handleTableSelection(at indexPath: IndexPath) {
+        guard let guests = viewModel?.selectedGuests else { return }
+        
         let isAvailable = isTableAvailable(forGuests: guests, tableIndex: indexPath.row)
         
         if isAvailable {
-            let confirmationAlert = UIAlertController(
-                title: "Confirm Reservation",
-                message: "Are you sure you want to reserve a table at \(selectedRestaurant?.name ?? "this restaurant") for \(guests) guests on \(selectedDate ?? "") at \(selectedTime ?? "")?",
-                preferredStyle: .alert
-            )
-            
-            let confirmAction = UIAlertAction(
-                title: "Confirm", style: .default) { [weak self] _ in
-                self?.handleReservation()
-            }
-            
-            let cancelAction = UIAlertAction(
-                title: "Cancel",
-                style: .cancel,
-                handler: nil)
-            
-            confirmationAlert.addAction(confirmAction)
-            confirmationAlert.addAction(cancelAction)
-            
-            present(confirmationAlert, animated: true, completion: nil)
+            showConfirmationAlert(for: guests, at: indexPath)
         } else {
-            let unavailableTableAlert = UIAlertController(
-                title: "Table Unavailable 😳",
-                message: "This table is not available for \(guests) guests. Please choose a different table.",
-                preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            unavailableTableAlert.addAction(okAction)
-            present(unavailableTableAlert, animated: true, completion: nil)
+            showUnavailableTableAlert(for: guests)
         }
+    }
+    
+    private func showConfirmationAlert(for guests: Int, at indexPath: IndexPath) {
+        let confirmationAlert = UIAlertController(
+            title: "Confirm Reservation",
+            message: makeConfirmationMessage(for: guests, at: indexPath),
+            preferredStyle: .alert
+        )
+        
+        let confirmAction = UIAlertAction(
+            title: "Confirm", style: .default) { [weak self] _ in
+                self?.performReservation()
+            }
+        
+        let cancelAction = UIAlertAction(
+            title: "Cancel",
+            style: .cancel,
+            handler: nil)
+        
+        confirmationAlert.addAction(confirmAction)
+        confirmationAlert.addAction(cancelAction)
+        
+        present(confirmationAlert, animated: true, completion: nil)
+    }
+    
+    private func makeConfirmationMessage(for guests: Int, at indexPath: IndexPath) -> String {
+        return "Are you sure you want to reserve a table at \(viewModel?.selectedRestaurant?.name ?? "this restaurant") for \(guests) guests on \(viewModel?.selectedDate ?? "") at \(viewModel?.selectedTime ?? "")?"
+    }
+    
+    private func showUnavailableTableAlert(for guests: Int) {
+        let unavailableTableAlert = UIAlertController(
+            title: "Table Unavailable 😳",
+            message: "This table is not available for \(guests) guests. Please choose a different table.",
+            preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        unavailableTableAlert.addAction(okAction)
+        
+        present(unavailableTableAlert, animated: true, completion: nil)
     }
 }
 

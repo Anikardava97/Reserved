@@ -32,7 +32,6 @@ class TablesCollectionViewCell: UICollectionViewCell {
     // MARK: - CellLifeCycle
     override func prepareForReuse() {
         super.prepareForReuse()
-        
         tableImageView.image = nil
     }
     

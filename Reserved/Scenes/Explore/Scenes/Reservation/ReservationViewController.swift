@@ -403,11 +403,20 @@ final class ReservationViewController: UIViewController {
     }
     
     private func performReservation() {
+        guard let selectedDate = selectDateButton.title(for: .normal),
+              let selectedTime = selectTimeButton.title(for: .normal),
+              let selectedGuests = Int(guestCountLabel.text ?? "2"),
+              let selectedRestaurant = viewModel.selectedRestaurant else { return }
+
+        let tablesViewModel = TablesViewModel(
+            selectedRestaurant: selectedRestaurant,
+            selectedDate: selectedDate,
+            selectedTime: selectedTime,
+            selectedGuests: selectedGuests
+        )
+
         let tablesViewController = TablesViewController()
-        tablesViewController.selectedDate = selectDateButton.title(for: .normal)
-        tablesViewController.selectedTime = selectTimeButton.title(for: .normal)
-        tablesViewController.selectedGuests = Int(guestCountLabel.text ?? "2")
-        tablesViewController.selectedRestaurant = viewModel.selectedRestaurant
+        tablesViewController.setup(with: tablesViewModel)
         navigationController?.pushViewController(tablesViewController, animated: true)
     }
     
@@ -578,6 +587,3 @@ final class ReservationViewController: UIViewController {
     }
 }
 
-#Preview {
-    ReservationViewController()
-}

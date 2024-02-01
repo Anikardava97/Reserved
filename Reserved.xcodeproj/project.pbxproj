@@ -66,6 +66,8 @@
 		EEAB7C9F2B6ABCBE0004FCC2 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7C9E2B6ABCBE0004FCC2 /* ImageCacheManager.swift */; };
 		EEAB7CA12B6BA9530004FCC2 /* RestaurantDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CA02B6BA9530004FCC2 /* RestaurantDetailsViewModel.swift */; };
 		EEAB7CA42B6BC2200004FCC2 /* ReservationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CA32B6BC2200004FCC2 /* ReservationViewModel.swift */; };
+		EEAB7CA72B6BCB260004FCC2 /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CA62B6BCB260004FCC2 /* Table.swift */; };
+		EEAB7CA92B6BD3240004FCC2 /* TablesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CA82B6BD3240004FCC2 /* TablesViewModel.swift */; };
 		EEB37E732B5E6B5800D39BEA /* TablesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E722B5E6B5800D39BEA /* TablesViewController.swift */; };
 		EEB37E762B5E6BAA00D39BEA /* TablesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E752B5E6BAA00D39BEA /* TablesCollectionViewCell.swift */; };
 		EEB37E7A2B60378500D39BEA /* SelfSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E792B60378500D39BEA /* SelfSizedTableView.swift */; };
@@ -144,6 +146,8 @@
 		EEAB7C9E2B6ABCBE0004FCC2 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		EEAB7CA02B6BA9530004FCC2 /* RestaurantDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsViewModel.swift; sourceTree = "<group>"; };
 		EEAB7CA32B6BC2200004FCC2 /* ReservationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewModel.swift; sourceTree = "<group>"; };
+		EEAB7CA62B6BCB260004FCC2 /* Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
+		EEAB7CA82B6BD3240004FCC2 /* TablesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesViewModel.swift; sourceTree = "<group>"; };
 		EEB37E722B5E6B5800D39BEA /* TablesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesViewController.swift; sourceTree = "<group>"; };
 		EEB37E752B5E6BAA00D39BEA /* TablesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesCollectionViewCell.swift; sourceTree = "<group>"; };
 		EEB37E792B60378500D39BEA /* SelfSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizedTableView.swift; sourceTree = "<group>"; };
@@ -190,6 +194,7 @@
 				EEDABB862B591C9600A918EC /* GoogleSignInResultModel.swift */,
 				EE53F1792B5A6E730019853F /* Restaurant.swift */,
 				EE487F652B6598B8001E8CEA /* RestaurantLocation.swift */,
+				EEAB7CA62B6BCB260004FCC2 /* Table.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -609,6 +614,7 @@
 			children = (
 				EEAB7CA52B6BCA0E0004FCC2 /* TableViewCell */,
 				EEB37E722B5E6B5800D39BEA /* TablesViewController.swift */,
+				EEAB7CA82B6BD3240004FCC2 /* TablesViewModel.swift */,
 			);
 			path = Tables;
 			sourceTree = "<group>";
@@ -735,6 +741,7 @@
 				EEDABB852B591C9600A918EC /* SignInGoogleHelper.swift in Sources */,
 				EE487F602B658C48001E8CEA /* LocationsView.swift in Sources */,
 				EEEC43482B5D4CE900E9F87D /* ReservationViewController.swift in Sources */,
+				EEAB7CA72B6BCB260004FCC2 /* Table.swift in Sources */,
 				EEDABB812B5910E800A918EC /* LoginOptionsViewModel.swift in Sources */,
 				EEB37E7A2B60378500D39BEA /* SelfSizedTableView.swift in Sources */,
 				EE2EE4632B64499C009C0DD2 /* ConfirmationViewController.swift in Sources */,
@@ -751,6 +758,7 @@
 				EE487F662B6598B8001E8CEA /* RestaurantLocation.swift in Sources */,
 				EED210642B5D10BE00039A98 /* OpenHoursViewController.swift in Sources */,
 				EE8EB8FD2B5A52B000C6FEB9 /* TabBarController.swift in Sources */,
+				EEAB7CA92B6BD3240004FCC2 /* TablesViewModel.swift in Sources */,
 				EED210552B5BECF700039A98 /* RestaurantImagesCollectionViewCell.swift in Sources */,
 				EE98E0E52B5748580074962D /* AuthenticationManager.swift in Sources */,
 				EEAB7C882B6A73BC0004FCC2 /* NavigationManager.swift in Sources */,

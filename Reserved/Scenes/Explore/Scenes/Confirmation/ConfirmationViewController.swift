@@ -10,12 +10,12 @@ import Lottie
 
 class ConfirmationViewController: UIViewController {
     // MARK: - Properties
+    private var animationView: LottieAnimationView!
+    private var waitLabel: UILabel?
     var selectedRestaurant: Restaurant?
     var selectedDate: String?
     var selectedTime: String?
     var selectedGuests: Int?
-    private var animationView: LottieAnimationView!
-    private var waitLabel: UILabel?
     
     private let mainStackView: UIStackView = {
         let view = UIStackView()
@@ -212,6 +212,7 @@ class ConfirmationViewController: UIViewController {
         )
     }
     
+    // MARK: - Actions
     @objc private func exploreButtonDidTap() {
         self.navigationController?.popToRootViewController(animated: true)
     }
