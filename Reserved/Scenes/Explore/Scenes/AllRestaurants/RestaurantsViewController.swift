@@ -210,13 +210,6 @@ extension RestaurantsViewController: UISearchBarDelegate {
         collectionView.isHidden = true
         contentSegmentedControl.isHidden = true
     }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        topRestaurantsLabel.isHidden = false
-        allRestaurantsLabel.isHidden = false
-        collectionView.isHidden = false
-        contentSegmentedControl.isHidden = false
-    }
 }
 
 // MARK: - Extension: UICollectionViewDataSource

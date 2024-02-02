@@ -27,7 +27,8 @@ final class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        
+        FavoritesManager.shared.delegate = self
+
         viewModel.onFavoritesUpdated = { [weak self] in
             guard let self = self else { return }
             self.tableView.reloadData()
@@ -42,6 +43,7 @@ final class FavoritesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.loadFavorites()
+        FavoritesManager.shared.delegate = self
     }
     
     // MARK: - Private Methods
