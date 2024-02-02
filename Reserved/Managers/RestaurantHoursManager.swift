@@ -15,14 +15,14 @@ final class RestaurantHoursManager {
     private init() {}
     
     // MARK: - Properties
-    private let dateFormatter: DateFormatter = {
+    let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.dateFormat = "h:mm a"
         return formatter
     }()
     
-    private let dayFormatter: DateFormatter = {
+    let dayFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE"
         return formatter

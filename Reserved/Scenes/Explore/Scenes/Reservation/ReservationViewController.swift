@@ -409,61 +409,17 @@ final class ReservationViewController: UIViewController {
               let selectedTime = selectTimeButton.title(for: .normal),
               let selectedGuests = Int(guestCountLabel.text ?? "2"),
               let selectedRestaurant = viewModel.selectedRestaurant else { return }
-
+        
         let tablesViewModel = TablesViewModel(
             selectedRestaurant: selectedRestaurant,
             selectedDate: selectedDate,
             selectedTime: selectedTime,
             selectedGuests: selectedGuests
         )
-
+        
         let tablesViewController = TablesViewController()
         tablesViewController.setup(with: tablesViewModel)
         navigationController?.pushViewController(tablesViewController, animated: true)
-    }
-    
-    private func getTodayOpenHours(for restaurant: Restaurant) -> (open: Date?, close: Date?) {
-        let todayHours = RestaurantHoursManager.shared.getTodaysOpeningHours(from: restaurant)
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "h:mm a"
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        
-        let calendar = Calendar.current
-        let now = Date()
-        let currentYear = calendar.component(.year, from: now)
-        let currentMonth = calendar.component(.month, from: now)
-        let currentDay = calendar.component(.day, from: now)
-        
-        let hoursArray = todayHours.components(separatedBy: " - ")
-        guard hoursArray.count == 2 else { return (nil, nil) }
-        
-        let openTimeStr = hoursArray[0]
-        let closeTimeStr = hoursArray[1]
-        
-        guard let openTime = dateFormatter.date(from: openTimeStr),
-              let closeTime = dateFormatter.date(from: closeTimeStr) else {
-            return (nil, nil)
-        }
-        
-        var openDateComponents = calendar.dateComponents([.hour, .minute], from: openTime)
-        openDateComponents.year = currentYear
-        openDateComponents.month = currentMonth
-        openDateComponents.day = currentDay
-        
-        var closeDateComponents = calendar.dateComponents([.hour, .minute], from: closeTime)
-        closeDateComponents.year = currentYear
-        closeDateComponents.month = currentMonth
-        closeDateComponents.day = currentDay
-        
-        if closeTime < openTime {
-            closeDateComponents.day = currentDay + 1
-        }
-        
-        let finalOpenDate = calendar.date(from: openDateComponents)
-        let finalCloseDate = calendar.date(from: closeDateComponents)
-        
-        return (finalOpenDate, finalCloseDate)
     }
     
     private func dateDidChange(datePicker: UIDatePicker) {
@@ -490,7 +446,9 @@ final class ReservationViewController: UIViewController {
         datePicker.preferredDatePickerStyle = .inline
         datePicker.datePickerMode = .date
         
-        datePicker.minimumDate = Date()
+        if let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date()) {
+            datePicker.minimumDate = tomorrow
+        }
         
         let alert = UIAlertController(title: "Select Date", message: "", preferredStyle: .actionSheet)
         alert.view.tintColor = .customAccentColor
@@ -516,47 +474,6 @@ final class ReservationViewController: UIViewController {
         let timePicker = UIDatePicker()
         timePicker.preferredDatePickerStyle = .wheels
         timePicker.datePickerMode = .time
-        
-        if let restaurant = selectedRestaurant {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "h:mm a"
-            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-            
-            let todayHours = RestaurantHoursManager.shared.getTodaysOpeningHours(from: restaurant)
-            let hoursArray = todayHours.components(separatedBy: " - ")
-            guard hoursArray.count == 2,
-                  let openTime = dateFormatter.date(from: hoursArray[0]),
-                  let closeTime = dateFormatter.date(from: hoursArray[1]) else {
-                return
-            }
-            
-            let now = Date()
-            let calendar = Calendar.current
-            
-            let openDateTime = calendar.date(bySettingHour: calendar.component(.hour, from: openTime),
-                                             minute: calendar.component(.minute, from: openTime),
-                                             second: 0,
-                                             of: now)!
-            
-            var closeDateTime = calendar.date(bySettingHour: calendar.component(.hour, from: closeTime),
-                                              minute: calendar.component(.minute, from: closeTime),
-                                              second: 0,
-                                              of: now)!
-            
-            if closeTime < openTime {
-                closeDateTime = calendar.date(byAdding: .day, value: 1, to: closeDateTime)!
-            }
-            
-            timePicker.minimumDate = openDateTime
-            timePicker.maximumDate = closeDateTime
-        }
-        
-        if let oneHourLater = Calendar.current.date(byAdding: .hour, value: 1, to: Date()) {
-            timePicker.minimumDate = oneHourLater
-        } else {
-            timePicker.minimumDate = Date()
-        }
-        
         timePicker.minuteInterval = 30
         
         let alert = UIAlertController(title: "Select Time", message: "", preferredStyle: .alert)
@@ -588,4 +505,3 @@ final class ReservationViewController: UIViewController {
         guestCountLabel.text = "\(viewModel.guestCount)"
     }
 }
-

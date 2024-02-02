@@ -78,18 +78,15 @@ final class ReservationViewModel {
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm:ss"
         
-        guard let selectedDate = selectedDate,
-              let selectedTimeText = selectedTimeText,
-              let selectedGuests = selectedGuests,
-              let reservations = reservations else {
-            return .failure
-        }
+        guard let selectedDate, let selectedTimeText, let selectedGuests, let reservations else { return .failure }
         
         let formattedDate = dateFormatter.string(from: selectedDate)
         let formattedTime = timeFormatter.string(from: timeFormatter.date(from: selectedTimeText + ":00") ?? Date())
         
         let reservedTables = reservations.filter { reservation in
-            return reservation.date == formattedDate && reservation.time == formattedTime && reservation.guestCount == selectedGuests
+            return reservation.date == formattedDate 
+            && reservation.time == formattedTime
+            && reservation.guestCount == selectedGuests
         }
         
         if reservedTables.count >= 2 {
