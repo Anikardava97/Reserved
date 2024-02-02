@@ -38,12 +38,12 @@ final class RestaurantDetailsViewModel {
     
     var isOpenNow: Bool {
         guard let restaurant else { return false }
-        return RestaurantHoursManager.isRestaurantOpen(from: restaurant)
+        return RestaurantHoursManager.shared.isRestaurantOpen(from: restaurant)
     }
     
     var openingHours: String {
         guard let restaurant else { return "" }
-        return RestaurantHoursManager.getTodaysOpeningHours(from: restaurant)
+        return RestaurantHoursManager.shared.getTodaysOpeningHours(from: restaurant)
     }
     
     var description: String {

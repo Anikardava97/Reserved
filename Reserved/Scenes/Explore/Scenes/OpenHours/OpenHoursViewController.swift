@@ -8,11 +8,6 @@
 import UIKit
 import Lottie
 
-struct DaySchedule {
-    let day: String
-    let hours: String
-}
-
 final class OpenHoursViewController: UIViewController {
     // MARK: - Properties
     private var animationView: LottieAnimationView!
@@ -42,24 +37,13 @@ final class OpenHoursViewController: UIViewController {
     }()
     
     private lazy var daySchedules: [DaySchedule] = {
-        var schedules: [DaySchedule] = []
+        guard let restaurant = restaurant else { return [] }
+        let daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         
-        if let restaurant = restaurant {
-            schedules.append(DaySchedule(day: "Monday", hours: "\(restaurant.openHours.monday.startTime.rawValue) - \(restaurant.openHours.monday.endTime.rawValue)"))
-            
-            schedules.append(DaySchedule(day: "Tuesday", hours: "\(restaurant.openHours.tuesday.startTime.rawValue) - \(restaurant.openHours.tuesday.endTime.rawValue)"))
-            
-            schedules.append(DaySchedule(day: "Wednesday", hours: "\(restaurant.openHours.wednesday.startTime.rawValue) - \(restaurant.openHours.wednesday.endTime.rawValue)"))
-            
-            schedules.append(DaySchedule(day: "Thursday", hours: "\(restaurant.openHours.thursday.startTime.rawValue) - \(restaurant.openHours.thursday.endTime.rawValue)"))
-            
-            schedules.append(DaySchedule(day: "Friday", hours: "\(restaurant.openHours.friday.startTime.rawValue) - \(restaurant.openHours.friday.endTime.rawValue)"))
-            
-            schedules.append(DaySchedule(day: "Saturday", hours: "\(restaurant.openHours.saturday.startTime.rawValue) - \(restaurant.openHours.saturday.endTime.rawValue)"))
-            
-            schedules.append(DaySchedule(day: "Sunday", hours: "\(restaurant.openHours.sunday.startTime.rawValue) - \(restaurant.openHours.sunday.endTime.rawValue)"))
+        return daysOfWeek.compactMap { day in
+            guard let hours = RestaurantHoursManager.shared.getHoursForDay(for: day.lowercased(), from: restaurant.openHours) else { return nil }
+            return DaySchedule(day: day, hours: "\(hours.startTime.rawValue) - \(hours.endTime.rawValue)")
         }
-        return schedules
     }()
     
     // MARK: - ViewLifeCycles
@@ -105,7 +89,7 @@ final class OpenHoursViewController: UIViewController {
         for daySchedule in daySchedules {
             let (dayLabel, timeLabel) = createDayScheduleLabels(daySchedule)
             
-            if daySchedule.day.lowercased() == RestaurantHoursManager.currentDayOfWeek() {
+            if daySchedule.day.lowercased() == RestaurantHoursManager.shared.currentDayOfWeek() {
                 dayLabel.textColor = .customGreenColor
                 timeLabel.textColor = .customGreenColor
             }

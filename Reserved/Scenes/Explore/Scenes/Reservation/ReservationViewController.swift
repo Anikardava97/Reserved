@@ -423,7 +423,7 @@ final class ReservationViewController: UIViewController {
     }
     
     private func getTodayOpenHours(for restaurant: Restaurant) -> (open: Date?, close: Date?) {
-        let todayHours = RestaurantHoursManager.getTodaysOpeningHours(from: restaurant)
+        let todayHours = RestaurantHoursManager.shared.getTodaysOpeningHours(from: restaurant)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mm a"
@@ -522,7 +522,7 @@ final class ReservationViewController: UIViewController {
             dateFormatter.dateFormat = "h:mm a"
             dateFormatter.locale = Locale(identifier: "en_US_POSIX")
             
-            let todayHours = RestaurantHoursManager.getTodaysOpeningHours(from: restaurant)
+            let todayHours = RestaurantHoursManager.shared.getTodaysOpeningHours(from: restaurant)
             let hoursArray = todayHours.components(separatedBy: " - ")
             guard hoursArray.count == 2,
                   let openTime = dateFormatter.date(from: hoursArray[0]),
