@@ -28,7 +28,7 @@ final class FavoritesViewController: UIViewController {
         super.viewDidLoad()
         setup()
         FavoritesManager.shared.delegate = self
-
+        
         viewModel.onFavoritesUpdated = { [weak self] in
             guard let self = self else { return }
             self.tableView.reloadData()
@@ -69,10 +69,15 @@ final class FavoritesViewController: UIViewController {
     }
     
     private func setup() {
+        setupViewModelDelegate()
         setupBackground()
         setupTableView()
         setupSubviews()
         setupConstraints()
+    }
+    
+    private func setupViewModelDelegate() {
+        viewModel.delegate = self
     }
     
     private func setupBackground() {
@@ -128,7 +133,8 @@ extension FavoritesViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let selectedRestaurant = viewModel.favoriteAt(index: indexPath.row)
+        viewModel.navigateToRestaurantDetails(with: selectedRestaurant)
     }
 }
 
@@ -138,3 +144,13 @@ extension FavoritesViewController: FavoritesManagerDelegate {
         updateFavoritesBadgeCount()
     }
 }
+
+// MARK: - Extension: FavoritesViewModelDelegate
+extension FavoritesViewController: FavoritesViewModelDelegate {
+    func navigateToRestaurantDetails(with restaurant: Restaurant) {
+        let restaurantDetailsViewController = RestaurantDetailsViewController()
+        restaurantDetailsViewController.configure(with: restaurant)
+        navigationController?.pushViewController(restaurantDetailsViewController, animated: true)
+    }
+}
+

@@ -7,8 +7,13 @@
 
 import Foundation
 
+protocol FavoritesViewModelDelegate: AnyObject {
+    func navigateToRestaurantDetails(with restaurant: Restaurant)
+}
+
 final class FavoritesViewModel {
     // MARK: - Properties
+    weak var delegate: FavoritesViewModelDelegate?
     private var favorites: [Restaurant] {
         didSet {
             self.onFavoritesUpdated?()
@@ -46,5 +51,9 @@ final class FavoritesViewModel {
     
     func favoriteAt(index: Int) -> Restaurant {
         return favorites[index]
+    }
+    
+    func navigateToRestaurantDetails(with restaurant: Restaurant) {
+        delegate?.navigateToRestaurantDetails(with: restaurant)
     }
 }
