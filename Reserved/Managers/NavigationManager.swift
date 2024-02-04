@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftUI
+import FirebaseAuth
 
 final class NavigationManager {
     // MARK: - Shared Instance
@@ -19,13 +20,23 @@ final class NavigationManager {
     private init() {}
     
     // MARK: - Methods
+    func isUserLoggedIn() -> Bool {
+        return Auth.auth().currentUser != nil
+    }
+
     func setUpWindow(for windowScene: UIWindowScene) {
         let window = UIWindow(windowScene: windowScene)
-        let rootView = LaunchScreenView { self.showRootView(in: window) }
-        let hostingController = UIHostingController(rootView: rootView)
-        window.rootViewController = UINavigationController(rootViewController: hostingController)
-        window.makeKeyAndVisible()
         self.window = window
+        
+        if AuthenticationManager.shared.isUserLoggedIn() {
+            presentTabBarController()
+        } else {
+            let rootView = LaunchScreenView { self.showRootView(in: window) }
+            let hostingController = UIHostingController(rootView: rootView)
+            window.rootViewController = UINavigationController(rootViewController: hostingController)
+        }
+        
+        window.makeKeyAndVisible()
     }
     
     func showRootView(in window: UIWindow) {
@@ -52,18 +63,20 @@ final class NavigationManager {
         }
     }
     
-    func navigateToLaunchScreen() {
+    func showLaunchScreen() {
         guard let window = window else { return }
         let rootView = LaunchScreenView { self.showRootView(in: window) }
         let hostingController = UIHostingController(rootView: rootView)
         window.rootViewController = UINavigationController(rootViewController: hostingController)
     }
-    
+
     func presentTabBarController() {
+        ReservationManager.shared.loadReservationsForCurrentUser()
+        FavoritesManager.shared.loadFavoritesForCurrentUser()
+        
         let tabBarController = TabBarController()
         if let window = window {
             window.rootViewController = tabBarController
-            window.makeKeyAndVisible()
         }
     }
     

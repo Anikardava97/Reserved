@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MyReservation {
+struct MyReservation: Codable {
     var restaurantName: String
     var reservationDate: String
     var reservationTime: String
