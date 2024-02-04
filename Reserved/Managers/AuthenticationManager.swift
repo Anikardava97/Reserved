@@ -27,6 +27,10 @@ final class AuthenticationManager {
     func signOut() throws {
         try Auth.auth().signOut()
     }
+    
+    func getCurrentUserEmail() -> String? {
+        return Auth.auth().currentUser?.email
+    }
 }
 
 // MARK: - Sign In Email

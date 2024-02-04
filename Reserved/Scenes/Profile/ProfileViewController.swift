@@ -102,22 +102,15 @@ final class ProfileViewController: UIViewController {
     }()
     
     private lazy var userInfoStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [personalDetailsAndChevronStackView, favoritesStackView, reservationsStackView])
+        let stackView = UIStackView(arrangedSubviews: [personalDetailsStackView, favoritesStackView, reservationsStackView])
         stackView.axis = .vertical
         stackView.spacing = 24
         stackView.distribution = .equalSpacing
         return stackView
     }()
     
-    private lazy var personalDetailsAndChevronStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [personalDetailsStackView, chevronImageView])
-        stackView.distribution = .equalSpacing
-        stackView.isUserInteractionEnabled = true
-        return stackView
-    }()
-    
     private lazy var personalDetailsStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [personalDetailsIcon, personalDetailsLabel])
+        let stackView = UIStackView(arrangedSubviews: [personalDetailsIcon, personalDetailsLabel, UIView()])
         stackView.spacing = 12
         return stackView
     }()
@@ -133,21 +126,14 @@ final class ProfileViewController: UIViewController {
     private let personalDetailsLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        label.text = "Personal Details"
+        let email = AuthenticationManager.shared.getCurrentUserEmail() ?? "Email not available"
+        label.text = "Email: \(email)"
         label.textColor = .white
         return label
     }()
     
-    private let chevronImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "chevron.right")
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .white
-        return imageView
-    }()
-    
     private lazy var favoritesStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [favoritesIcon, favoritesLabel])
+        let stackView = UIStackView(arrangedSubviews: [favoritesIcon, favoritesLabel, UIView()])
         stackView.spacing = 12
         return stackView
     }()
@@ -168,7 +154,7 @@ final class ProfileViewController: UIViewController {
     }()
     
     private lazy var reservationsStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [reservationsIcon, reservationsLabel])
+        let stackView = UIStackView(arrangedSubviews: [reservationsIcon, reservationsLabel, UIView()])
         stackView.spacing = 12
         return stackView
     }()
