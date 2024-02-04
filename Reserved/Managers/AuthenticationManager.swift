@@ -20,6 +20,10 @@ final class AuthenticationManager {
     private init() { }
     
     // MARK: - Methods
+    func isUserLoggedIn() -> Bool {
+          return Auth.auth().currentUser != nil
+      }
+    
     func signOut() throws {
         try Auth.auth().signOut()
     }

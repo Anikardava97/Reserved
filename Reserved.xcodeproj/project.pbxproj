@@ -403,7 +403,6 @@
 		EE98E0E32B5748250074962D /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				EEAB7C8D2B6A8F860004FCC2 /* Manager */,
 				EE337F392B55A83E004DBA6B /* Scenes */,
 				EE2963902B58FB0D0047938C /* Helpers */,
 				EE337F372B55A820004DBA6B /* Components */,
@@ -422,6 +421,7 @@
 			isa = PBXGroup;
 			children = (
 				EEAB7C872B6A73BC0004FCC2 /* NavigationManager.swift */,
+				EE98E0E42B5748580074962D /* AuthenticationManager.swift */,
 				EE53F1832B5ABB2D0019853F /* NetworkManager.swift */,
 				EEAB7C9E2B6ABCBE0004FCC2 /* ImageCacheManager.swift */,
 				EE487F782B679767001E8CEA /* ReservationsManager.swift */,
@@ -455,14 +455,6 @@
 				EE337F342B559E5F004DBA6B /* AppBenefitTextComponentView.swift */,
 			);
 			path = BenefitsTextComponent;
-			sourceTree = "<group>";
-		};
-		EEAB7C8D2B6A8F860004FCC2 /* Manager */ = {
-			isa = PBXGroup;
-			children = (
-				EE98E0E42B5748580074962D /* AuthenticationManager.swift */,
-			);
-			path = Manager;
 			sourceTree = "<group>";
 		};
 		EEAB7C8E2B6A8FEC0004FCC2 /* Scenes */ = {

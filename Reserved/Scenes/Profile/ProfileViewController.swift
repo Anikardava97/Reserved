@@ -274,8 +274,7 @@ final class ProfileViewController: UIViewController {
     private func confirmSignOut() {
         do {
             try AuthenticationManager.shared.signOut()
-            NavigationManager.shared.navigateToLaunchScreen()
-
+            NavigationManager.shared.showLaunchScreen()
         } catch {
             print("Error signing out: \(error)")
         }
