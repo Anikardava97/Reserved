@@ -23,13 +23,13 @@ final class NavigationManager {
     func isUserLoggedIn() -> Bool {
         return Auth.auth().currentUser != nil
     }
-    
+
     func setUpWindow(for windowScene: UIWindowScene) {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         
         if AuthenticationManager.shared.isUserLoggedIn() {
-            presentTabBarController() 
+            presentTabBarController()
         } else {
             let rootView = LaunchScreenView { self.showRootView(in: window) }
             let hostingController = UIHostingController(rootView: rootView)
@@ -71,6 +71,9 @@ final class NavigationManager {
     }
 
     func presentTabBarController() {
+        ReservationManager.shared.loadReservationsForCurrentUser()
+        FavoritesManager.shared.loadFavoritesForCurrentUser()
+        
         let tabBarController = TabBarController()
         if let window = window {
             window.rootViewController = tabBarController

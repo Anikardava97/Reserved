@@ -13,7 +13,7 @@ struct RestaurantResponse: Decodable {
 }
 
 // MARK: - Restaurant
-class Restaurant: Decodable {
+class Restaurant: Codable {
     let id: Int
     let name: String
     let cuisine: String
@@ -29,28 +29,28 @@ class Restaurant: Decodable {
     var reservations: [Reservation]?
 }
 
-struct Location: Decodable {
+struct Location: Codable {
     let address: String
     let latitude, longitude: Double
 }
 
-struct Reservation: Decodable {
+struct Reservation: Codable {
     let date: String
     let time: String
     let guestCount: Int
     let tableNumber: Int
 }
 
-struct OpenHours: Decodable {
+struct OpenHours: Codable {
     let monday, tuesday, wednesday, thursday, friday, saturday, sunday: Day
 }
 
-struct Day: Decodable {
+struct Day: Codable {
     let startTime: StartTime
     let endTime: EndTime
 }
 
-enum StartTime: String, Decodable {
+enum StartTime: String, Codable {
     case the800Am = "8:00 AM"
     case the830Am = "8:30 AM"
     case the900Am = "9:00 AM"
@@ -92,7 +92,7 @@ enum StartTime: String, Decodable {
     case the300Am = "3:00 AM"
 }
 
-enum EndTime: String, Decodable {
+enum EndTime: String, Codable {
     case the800Pm = "8:00 PM"
     case the830Pm = "8:30 PM"
     case the900Pm = "9:00 PM"
