@@ -144,7 +144,7 @@ extension TablesViewController: UICollectionViewDelegate {
         if isAvailable {
             showConfirmationAlert(for: guests, at: indexPath)
         } else {
-            showUnavailableTableAlert(for: guests)
+            AlertManager.shared.showUnavailableTableAlert(from: self, for: guests)
         }
     }
     
@@ -174,18 +174,6 @@ extension TablesViewController: UICollectionViewDelegate {
     private func makeConfirmationMessage(for guests: Int, at indexPath: IndexPath) -> String {
         return "Are you sure you want to reserve a table at \(viewModel?.selectedRestaurant?.name ?? "this restaurant") for \(guests) guests on \(viewModel?.selectedDate ?? "") at \(viewModel?.selectedTime ?? "")?"
     }
-    
-    private func showUnavailableTableAlert(for guests: Int) {
-        let unavailableTableAlert = UIAlertController(
-            title: "Table Unavailable 😳",
-            message: "This table is not available for \(guests) guests. Please choose a different table.",
-            preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        unavailableTableAlert.addAction(okAction)
-        
-        present(unavailableTableAlert, animated: true, completion: nil)
-    }
 }
 
 // MARK: - CollectionView FlowLayoutDelegate
@@ -198,6 +186,3 @@ extension TablesViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-#Preview {
-    TablesViewController()
-}

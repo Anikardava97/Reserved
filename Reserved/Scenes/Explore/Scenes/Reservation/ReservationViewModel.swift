@@ -12,7 +12,6 @@ final class ReservationViewModel {
     var selectedRestaurant: Restaurant?
     var guestCount: Int = 2
     var selectedDate: Date?
-    var selectedTime: String?
     
     // MARK: - Computed Properties
     var restaurantName: String {
@@ -27,20 +26,7 @@ final class ReservationViewModel {
         let formattedName = restaurantName.map { String($0) }.joined(separator: " ")
         return formattedName
     }
-    
-    var formattedSelectedDate: String? {
-        guard let selectedDate = selectedDate else {
-            return nil
-        }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        return dateFormatter.string(from: selectedDate)
-    }
-    
-    var formattedSelectedTime: String? {
-        return selectedTime
-    }
-    
+
     var formattedGuestCount: Int {
         return guestCount
     }
@@ -53,10 +39,6 @@ final class ReservationViewModel {
     // MARK: - Methods
     func setSelectedDate(_ date: Date) {
         selectedDate = date
-    }
-    
-    func setSelectedTime(_ time: String) {
-        selectedTime = time
     }
     
     func incrementGuestCount() {
@@ -78,18 +60,14 @@ final class ReservationViewModel {
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm:ss"
         
-        guard let selectedDate = selectedDate,
-              let selectedTimeText = selectedTimeText,
-              let selectedGuests = selectedGuests,
-              let reservations = reservations else {
-            return .failure
-        }
+        guard let selectedDate, let selectedTimeText, let selectedGuests, let reservations else { return .failure }
         
         let formattedDate = dateFormatter.string(from: selectedDate)
         let formattedTime = timeFormatter.string(from: timeFormatter.date(from: selectedTimeText + ":00") ?? Date())
         
         let reservedTables = reservations.filter { reservation in
-            return reservation.date == formattedDate && reservation.time == formattedTime && reservation.guestCount == selectedGuests
+            return reservation.date == formattedDate 
+            && reservation.time == formattedTime && reservation.guestCount == selectedGuests
         }
         
         if reservedTables.count >= 2 {
@@ -97,6 +75,40 @@ final class ReservationViewModel {
         } else {
             return .success
         }
+    }
+    
+    func isValidTime(_ time: Date, for restaurant: Restaurant) -> Bool {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        let todayHours = RestaurantHoursManager.shared.getTodaysOpeningHours(from: restaurant)
+        let hoursArray = todayHours.components(separatedBy: " - ")
+        
+        guard hoursArray.count == 2,
+              let openTimeStr = hoursArray.first,
+              let closeTimeStr = hoursArray.last,
+              let openTime = dateFormatter.date(from: openTimeStr),
+              let closeTime = dateFormatter.date(from: closeTimeStr) else {
+            return false
+        }
+        
+        let now = Date()
+        let calendar = Calendar.current
+        let openDateTime = calendar.date(bySettingHour: calendar.component(.hour, from: openTime),
+                                         minute: calendar.component(.minute, from: openTime),
+                                         second: 0,
+                                         of: now)!
+        
+        var closeDateTime = calendar.date(bySettingHour: calendar.component(.hour, from: closeTime),
+                                          minute: calendar.component(.minute, from: closeTime),
+                                          second: 0,
+                                          of: now)!
+        
+        if closeTime < openTime {
+            closeDateTime = calendar.date(byAdding: .day, value: 1, to: closeDateTime)!
+        }
+        return time >= openDateTime && time <= closeDateTime
     }
 }
 

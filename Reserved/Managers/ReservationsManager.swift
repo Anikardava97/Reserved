@@ -31,6 +31,7 @@ final class ReservationManager {
             guestsCount: guestsCount
         )
         myReservations.append(newReservation)
+        delegate?.reservationManagerDidUpdateReservations()
     }
     
     func cancelReservation(restaurantName: String, reservationDate: String, reservationTime: String, guestsCount: Int) {
@@ -40,6 +41,7 @@ final class ReservationManager {
             $0.reservationTime == reservationTime &&
             $0.guestsCount == guestsCount
         }
+        delegate?.reservationManagerDidUpdateReservations()
     }
     
     func getAllReservations() -> [MyReservation] {

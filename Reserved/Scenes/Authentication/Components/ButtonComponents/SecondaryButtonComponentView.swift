@@ -20,7 +20,7 @@ struct SecondaryButtonComponentView: View {
     var body: some View {
         ZStack {
             Text(text)
-                .foregroundColor(textColor)
+                .foregroundStyle(textColor)
                 .font(.system(size: 16, weight: .medium))
                 .frame(maxWidth: .infinity, maxHeight: 48, alignment: .center)
             

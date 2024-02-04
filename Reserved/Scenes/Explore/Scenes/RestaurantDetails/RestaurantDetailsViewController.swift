@@ -51,10 +51,16 @@ final class RestaurantDetailsViewController: UIViewController {
     }()
     
     private lazy var headerStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [restaurantNameLabel, restaurantCuisineLabel, ratingStackView])
+        let stackView = UIStackView(arrangedSubviews: [restaurantNameAndFavoriteButtonStackView, restaurantCuisineLabel, ratingStackView])
         stackView.axis = .vertical
         stackView.spacing = 12
         stackView.distribution = .fill
+        return stackView
+    }()
+    
+    private lazy var restaurantNameAndFavoriteButtonStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [restaurantNameLabel, favoriteButton])
+        stackView.distribution = .equalSpacing
         return stackView
     }()
     
@@ -63,6 +69,15 @@ final class RestaurantDetailsViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.textColor = .white
         return label
+    }()
+    
+    private lazy var favoriteButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = .customAccentColor
+        button.setImage(UIImage(systemName: "heart"), for: .normal)
+        button.isUserInteractionEnabled = true
+        button.addTarget(self, action: #selector(toggleFavoriteStatus), for: .touchUpInside)
+        return button
     }()
     
     private let restaurantCuisineLabel: UILabel = {
@@ -494,10 +509,7 @@ final class RestaurantDetailsViewController: UIViewController {
             mapItem.name = viewModel?.restaurantName
             mapItem.openInMaps()
         } else {
-            let alertController = UIAlertController(title: "Error", message: "Location information is not available", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertController.addAction(okAction)
-            present(alertController, animated: true, completion: nil)
+            AlertManager.shared.showLocationUnavailableAlert(from: self)
         }
     }
     
@@ -525,6 +537,12 @@ final class RestaurantDetailsViewController: UIViewController {
         }
     }
     
+    private func updateFavoriteButton(for restaurant: Restaurant) {
+        let isFavorited = FavoritesManager.shared.isFavorite(restaurant: restaurant)
+        let favoriteImageName = isFavorited ? "heart.fill" : "heart"
+        favoriteButton.setImage(UIImage(systemName: favoriteImageName), for: .normal)
+    }
+    
     // MARK: - Configure
     func configure(with restaurant: Restaurant) {
         viewModel = RestaurantDetailsViewModel(restaurant: restaurant)
@@ -537,9 +555,21 @@ final class RestaurantDetailsViewController: UIViewController {
         restaurantDescriptionLabel.text = viewModel?.description
         restaurantAddressLabel.text = viewModel?.address
         restaurantNumberLabel.text = viewModel?.phoneNumber
+        updateFavoriteButton(for: restaurant)
     }
     
     // MARK: - Actions
+    @objc func toggleFavoriteStatus() {
+        guard let restaurant = viewModel?.restaurant else { return }
+        
+        if FavoritesManager.shared.isFavorite(restaurant: restaurant) {
+            FavoritesManager.shared.removeFavorite(restaurant: restaurant)
+        } else {
+            FavoritesManager.shared.addFavorite(restaurant: restaurant)
+        }
+        updateFavoriteButton(for: restaurant)
+    }
+    
     @objc private func menuLabelDidTap() {
         if let url = URL(string: viewModel?.menuURL ?? "") {
             let safariViewController = SFSafariViewController(url: url)

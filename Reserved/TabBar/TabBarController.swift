@@ -22,13 +22,19 @@ final class TabBarController: UITabBarController {
         
         let locationsView = LocationsView()
         let mapHostingController = UIHostingController(rootView: locationsView)
-        mapHostingController.tabBarItem = UITabBarItem(title: "Nearby", image: UIImage(systemName: "location"), selectedImage: nil)
+        mapHostingController.tabBarItem = UITabBarItem(title: "Nearby", image: UIImage(systemName: "map.fill"), selectedImage: nil)
         
-        let reservations = createNavigationController(title: "Reservations", image: UIImage(systemName: "clock"), viewController: ReservationsHistoryViewController())
+        let reservations = createNavigationController(title: "Reservations", image: UIImage(systemName: "clock.fill"), viewController: ReservationsHistoryViewController())
+        if let reservationsViewController = reservations.viewControllers.first as? ReservationsHistoryViewController {
+              ReservationManager.shared.delegate = reservationsViewController
+          }
         
-        let favourites = createNavigationController(title: "Favorites", image: UIImage(systemName: "heart"), viewController: FavoritesViewController())
+        let favourites = createNavigationController(title: "Favorites", image: UIImage(systemName: "heart.fill"), viewController: FavoritesViewController())
+        if let favouritesViewController = favourites.viewControllers.first as? FavoritesViewController {
+               FavoritesManager.shared.delegate = favouritesViewController
+           }
         
-        let profile = createNavigationController(title: "Profile", image: UIImage(systemName: "person"), viewController: ProfileViewController())
+        let profile = createNavigationController(title: "Profile", image: UIImage(systemName: "person.fill"), viewController: ProfileViewController())
         
         setViewControllers([restaurants, mapHostingController, reservations, favourites, profile], animated: true)
     }

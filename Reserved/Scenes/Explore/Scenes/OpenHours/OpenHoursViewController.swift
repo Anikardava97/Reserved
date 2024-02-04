@@ -8,11 +8,6 @@
 import UIKit
 import Lottie
 
-struct DaySchedule {
-    let day: String
-    let hours: String
-}
-
 final class OpenHoursViewController: UIViewController {
     // MARK: - Properties
     private var animationView: LottieAnimationView!
@@ -45,6 +40,7 @@ final class OpenHoursViewController: UIViewController {
         var schedules: [DaySchedule] = []
         
         if let restaurant = restaurant {
+            
             schedules.append(DaySchedule(day: "Monday", hours: "\(restaurant.openHours.monday.startTime.rawValue) - \(restaurant.openHours.monday.endTime.rawValue)"))
             
             schedules.append(DaySchedule(day: "Tuesday", hours: "\(restaurant.openHours.tuesday.startTime.rawValue) - \(restaurant.openHours.tuesday.endTime.rawValue)"))
@@ -59,6 +55,7 @@ final class OpenHoursViewController: UIViewController {
             
             schedules.append(DaySchedule(day: "Sunday", hours: "\(restaurant.openHours.sunday.startTime.rawValue) - \(restaurant.openHours.sunday.endTime.rawValue)"))
         }
+        
         return schedules
     }()
     
@@ -105,7 +102,7 @@ final class OpenHoursViewController: UIViewController {
         for daySchedule in daySchedules {
             let (dayLabel, timeLabel) = createDayScheduleLabels(daySchedule)
             
-            if daySchedule.day.lowercased() == RestaurantHoursManager.currentDayOfWeek() {
+            if daySchedule.day.lowercased() == RestaurantHoursManager.shared.currentDayOfWeek() {
                 dayLabel.textColor = .customGreenColor
                 timeLabel.textColor = .customGreenColor
             }

@@ -16,7 +16,7 @@ struct PrimaryButtonComponentView: View {
     //MARK: - Body
     var body: some View {
         Text(text.capitalized)
-            .foregroundColor(textColor)
+            .foregroundStyle(textColor)
             .font(.system(size: 16, weight: .bold))
             .frame(maxWidth: .infinity)
             .frame(height: 48)

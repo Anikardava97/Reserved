@@ -8,14 +8,25 @@
 import Foundation
 
 final class RestaurantHoursManager {
+    // MARK: - Shared Instance
+    static let shared = RestaurantHoursManager()
+    
+    // MARK: - Private Init
+    private init() {}
+    
+    // MARK: - Properties
+    let dayFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE"
+        return formatter
+    }()
+    
     // MARK: - Methods
-    static func currentDayOfWeek() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        return dateFormatter.string(from: Date()).lowercased()
+    func currentDayOfWeek() -> String {
+        return dayFormatter.string(from: Date()).lowercased()
     }
     
-    static func getTodaysOpeningHours(from restaurant: Restaurant) -> String {
+    func getTodaysOpeningHours(from restaurant: Restaurant) -> String {
         let day = currentDayOfWeek()
         let openHours = restaurant.openHours
         
@@ -46,7 +57,7 @@ final class RestaurantHoursManager {
         }
     }
     
-    static func isRestaurantOpen(from restaurant: Restaurant) -> Bool {
+     func isRestaurantOpen(from restaurant: Restaurant) -> Bool {
         let day = currentDayOfWeek()
         let openHours = restaurant.openHours
         let now = Date()
@@ -94,7 +105,7 @@ final class RestaurantHoursManager {
         return isNowBetween(startTime: startTime, endTime: endTime, currentDate: now, dateFormatter: dateFormatter)
     }
     
-    static func isNowBetween(startTime: String, endTime: String, currentDate: Date, dateFormatter: DateFormatter) -> Bool {
+     func isNowBetween(startTime: String, endTime: String, currentDate: Date, dateFormatter: DateFormatter) -> Bool {
         guard let start = dateFormatter.date(from: startTime),
               let end = dateFormatter.date(from: endTime) else { return false }
         
@@ -113,4 +124,3 @@ final class RestaurantHoursManager {
         return currentDate >= startDateTime && currentDate <= adjustedEndDateTime
     }
 }
-

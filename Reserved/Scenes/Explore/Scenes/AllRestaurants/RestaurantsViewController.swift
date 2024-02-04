@@ -210,13 +210,6 @@ extension RestaurantsViewController: UISearchBarDelegate {
         collectionView.isHidden = true
         contentSegmentedControl.isHidden = true
     }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        topRestaurantsLabel.isHidden = false
-        allRestaurantsLabel.isHidden = false
-        collectionView.isHidden = false
-        contentSegmentedControl.isHidden = false
-    }
 }
 
 // MARK: - Extension: UICollectionViewDataSource
@@ -271,7 +264,7 @@ extension RestaurantsViewController: UITableViewDataSource {
         }
         
         let restaurant = filteredCuisineRestaurants[indexPath.row]
-        if indexPath.row < filteredTopRestaurants.count {
+        if indexPath.row < filteredCuisineRestaurants.count {
             cell.configure(
                 with: restaurant,
                 isFavorite: FavoritesManager.shared.isFavorite(restaurant: restaurant)

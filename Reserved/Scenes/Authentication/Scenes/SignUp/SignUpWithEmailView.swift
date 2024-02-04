@@ -100,6 +100,3 @@ struct SignUpWithEmailView: View {
     }
 }
 
-#Preview {
-    SignUpWithEmailView { }
-}

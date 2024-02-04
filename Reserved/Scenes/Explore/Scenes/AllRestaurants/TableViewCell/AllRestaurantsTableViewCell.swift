@@ -100,7 +100,6 @@ class AllRestaurantsTableViewCell: UITableViewCell {
     private let openNowLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
-        label.textColor = .white
         label.numberOfLines = 1
         label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
         return label
@@ -182,7 +181,9 @@ class AllRestaurantsTableViewCell: UITableViewCell {
     }
     
     private func setOpenStatusLabel(for restaurant: Restaurant) {
-        openNowLabel.text = RestaurantHoursManager.isRestaurantOpen(from: restaurant) ? "Open Now" : "Closed"
+        let isOpen = RestaurantHoursManager.shared.isRestaurantOpen(from: restaurant)
+         openNowLabel.text = isOpen ? "Open Now" : "Closed"
+         openNowLabel.textColor = isOpen ? .systemGreen : .white
     }
     
     private func setImage(from url: String, for currentRestaurantId: Int) {
