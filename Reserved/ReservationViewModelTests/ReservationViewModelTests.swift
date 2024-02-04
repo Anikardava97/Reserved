@@ -75,4 +75,3 @@ final class ReservationViewModelTests: XCTestCase {
         return Restaurant(id: 1, name: "Test Restaurant", cuisine: "Test Cuisine", mainImageURL: nil, openHours: openHours, location: location, description: "Test Description", websiteURL: "http://example.com", menuURL: "http://example.com/menu", phoneNumber: "123-456-7890", reviewStars: 5.0)
     }
 }
-
