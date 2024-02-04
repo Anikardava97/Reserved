@@ -3,7 +3,7 @@
 
 Reserved is a reservation management system designed to streamline the process of booking tables at restaurants. This project aims to provide both restaurant owners and customers with a user-friendly interface to manage reservations efficiently, enhancing the dining experience and operational capacity for restaurants.
 
-![App Screenshot](https://i.ibb.co/mRF0pvT/Image.png)
+![App Screenshot](https://i.ibb.co/LnGLfd3/Images.png)
 
 
 ## Features
