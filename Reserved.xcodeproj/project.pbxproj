@@ -70,6 +70,7 @@
 		EEAB7CB02B6FB3800004FCC2 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CAF2B6FB37F0004FCC2 /* AlertManager.swift */; };
 		EEAB7CB22B6FC87D0004FCC2 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CB12B6FC87D0004FCC2 /* CustomAnnotationView.swift */; };
 		EEAB7CB42B6FE0580004FCC2 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CB32B6FE0580004FCC2 /* UserDefaults+Extension.swift */; };
+		EEAB7CBC2B70052C0004FCC2 /* ReservationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CBB2B70052C0004FCC2 /* ReservationViewModelTests.swift */; };
 		EEB37E732B5E6B5800D39BEA /* TablesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E722B5E6B5800D39BEA /* TablesViewController.swift */; };
 		EEB37E762B5E6BAA00D39BEA /* TablesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E752B5E6BAA00D39BEA /* TablesCollectionViewCell.swift */; };
 		EEB37E7A2B60378500D39BEA /* SelfSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E792B60378500D39BEA /* SelfSizedTableView.swift */; };
@@ -90,6 +91,16 @@
 		EEDABB872B591C9600A918EC /* GoogleSignInResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDABB862B591C9600A918EC /* GoogleSignInResultModel.swift */; };
 		EEEC43482B5D4CE900E9F87D /* ReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEC43472B5D4CE900E9F87D /* ReservationViewController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EEAB7CBD2B70052C0004FCC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE337EFD2B5562D1004DBA6B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE337F042B5562D1004DBA6B;
+			remoteInfo = Reserved;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		EE2EE4622B64499C009C0DD2 /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +164,8 @@
 		EEAB7CAF2B6FB37F0004FCC2 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		EEAB7CB12B6FC87D0004FCC2 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
 		EEAB7CB32B6FE0580004FCC2 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
+		EEAB7CB92B70052C0004FCC2 /* ReservationViewModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReservationViewModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEAB7CBB2B70052C0004FCC2 /* ReservationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewModelTests.swift; sourceTree = "<group>"; };
 		EEB37E722B5E6B5800D39BEA /* TablesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesViewController.swift; sourceTree = "<group>"; };
 		EEB37E752B5E6BAA00D39BEA /* TablesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesCollectionViewCell.swift; sourceTree = "<group>"; };
 		EEB37E792B60378500D39BEA /* SelfSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizedTableView.swift; sourceTree = "<group>"; };
@@ -183,6 +196,13 @@
 				EE98E0F32B5749330074962D /* FirebaseAuth in Frameworks */,
 				EE98E0E82B57491D0074962D /* FirebaseAnalytics in Frameworks */,
 				EE65E9EA2B5D2E36009B6602 /* Lottie in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEAB7CB62B70052C0004FCC2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				EE337F052B5562D1004DBA6B /* Reserved.app */,
+				EEAB7CB92B70052C0004FCC2 /* ReservationViewModelTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -249,6 +270,7 @@
 				EEAB7C9B2B6AB4BB0004FCC2 /* SharedComponents */,
 				EEAB7C902B6A91450004FCC2 /* Constants */,
 				EE337F262B556CA6004DBA6B /* Extensions */,
+				EEAB7CBA2B70052C0004FCC2 /* ReservationViewModelTests */,
 				EEAB7C982B6AB4650004FCC2 /* Resources */,
 				EE337F162B5562D2004DBA6B /* Info.plist */,
 				EEDABB7E2B590F4D00A918EC /* GoogleService-Info.plist */,
@@ -606,6 +628,14 @@
 			path = TableViewCell;
 			sourceTree = "<group>";
 		};
+		EEAB7CBA2B70052C0004FCC2 /* ReservationViewModelTests */ = {
+			isa = PBXGroup;
+			children = (
+				EEAB7CBB2B70052C0004FCC2 /* ReservationViewModelTests.swift */,
+			);
+			path = ReservationViewModelTests;
+			sourceTree = "<group>";
+		};
 		EEB37E742B5E6B6500D39BEA /* Tables */ = {
 			isa = PBXGroup;
 			children = (
@@ -661,6 +691,24 @@
 			productReference = EE337F052B5562D1004DBA6B /* Reserved.app */;
 			productType = "com.apple.product-type.application";
 		};
+		EEAB7CB82B70052C0004FCC2 /* ReservationViewModelTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EEAB7CC12B70052C0004FCC2 /* Build configuration list for PBXNativeTarget "ReservationViewModelTests" */;
+			buildPhases = (
+				EEAB7CB52B70052C0004FCC2 /* Sources */,
+				EEAB7CB62B70052C0004FCC2 /* Frameworks */,
+				EEAB7CB72B70052C0004FCC2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EEAB7CBE2B70052C0004FCC2 /* PBXTargetDependency */,
+			);
+			name = ReservationViewModelTests;
+			productName = ReservationViewModelTests;
+			productReference = EEAB7CB92B70052C0004FCC2 /* ReservationViewModelTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -668,11 +716,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					EE337F042B5562D1004DBA6B = {
 						CreatedOnToolsVersion = 15.0.1;
+					};
+					EEAB7CB82B70052C0004FCC2 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = EE337F042B5562D1004DBA6B;
 					};
 				};
 			};
@@ -695,6 +747,7 @@
 			projectRoot = "";
 			targets = (
 				EE337F042B5562D1004DBA6B /* Reserved */,
+				EEAB7CB82B70052C0004FCC2 /* ReservationViewModelTests */,
 			);
 		};
 /* End PBXProject section */
@@ -712,6 +765,13 @@
 				EE337F122B5562D2004DBA6B /* Assets.xcassets in Resources */,
 				EE931DA52B653587001725D4 /* Animation - 1706349327749.json in Resources */,
 				EE487F732B6770DE001E8CEA /* Animation - 1706506113575.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEAB7CB72B70052C0004FCC2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -793,7 +853,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EEAB7CB52B70052C0004FCC2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEAB7CBC2B70052C0004FCC2 /* ReservationViewModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EEAB7CBE2B70052C0004FCC2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE337F042B5562D1004DBA6B /* Reserved */;
+			targetProxy = EEAB7CBD2B70052C0004FCC2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		EE337F132B5562D2004DBA6B /* LaunchScreen.storyboard */ = {
@@ -986,6 +1062,44 @@
 			};
 			name = Release;
 		};
+		EEAB7CBF2B70052C0004FCC2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GUDFBFJP39;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.designcode.ReservationViewModelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Reserved.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Reserved";
+			};
+			name = Debug;
+		};
+		EEAB7CC02B70052C0004FCC2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GUDFBFJP39;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.designcode.ReservationViewModelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Reserved.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Reserved";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1003,6 +1117,15 @@
 			buildConfigurations = (
 				EE337F1A2B5562D2004DBA6B /* Debug */,
 				EE337F1B2B5562D2004DBA6B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EEAB7CC12B70052C0004FCC2 /* Build configuration list for PBXNativeTarget "ReservationViewModelTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EEAB7CBF2B70052C0004FCC2 /* Debug */,
+				EEAB7CC02B70052C0004FCC2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

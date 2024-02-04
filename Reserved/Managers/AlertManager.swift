@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AlertManager {
+final class AlertManager {
     // MARK: - Shared Instance
     static let shared = AlertManager()
     

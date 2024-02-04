@@ -14,19 +14,36 @@ struct RestaurantResponse: Decodable {
 
 // MARK: - Restaurant
 class Restaurant: Codable {
-    let id: Int
-    let name: String
-    let cuisine: String
-    let mainImageURL: String?
-    let images: [String]?
-    let openHours: OpenHours
-    let location: Location
-    let description: String
-    let websiteURL: String
-    let menuURL: String
-    let phoneNumber: String
-    let reviewStars: Double
+    var id: Int
+    var name: String
+    var cuisine: String
+    var mainImageURL: String?
+    var images: [String]?
+    var openHours: OpenHours
+    var location: Location
+    var description: String
+    var websiteURL: String
+    var menuURL: String
+    var phoneNumber: String
+    var reviewStars: Double
     var reservations: [Reservation]?
+    
+    
+    init(id: Int, name: String, cuisine: String, mainImageURL: String?, images: [String]? = nil, openHours: OpenHours, location: Location, description: String, websiteURL: String, menuURL: String, phoneNumber: String, reviewStars: Double, reservations: [Reservation]? = nil) {
+        self.id = id
+        self.name = name
+        self.cuisine = cuisine
+        self.mainImageURL = mainImageURL
+        self.images = images
+        self.openHours = openHours
+        self.location = location
+        self.description = description
+        self.websiteURL = websiteURL
+        self.menuURL = menuURL
+        self.phoneNumber = phoneNumber
+        self.reviewStars = reviewStars
+        self.reservations = reservations
+    }
 }
 
 struct Location: Codable {
@@ -130,5 +147,3 @@ enum EndTime: String, Codable {
     case the100Pm = "1:00 PM"
     case the200Pm = "2:00 PM"
 }
-
-
