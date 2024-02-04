@@ -15,13 +15,6 @@ final class RestaurantHoursManager {
     private init() {}
     
     // MARK: - Properties
-    let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateFormat = "h:mm a"
-        return formatter
-    }()
-    
     let dayFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE"
@@ -35,35 +28,99 @@ final class RestaurantHoursManager {
     
     func getTodaysOpeningHours(from restaurant: Restaurant) -> String {
         let day = currentDayOfWeek()
-        let openHours = getHoursForDay(for: day, from: restaurant.openHours)
+        let openHours = restaurant.openHours
         
-        guard let hours = openHours else { return "Closed" }
-        return "\(hours.startTime.rawValue) - \(hours.endTime.rawValue)"
-    }
-    
-    func isRestaurantOpen(from restaurant: Restaurant) -> Bool {
-        let day = currentDayOfWeek()
-        guard let openHours = getHoursForDay(for: day, from: restaurant.openHours) else { return false }
-        
-        let now = Date()
-        guard let startTime = dateFormatter.date(from: openHours.startTime.rawValue),
-              let endTime = dateFormatter.date(from: openHours.endTime.rawValue) else { return false }
-        
-        let adjustedEndTime = endTime < startTime ? Calendar.current.date(byAdding: .day, value: 1, to: endTime)! : endTime
-        
-        return now >= startTime && now <= adjustedEndTime
-    }
-    
-    func getHoursForDay(for day: String, from openHours: OpenHours) -> Day? {
         switch day {
-        case "monday": return openHours.monday
-        case "tuesday": return openHours.tuesday
-        case "wednesday": return openHours.wednesday
-        case "thursday": return openHours.thursday
-        case "friday": return openHours.friday
-        case "saturday": return openHours.saturday
-        case "sunday": return openHours.sunday
-        default: return nil
+        case "monday":
+            return "\(openHours.monday.startTime.rawValue) - \(openHours.monday.endTime.rawValue)"
+            
+        case "tuesday":
+            return "\(openHours.tuesday.startTime.rawValue) - \(openHours.tuesday.endTime.rawValue)"
+            
+        case "wednesday":
+            return "\(openHours.wednesday.startTime.rawValue) - \(openHours.wednesday.endTime.rawValue)"
+            
+        case "thursday":
+            return "\(openHours.thursday.startTime.rawValue) - \(openHours.thursday.endTime.rawValue)"
+            
+        case "friday":
+            return "\(openHours.friday.startTime.rawValue) - \(openHours.friday.endTime.rawValue)"
+            
+        case "saturday":
+            return "\(openHours.saturday.startTime.rawValue) - \(openHours.saturday.endTime.rawValue)"
+            
+        case "sunday":
+            return "\(openHours.sunday.startTime.rawValue) - \(openHours.sunday.endTime.rawValue)"
+            
+        default:
+            return "Closed"
         }
+    }
+    
+     func isRestaurantOpen(from restaurant: Restaurant) -> Bool {
+        let day = currentDayOfWeek()
+        let openHours = restaurant.openHours
+        let now = Date()
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        var startTime: String = ""
+        var endTime: String = ""
+        
+        switch day {
+        case "monday":
+            startTime = openHours.monday.startTime.rawValue
+            endTime = openHours.monday.endTime.rawValue
+            
+        case "tuesday":
+            startTime = openHours.tuesday.startTime.rawValue
+            endTime = openHours.tuesday.endTime.rawValue
+            
+        case "wednesday":
+            startTime = openHours.wednesday.startTime.rawValue
+            endTime = openHours.wednesday.endTime.rawValue
+            
+        case "thursday":
+            startTime = openHours.thursday.startTime.rawValue
+            endTime = openHours.thursday.endTime.rawValue
+            
+        case "friday":
+            startTime = openHours.friday.startTime.rawValue
+            endTime = openHours.friday.endTime.rawValue
+            
+        case "saturday":
+            startTime = openHours.saturday.startTime.rawValue
+            endTime = openHours.saturday.endTime.rawValue
+            
+        case "sunday":
+            startTime = openHours.sunday.startTime.rawValue
+            endTime = openHours.sunday.endTime.rawValue
+            
+        default:
+            return false
+        }
+        
+        return isNowBetween(startTime: startTime, endTime: endTime, currentDate: now, dateFormatter: dateFormatter)
+    }
+    
+     func isNowBetween(startTime: String, endTime: String, currentDate: Date, dateFormatter: DateFormatter) -> Bool {
+        guard let start = dateFormatter.date(from: startTime),
+              let end = dateFormatter.date(from: endTime) else { return false }
+        
+        var adjustedEndTime = end
+        if end < start {
+            adjustedEndTime = Calendar.current.date(byAdding: .day, value: 1, to: end)!
+        }
+        
+        let calendar = Calendar.current
+        let startDateTimeComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: start)
+        let adjustedEndDateTimeComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: adjustedEndTime)
+        
+        let startDateTime = calendar.date(bySettingHour: startDateTimeComponents.hour!, minute: startDateTimeComponents.minute!, second: 0, of: currentDate)!
+        let adjustedEndDateTime = calendar.date(bySettingHour: adjustedEndDateTimeComponents.hour!, minute: adjustedEndDateTimeComponents.minute!, second: 0, of: currentDate)!
+        
+        return currentDate >= startDateTime && currentDate <= adjustedEndDateTime
     }
 }

@@ -494,10 +494,7 @@ final class RestaurantDetailsViewController: UIViewController {
             mapItem.name = viewModel?.restaurantName
             mapItem.openInMaps()
         } else {
-            let alertController = UIAlertController(title: "Error", message: "Location information is not available", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertController.addAction(okAction)
-            present(alertController, animated: true, completion: nil)
+            AlertManager.shared.showLocationUnavailableAlert(from: self)
         }
     }
     

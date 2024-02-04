@@ -380,28 +380,8 @@ final class ReservationViewController: UIViewController {
         case .success:
             performReservation()
         case .failure:
-            showNoAvailableTablesAlert()
+            AlertManager.shared.showNoAvailableTablesAlert(from: self)
         }
-    }
-    
-    private func showDateSelectionAlert() {
-        let alert = UIAlertController(
-            title: "Select Valid Date 😳",
-            message: "Please choose your desired reservation date.",
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    private func showNoAvailableTablesAlert() {
-        let alert = UIAlertController(
-            title: "No Available Tables😔",
-            message: "There are no available tables for the selected date, time, and guest count. Please choose a different option👩🏻‍🍳",
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
     }
     
     private func performReservation() {
@@ -409,14 +389,14 @@ final class ReservationViewController: UIViewController {
               let selectedTime = selectTimeButton.title(for: .normal),
               let selectedGuests = Int(guestCountLabel.text ?? "2"),
               let selectedRestaurant = viewModel.selectedRestaurant else { return }
-        
+
         let tablesViewModel = TablesViewModel(
             selectedRestaurant: selectedRestaurant,
             selectedDate: selectedDate,
             selectedTime: selectedTime,
             selectedGuests: selectedGuests
         )
-        
+
         let tablesViewController = TablesViewController()
         tablesViewController.setup(with: tablesViewModel)
         navigationController?.pushViewController(tablesViewController, animated: true)
@@ -433,13 +413,14 @@ final class ReservationViewController: UIViewController {
         let selectedDate = timePicker.date
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = .short
+        dateFormatter.dateFormat = "HH:mm"
         selectTimeButton.setTitle(dateFormatter.string(from: selectedDate), for: .normal)
     }
     
     private func updateGuestCountDisplay() {
         guestCountLabel.text = "\(viewModel.guestCount)"
     }
-    
+
     // MARK: - Actions
     @objc private func selectDateButtonDidTap() {
         let datePicker = UIDatePicker()
@@ -447,8 +428,8 @@ final class ReservationViewController: UIViewController {
         datePicker.datePickerMode = .date
         
         if let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date()) {
-            datePicker.minimumDate = tomorrow
-        }
+             datePicker.minimumDate = tomorrow
+         }
         
         let alert = UIAlertController(title: "Select Date", message: "", preferredStyle: .actionSheet)
         alert.view.tintColor = .customAccentColor
@@ -489,7 +470,14 @@ final class ReservationViewController: UIViewController {
         ])
         
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { _ in
-            self.timeDidChange(timePicker: timePicker)
+            let selectedTime = timePicker.date
+            guard let restaurant = self.viewModel.selectedRestaurant else { return }
+            
+            if self.viewModel.isValidTime(selectedTime, for: restaurant) {
+                   self.timeDidChange(timePicker: timePicker)
+               } else {
+                   AlertManager.shared.showInvalidTimeAlert(from: self)
+               }
         }))
         
         self.present(alert, animated: true, completion: nil)
