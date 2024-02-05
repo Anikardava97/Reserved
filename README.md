@@ -23,14 +23,12 @@ git clone https://github.com/Anikardava97/Reserved.git
 ```
     
 ## Usage
-After setting up the project, navigate to the application in your web browser to start making reservations:
+After setting up the project, navigate to the application to start making reservations:
 
-Create an Account: Sign up for a new user account or log in.
-Find a Restaurant: Use the search feature to find restaurants by name.
-
-Make a Reservation: Choose your preferred date, time, and party size to book a table.
-
-Manage Reservations: View and manage your upcoming reservations.
+- Create an Account: Sign up for a new user account or log in.
+- Find a Restaurant: Use the search feature to find restaurants by name.
+- Make a Reservation: Choose your preferred date, time, and party size to book a table.
+- Manage Reservations: View and manage your upcoming reservations.
 
 ## Contributing
 
