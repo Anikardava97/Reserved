@@ -8,7 +8,7 @@ Reserved is a reservation management system designed to streamline the process o
 
 ## Features
 Reserved offers a comprehensive set of features designed to enhance the dining reservation experience for both customers and restaurant owners:
-- User Accounts: Secure login system for both administrators and guests;
+- User Accounts: Secure login system for customers;
 - Restaurant Listings: Browse and search for restaurants by location, cuisine, or availability.
 - Reservation System: Easy-to-use interface for making and managing reservations;
 - Favorites: Users can add restaurants to their favorites list for quick access in the future, simplifying the process of rebooking at preferred venues;
