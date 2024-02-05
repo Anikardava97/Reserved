@@ -36,6 +36,12 @@ final class ReservationViewModel {
         self.selectedRestaurant = selectedRestaurant
     }
     
+    // MARK: - Validation Result
+    enum ValidationResult {
+        case success
+        case failure
+    }
+    
     // MARK: - Methods
     func setSelectedDate(_ date: Date) {
         selectedDate = date
@@ -112,8 +118,5 @@ final class ReservationViewModel {
     }
 }
 
-enum ValidationResult {
-    case success
-    case failure
-}
+
 

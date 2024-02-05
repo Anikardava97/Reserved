@@ -182,8 +182,8 @@ class AllRestaurantsTableViewCell: UITableViewCell {
     
     private func setOpenStatusLabel(for restaurant: Restaurant) {
         let isOpen = RestaurantHoursManager.shared.isRestaurantOpen(from: restaurant)
-         openNowLabel.text = isOpen ? "Open Now" : "Closed"
-         openNowLabel.textColor = isOpen ? .systemGreen : .white
+        openNowLabel.text = isOpen ? "Open Now" : "Closed"
+        openNowLabel.textColor = isOpen ? .systemGreen : .white
     }
     
     private func setImage(from url: String, for currentRestaurantId: Int) {

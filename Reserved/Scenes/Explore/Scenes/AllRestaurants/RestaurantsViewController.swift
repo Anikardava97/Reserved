@@ -207,11 +207,11 @@ extension RestaurantsViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         updateUIForSearch(true)
     }
-
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         updateUIForSearch(false)
     }
-
+    
     private func updateUIForSearch(_ isSearching: Bool) {
         topRestaurantsLabel.isHidden = isSearching
         allRestaurantsLabel.isHidden = isSearching
