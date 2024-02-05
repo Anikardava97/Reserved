@@ -15,9 +15,13 @@ Reserved offers a comprehensive set of features designed to enhance the dining r
 - Reservation Cancellations: The system allows for hassle-free cancellation of reservations, providing flexibility and convenience to the users;
 - Loyalty Rewards: Users earn badges and rewards for successful reservations. Frequent users can enjoy discounts and special offers as part of a loyalty program, enhancing customer retention and satisfaction.
 
-## Reservation Flow
-[![Reservation](https://i.ibb.co/xHBNRYC/thumbnail.png)](https://player.vimeo.com/video/909930255?badge=0&autopause=0&player_id=0&app_id=58479)
+## Explore Restaurants
+![Explore](https://github.com/Anikardava97/Reserved/assets/145837570/6d6f8ab2-bb97-4f94-867f-ae5d8c93bbb3)
+![Details](https://github.com/Anikardava97/Reserved/assets/145837570/5fb4bfb4-f817-4191-b350-255ff91d712b)
 
+## Reserve
+![Reresvation](https://github.com/Anikardava97/Reserved/assets/145837570/f34a1db1-1cdd-434d-8574-b5193bd2ad93)
+![Confirmation](https://github.com/Anikardava97/Reserved/assets/145837570/49773d83-250a-4c42-8b90-04c68bf29416)
 
 ## Clone
 
