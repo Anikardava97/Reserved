@@ -380,7 +380,7 @@ final class ReservationViewController: UIViewController {
         case .success:
             performReservation()
         case .failure:
-            AlertManager.shared.showNoAvailableTablesAlert(from: self)
+            AlertManager.shared.showAlert(from: self, type: .noAvailableTables)
         }
     }
     
@@ -476,7 +476,7 @@ final class ReservationViewController: UIViewController {
             if self.viewModel.isValidTime(selectedTime, for: restaurant) {
                    self.timeDidChange(timePicker: timePicker)
                } else {
-                   AlertManager.shared.showInvalidTimeAlert(from: self)
+                   AlertManager.shared.showAlert(from: self, type: .invalidTime)
                }
         }))
         
