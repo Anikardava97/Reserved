@@ -380,8 +380,7 @@ final class ReservationViewController: UIViewController {
         case .success:
             performReservation()
         case .failure:
-            AlertManager.shared.showNoAvailableTablesAlert(from: self)
-        }
+            AlertManager.shared.showAlert(from: self, type: .noAvailableTables)        }
     }
     
     private func performReservation() {
@@ -389,14 +388,14 @@ final class ReservationViewController: UIViewController {
               let selectedTime = selectTimeButton.title(for: .normal),
               let selectedGuests = Int(guestCountLabel.text ?? "2"),
               let selectedRestaurant = viewModel.selectedRestaurant else { return }
-
+        
         let tablesViewModel = TablesViewModel(
             selectedRestaurant: selectedRestaurant,
             selectedDate: selectedDate,
             selectedTime: selectedTime,
             selectedGuests: selectedGuests
         )
-
+        
         let tablesViewController = TablesViewController()
         tablesViewController.setup(with: tablesViewModel)
         navigationController?.pushViewController(tablesViewController, animated: true)
@@ -420,7 +419,7 @@ final class ReservationViewController: UIViewController {
     private func updateGuestCountDisplay() {
         guestCountLabel.text = "\(viewModel.guestCount)"
     }
-
+    
     // MARK: - Actions
     @objc private func selectDateButtonDidTap() {
         let datePicker = UIDatePicker()
@@ -428,8 +427,8 @@ final class ReservationViewController: UIViewController {
         datePicker.datePickerMode = .date
         
         if let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date()) {
-             datePicker.minimumDate = tomorrow
-         }
+            datePicker.minimumDate = tomorrow
+        }
         
         let alert = UIAlertController(title: "Select Date", message: "", preferredStyle: .actionSheet)
         alert.view.tintColor = .customAccentColor
@@ -474,10 +473,10 @@ final class ReservationViewController: UIViewController {
             guard let restaurant = self.viewModel.selectedRestaurant else { return }
             
             if self.viewModel.isValidTime(selectedTime, for: restaurant) {
-                   self.timeDidChange(timePicker: timePicker)
-               } else {
-                   AlertManager.shared.showInvalidTimeAlert(from: self)
-               }
+                self.timeDidChange(timePicker: timePicker)
+            } else {
+                AlertManager.shared.showAlert(from: self, type: .invalidTime)
+            }
         }))
         
         self.present(alert, animated: true, completion: nil)

@@ -509,7 +509,7 @@ final class RestaurantDetailsViewController: UIViewController {
             mapItem.name = viewModel?.restaurantName
             mapItem.openInMaps()
         } else {
-            AlertManager.shared.showLocationUnavailableAlert(from: self)
+            AlertManager.shared.showAlert(from: self, type: .locationUnavailable)
         }
     }
     

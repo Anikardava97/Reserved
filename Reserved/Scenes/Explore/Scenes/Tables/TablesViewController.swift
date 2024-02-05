@@ -144,8 +144,7 @@ extension TablesViewController: UICollectionViewDelegate {
         if isAvailable {
             showConfirmationAlert(for: guests, at: indexPath)
         } else {
-            AlertManager.shared.showUnavailableTableAlert(from: self, for: guests)
-        }
+            AlertManager.shared.showAlert(from: self, type: .unavailableTable(guests: guests))        }
     }
     
     private func showConfirmationAlert(for guests: Int, at indexPath: IndexPath) {

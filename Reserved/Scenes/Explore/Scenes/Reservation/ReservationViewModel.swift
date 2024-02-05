@@ -26,7 +26,7 @@ final class ReservationViewModel {
         let formattedName = restaurantName.map { String($0) }.joined(separator: " ")
         return formattedName
     }
-
+    
     var formattedGuestCount: Int {
         return guestCount
     }
@@ -34,6 +34,12 @@ final class ReservationViewModel {
     // MARK: - Init
     init(selectedRestaurant: Restaurant) {
         self.selectedRestaurant = selectedRestaurant
+    }
+    
+    // MARK: - Validate Result
+    enum ValidationResult {
+        case success
+        case failure
     }
     
     // MARK: - Methods
@@ -66,7 +72,7 @@ final class ReservationViewModel {
         let formattedTime = timeFormatter.string(from: timeFormatter.date(from: selectedTimeText + ":00") ?? Date())
         
         let reservedTables = reservations.filter { reservation in
-            return reservation.date == formattedDate 
+            return reservation.date == formattedDate
             && reservation.time == formattedTime && reservation.guestCount == selectedGuests
         }
         
@@ -112,8 +118,4 @@ final class ReservationViewModel {
     }
 }
 
-enum ValidationResult {
-    case success
-    case failure
-}
 
