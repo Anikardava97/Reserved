@@ -205,10 +205,18 @@ extension RestaurantsViewController: UISearchResultsUpdating {
 // MARK:  Extension: UISearchBarDelegate
 extension RestaurantsViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        topRestaurantsLabel.isHidden = true
-        allRestaurantsLabel.isHidden = true
-        collectionView.isHidden = true
-        contentSegmentedControl.isHidden = true
+        updateUIForSearch(true)
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        updateUIForSearch(false)
+    }
+
+    private func updateUIForSearch(_ isSearching: Bool) {
+        topRestaurantsLabel.isHidden = isSearching
+        allRestaurantsLabel.isHidden = isSearching
+        collectionView.isHidden = isSearching
+        contentSegmentedControl.isHidden = isSearching
     }
 }
 
