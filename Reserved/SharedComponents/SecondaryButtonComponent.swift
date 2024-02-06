@@ -13,7 +13,7 @@ class SecondaryButtonComponent: UIButton {
         super.init(frame: .zero)
         
         setTitle(text, for: .normal)
-        titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         setTitleColor(UIColor.white, for: .normal)
         layer.borderWidth = 2
         layer.borderColor = UIColor.white.cgColor

@@ -73,6 +73,8 @@
 		EEAB7CBC2B70052C0004FCC2 /* ReservationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CBB2B70052C0004FCC2 /* ReservationViewModelTests.swift */; };
 		EEAB7CC32B720BFE0004FCC2 /* OrderFoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CC22B720BFE0004FCC2 /* OrderFoodViewController.swift */; };
 		EEAB7CC52B7213D30004FCC2 /* SecondaryButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CC42B7213D30004FCC2 /* SecondaryButtonComponent.swift */; };
+		EEAB7CC72B7220C80004FCC2 /* OrderFoodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CC62B7220C80004FCC2 /* OrderFoodViewModel.swift */; };
+		EEAB7CCA2B7229F00004FCC2 /* FoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CC92B7229F00004FCC2 /* FoodItem.swift */; };
 		EEB37E732B5E6B5800D39BEA /* TablesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E722B5E6B5800D39BEA /* TablesViewController.swift */; };
 		EEB37E762B5E6BAA00D39BEA /* TablesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E752B5E6BAA00D39BEA /* TablesCollectionViewCell.swift */; };
 		EEB37E7A2B60378500D39BEA /* SelfSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E792B60378500D39BEA /* SelfSizedTableView.swift */; };
@@ -170,6 +172,8 @@
 		EEAB7CBB2B70052C0004FCC2 /* ReservationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewModelTests.swift; sourceTree = "<group>"; };
 		EEAB7CC22B720BFE0004FCC2 /* OrderFoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderFoodViewController.swift; sourceTree = "<group>"; };
 		EEAB7CC42B7213D30004FCC2 /* SecondaryButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButtonComponent.swift; sourceTree = "<group>"; };
+		EEAB7CC62B7220C80004FCC2 /* OrderFoodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderFoodViewModel.swift; sourceTree = "<group>"; };
+		EEAB7CC92B7229F00004FCC2 /* FoodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItem.swift; sourceTree = "<group>"; };
 		EEB37E722B5E6B5800D39BEA /* TablesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesViewController.swift; sourceTree = "<group>"; };
 		EEB37E752B5E6BAA00D39BEA /* TablesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesCollectionViewCell.swift; sourceTree = "<group>"; };
 		EEB37E792B60378500D39BEA /* SelfSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizedTableView.swift; sourceTree = "<group>"; };
@@ -605,7 +609,7 @@
 				EEAB7C962B6AB3960004FCC2 /* Reservation */,
 				EEB37E742B5E6B6500D39BEA /* Tables */,
 				EEAB7CA22B6BBC290004FCC2 /* Confirmation */,
-				EEAB7CC22B720BFE0004FCC2 /* OrderFoodViewController.swift */,
+				EEAB7CC82B7220CE0004FCC2 /* OrderFood */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -640,6 +644,16 @@
 				EEAB7CBB2B70052C0004FCC2 /* ReservationViewModelTests.swift */,
 			);
 			path = ReservationViewModelTests;
+			sourceTree = "<group>";
+		};
+		EEAB7CC82B7220CE0004FCC2 /* OrderFood */ = {
+			isa = PBXGroup;
+			children = (
+				EEAB7CC22B720BFE0004FCC2 /* OrderFoodViewController.swift */,
+				EEAB7CC62B7220C80004FCC2 /* OrderFoodViewModel.swift */,
+				EEAB7CC92B7229F00004FCC2 /* FoodItem.swift */,
+			);
+			path = OrderFood;
 			sourceTree = "<group>";
 		};
 		EEB37E742B5E6B6500D39BEA /* Tables */ = {
@@ -813,6 +827,7 @@
 				EE337F4B2B56B177004DBA6B /* LogInWithEmailViewModel.swift in Sources */,
 				EE53F1802B5AA8530019853F /* CuisineButton.swift in Sources */,
 				EE53F17E2B5A858C0019853F /* RestaurantsViewModel.swift in Sources */,
+				EEAB7CC72B7220C80004FCC2 /* OrderFoodViewModel.swift in Sources */,
 				EEB37E732B5E6B5800D39BEA /* TablesViewController.swift in Sources */,
 				EE487F6D2B66463F001E8CEA /* LocationPreviewView.swift in Sources */,
 				EEAB7C862B68E93C0004FCC2 /* FavoritesViewModel.swift in Sources */,
@@ -827,6 +842,7 @@
 				EE98E0E52B5748580074962D /* AuthenticationManager.swift in Sources */,
 				EEAB7C882B6A73BC0004FCC2 /* NavigationManager.swift in Sources */,
 				EEAB7CC52B7213D30004FCC2 /* SecondaryButtonComponent.swift in Sources */,
+				EEAB7CCA2B7229F00004FCC2 /* FoodItem.swift in Sources */,
 				EEA4221D2B570A8200BC4693 /* CustomTextFieldComponentView.swift in Sources */,
 				EEAB7CB42B6FE0580004FCC2 /* UserDefaults+Extension.swift in Sources */,
 				EE53F1842B5ABB2D0019853F /* NetworkManager.swift in Sources */,

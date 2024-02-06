@@ -122,12 +122,11 @@ class ConfirmationViewController: UIViewController {
         return button
     }()
     
-    private lazy var orderFoodButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Order Food", for: .normal)
-        button.setTitleColor(.customAccentColor, for: .normal)
+    private lazy var orderFoodButton: SecondaryButtonComponent = {
+        let button = SecondaryButtonComponent(text: "Order Food")
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(orderFoodButtonDidTap), for: .touchUpInside)
+        button.isHidden = true
         return button
     }()
     
@@ -205,6 +204,7 @@ class ConfirmationViewController: UIViewController {
         mainStackView.addArrangedSubview(reservationDetailsTitleLabel)
         mainStackView.addArrangedSubview(detailsSectionView)
         mainStackView.addArrangedSubview(exploreButton)
+        mainStackView.addArrangedSubview(orderFoodButton)
     }
     
     private func setupConstraints() {
@@ -231,7 +231,7 @@ class ConfirmationViewController: UIViewController {
             self?.navigateToOrderFood()
         }
         let noAction = UIAlertAction(title: "No", style: .cancel) { [weak self] _ in
-            self?.showOrderFoodButton()
+            self?.orderFoodButton.isHidden = false
         }
         alert.addAction(yesAction)
         alert.addAction(noAction)
@@ -242,10 +242,6 @@ class ConfirmationViewController: UIViewController {
     private func navigateToOrderFood() {
         let orderFoodVC = OrderFoodViewController()
         navigationController?.pushViewController(orderFoodVC, animated: true)
-    }
-    
-    private func showOrderFoodButton() {
-        mainStackView.addSubview(orderFoodButton)
     }
     
     // MARK: - Actions
