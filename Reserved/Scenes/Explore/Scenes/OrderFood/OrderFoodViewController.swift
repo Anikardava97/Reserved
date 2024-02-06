@@ -116,8 +116,8 @@ extension OrderFoodViewController: UICollectionViewDataSource {
 // MARK:  Extension: UICollectionViewDelegateFlowLayout
 extension OrderFoodViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = Int((collectionView.bounds.width) / 1)
-        let height = 200
+        let width = collectionView.bounds.width
+        let height = collectionView.bounds.height
         return CGSize(width: width, height: height)
     }
 }

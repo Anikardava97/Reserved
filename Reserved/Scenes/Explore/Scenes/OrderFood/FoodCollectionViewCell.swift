@@ -15,101 +15,111 @@ protocol FoodCellDelegate: AnyObject {
 final class FoodCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
     private lazy var mainStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [productImageView, productInfoStackView])
-        stackView.spacing = 8
-        stackView.distribution = .equalSpacing
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
+        let stackView = UIStackView(arrangedSubviews: [productTitleLabel, productImageView, productInfoStackView])
+        stackView.axis = .vertical
+        stackView.spacing = 28
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
     private lazy var productInfoStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [productTitleLabel, productPriceLabel, selectProductStackView, ingredientsStackView])
+        let stackView = UIStackView(arrangedSubviews: [ingredientsStackView, productPriceLabel, selectProductStackView])
         stackView.axis = .vertical
-        stackView.spacing = 4
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 24
         return stackView
-    }()
-    
-    private let productImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
     }()
     
     private let productTitleLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .left
-        label.textColor = .white
-        label.numberOfLines = 1
-        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        return label
-    }()
-    
-    private let productPriceLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .left
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        return label
-    }()
-    
-    private lazy var selectProductStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [subtractProductButton, selectedQuantityLabel, addProductButton])
-        stackView.distribution = .equalSpacing
-        stackView.alignment = .center
-        stackView.spacing = 4
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    private let subtractProductButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("-", for: .normal)
-        button.setTitleColor(.blue, for: .normal)
-        return button
-    }()
-    
-    private let selectedQuantityLabel: UILabel = {
-        let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.textColor = .white
+        label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
         return label
     }()
     
-    private let addProductButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("+", for: .normal)
-        button.setTitleColor(.blue, for: .normal)
-        return button
+    private let productImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
     }()
     
     private lazy var ingredientsStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [ingredientsTitleLabel, ingredientsListLabel])
-        stackView.distribution = .equalSpacing
-        stackView.alignment = .center
-        stackView.spacing = 4
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.spacing = 12
+        stackView.backgroundColor = .customSecondaryColor
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = UIEdgeInsets(top: 16, left: 24, bottom: 16, right: 24)
+        stackView.layer.cornerRadius = 10
         return stackView
     }()
     
     private let ingredientsTitleLabel: UILabel = {
         let label = UILabel()
+        label.text = "Ingredients"
         label.textAlignment = .left
         label.textColor = .white
-        label.numberOfLines = 1
-        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         return label
     }()
     
     private let ingredientsListLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
-        label.textColor = .white
-        label.numberOfLines = 1
-        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        label.textColor = .white.withAlphaComponent(0.8)
+        label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 16)
+        
         return label
+    }()
+    
+    private let productPriceLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 28, weight: .medium)
+        return label
+    }()
+    
+    private lazy var selectProductStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [leadingSpacer, subtractProductButton, selectedQuantityLabel, addProductButton, trailingSpacer])
+        stackView.alignment = .center
+        stackView.spacing = 16
+        stackView.backgroundColor = .customSecondaryColor
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = UIEdgeInsets(top: 16, left: 24, bottom: 16, right: 24)
+        stackView.layer.cornerRadius = 10
+        return stackView
+    }()
+    
+    private let leadingSpacer = UIView()
+    private let trailingSpacer = UIView()
+    
+    private let subtractProductButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("-", for: .normal)
+        button.setTitleColor(.white.withAlphaComponent(0.8), for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 30)
+        return button
+    }()
+    
+    private let selectedQuantityLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 26, weight: .medium)
+        return label
+    }()
+    
+    private let addProductButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("+", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 30)
+        return button
     }()
     
     weak var delegate: FoodCellDelegate?
@@ -150,8 +160,8 @@ final class FoodCollectionViewCell: UICollectionViewCell {
             mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
-            productImageView.widthAnchor.constraint(equalToConstant: 200),
-            productImageView.heightAnchor.constraint(equalToConstant: 200),
+            productImageView.widthAnchor.constraint(equalToConstant: 300),
+            productImageView.heightAnchor.constraint(equalToConstant: 300)
         ])
     }
     
@@ -181,8 +191,19 @@ final class FoodCollectionViewCell: UICollectionViewCell {
     func configure(with product: FoodItem) {
         setImage(from: product.image)
         productTitleLabel.text = product.name
-        productPriceLabel.text = "\(product.price)"
-        ingredientsListLabel.text = "\(product.ingredients)"
+        productPriceLabel.text = "$ \(product.price)"
+        selectedQuantityLabel.text = "\(product.selectedAmount ?? 0)"
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 6
+        
+        let attributedText = NSMutableAttributedString(string: product.ingredients)
+        attributedText.addAttribute(
+            NSAttributedString.Key.paragraphStyle,
+            value: paragraphStyle,
+            range: NSMakeRange(0, attributedText.length)
+        )
+        ingredientsListLabel.attributedText = attributedText
     }
 }
 
