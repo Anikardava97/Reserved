@@ -1,5 +1,5 @@
 //
-//  FoodCollectionViewCell.swift
+//  FoodTableViewCell.swift
 //  Reserved
 //
 //  Created by Ani's Mac on 06.02.24.
@@ -7,21 +7,21 @@
 
 import UIKit
 
-protocol FoodCollectionViewCellDelegate: AnyObject {
-    func addProduct(for cell: FoodCollectionViewCell?)
-    func removeProduct(for cell: FoodCollectionViewCell?)
+protocol FoodTableViewCellDelegate: AnyObject {
+    func addProduct(for cell: FoodTableViewCell?)
+    func removeProduct(for cell: FoodTableViewCell?)
 }
 
-final class FoodCollectionViewCell: UICollectionViewCell {
+final class FoodTableViewCell: UITableViewCell {
     // MARK: - Properties
-    weak var delegate: FoodCollectionViewCellDelegate?
+    weak var delegate: FoodTableViewCellDelegate?
     
     private lazy var mainStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [productImageView, productTitleLabel, productPriceLabel,ingredientsStackView, selectProductStackView])
-        stackView.axis = .vertical
+        let stackView = UIStackView(arrangedSubviews: [productImageView, productInfoStackView, selectProductStackView])
         stackView.spacing = 12
+        stackView.alignment = .center
         stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = UIEdgeInsets(top: 16, left: 24, bottom: 16, right: 24)
+        stackView.layoutMargins = UIEdgeInsets(top: 16, left: 10, bottom: 16, right: 10)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -32,34 +32,20 @@ final class FoodCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
+    private lazy var productInfoStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [productTitleLabel, productPriceLabel])
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.spacing = 12
+        return stackView
+    }()
+    
     private let productTitleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .white
-        label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        return label
-    }()
-    
-    private lazy var ingredientsStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [ingredientsListLabel])
-        stackView.axis = .vertical
-        stackView.alignment = .leading
-        stackView.spacing = 12
-        stackView.backgroundColor = .customSecondaryColor
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = UIEdgeInsets(top: 16, left: 24, bottom: 16, right: 24)
-        stackView.layer.cornerRadius = 10
-        return stackView
-    }()
-    
-    private let ingredientsListLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .left
-        label.textColor = .white.withAlphaComponent(0.8)
-        label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 14)
-        
+        label.numberOfLines = 1
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         return label
     }()
     
@@ -67,19 +53,16 @@ final class FoodCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 16)
         return label
     }()
     
     private lazy var selectProductStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [leadingSpacer, subtractProductButton, selectedQuantityLabel, addProductButton, trailingSpacer])
+        let stackView = UIStackView(arrangedSubviews: [subtractProductButton, selectedQuantityLabel, addProductButton])
         stackView.alignment = .center
         stackView.spacing = 8
         return stackView
     }()
-    
-    private let leadingSpacer = UIView()
-    private let trailingSpacer = UIView()
     
     private let subtractProductButton: CircularButton = {
         let button = CircularButton()
@@ -108,8 +91,9 @@ final class FoodCollectionViewCell: UICollectionViewCell {
     }()
     
     // MARK: - Init
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
         addSubview()
         setupConstraints()
         setupCellAppearance()
@@ -128,7 +112,6 @@ final class FoodCollectionViewCell: UICollectionViewCell {
         productTitleLabel.text = nil
         productPriceLabel.text = nil
         selectedQuantityLabel.text = nil
-        ingredientsListLabel.text = nil
     }
     
     // MARK: - Private Methods
@@ -143,15 +126,14 @@ final class FoodCollectionViewCell: UICollectionViewCell {
             mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
-            productImageView.widthAnchor.constraint(equalToConstant: 200),
-            productImageView.heightAnchor.constraint(equalToConstant: 200),
+            productImageView.widthAnchor.constraint(equalToConstant: 80),
+            productImageView.heightAnchor.constraint(equalToConstant: 80),
             
-            leadingSpacer.widthAnchor.constraint(equalTo: trailingSpacer.widthAnchor),
-            selectedQuantityLabel.widthAnchor.constraint(equalToConstant: 40),
+            selectedQuantityLabel.widthAnchor.constraint(equalToConstant: 24),
             subtractProductButton.widthAnchor.constraint(equalTo: subtractProductButton.heightAnchor),
             addProductButton.widthAnchor.constraint(equalTo: addProductButton.heightAnchor),
-            subtractProductButton.widthAnchor.constraint(equalToConstant: 32),
-            addProductButton.widthAnchor.constraint(equalToConstant: 32)
+            subtractProductButton.widthAnchor.constraint(equalToConstant: 24),
+            addProductButton.widthAnchor.constraint(equalToConstant: 24)
         ])
     }
     
@@ -198,17 +180,6 @@ final class FoodCollectionViewCell: UICollectionViewCell {
         productTitleLabel.text = product.name
         productPriceLabel.text = "$ \(product.price)"
         selectedQuantityLabel.text = "\(product.selectedAmount ?? 0)"
-        
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 6
-        
-        let attributedText = NSMutableAttributedString(string: product.ingredients)
-        attributedText.addAttribute(
-            NSAttributedString.Key.paragraphStyle,
-            value: paragraphStyle,
-            range: NSMakeRange(0, attributedText.length)
-        )
-        ingredientsListLabel.attributedText = attributedText
+        backgroundColor = .customBackgroundColor
     }
 }
-

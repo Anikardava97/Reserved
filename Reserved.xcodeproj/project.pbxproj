@@ -76,6 +76,8 @@
 		EEAB7CC72B7220C80004FCC2 /* OrderFoodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CC62B7220C80004FCC2 /* OrderFoodViewModel.swift */; };
 		EEAB7CCA2B7229F00004FCC2 /* FoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CC92B7229F00004FCC2 /* FoodItem.swift */; };
 		EEAB7CCE2B72441C0004FCC2 /* FoodCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CCD2B72441C0004FCC2 /* FoodCollectionViewCell.swift */; };
+		EEAB7CD02B729E230004FCC2 /* CircularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CCF2B729E230004FCC2 /* CircularButton.swift */; };
+		EEAB7CD22B72B84D0004FCC2 /* FoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CD12B72B84D0004FCC2 /* FoodTableViewCell.swift */; };
 		EEB37E732B5E6B5800D39BEA /* TablesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E722B5E6B5800D39BEA /* TablesViewController.swift */; };
 		EEB37E762B5E6BAA00D39BEA /* TablesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E752B5E6BAA00D39BEA /* TablesCollectionViewCell.swift */; };
 		EEB37E7A2B60378500D39BEA /* SelfSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E792B60378500D39BEA /* SelfSizedTableView.swift */; };
@@ -176,6 +178,8 @@
 		EEAB7CC62B7220C80004FCC2 /* OrderFoodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderFoodViewModel.swift; sourceTree = "<group>"; };
 		EEAB7CC92B7229F00004FCC2 /* FoodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItem.swift; sourceTree = "<group>"; };
 		EEAB7CCD2B72441C0004FCC2 /* FoodCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCollectionViewCell.swift; sourceTree = "<group>"; };
+		EEAB7CCF2B729E230004FCC2 /* CircularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularButton.swift; sourceTree = "<group>"; };
+		EEAB7CD12B72B84D0004FCC2 /* FoodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTableViewCell.swift; sourceTree = "<group>"; };
 		EEB37E722B5E6B5800D39BEA /* TablesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesViewController.swift; sourceTree = "<group>"; };
 		EEB37E752B5E6BAA00D39BEA /* TablesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesCollectionViewCell.swift; sourceTree = "<group>"; };
 		EEB37E792B60378500D39BEA /* SelfSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizedTableView.swift; sourceTree = "<group>"; };
@@ -587,6 +591,7 @@
 			children = (
 				EED2105F2B5C5EEC00039A98 /* MainButtonComponent.swift */,
 				EEAB7CC42B7213D30004FCC2 /* SecondaryButtonComponent.swift */,
+				EEAB7CCF2B729E230004FCC2 /* CircularButton.swift */,
 				EE487F762B677F53001E8CEA /* EmptyStateViewController.swift */,
 			);
 			path = SharedComponents;
@@ -652,6 +657,7 @@
 			isa = PBXGroup;
 			children = (
 				EEAB7CCD2B72441C0004FCC2 /* FoodCollectionViewCell.swift */,
+				EEAB7CD12B72B84D0004FCC2 /* FoodTableViewCell.swift */,
 				EEAB7CC22B720BFE0004FCC2 /* OrderFoodViewController.swift */,
 				EEAB7CC62B7220C80004FCC2 /* OrderFoodViewModel.swift */,
 				EEAB7CC92B7229F00004FCC2 /* FoodItem.swift */,
@@ -837,6 +843,7 @@
 				EE337F092B5562D1004DBA6B /* AppDelegate.swift in Sources */,
 				EE487F662B6598B8001E8CEA /* RestaurantLocation.swift in Sources */,
 				EED210642B5D10BE00039A98 /* OpenHoursViewController.swift in Sources */,
+				EEAB7CD22B72B84D0004FCC2 /* FoodTableViewCell.swift in Sources */,
 				EE8EB8FD2B5A52B000C6FEB9 /* TabBarController.swift in Sources */,
 				EEAB7CAE2B6CDDC20004FCC2 /* DaySchedule.swift in Sources */,
 				EEAB7CA92B6BD3240004FCC2 /* TablesViewModel.swift in Sources */,
@@ -869,6 +876,7 @@
 				EE53F1862B5B00F50019853F /* AllRestaurantsTableViewCell.swift in Sources */,
 				EE337F0B2B5562D1004DBA6B /* SceneDelegate.swift in Sources */,
 				EE337F212B556A8D004DBA6B /* Color+Extension.swift in Sources */,
+				EEAB7CD02B729E230004FCC2 /* CircularButton.swift in Sources */,
 				EEAB7CB22B6FC87D0004FCC2 /* CustomAnnotationView.swift in Sources */,
 				EED210602B5C5EEC00039A98 /* MainButtonComponent.swift in Sources */,
 				EE337F302B55770A004DBA6B /* LaunchScreenView.swift in Sources */,

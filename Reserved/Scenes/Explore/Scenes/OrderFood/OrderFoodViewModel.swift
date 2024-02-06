@@ -17,8 +17,11 @@ final class OrderFoodViewModel {
     weak var delegate: OrderFoodViewModelDelegate?
 
     var foodItems: [FoodItem]?
-    var totalPrice: Double? { foodItems?.reduce(0) { $0 + $1.price * Double(($1.selectedAmount ?? 0))} }
-
+    var totalPrice: Double? {
+        guard let foodItems = foodItems else { return nil }
+        let total = foodItems.reduce(0) { $0 + $1.price * Double($1.selectedAmount ?? 0) }
+        return (total * 100).rounded() / 100
+    }
     // MARK: - Methods
     func viewDidLoad() {
         fetchFoodItems()
