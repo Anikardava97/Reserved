@@ -51,11 +51,8 @@ class EmptyStateViewController: UIViewController {
         return label
     }()
     
-    private lazy var exploreButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Explore", for: .normal)
-        button.setTitleColor(.customAccentColor, for: .normal)
-        
+    private lazy var exploreButton: MainButtonComponent = {
+        let button = MainButtonComponent(text: "Explore", textColor: .white, backgroundColor: .customAccentColor)
         button.addTarget(self, action: #selector(exploreButtonDidTap), for: .touchUpInside)
         return button
     }()
@@ -106,7 +103,9 @@ class EmptyStateViewController: UIViewController {
         NSLayoutConstraint.activate([
             emptyStateStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             emptyStateStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            emptyStateStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 60)
+            emptyStateStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 60),
+            exploreButton.leadingAnchor.constraint(equalTo: emptyStateStackView.leadingAnchor),
+            exploreButton.trailingAnchor.constraint(equalTo: emptyStateStackView.trailingAnchor),
         ])
     }
     

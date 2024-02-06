@@ -71,6 +71,8 @@
 		EEAB7CB22B6FC87D0004FCC2 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CB12B6FC87D0004FCC2 /* CustomAnnotationView.swift */; };
 		EEAB7CB42B6FE0580004FCC2 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CB32B6FE0580004FCC2 /* UserDefaults+Extension.swift */; };
 		EEAB7CBC2B70052C0004FCC2 /* ReservationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CBB2B70052C0004FCC2 /* ReservationViewModelTests.swift */; };
+		EEAB7CC32B720BFE0004FCC2 /* OrderFoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CC22B720BFE0004FCC2 /* OrderFoodViewController.swift */; };
+		EEAB7CC52B7213D30004FCC2 /* SecondaryButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7CC42B7213D30004FCC2 /* SecondaryButtonComponent.swift */; };
 		EEB37E732B5E6B5800D39BEA /* TablesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E722B5E6B5800D39BEA /* TablesViewController.swift */; };
 		EEB37E762B5E6BAA00D39BEA /* TablesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E752B5E6BAA00D39BEA /* TablesCollectionViewCell.swift */; };
 		EEB37E7A2B60378500D39BEA /* SelfSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB37E792B60378500D39BEA /* SelfSizedTableView.swift */; };
@@ -166,6 +168,8 @@
 		EEAB7CB32B6FE0580004FCC2 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		EEAB7CB92B70052C0004FCC2 /* ReservationViewModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReservationViewModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEAB7CBB2B70052C0004FCC2 /* ReservationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewModelTests.swift; sourceTree = "<group>"; };
+		EEAB7CC22B720BFE0004FCC2 /* OrderFoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderFoodViewController.swift; sourceTree = "<group>"; };
+		EEAB7CC42B7213D30004FCC2 /* SecondaryButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButtonComponent.swift; sourceTree = "<group>"; };
 		EEB37E722B5E6B5800D39BEA /* TablesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesViewController.swift; sourceTree = "<group>"; };
 		EEB37E752B5E6BAA00D39BEA /* TablesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesCollectionViewCell.swift; sourceTree = "<group>"; };
 		EEB37E792B60378500D39BEA /* SelfSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizedTableView.swift; sourceTree = "<group>"; };
@@ -576,6 +580,7 @@
 			isa = PBXGroup;
 			children = (
 				EED2105F2B5C5EEC00039A98 /* MainButtonComponent.swift */,
+				EEAB7CC42B7213D30004FCC2 /* SecondaryButtonComponent.swift */,
 				EE487F762B677F53001E8CEA /* EmptyStateViewController.swift */,
 			);
 			path = SharedComponents;
@@ -600,6 +605,7 @@
 				EEAB7C962B6AB3960004FCC2 /* Reservation */,
 				EEB37E742B5E6B6500D39BEA /* Tables */,
 				EEAB7CA22B6BBC290004FCC2 /* Confirmation */,
+				EEAB7CC22B720BFE0004FCC2 /* OrderFoodViewController.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -794,6 +800,7 @@
 				EE487F772B677F53001E8CEA /* EmptyStateViewController.swift in Sources */,
 				EE487F7D2B6797B4001E8CEA /* MyReservation.swift in Sources */,
 				EE53F1822B5AB3B50019853F /* TopRestaurantCollectionViewCell.swift in Sources */,
+				EEAB7CC32B720BFE0004FCC2 /* OrderFoodViewController.swift in Sources */,
 				EEDABB852B591C9600A918EC /* SignInGoogleHelper.swift in Sources */,
 				EE487F602B658C48001E8CEA /* LocationsView.swift in Sources */,
 				EEEC43482B5D4CE900E9F87D /* ReservationViewController.swift in Sources */,
@@ -819,6 +826,7 @@
 				EEAB7CB02B6FB3800004FCC2 /* AlertManager.swift in Sources */,
 				EE98E0E52B5748580074962D /* AuthenticationManager.swift in Sources */,
 				EEAB7C882B6A73BC0004FCC2 /* NavigationManager.swift in Sources */,
+				EEAB7CC52B7213D30004FCC2 /* SecondaryButtonComponent.swift in Sources */,
 				EEA4221D2B570A8200BC4693 /* CustomTextFieldComponentView.swift in Sources */,
 				EEAB7CB42B6FE0580004FCC2 /* UserDefaults+Extension.swift in Sources */,
 				EE53F1842B5ABB2D0019853F /* NetworkManager.swift in Sources */,
