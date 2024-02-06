@@ -36,13 +36,13 @@ final class ReservationManager {
         saveReservationsForCurrentUser()
     }
     
-    func cancelReservation(restaurantName: String, reservationDate: String, reservationTime: String, guestsCount: Int) {
-        myReservations.removeAll {
-            $0.restaurantName == restaurantName &&
-            $0.reservationDate == reservationDate &&
-            $0.reservationTime == reservationTime &&
-            $0.guestsCount == guestsCount
+    func cancelReservation(atIndex index: Int) {
+        guard index >= 0 && index < myReservations.count else {
+            print("Invalid reservation index.")
+            return
         }
+        
+        myReservations.remove(at: index)
         delegate?.reservationManagerDidUpdateReservations()
         saveReservationsForCurrentUser()
     }

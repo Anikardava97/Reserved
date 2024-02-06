@@ -207,7 +207,7 @@ final class ReservationsHistoryViewController: UIViewController {
             
             alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alertController.addAction(UIAlertAction(title: "Confirm", style: .destructive) { [weak self] _ in
-                ReservationManager.shared.myReservations.remove(at: index)
+                ReservationManager.shared.cancelReservation(atIndex: index)
                 self?.showReservationsHistory()
                 self?.updateReservationBadgeCount()
             })

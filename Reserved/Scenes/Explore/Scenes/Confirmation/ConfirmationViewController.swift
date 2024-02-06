@@ -122,6 +122,14 @@ class ConfirmationViewController: UIViewController {
         return button
     }()
     
+    private lazy var orderFoodButton: SecondaryButtonComponent = {
+        let button = SecondaryButtonComponent(text: "Order Food")
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(orderFoodButtonDidTap), for: .touchUpInside)
+        button.isHidden = true
+        return button
+    }()
+    
     // MARK: - ViewLifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,7 +143,11 @@ class ConfirmationViewController: UIViewController {
             self?.setup()
             self?.userCompletedReservation()
         }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) { [weak self] in
+            self?.showOrderFoodAlert()
+        }
     }
+    
     // MARK: - Private Methods
     private func setup() {
         setupConfettiAnimationView()
@@ -192,6 +204,7 @@ class ConfirmationViewController: UIViewController {
         mainStackView.addArrangedSubview(reservationDetailsTitleLabel)
         mainStackView.addArrangedSubview(detailsSectionView)
         mainStackView.addArrangedSubview(exploreButton)
+        mainStackView.addArrangedSubview(orderFoodButton)
     }
     
     private func setupConstraints() {
@@ -212,9 +225,32 @@ class ConfirmationViewController: UIViewController {
         )
     }
     
+    private func showOrderFoodAlert() {
+        let alert = UIAlertController(title: "Order Food as Well?", message: "Do you want to order food in advance as well🍲?", preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "Yes", style: .default) { [weak self] _ in
+            self?.navigateToOrderFood()
+        }
+        let noAction = UIAlertAction(title: "No", style: .cancel) { [weak self] _ in
+            self?.orderFoodButton.isHidden = false
+        }
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        
+        present(alert, animated: true)
+    }
+    
+    private func navigateToOrderFood() {
+        let orderFoodVC = OrderFoodViewController()
+        navigationController?.pushViewController(orderFoodVC, animated: true)
+    }
+    
     // MARK: - Actions
     @objc private func exploreButtonDidTap() {
         self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    @objc private func orderFoodButtonDidTap() {
+        navigateToOrderFood()
     }
 }
 

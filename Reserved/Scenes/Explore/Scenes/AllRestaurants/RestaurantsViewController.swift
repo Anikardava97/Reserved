@@ -319,9 +319,13 @@ extension RestaurantsViewController: RestaurantsViewModelDelegate {
     }
     
     func showError(_ error: Error) {
-        print(error)
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alert, animated: true)
+        }
     }
-    
+
     func navigateToRestaurantDetails(with restaurant: Restaurant) {
         let restaurantDetailsViewController = RestaurantDetailsViewController()
         restaurantDetailsViewController.configure(with: restaurant)
