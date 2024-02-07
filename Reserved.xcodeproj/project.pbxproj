@@ -233,6 +233,7 @@
 				EEAB7CA62B6BCB260004FCC2 /* Table.swift */,
 				EE487F7C2B6797B4001E8CEA /* MyReservation.swift */,
 				EEAB7CAD2B6CDDC20004FCC2 /* DaySchedule.swift */,
+				EEAB7CC92B7229F00004FCC2 /* FoodItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -394,6 +395,22 @@
 				EED210632B5D10BE00039A98 /* OpenHoursViewController.swift */,
 			);
 			path = OpenHours;
+			sourceTree = "<group>";
+		};
+		EE6DA1FE2B7398E10016F283 /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				EEAB7CCD2B72441C0004FCC2 /* FoodCollectionViewCell.swift */,
+			);
+			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		EE6DA1FF2B7398EB0016F283 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				EEAB7CD12B72B84D0004FCC2 /* FoodTableViewCell.swift */,
+			);
+			path = TableViewCell;
 			sourceTree = "<group>";
 		};
 		EE8EB8FB2B5A529200C6FEB9 /* TabBar */ = {
@@ -656,11 +673,10 @@
 		EEAB7CC82B7220CE0004FCC2 /* OrderFood */ = {
 			isa = PBXGroup;
 			children = (
-				EEAB7CCD2B72441C0004FCC2 /* FoodCollectionViewCell.swift */,
-				EEAB7CD12B72B84D0004FCC2 /* FoodTableViewCell.swift */,
+				EE6DA1FE2B7398E10016F283 /* CollectionViewCell */,
+				EE6DA1FF2B7398EB0016F283 /* TableViewCell */,
 				EEAB7CC22B720BFE0004FCC2 /* OrderFoodViewController.swift */,
 				EEAB7CC62B7220C80004FCC2 /* OrderFoodViewModel.swift */,
-				EEAB7CC92B7229F00004FCC2 /* FoodItem.swift */,
 			);
 			path = OrderFood;
 			sourceTree = "<group>";

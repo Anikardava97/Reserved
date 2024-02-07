@@ -17,13 +17,5 @@ struct FoodItem: Decodable {
     let price: Double
     let image: String
     let ingredients: String
-    let category: String
-    
     var selectedAmount: Int?
-}
-
-enum Category: String, Decodable {
-    case food
-    case dessert
-    case drink
 }

@@ -14,8 +14,10 @@ protocol OrderFoodViewModelDelegate: AnyObject {
 }
 
 final class OrderFoodViewModel {
+    // MARK: - Properties
     weak var delegate: OrderFoodViewModelDelegate?
-
+    
+    private let baseURL = Constants.URLs.restaurantFoodItemsURL
     var foodItems: [FoodItem]?
     var totalPrice: Double? {
         guard let foodItems = foodItems else { return nil }
@@ -28,7 +30,7 @@ final class OrderFoodViewModel {
     }
     
     private func fetchFoodItems() {
-        NetworkManager.shared.fetch(from: "https://mocki.io/v1/4c8233b2-085c-4ae6-a031-c0ca5f665339") { [weak self] (result: Result<FoodResponse, NetworkError>) in
+        NetworkManager.shared.fetch(from: baseURL) { [weak self] (result: Result<FoodResponse, NetworkError>) in
             switch result {
             case .success(let fetchedFood):
                 self?.delegate?.fetchedFood(fetchedFood.foodItems)
