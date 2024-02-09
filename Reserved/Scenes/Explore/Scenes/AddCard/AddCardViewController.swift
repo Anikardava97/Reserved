@@ -8,12 +8,17 @@
 import UIKit
 import Lottie
 
+protocol AddCardViewControllerDelegate: AnyObject {
+    func didAddNewCard()
+}
+
 final class AddCardViewController: UIViewController {
     // MARK: - Methods
     var creditCardManager: CreditCardManager!
     private var animationView: LottieAnimationView!
     var cardAddedSuccessfully: (() -> Void)?
-    
+    weak var delegate: AddCardViewControllerDelegate?
+
     private let mainStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -164,8 +169,8 @@ final class AddCardViewController: UIViewController {
         
         animationView = .init(name: "Animation - 1707465055026")
         animationView.contentMode = .scaleAspectFit
-        animationView.loopMode = .playOnce
-        animationView.animationSpeed = 0.2
+        animationView.loopMode = .loop
+        animationView.animationSpeed = 1
         animationView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(animationView)
         
@@ -215,6 +220,8 @@ final class AddCardViewController: UIViewController {
             cvc: cvcTextField.text ?? ""
         )
         creditCardManager.addCard(newCard)
+        delegate?.didAddNewCard()
+        
         setupAnimationView()
         DispatchQueue.main.asyncAfter(deadline: .now() + 8) { [weak self] in
             self?.navigationController?.popViewController(animated: true)

@@ -430,6 +430,32 @@
 			path = TableViewCell;
 			sourceTree = "<group>";
 		};
+		EE85955F2B7659CC009E9302 /* CheckoutPage */ = {
+			isa = PBXGroup;
+			children = (
+				EE8595612B7659F5009E9302 /* TableViewCell */,
+				EE6DA2272B7651870016F283 /* CheckoutViewModel.swift */,
+				EE6DA2232B7651500016F283 /* CheckoutViewController.swift */,
+			);
+			path = CheckoutPage;
+			sourceTree = "<group>";
+		};
+		EE8595602B7659E7009E9302 /* AddCard */ = {
+			isa = PBXGroup;
+			children = (
+				EE6DA2292B76519F0016F283 /* AddCardViewController.swift */,
+			);
+			path = AddCard;
+			sourceTree = "<group>";
+		};
+		EE8595612B7659F5009E9302 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				EE6DA2252B7651730016F283 /* CheckoutTableViewCell.swift */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
 		EE8EB8FB2B5A529200C6FEB9 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -654,6 +680,8 @@
 				EEB37E742B5E6B6500D39BEA /* Tables */,
 				EEAB7CA22B6BBC290004FCC2 /* Confirmation */,
 				EEAB7CC82B7220CE0004FCC2 /* OrderFood */,
+				EE85955F2B7659CC009E9302 /* CheckoutPage */,
+				EE8595602B7659E7009E9302 /* AddCard */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -697,10 +725,6 @@
 				EE6DA1FF2B7398EB0016F283 /* TableViewCell */,
 				EEAB7CC22B720BFE0004FCC2 /* OrderFoodViewController.swift */,
 				EEAB7CC62B7220C80004FCC2 /* OrderFoodViewModel.swift */,
-				EE6DA2272B7651870016F283 /* CheckoutViewModel.swift */,
-				EE6DA2232B7651500016F283 /* CheckoutViewController.swift */,
-				EE6DA2252B7651730016F283 /* CheckoutTableViewCell.swift */,
-				EE6DA2292B76519F0016F283 /* AddCardViewController.swift */,
 			);
 			path = OrderFood;
 			sourceTree = "<group>";

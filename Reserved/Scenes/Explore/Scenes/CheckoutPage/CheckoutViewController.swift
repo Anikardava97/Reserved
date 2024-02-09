@@ -12,6 +12,7 @@ final class CheckoutViewController: UIViewController {
     private var selectedProducts: [FoodItem]
     private let selectedRestaurant: Restaurant
     let viewModel: CheckoutViewModel
+    var newCardAdded = false
     
     private let mainStackView: UIStackView = {
         let view = UIStackView()
@@ -62,7 +63,7 @@ final class CheckoutViewController: UIViewController {
     }()
     
     private let chevronImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "chevron.right"))
+        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .white
         imageView.widthAnchor.constraint(equalToConstant: 16).isActive = true
@@ -176,9 +177,16 @@ final class CheckoutViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updatePaymentMethodDisplay()
-       
+        if newCardAdded {
+            DispatchQueue.main.async { [weak self] in
+                if let window = self?.view.window {
+                    ConfirmationBanner.show(in: window, message: "Card added successfully")
+                }
+                self?.newCardAdded = false
+            }
+        }
     }
-
+    
     // MARK: - Methods
     private func updatePaymentMethodDisplay() {
         let lastCard = viewModel.creditCardManager.cards.last
@@ -249,10 +257,10 @@ final class CheckoutViewController: UIViewController {
         headerContentTitleLabel.attributedText = attributedString
     }
     
-    
     // MARK: - Actions
     @objc private func paymentStackViewDidTap() {
         let addCardViewController = AddCardViewController()
+        addCardViewController.delegate = self
         navigationController?.pushViewController(addCardViewController, animated: true)
         addCardViewController.creditCardManager = self.viewModel.creditCardManager
     }
@@ -281,3 +289,9 @@ extension CheckoutViewController: UITableViewDelegate {
     }
 }
 
+// MARK:  Extension: AddCardViewControllerDelegate
+extension CheckoutViewController: AddCardViewControllerDelegate {
+    func didAddNewCard() {
+        newCardAdded = true
+    }
+}
