@@ -167,7 +167,7 @@ final class AddCardViewController: UIViewController {
         navigationItem.setHidesBackButton(true, animated: false)
         mainStackView.isHidden = true
         
-        animationView = .init(name: "Animation - 1707465055026")
+        animationView = .init(name: "Animation - 1707497738620")
         animationView.contentMode = .scaleAspectFit
         animationView.loopMode = .loop
         animationView.animationSpeed = 1
@@ -177,8 +177,8 @@ final class AddCardViewController: UIViewController {
         NSLayoutConstraint.activate([
             animationView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             animationView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            animationView.widthAnchor.constraint(equalToConstant: 300),
-            animationView.heightAnchor.constraint(equalToConstant: 300),
+            animationView.widthAnchor.constraint(equalToConstant: 220),
+            animationView.heightAnchor.constraint(equalToConstant: 220),
         ])
         animationView.play()
         
@@ -192,7 +192,7 @@ final class AddCardViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             processingLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            processingLabel.topAnchor.constraint(equalTo: animationView.bottomAnchor, constant: -70)
+            processingLabel.topAnchor.constraint(equalTo: animationView.bottomAnchor, constant: -40)
         ])
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 8) { [weak self] in
