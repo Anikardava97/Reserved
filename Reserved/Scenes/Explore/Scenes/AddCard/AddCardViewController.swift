@@ -18,7 +18,7 @@ final class AddCardViewController: UIViewController {
     private var animationView: LottieAnimationView!
     var cardAddedSuccessfully: (() -> Void)?
     weak var delegate: AddCardViewControllerDelegate?
-
+    
     private let mainStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -195,7 +195,7 @@ final class AddCardViewController: UIViewController {
             processingLabel.topAnchor.constraint(equalTo: animationView.bottomAnchor, constant: -40)
         ])
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 8) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6) { [weak self] in
             self?.animationView.isHidden = true
             processingLabel.isHidden = true
         }
@@ -223,7 +223,7 @@ final class AddCardViewController: UIViewController {
         delegate?.didAddNewCard()
         
         setupAnimationView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 8) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6) { [weak self] in
             self?.navigationController?.popViewController(animated: true)
         }
     }
