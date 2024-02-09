@@ -162,10 +162,12 @@ final class FoodTableViewCell: UITableViewCell {
         }), for: .touchUpInside)
     }
     
-    private func setImage(from url: String) {
+    private func setImage(from url: String, forProductId productId: Int) {
         NetworkManager.shared.downloadImage(from: url) { [weak self] image in
             DispatchQueue.main.async {
-                self?.productImageView.image = image
+                if self?.tag == productId {
+                    self?.productImageView.image = image
+                }
             }
         }
     }
@@ -176,10 +178,15 @@ final class FoodTableViewCell: UITableViewCell {
     
     // MARK: - Configuration
     func configure(with product: FoodItem) {
-        setImage(from: product.image)
+        self.tag = product.id
+        
+        if let imageURL = product.image {
+            setImage(from: imageURL, forProductId: product.id)
+        }
         productTitleLabel.text = product.name
         productPriceLabel.text = "$ \(product.price)"
         selectedQuantityLabel.text = "\(product.selectedAmount ?? 0)"
         backgroundColor = .customBackgroundColor
     }
 }
+

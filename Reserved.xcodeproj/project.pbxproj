@@ -44,6 +44,14 @@
 		EE53F1862B5B00F50019853F /* AllRestaurantsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53F1852B5B00F50019853F /* AllRestaurantsTableViewCell.swift */; };
 		EE65E9EA2B5D2E36009B6602 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = EE65E9E92B5D2E36009B6602 /* Lottie */; };
 		EE65E9EE2B5D3804009B6602 /* Animation - 1705836632095.json in Resources */ = {isa = PBXBuildFile; fileRef = EE65E9ED2B5D3804009B6602 /* Animation - 1705836632095.json */; };
+		EE6DA21D2B7650DA0016F283 /* CreditCardmanager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DA21C2B7650DA0016F283 /* CreditCardmanager.swift */; };
+		EE6DA21F2B7650F40016F283 /* CreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DA21E2B7650F40016F283 /* CreditCard.swift */; };
+		EE6DA2242B7651500016F283 /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DA2232B7651500016F283 /* CheckoutViewController.swift */; };
+		EE6DA2262B7651730016F283 /* CheckoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DA2252B7651730016F283 /* CheckoutTableViewCell.swift */; };
+		EE6DA2282B7651870016F283 /* CheckoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DA2272B7651870016F283 /* CheckoutViewModel.swift */; };
+		EE6DA22A2B76519F0016F283 /* AddCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DA2292B76519F0016F283 /* AddCardViewController.swift */; };
+		EE6DA22C2B7651BE0016F283 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DA22B2B7651BE0016F283 /* CustomTextField.swift */; };
+		EE6DA22E2B7651D00016F283 /* Animation - 1707465055026.json in Resources */ = {isa = PBXBuildFile; fileRef = EE6DA22D2B7651D00016F283 /* Animation - 1707465055026.json */; };
 		EE8EB8FD2B5A52B000C6FEB9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB8FC2B5A52B000C6FEB9 /* TabBarController.swift */; };
 		EE8EB9002B5A531C00C6FEB9 /* RestaurantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */; };
 		EE8EB9092B5A539000C6FEB9 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB9082B5A539000C6FEB9 /* FavoritesViewController.swift */; };
@@ -148,6 +156,14 @@
 		EE53F1832B5ABB2D0019853F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		EE53F1852B5B00F50019853F /* AllRestaurantsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRestaurantsTableViewCell.swift; sourceTree = "<group>"; };
 		EE65E9ED2B5D3804009B6602 /* Animation - 1705836632095.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Animation - 1705836632095.json"; sourceTree = "<group>"; };
+		EE6DA21C2B7650DA0016F283 /* CreditCardmanager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardmanager.swift; sourceTree = "<group>"; };
+		EE6DA21E2B7650F40016F283 /* CreditCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCard.swift; sourceTree = "<group>"; };
+		EE6DA2232B7651500016F283 /* CheckoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
+		EE6DA2252B7651730016F283 /* CheckoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutTableViewCell.swift; sourceTree = "<group>"; };
+		EE6DA2272B7651870016F283 /* CheckoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewModel.swift; sourceTree = "<group>"; };
+		EE6DA2292B76519F0016F283 /* AddCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardViewController.swift; sourceTree = "<group>"; };
+		EE6DA22B2B7651BE0016F283 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		EE6DA22D2B7651D00016F283 /* Animation - 1707465055026.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Animation - 1707465055026.json"; sourceTree = "<group>"; };
 		EE8EB8FC2B5A52B000C6FEB9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsViewController.swift; sourceTree = "<group>"; };
 		EE8EB9082B5A539000C6FEB9 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
@@ -234,6 +250,7 @@
 				EE487F7C2B6797B4001E8CEA /* MyReservation.swift */,
 				EEAB7CAD2B6CDDC20004FCC2 /* DaySchedule.swift */,
 				EEAB7CC92B7229F00004FCC2 /* FoodItem.swift */,
+				EE6DA21E2B7650F40016F283 /* CreditCard.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -484,6 +501,7 @@
 				EEAB7C832B68D8540004FCC2 /* FavoritesManager.swift */,
 				EED210612B5C6FCF00039A98 /* RestaurantHoursManager.swift */,
 				EEAB7CAF2B6FB37F0004FCC2 /* AlertManager.swift */,
+				EE6DA21C2B7650DA0016F283 /* CreditCardmanager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -594,6 +612,7 @@
 		EEAB7C992B6AB47A0004FCC2 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
+				EE6DA22D2B7651D00016F283 /* Animation - 1707465055026.json */,
 				EE65E9ED2B5D3804009B6602 /* Animation - 1705836632095.json */,
 				EE931DA22B652FE6001725D4 /* Animation - 1706348887513.json */,
 				EE931DA42B653587001725D4 /* Animation - 1706349327749.json */,
@@ -610,6 +629,7 @@
 				EEAB7CC42B7213D30004FCC2 /* SecondaryButtonComponent.swift */,
 				EEAB7CCF2B729E230004FCC2 /* CircularButton.swift */,
 				EE487F762B677F53001E8CEA /* EmptyStateViewController.swift */,
+				EE6DA22B2B7651BE0016F283 /* CustomTextField.swift */,
 			);
 			path = SharedComponents;
 			sourceTree = "<group>";
@@ -677,6 +697,10 @@
 				EE6DA1FF2B7398EB0016F283 /* TableViewCell */,
 				EEAB7CC22B720BFE0004FCC2 /* OrderFoodViewController.swift */,
 				EEAB7CC62B7220C80004FCC2 /* OrderFoodViewModel.swift */,
+				EE6DA2272B7651870016F283 /* CheckoutViewModel.swift */,
+				EE6DA2232B7651500016F283 /* CheckoutViewController.swift */,
+				EE6DA2252B7651730016F283 /* CheckoutTableViewCell.swift */,
+				EE6DA2292B76519F0016F283 /* AddCardViewController.swift */,
 			);
 			path = OrderFood;
 			sourceTree = "<group>";
@@ -802,6 +826,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE6DA22E2B7651D00016F283 /* Animation - 1707465055026.json in Resources */,
 				EE65E9EE2B5D3804009B6602 /* Animation - 1705836632095.json in Resources */,
 				EE931DA32B652FE6001725D4 /* Animation - 1706348887513.json in Resources */,
 				EE487F752B6770E5001E8CEA /* Animation - 1706506120281.json in Resources */,
@@ -828,11 +853,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEAB7CA12B6BA9530004FCC2 /* RestaurantDetailsViewModel.swift in Sources */,
+				EE6DA2262B7651730016F283 /* CheckoutTableViewCell.swift in Sources */,
 				EE487F5E2B6558D9001E8CEA /* FavoriteRestaurantsTableViewCell.swift in Sources */,
 				EEAB7CAB2B6BD9BF0004FCC2 /* ReservationsHistoryViewController.swift in Sources */,
 				EE487F682B663ADA001E8CEA /* LocationsListView.swift in Sources */,
 				EE53F17A2B5A6E730019853F /* Restaurant.swift in Sources */,
 				EE337F282B556F9B004DBA6B /* Image+Extension.swift in Sources */,
+				EE6DA21D2B7650DA0016F283 /* CreditCardmanager.swift in Sources */,
 				EEAB7C9F2B6ABCBE0004FCC2 /* ImageCacheManager.swift in Sources */,
 				EE487F712B666770001E8CEA /* LocationDetailsView.swift in Sources */,
 				EE8EB9092B5A539000C6FEB9 /* FavoritesViewController.swift in Sources */,
@@ -842,8 +869,10 @@
 				EEAB7CC32B720BFE0004FCC2 /* OrderFoodViewController.swift in Sources */,
 				EEDABB852B591C9600A918EC /* SignInGoogleHelper.swift in Sources */,
 				EE487F602B658C48001E8CEA /* LocationsView.swift in Sources */,
+				EE6DA21F2B7650F40016F283 /* CreditCard.swift in Sources */,
 				EEEC43482B5D4CE900E9F87D /* ReservationViewController.swift in Sources */,
 				EEAB7CA72B6BCB260004FCC2 /* Table.swift in Sources */,
+				EE6DA2282B7651870016F283 /* CheckoutViewModel.swift in Sources */,
 				EEDABB812B5910E800A918EC /* LoginOptionsViewModel.swift in Sources */,
 				EEB37E7A2B60378500D39BEA /* SelfSizedTableView.swift in Sources */,
 				EE2EE4632B64499C009C0DD2 /* ConfirmationViewController.swift in Sources */,
@@ -865,11 +894,13 @@
 				EEAB7CA92B6BD3240004FCC2 /* TablesViewModel.swift in Sources */,
 				EED210552B5BECF700039A98 /* RestaurantImagesCollectionViewCell.swift in Sources */,
 				EEAB7CB02B6FB3800004FCC2 /* AlertManager.swift in Sources */,
+				EE6DA2242B7651500016F283 /* CheckoutViewController.swift in Sources */,
 				EE98E0E52B5748580074962D /* AuthenticationManager.swift in Sources */,
 				EEAB7C882B6A73BC0004FCC2 /* NavigationManager.swift in Sources */,
 				EEAB7CC52B7213D30004FCC2 /* SecondaryButtonComponent.swift in Sources */,
 				EEAB7CCA2B7229F00004FCC2 /* FoodItem.swift in Sources */,
 				EEA4221D2B570A8200BC4693 /* CustomTextFieldComponentView.swift in Sources */,
+				EE6DA22C2B7651BE0016F283 /* CustomTextField.swift in Sources */,
 				EEAB7CB42B6FE0580004FCC2 /* UserDefaults+Extension.swift in Sources */,
 				EE53F1842B5ABB2D0019853F /* NetworkManager.swift in Sources */,
 				EEDABB872B591C9600A918EC /* GoogleSignInResultModel.swift in Sources */,
@@ -884,6 +915,7 @@
 				EEDABB752B58FE9C00A918EC /* ChecklistItem.swift in Sources */,
 				EEAB7C922B6A91620004FCC2 /* Constants.swift in Sources */,
 				EE337F432B55BFD6004DBA6B /* SignUpWithEmailViewModel.swift in Sources */,
+				EE6DA22A2B76519F0016F283 /* AddCardViewController.swift in Sources */,
 				EE8EB9002B5A531C00C6FEB9 /* RestaurantsViewController.swift in Sources */,
 				EEDABB732B58FE1600A918EC /* PasswordStrengthChecklist.swift in Sources */,
 				EE8EB90C2B5A53B700C6FEB9 /* ProfileViewController.swift in Sources */,
