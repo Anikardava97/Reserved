@@ -51,7 +51,6 @@
 		EE6DA2282B7651870016F283 /* CheckoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DA2272B7651870016F283 /* CheckoutViewModel.swift */; };
 		EE6DA22A2B76519F0016F283 /* AddCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DA2292B76519F0016F283 /* AddCardViewController.swift */; };
 		EE6DA22C2B7651BE0016F283 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DA22B2B7651BE0016F283 /* CustomTextField.swift */; };
-		EE6DA22E2B7651D00016F283 /* Animation - 1707465055026.json in Resources */ = {isa = PBXBuildFile; fileRef = EE6DA22D2B7651D00016F283 /* Animation - 1707465055026.json */; };
 		EE8EB8FD2B5A52B000C6FEB9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB8FC2B5A52B000C6FEB9 /* TabBarController.swift */; };
 		EE8EB9002B5A531C00C6FEB9 /* RestaurantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */; };
 		EE8EB9092B5A539000C6FEB9 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB9082B5A539000C6FEB9 /* FavoritesViewController.swift */; };
@@ -63,6 +62,7 @@
 		EE98E0EC2B57491D0074962D /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EE98E0EB2B57491D0074962D /* FirebaseAnalyticsSwift */; };
 		EE98E0F32B5749330074962D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = EE98E0F22B5749330074962D /* FirebaseAuth */; };
 		EE98E0F52B5782C90074962D /* AuthorizationDataResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98E0F42B5782C90074962D /* AuthorizationDataResultModel.swift */; };
+		EE991DAC2B7692E900F9EDEC /* Animation - 1707497738620.json in Resources */ = {isa = PBXBuildFile; fileRef = EE991DAB2B7692E900F9EDEC /* Animation - 1707497738620.json */; };
 		EEA4221D2B570A8200BC4693 /* CustomTextFieldComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4221C2B570A8200BC4693 /* CustomTextFieldComponentView.swift */; };
 		EEAB7C842B68D8540004FCC2 /* FavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7C832B68D8540004FCC2 /* FavoritesManager.swift */; };
 		EEAB7C862B68E93C0004FCC2 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7C852B68E93C0004FCC2 /* FavoritesViewModel.swift */; };
@@ -163,7 +163,6 @@
 		EE6DA2272B7651870016F283 /* CheckoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewModel.swift; sourceTree = "<group>"; };
 		EE6DA2292B76519F0016F283 /* AddCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardViewController.swift; sourceTree = "<group>"; };
 		EE6DA22B2B7651BE0016F283 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
-		EE6DA22D2B7651D00016F283 /* Animation - 1707465055026.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Animation - 1707465055026.json"; sourceTree = "<group>"; };
 		EE8EB8FC2B5A52B000C6FEB9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		EE8EB8FF2B5A531C00C6FEB9 /* RestaurantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsViewController.swift; sourceTree = "<group>"; };
 		EE8EB9082B5A539000C6FEB9 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
@@ -172,6 +171,7 @@
 		EE931DA42B653587001725D4 /* Animation - 1706349327749.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Animation - 1706349327749.json"; sourceTree = "<group>"; };
 		EE98E0E42B5748580074962D /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		EE98E0F42B5782C90074962D /* AuthorizationDataResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationDataResultModel.swift; sourceTree = "<group>"; };
+		EE991DAB2B7692E900F9EDEC /* Animation - 1707497738620.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Animation - 1707497738620.json"; sourceTree = "<group>"; };
 		EEA4221C2B570A8200BC4693 /* CustomTextFieldComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldComponentView.swift; sourceTree = "<group>"; };
 		EEAB7C832B68D8540004FCC2 /* FavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManager.swift; sourceTree = "<group>"; };
 		EEAB7C852B68E93C0004FCC2 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
@@ -638,7 +638,7 @@
 		EEAB7C992B6AB47A0004FCC2 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
-				EE6DA22D2B7651D00016F283 /* Animation - 1707465055026.json */,
+				EE991DAB2B7692E900F9EDEC /* Animation - 1707497738620.json */,
 				EE65E9ED2B5D3804009B6602 /* Animation - 1705836632095.json */,
 				EE931DA22B652FE6001725D4 /* Animation - 1706348887513.json */,
 				EE931DA42B653587001725D4 /* Animation - 1706349327749.json */,
@@ -850,8 +850,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE6DA22E2B7651D00016F283 /* Animation - 1707465055026.json in Resources */,
 				EE65E9EE2B5D3804009B6602 /* Animation - 1705836632095.json in Resources */,
+				EE991DAC2B7692E900F9EDEC /* Animation - 1707497738620.json in Resources */,
 				EE931DA32B652FE6001725D4 /* Animation - 1706348887513.json in Resources */,
 				EE487F752B6770E5001E8CEA /* Animation - 1706506120281.json in Resources */,
 				EE337F152B5562D2004DBA6B /* LaunchScreen.storyboard in Resources */,
