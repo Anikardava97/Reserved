@@ -192,7 +192,7 @@ class ConfirmationViewController: UIViewController {
         animationView = .init(name: "Animation - 1706349327749")
         animationView.frame = view.frame.offsetBy(dx: 0, dy: -160)
         animationView.contentMode = .scaleAspectFit
-        animationView.loopMode = .loop
+        animationView.loopMode = .repeat(2)
         animationView.animationSpeed = 0.5
         view.addSubview(animationView)
         animationView.play()
@@ -240,8 +240,9 @@ class ConfirmationViewController: UIViewController {
     }
     
     private func navigateToOrderFood() {
-        let orderFoodVC = OrderFoodViewController()
-        navigationController?.pushViewController(orderFoodVC, animated: true)
+        let orderFoodViewController = OrderFoodViewController()
+        orderFoodViewController.selectedRestaurant = selectedRestaurant
+        navigationController?.pushViewController(orderFoodViewController, animated: true)
     }
     
     // MARK: - Actions

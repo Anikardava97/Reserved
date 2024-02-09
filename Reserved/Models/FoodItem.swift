@@ -12,10 +12,10 @@ struct FoodResponse: Decodable {
 }
 
 struct FoodItem: Decodable {
-    let id: String
+    let id: Int
     let name: String
     let price: Double
-    let image: String
+    let image: String?
     let ingredients: String
     var selectedAmount: Int?
 }

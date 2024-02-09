@@ -10,6 +10,7 @@ import UIKit
 final class OrderFoodViewController: UIViewController {
     // MARK: - Properties
     let viewModel = OrderFoodViewModel()
+    var selectedRestaurant: Restaurant?
     
     private let mainStackView: UIStackView = {
         let view = UIStackView()
@@ -31,10 +32,14 @@ final class OrderFoodViewController: UIViewController {
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.sectionInset = .zero
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.isPagingEnabled = true
         return collectionView
     }()
     
@@ -60,13 +65,14 @@ final class OrderFoodViewController: UIViewController {
             textColor: .white,
             backgroundColor: .customAccentColor
         )
-        // button.addTarget(self, action: #selector(checkoutButtonDidTap), for: .touchUpInside)
+        button.addTarget(self, action: #selector(checkoutButtonDidTap), for: .touchUpInside)
         return button
     }()
     
     private var tableView: UITableView = {
-        let tableView = SelfSizedTableView()
+        let tableView = UITableView()
         tableView.backgroundColor = .clear
+        tableView.showsVerticalScrollIndicator = false
         return tableView
     }()
     
@@ -94,16 +100,16 @@ final class OrderFoodViewController: UIViewController {
         return segmentedControl
     }()
     
-    // MARK: - ViewLifeCycles
+    // MARK: - ViewLifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.viewDidLoad()
+        guard let selectedRestaurant = selectedRestaurant else {
+            return
+        }
+        viewModel.fetchFoodItems(for: selectedRestaurant)
         setup()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.navigationItem.hidesBackButton = true
+        updateCheckoutButtonState()
     }
     
     // MARK: - Private Methods
@@ -142,7 +148,7 @@ final class OrderFoodViewController: UIViewController {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
@@ -159,11 +165,21 @@ final class OrderFoodViewController: UIViewController {
         tableView.register(FoodTableViewCell.self, forCellReuseIdentifier: "foodItemsTableViewCell")
     }
     
-    //MARK: - Actions
-    //    @objc private func checkoutButtonDidTap() {
-    //        let checkoutViewController = checkoutViewController()
-    //        self.navigationController?.pushViewController(checkoutViewController, animated: true)
-    //    }
+    private func updateCheckoutButtonState() {
+        let totalPrice = viewModel.totalPrice ?? 0
+        checkoutButton.isEnabled = totalPrice > 0
+        checkoutButton.backgroundColor = totalPrice > 0 ? .customAccentColor : .customAccentColor.withAlphaComponent(0.6)
+        checkoutButton.titleLabel?.textColor = totalPrice > 0 ? .white : .gray
+    }
+    
+    // MARK: - Actions
+    @objc private func checkoutButtonDidTap() {
+        guard let selectedProducts = viewModel.foodItems,
+              let selectedRestaurant = selectedRestaurant else { return }
+        let totalPrice = viewModel.totalPrice ?? 0
+        let checkoutViewController = CheckoutViewController(selectedProducts: selectedProducts, selectedRestaurant: selectedRestaurant, totalPrice: totalPrice)
+        self.navigationController?.pushViewController(checkoutViewController, animated: true)
+    }
     
     @objc private func toggleView(_ sender: UISegmentedControl) {
         collectionView.isHidden = sender.selectedSegmentIndex != 0
@@ -288,13 +304,11 @@ extension OrderFoodViewController: OrderFoodViewModelDelegate {
     
     func productsAmountChanged() {
         DispatchQueue.main.async {
+            self.updateCheckoutButtonState()
             self.totalPriceLabel.text = "Total Price :  \(self.viewModel.totalPrice ?? 0) $"
+            
             self.collectionView.reloadData()
             self.tableView.reloadData()
         }
     }
-}
-
-#Preview {
-    OrderFoodViewController()
 }
