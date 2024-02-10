@@ -11,6 +11,9 @@ final class CheckoutViewController: UIViewController {
     // MARK: - Properties
     private var selectedProducts: [FoodItem]
     private let selectedRestaurant: Restaurant
+    var selectedDate: String
+    var selectedTime: String
+    var selectedGuests: Int
     let viewModel: CheckoutViewModel
     var newCardAdded = false
     
@@ -156,9 +159,12 @@ final class CheckoutViewController: UIViewController {
     }()
     
     // MARK: - Init
-    init(selectedProducts: [FoodItem], selectedRestaurant: Restaurant, totalPrice: Double?) {
+    init(selectedProducts: [FoodItem], selectedRestaurant: Restaurant, selectedDate: String, selectedTime: String, selectedGuests: Int, totalPrice: Double?) {
         self.selectedProducts = selectedProducts
         self.selectedRestaurant = selectedRestaurant
+        self.selectedDate = selectedDate
+        self.selectedTime = selectedTime
+        self.selectedGuests = selectedGuests
         self.viewModel = CheckoutViewModel(totalPrice: totalPrice)
         super.init(nibName: nil, bundle: nil)
     }
@@ -167,7 +173,7 @@ final class CheckoutViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - View Lifecycle
+    // MARK: - ViewLifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
         self.selectedProducts = selectedProducts.filter { $0.selectedAmount ?? 0 > 0 }
@@ -274,7 +280,9 @@ final class CheckoutViewController: UIViewController {
         let totalPrice = viewModel.totalPrice ?? 0
         if viewModel.creditCardManager.balance >= totalPrice {
             viewModel.creditCardManager.balance -= totalPrice
-            print("Payment Successful")
+            let successViewController = PaymentSuccessViewController(selectedProducts: selectedProducts, selectedRestaurant: selectedRestaurant, selectedDate: selectedDate, selectedTime: selectedTime, selectedGuests: selectedGuests)
+            
+            navigationController?.pushViewController(successViewController, animated: true)
         } else {
             AlertManager.shared.showAlert(from: self, type: .insufficientBalance)
         }

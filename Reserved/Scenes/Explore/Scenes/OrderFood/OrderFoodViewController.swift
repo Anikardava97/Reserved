@@ -11,6 +11,9 @@ final class OrderFoodViewController: UIViewController {
     // MARK: - Properties
     let viewModel = OrderFoodViewModel()
     var selectedRestaurant: Restaurant?
+    var selectedDate: String?
+    var selectedTime: String?
+    var selectedGuests: Int?
     
     private let mainStackView: UIStackView = {
         let view = UIStackView()
@@ -176,8 +179,17 @@ final class OrderFoodViewController: UIViewController {
     @objc private func checkoutButtonDidTap() {
         guard let selectedProducts = viewModel.foodItems,
               let selectedRestaurant = selectedRestaurant else { return }
+        let selectedDate = selectedDate ?? ""
+        let selectedTime = selectedTime ?? ""
+        let selectedGuests = selectedGuests ?? 0
         let totalPrice = viewModel.totalPrice ?? 0
-        let checkoutViewController = CheckoutViewController(selectedProducts: selectedProducts, selectedRestaurant: selectedRestaurant, totalPrice: totalPrice)
+        let checkoutViewController = CheckoutViewController(
+            selectedProducts: selectedProducts,
+            selectedRestaurant: selectedRestaurant,
+            selectedDate: selectedDate,
+            selectedTime: selectedTime,
+            selectedGuests: selectedGuests,
+            totalPrice: totalPrice)
         self.navigationController?.pushViewController(checkoutViewController, animated: true)
     }
     

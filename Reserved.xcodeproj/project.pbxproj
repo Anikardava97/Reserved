@@ -63,6 +63,8 @@
 		EE98E0F32B5749330074962D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = EE98E0F22B5749330074962D /* FirebaseAuth */; };
 		EE98E0F52B5782C90074962D /* AuthorizationDataResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98E0F42B5782C90074962D /* AuthorizationDataResultModel.swift */; };
 		EE991DAC2B7692E900F9EDEC /* Animation - 1707497738620.json in Resources */ = {isa = PBXBuildFile; fileRef = EE991DAB2B7692E900F9EDEC /* Animation - 1707497738620.json */; };
+		EE991DAE2B774B2600F9EDEC /* PaymentSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE991DAD2B774B2600F9EDEC /* PaymentSuccessViewController.swift */; };
+		EE991DB12B77618000F9EDEC /* Animation - 1707550934898.json in Resources */ = {isa = PBXBuildFile; fileRef = EE991DB02B77618000F9EDEC /* Animation - 1707550934898.json */; };
 		EEA4221D2B570A8200BC4693 /* CustomTextFieldComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4221C2B570A8200BC4693 /* CustomTextFieldComponentView.swift */; };
 		EEAB7C842B68D8540004FCC2 /* FavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7C832B68D8540004FCC2 /* FavoritesManager.swift */; };
 		EEAB7C862B68E93C0004FCC2 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7C852B68E93C0004FCC2 /* FavoritesViewModel.swift */; };
@@ -172,6 +174,8 @@
 		EE98E0E42B5748580074962D /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		EE98E0F42B5782C90074962D /* AuthorizationDataResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationDataResultModel.swift; sourceTree = "<group>"; };
 		EE991DAB2B7692E900F9EDEC /* Animation - 1707497738620.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Animation - 1707497738620.json"; sourceTree = "<group>"; };
+		EE991DAD2B774B2600F9EDEC /* PaymentSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessViewController.swift; sourceTree = "<group>"; };
+		EE991DB02B77618000F9EDEC /* Animation - 1707550934898.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Animation - 1707550934898.json"; sourceTree = "<group>"; };
 		EEA4221C2B570A8200BC4693 /* CustomTextFieldComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldComponentView.swift; sourceTree = "<group>"; };
 		EEAB7C832B68D8540004FCC2 /* FavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManager.swift; sourceTree = "<group>"; };
 		EEAB7C852B68E93C0004FCC2 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
@@ -516,6 +520,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		EE991DAF2B774B2E00F9EDEC /* PaymentSuccess */ = {
+			isa = PBXGroup;
+			children = (
+				EE991DAD2B774B2600F9EDEC /* PaymentSuccessViewController.swift */,
+			);
+			path = PaymentSuccess;
+			sourceTree = "<group>";
+		};
 		EEAB7C892B6A75E90004FCC2 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -638,6 +650,7 @@
 		EEAB7C992B6AB47A0004FCC2 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
+				EE991DB02B77618000F9EDEC /* Animation - 1707550934898.json */,
 				EE991DAB2B7692E900F9EDEC /* Animation - 1707497738620.json */,
 				EE65E9ED2B5D3804009B6602 /* Animation - 1705836632095.json */,
 				EE931DA22B652FE6001725D4 /* Animation - 1706348887513.json */,
@@ -682,6 +695,7 @@
 				EEAB7CC82B7220CE0004FCC2 /* OrderFood */,
 				EE85955F2B7659CC009E9302 /* CheckoutPage */,
 				EE8595602B7659E7009E9302 /* AddCard */,
+				EE991DAF2B774B2E00F9EDEC /* PaymentSuccess */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -859,6 +873,7 @@
 				EE337F122B5562D2004DBA6B /* Assets.xcassets in Resources */,
 				EE931DA52B653587001725D4 /* Animation - 1706349327749.json in Resources */,
 				EE487F732B6770DE001E8CEA /* Animation - 1706506113575.json in Resources */,
+				EE991DB12B77618000F9EDEC /* Animation - 1707550934898.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -882,6 +897,7 @@
 				EEAB7CAB2B6BD9BF0004FCC2 /* ReservationsHistoryViewController.swift in Sources */,
 				EE487F682B663ADA001E8CEA /* LocationsListView.swift in Sources */,
 				EE53F17A2B5A6E730019853F /* Restaurant.swift in Sources */,
+				EE991DAE2B774B2600F9EDEC /* PaymentSuccessViewController.swift in Sources */,
 				EE337F282B556F9B004DBA6B /* Image+Extension.swift in Sources */,
 				EE6DA21D2B7650DA0016F283 /* CreditCardmanager.swift in Sources */,
 				EEAB7C9F2B6ABCBE0004FCC2 /* ImageCacheManager.swift in Sources */,

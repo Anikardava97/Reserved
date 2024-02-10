@@ -242,6 +242,9 @@ class ConfirmationViewController: UIViewController {
     private func navigateToOrderFood() {
         let orderFoodViewController = OrderFoodViewController()
         orderFoodViewController.selectedRestaurant = selectedRestaurant
+        orderFoodViewController.selectedDate = selectedDate
+        orderFoodViewController.selectedTime = selectedTime
+        orderFoodViewController.selectedGuests = selectedGuests
         navigationController?.pushViewController(orderFoodViewController, animated: true)
     }
     
