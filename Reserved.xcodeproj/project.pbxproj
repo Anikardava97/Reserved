@@ -65,6 +65,8 @@
 		EE991DAC2B7692E900F9EDEC /* Animation - 1707497738620.json in Resources */ = {isa = PBXBuildFile; fileRef = EE991DAB2B7692E900F9EDEC /* Animation - 1707497738620.json */; };
 		EE991DAE2B774B2600F9EDEC /* PaymentSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE991DAD2B774B2600F9EDEC /* PaymentSuccessViewController.swift */; };
 		EE991DB12B77618000F9EDEC /* Animation - 1707550934898.json in Resources */ = {isa = PBXBuildFile; fileRef = EE991DB02B77618000F9EDEC /* Animation - 1707550934898.json */; };
+		EE991DB32B77664400F9EDEC /* RandomFoodCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE991DB22B77664400F9EDEC /* RandomFoodCollectionViewCell.swift */; };
+		EE991DB52B7767BF00F9EDEC /* PaymentSuccessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE991DB42B7767BF00F9EDEC /* PaymentSuccessViewModel.swift */; };
 		EEA4221D2B570A8200BC4693 /* CustomTextFieldComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4221C2B570A8200BC4693 /* CustomTextFieldComponentView.swift */; };
 		EEAB7C842B68D8540004FCC2 /* FavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7C832B68D8540004FCC2 /* FavoritesManager.swift */; };
 		EEAB7C862B68E93C0004FCC2 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB7C852B68E93C0004FCC2 /* FavoritesViewModel.swift */; };
@@ -176,6 +178,8 @@
 		EE991DAB2B7692E900F9EDEC /* Animation - 1707497738620.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Animation - 1707497738620.json"; sourceTree = "<group>"; };
 		EE991DAD2B774B2600F9EDEC /* PaymentSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessViewController.swift; sourceTree = "<group>"; };
 		EE991DB02B77618000F9EDEC /* Animation - 1707550934898.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Animation - 1707550934898.json"; sourceTree = "<group>"; };
+		EE991DB22B77664400F9EDEC /* RandomFoodCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomFoodCollectionViewCell.swift; sourceTree = "<group>"; };
+		EE991DB42B7767BF00F9EDEC /* PaymentSuccessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessViewModel.swift; sourceTree = "<group>"; };
 		EEA4221C2B570A8200BC4693 /* CustomTextFieldComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldComponentView.swift; sourceTree = "<group>"; };
 		EEAB7C832B68D8540004FCC2 /* FavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManager.swift; sourceTree = "<group>"; };
 		EEAB7C852B68E93C0004FCC2 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
@@ -523,9 +527,19 @@
 		EE991DAF2B774B2E00F9EDEC /* PaymentSuccess */ = {
 			isa = PBXGroup;
 			children = (
+				EE991DB62B7789DA00F9EDEC /* CollectionViewCell */,
 				EE991DAD2B774B2600F9EDEC /* PaymentSuccessViewController.swift */,
+				EE991DB42B7767BF00F9EDEC /* PaymentSuccessViewModel.swift */,
 			);
 			path = PaymentSuccess;
+			sourceTree = "<group>";
+		};
+		EE991DB62B7789DA00F9EDEC /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				EE991DB22B77664400F9EDEC /* RandomFoodCollectionViewCell.swift */,
+			);
+			path = CollectionViewCell;
 			sourceTree = "<group>";
 		};
 		EEAB7C892B6A75E90004FCC2 /* Managers */ = {
@@ -920,6 +934,7 @@
 				EEAB7CA42B6BC2200004FCC2 /* ReservationViewModel.swift in Sources */,
 				EE337F4B2B56B177004DBA6B /* LogInWithEmailViewModel.swift in Sources */,
 				EE53F1802B5AA8530019853F /* CuisineButton.swift in Sources */,
+				EE991DB52B7767BF00F9EDEC /* PaymentSuccessViewModel.swift in Sources */,
 				EE53F17E2B5A858C0019853F /* RestaurantsViewModel.swift in Sources */,
 				EEAB7CC72B7220C80004FCC2 /* OrderFoodViewModel.swift in Sources */,
 				EEB37E732B5E6B5800D39BEA /* TablesViewController.swift in Sources */,
@@ -952,6 +967,7 @@
 				EE487F6F2B666031001E8CEA /* LocationMapAnnotationView.swift in Sources */,
 				EE487F792B679767001E8CEA /* ReservationsManager.swift in Sources */,
 				EEAB7CCE2B72441C0004FCC2 /* FoodCollectionViewCell.swift in Sources */,
+				EE991DB32B77664400F9EDEC /* RandomFoodCollectionViewCell.swift in Sources */,
 				EEDABB752B58FE9C00A918EC /* ChecklistItem.swift in Sources */,
 				EEAB7C922B6A91620004FCC2 /* Constants.swift in Sources */,
 				EE337F432B55BFD6004DBA6B /* SignUpWithEmailViewModel.swift in Sources */,
