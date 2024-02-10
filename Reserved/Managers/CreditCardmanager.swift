@@ -9,7 +9,7 @@ import Foundation
 
 final class CreditCardManager {
     // MARK: - Properties
-    private var balance: Double
+    var balance: Double
     var cards: [CreditCard]
 
     // MARK: - Init

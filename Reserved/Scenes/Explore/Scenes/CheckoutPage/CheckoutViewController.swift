@@ -195,9 +195,15 @@ final class CheckoutViewController: UIViewController {
             let lastFourDigits = String(cardToDisplay.number.suffix(4))
             paymentLabel.text = "**** **** **** \(lastFourDigits)"
             chevronImageView.image = UIImage(systemName: "chevron.down")
+            paymentButton.isEnabled = true
+            paymentButton.backgroundColor = .customAccentColor
+            paymentButton.titleLabel?.textColor = .white
         } else {
             paymentLabel.text = "Add new card"
             chevronImageView.image = UIImage(systemName: "chevron.right")
+            paymentButton.isEnabled = false
+            paymentButton.backgroundColor = .customAccentColor.withAlphaComponent(0.6)
+            paymentButton.titleLabel?.textColor = .gray
         }
     }
     
@@ -264,6 +270,16 @@ final class CheckoutViewController: UIViewController {
         addCardViewController.creditCardManager = self.viewModel.creditCardManager
     }
     
+    private func checkBalanceAndProceedWithPayment() {
+        let totalPrice = viewModel.totalPrice ?? 0
+        if viewModel.creditCardManager.balance >= totalPrice {
+            viewModel.creditCardManager.balance -= totalPrice
+            print("Payment Successful")
+        } else {
+            AlertManager.shared.showAlert(from: self, type: .insufficientBalance)
+        }
+    }
+    
     // MARK: - Actions
     @objc private func paymentStackViewDidTap() {
         if viewModel.creditCardManager.cards.isEmpty {
@@ -291,7 +307,19 @@ final class CheckoutViewController: UIViewController {
         }
     }
     
-    @objc private func paymentButtonDidTap() {    }
+    @objc private func paymentButtonDidTap() {
+        let confirmationAlert = UIAlertController(title: "Confirm Payment", message: "Do you confirm to pay in \(selectedRestaurant.name)?", preferredStyle: .alert)
+        
+        let confirmAction = UIAlertAction(title: "Yes", style: .default) { [weak self] _ in
+            self?.checkBalanceAndProceedWithPayment()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        confirmationAlert.addAction(confirmAction)
+        confirmationAlert.addAction(cancelAction)
+        
+        present(confirmationAlert, animated: true, completion: nil)
+    }
 }
 
 // MARK:  Extension: UITableViewDataSource
@@ -319,5 +347,6 @@ extension CheckoutViewController: UITableViewDelegate {
 extension CheckoutViewController: AddCardViewControllerDelegate {
     func didAddNewCard() {
         newCardAdded = true
+        updatePaymentMethodDisplay()
     }
 }
