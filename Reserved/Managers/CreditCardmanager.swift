@@ -6,36 +6,57 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 final class CreditCardManager {
     // MARK: - Properties
+    static let shared = CreditCardManager()
+    
     var balance: Double
     var cards: [CreditCard]
-
+    
     // MARK: - Init
     init(initialBalance: Double = 100) {
         self.balance = initialBalance
         self.cards = []
+        loadCardsForCurrentUser()
     }
-
+    
     // MARK: - Methods
     func addCard(_ card: CreditCard) {
         cards.append(card)
+        saveCardsForCurrentUser()
     }
-
+    
     func removeCard(at index: Int) {
         guard index >= 0, index < cards.count else { return }
         cards.remove(at: index)
+        saveCardsForCurrentUser()
     }
+}
 
-    func displayBalance() {
-        print("Current Balance: $\(balance)")
+// MARK: - Extension: Save and Load Cards
+extension CreditCardManager {
+    func saveCardsForCurrentUser() {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        let key = UserDefaults.standard.keyForUserSpecificData(base: "myCards", userId: userId)
+        do {
+            let data = try JSONEncoder().encode(cards)
+            UserDefaults.standard.set(data, forKey: key)
+        } catch {
+            print("Error saving cards for user \(userId): \(error)")
+        }
     }
-
-    func displayCards() {
-        print("Cards:")
-        for (index, card) in cards.enumerated() {
-            print("\(index + 1). \(card.name) - \(card.number) - Expires: \(card.expirationDate)")
+    
+    func loadCardsForCurrentUser() {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        let key = UserDefaults.standard.keyForUserSpecificData(base: "myCards", userId: userId)
+        guard let data = UserDefaults.standard.data(forKey: key) else {
+            return }
+        if let cards = try? JSONDecoder().decode([CreditCard].self, from: data) {
+            self.cards = cards
+        } else {
+            print("Failed to decode cards for user \(userId).")
         }
     }
 }

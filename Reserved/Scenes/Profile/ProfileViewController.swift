@@ -14,7 +14,7 @@ final class ProfileViewController: UIViewController {
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 40
+        stackView.spacing = 24
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 24, left: 16, bottom: 24, right: 16)
@@ -93,19 +93,15 @@ final class ProfileViewController: UIViewController {
         return label
     }()
     
-    private let avatarImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "Avatar")
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .white
-        return imageView
-    }()
-    
     private lazy var userInfoStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [personalDetailsStackView, favoritesStackView, reservationsStackView])
         stackView.axis = .vertical
         stackView.spacing = 24
         stackView.distribution = .equalSpacing
+        stackView.backgroundColor = .customSecondaryColor
+        stackView.layoutMargins = UIEdgeInsets(top: 16, left: 24, bottom: 16, right: 24)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layer.cornerRadius = 10
         return stackView
     }()
     
@@ -174,6 +170,85 @@ final class ProfileViewController: UIViewController {
         return label
     }()
     
+    private lazy var creditCardsAndOrdersStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [creditCardsStackView, myReservationsStackView])
+        stackView.axis = .vertical
+        stackView.spacing = 24
+        return stackView
+    }()
+    
+    private lazy var creditCardsStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [creditCardsIcon, creditCardsLabel, UIView(), myCardsChevronImageView])
+        stackView.spacing = 12
+        stackView.backgroundColor = .customSecondaryColor
+        stackView.layoutMargins = UIEdgeInsets(top: 16, left: 24, bottom: 16, right: 24)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layer.cornerRadius = 10
+        
+        let creditCardsTapGesture = UITapGestureRecognizer(target: self, action: #selector(creditCardsStackViewDidTap))
+        stackView.isUserInteractionEnabled = true
+        stackView.addGestureRecognizer(creditCardsTapGesture)
+        return stackView
+    }()
+    
+    private let creditCardsIcon: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "creditcard")
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .white
+        return imageView
+    }()
+    
+    private let creditCardsLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        label.text = "My Credit Cards"
+        label.textColor = .white
+        return label
+    }()
+    
+    private let myCardsChevronImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "chevron.right")
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .white
+        return imageView
+    }()
+    
+    private lazy var myReservationsStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [myOrdersIcon, myOrdersLabel, UIView(), myOrdersChevronImageView])
+        stackView.spacing = 12
+        stackView.backgroundColor = .customSecondaryColor
+        stackView.layoutMargins = UIEdgeInsets(top: 16, left: 24, bottom: 16, right: 24)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layer.cornerRadius = 10
+        return stackView
+    }()
+    
+    private let myOrdersIcon: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "wineglass")
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .white
+        return imageView
+    }()
+    
+    private let myOrdersLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        label.text = "My Orders"
+        label.textColor = .white
+        return label
+    }()
+    
+    private let myOrdersChevronImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "chevron.right")
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .white
+        return imageView
+    }()
+    
     private lazy var signOutButton: MainButtonComponent = {
         let button = MainButtonComponent(
             text: "Sign out",
@@ -215,9 +290,9 @@ final class ProfileViewController: UIViewController {
     
     private func setupSubviews() {
         view.addSubview(mainStackView)
-        mainStackView.addArrangedSubview(avatarImageView)
-        mainStackView.addArrangedSubview(gamificationStackView)
         mainStackView.addArrangedSubview(userInfoStackView)
+        mainStackView.addArrangedSubview(creditCardsAndOrdersStackView)
+        mainStackView.addArrangedSubview(gamificationStackView)
         mainStackView.addArrangedSubview(signOutButton)
     }
     
@@ -227,9 +302,6 @@ final class ProfileViewController: UIViewController {
             mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mainStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
-            
-            avatarImageView.heightAnchor.constraint(equalToConstant: 100),
-            avatarImageView.widthAnchor.constraint(equalToConstant: 100),
             
             reservationsIcon.heightAnchor.constraint(equalToConstant: 12),
             reservationsIcon.widthAnchor.constraint(equalToConstant: 12),
@@ -276,6 +348,11 @@ final class ProfileViewController: UIViewController {
         }))
         
         present(alert, animated: true)
+    }
+    
+    @objc private func creditCardsStackViewDidTap() {
+        let creditCardsViewController = MyCreditCardsViewController()
+        navigationController?.pushViewController(creditCardsViewController, animated: true)
     }
 }
 
