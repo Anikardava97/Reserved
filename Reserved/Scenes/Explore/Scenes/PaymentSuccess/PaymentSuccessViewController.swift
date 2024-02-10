@@ -22,6 +22,7 @@ final class PaymentSuccessViewController: UIViewController {
     private var timer: Timer?
     private var isSpinning = false
     private var finalIndex: Int = 0
+    private var giftItem: FoodItem?
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -54,7 +55,7 @@ final class PaymentSuccessViewController: UIViewController {
     
     private lazy var successRestaurantInfoLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18)
+        label.font = UIFont.systemFont(ofSize: 16)
         label.text = "We are waiting for you in \(selectedRestaurant.name.capitalized)"
         label.numberOfLines = 0
         label.textColor = .white
@@ -63,7 +64,7 @@ final class PaymentSuccessViewController: UIViewController {
     
     private lazy var successDateInfoLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18)
+        label.font = UIFont.systemFont(ofSize: 16)
         label.text = "at \(selectedDate), \(selectedTime)"
         label.numberOfLines = 0
         label.textColor = .white
@@ -72,8 +73,8 @@ final class PaymentSuccessViewController: UIViewController {
     
     private let giftLabel: UILabel = {
         let label = UILabel()
-        label.text = "We have a gift for you"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        label.text = "We have a gift for you, tap a gift to open"
+        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         label.textColor = .white
         label.textAlignment = .center
         return label
@@ -200,8 +201,7 @@ final class PaymentSuccessViewController: UIViewController {
             guard let self = self else { return }
             self.spinCollectionView()
         }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
             self?.stopSpinningAndHighlightItem()
         }
     }
@@ -210,22 +210,32 @@ final class PaymentSuccessViewController: UIViewController {
         timer?.invalidate()
         timer = nil
         isSpinning = false
-
-        finalIndex = Int.random(in: 0..<(viewModel.foodItems?.count ?? 1))
+        
+        finalIndex = Int.random(in: 0..<viewModel.foodItems!.count)
+        giftItem = viewModel.foodItems?[finalIndex]
+        
         let indexPath = IndexPath(row: finalIndex, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-            if let cell = self?.collectionView.cellForItem(at: indexPath) as? RandomFoodCollectionViewCell {
-                UIView.animate(withDuration: 0.5, animations: {
-                    cell.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-                }) { _ in
-                    UIView.animate(withDuration: 0.5) {
-                        cell.transform = CGAffineTransform.identity
-                    }
+            guard let self = self, let cell = self.collectionView.cellForItem(at: indexPath) as? RandomFoodCollectionViewCell else { return }
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                cell.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+            }) { _ in
+                UIView.animate(withDuration: 0.5) {
+                    cell.transform = CGAffineTransform.identity
+                    self.navigateToGiftDetailViewController()
                 }
             }
         }
+    }
+    
+    private func navigateToGiftDetailViewController() {
+        guard let giftItem = giftItem else { return }
+        let giftDetailViewController = GiftDetailViewController()
+        giftDetailViewController.configure(with: giftItem)
+        navigationController?.pushViewController(giftDetailViewController, animated: true)
     }
     
     // MARK: - Actions

@@ -18,7 +18,7 @@ final class PaymentSuccessViewModel {
     weak var delegate: PaymentSuccessViewModelDelegate?
     
     var foodItems: [FoodItem]?
-
+    
     // MARK: - Methods
     func fetchFoodItems(for restaurant: Restaurant) {
         let restaurantURL = baseURL + "?restaurantId=\(restaurant.id)"
