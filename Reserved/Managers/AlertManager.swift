@@ -6,7 +6,7 @@
 //
 
 import UIKit
- 
+
 final class AlertManager {
     // MARK: - Shared Instance
     static let shared = AlertManager()
@@ -20,6 +20,7 @@ final class AlertManager {
         case noAvailableTables
         case locationUnavailable
         case unavailableTable(guests: Int)
+        case insufficientBalance
     }
     
     // MARK: - Methods
@@ -35,6 +36,8 @@ final class AlertManager {
             alert = createAlert(title: "Error", message: "Location information is not available")
         case .unavailableTable(let guests):
             alert = createAlert(title: "Table Unavailable 😳", message: "This table is not available for \(guests) guests. Please choose a different table.")
+        case .insufficientBalance:
+            alert = createAlert(title: "Insufficient Balance", message: "There is not enough balance to complete this transaction.")
         }
         viewController.present(alert, animated: true)
     }

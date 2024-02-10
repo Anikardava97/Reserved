@@ -15,6 +15,4 @@ final class CheckoutViewModel {
     init(totalPrice: Double?) {
         self.totalPrice = totalPrice
     }
-    // MARK: - Methods
-
 }
