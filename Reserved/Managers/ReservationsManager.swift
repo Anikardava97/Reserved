@@ -5,7 +5,7 @@
 //  Created by Ani's Mac on 29.01.24.
 //
 
-import Foundation
+import UIKit
 import FirebaseAuth
 
 protocol ReservationManagerDelegate: AnyObject {
@@ -44,7 +44,6 @@ final class ReservationManager {
             print("Invalid reservation index.")
             return
         }
-        
         myReservations.remove(at: index)
         delegate?.reservationManagerDidUpdateReservations()
         saveReservationsForCurrentUser()
@@ -53,6 +52,14 @@ final class ReservationManager {
     func getAllReservations() -> [MyReservation] {
         return myReservations
     }
+    
+    private func updateBadgeCounts() {
+           DispatchQueue.main.async {
+               guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+               guard let tabBarController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController as? TabBarController else { return }
+               tabBarController.updateBadgeCounts()
+           }
+       }
 }
 
 // MARK: - Extension: Save and Load Reservations
@@ -63,6 +70,7 @@ extension ReservationManager {
         do {
             let data = try JSONEncoder().encode(myReservations)
             UserDefaults.standard.set(data, forKey: key)
+            updateBadgeCounts()
         } catch {
             print("Error saving reservations for user \(userId): \(error)")
         }
@@ -74,6 +82,7 @@ extension ReservationManager {
         guard let data = UserDefaults.standard.data(forKey: key) else { return }
         if let reservations = try? JSONDecoder().decode([MyReservation].self, from: data) {
             self.myReservations = reservations
+            updateBadgeCounts()
         } else {
             print("Failed to decode reservations for user \(userId).")
         }

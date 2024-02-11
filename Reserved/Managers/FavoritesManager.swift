@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseAuth
+import UIKit
 
 protocol FavoritesManagerDelegate: AnyObject {
     func favoritesManagerDidUpdateFavorites()
@@ -45,6 +46,14 @@ final class FavoritesManager {
     func getAllFavorites() -> [Restaurant] {
         return favoriteRestaurants
     }
+    
+    private func updateBadgeCounts() {
+           DispatchQueue.main.async {
+               guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+               guard let tabBarController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController as? TabBarController else { return }
+               tabBarController.updateBadgeCounts()
+           }
+       }
 }
 
 // MARK: - Extension: Save and Load Favorites
@@ -55,6 +64,7 @@ extension FavoritesManager {
         do {
             let data = try JSONEncoder().encode(favoriteRestaurants)
             UserDefaults.standard.set(data, forKey: key)
+            updateBadgeCounts()
         } catch {
             print("Error saving favorites for user \(userId): \(error)")
         }
@@ -66,6 +76,7 @@ extension FavoritesManager {
         guard let data = UserDefaults.standard.data(forKey: key) else { return }
         if let favorites = try? JSONDecoder().decode([Restaurant].self, from: data) {
             self.favoriteRestaurants = favorites
+            updateBadgeCounts()
         } else {
             print("Failed to decode favorites for user \(userId).")
         }

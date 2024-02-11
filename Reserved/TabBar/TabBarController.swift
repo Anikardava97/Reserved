@@ -73,4 +73,14 @@ final class TabBarController: UITabBarController {
         tabBarScrollEdgeAppearance.backgroundColor = UIColor.customBackgroundColor
         return tabBarScrollEdgeAppearance
     }
+    
+    func updateBadgeCounts() {
+        let reservationsCount = ReservationManager.shared.myReservations.count
+        let favoritesCount = FavoritesManager.shared.favoriteRestaurants.count
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.viewControllers?[2].tabBarItem.badgeValue = reservationsCount > 0 ? "\(reservationsCount)" : nil
+            self?.viewControllers?[3].tabBarItem.badgeValue = favoritesCount > 0 ? "\(favoritesCount)" : nil
+        }
+    }
 }

@@ -160,7 +160,7 @@ final class AddCardViewController: UIViewController {
         addCardButton.isEnabled = isValid
         
         addCardButton.backgroundColor = isValid ? .customAccentColor : .customAccentColor.withAlphaComponent(0.6)
-        addCardButton.setTitleColor(isValid ? .white : .gray, for: .normal)
+        addCardButton.setTitleColor(isValid ? .white : .white.withAlphaComponent(0.6), for: .normal)
     }
     
     private func setupAnimationView() {
