@@ -7,11 +7,11 @@
 
 import UIKit
 
-struct FoodResponse: Decodable {
+struct FoodResponse: Codable {
     let foodItems: [FoodItem]
 }
 
-struct FoodItem: Decodable {
+struct FoodItem: Codable {
     let id: Int
     let name: String
     let price: Double

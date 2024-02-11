@@ -171,7 +171,7 @@ final class ProfileViewController: UIViewController {
     }()
     
     private lazy var creditCardsAndOrdersStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [creditCardsStackView, myReservationsStackView])
+        let stackView = UIStackView(arrangedSubviews: [creditCardsStackView, myOrdersStackView])
         stackView.axis = .vertical
         stackView.spacing = 24
         return stackView
@@ -215,13 +215,17 @@ final class ProfileViewController: UIViewController {
         return imageView
     }()
     
-    private lazy var myReservationsStackView: UIStackView = {
+    private lazy var myOrdersStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [myOrdersIcon, myOrdersLabel, UIView(), myOrdersChevronImageView])
         stackView.spacing = 12
         stackView.backgroundColor = .customSecondaryColor
         stackView.layoutMargins = UIEdgeInsets(top: 16, left: 24, bottom: 16, right: 24)
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layer.cornerRadius = 10
+        
+        let myOrdersTapGesture = UITapGestureRecognizer(target: self, action: #selector(myOrdersStackViewDidTap))
+        stackView.isUserInteractionEnabled = true
+        stackView.addGestureRecognizer(myOrdersTapGesture)
         return stackView
     }()
     
@@ -353,6 +357,11 @@ final class ProfileViewController: UIViewController {
     @objc private func creditCardsStackViewDidTap() {
         let creditCardsViewController = MyCreditCardsViewController()
         navigationController?.pushViewController(creditCardsViewController, animated: true)
+    }
+    
+    @objc private func myOrdersStackViewDidTap() {
+        let myOrdersViewController = MyOrdersViewController()
+        navigationController?.pushViewController(myOrdersViewController, animated: true)
     }
 }
 

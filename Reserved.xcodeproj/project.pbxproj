@@ -57,6 +57,7 @@
 		EE8EB90C2B5A53B700C6FEB9 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EB90B2B5A53B700C6FEB9 /* ProfileViewController.swift */; };
 		EE9084D62B78159600350884 /* MyCreditCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9084D52B78159600350884 /* MyCreditCardsViewController.swift */; };
 		EE9084D82B7815B200350884 /* MyCreditCardsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9084D72B7815B200350884 /* MyCreditCardsTableViewCell.swift */; };
+		EE9084DC2B7817AD00350884 /* MyOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9084DB2B7817AD00350884 /* MyOrdersViewController.swift */; };
 		EE931DA32B652FE6001725D4 /* Animation - 1706348887513.json in Resources */ = {isa = PBXBuildFile; fileRef = EE931DA22B652FE6001725D4 /* Animation - 1706348887513.json */; };
 		EE931DA52B653587001725D4 /* Animation - 1706349327749.json in Resources */ = {isa = PBXBuildFile; fileRef = EE931DA42B653587001725D4 /* Animation - 1706349327749.json */; };
 		EE98E0E52B5748580074962D /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98E0E42B5748580074962D /* AuthenticationManager.swift */; };
@@ -176,6 +177,7 @@
 		EE8EB90B2B5A53B700C6FEB9 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		EE9084D52B78159600350884 /* MyCreditCardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCreditCardsViewController.swift; sourceTree = "<group>"; };
 		EE9084D72B7815B200350884 /* MyCreditCardsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCreditCardsTableViewCell.swift; sourceTree = "<group>"; };
+		EE9084DB2B7817AD00350884 /* MyOrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersViewController.swift; sourceTree = "<group>"; };
 		EE931DA22B652FE6001725D4 /* Animation - 1706348887513.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Animation - 1706348887513.json"; sourceTree = "<group>"; };
 		EE931DA42B653587001725D4 /* Animation - 1706349327749.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Animation - 1706349327749.json"; sourceTree = "<group>"; };
 		EE98E0E42B5748580074962D /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
@@ -509,10 +511,35 @@
 			isa = PBXGroup;
 			children = (
 				EE8EB90B2B5A53B700C6FEB9 /* ProfileViewController.swift */,
-				EE9084D52B78159600350884 /* MyCreditCardsViewController.swift */,
-				EE9084D72B7815B200350884 /* MyCreditCardsTableViewCell.swift */,
+				EE9084DA2B78177900350884 /* MyCreditCards */,
+				EE9084DD2B7817B100350884 /* MyOrders */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		EE9084D92B78176A00350884 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				EE9084D72B7815B200350884 /* MyCreditCardsTableViewCell.swift */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		EE9084DA2B78177900350884 /* MyCreditCards */ = {
+			isa = PBXGroup;
+			children = (
+				EE9084D92B78176A00350884 /* TableViewCell */,
+				EE9084D52B78159600350884 /* MyCreditCardsViewController.swift */,
+			);
+			path = MyCreditCards;
+			sourceTree = "<group>";
+		};
+		EE9084DD2B7817B100350884 /* MyOrders */ = {
+			isa = PBXGroup;
+			children = (
+				EE9084DB2B7817AD00350884 /* MyOrdersViewController.swift */,
+			);
+			path = MyOrders;
 			sourceTree = "<group>";
 		};
 		EE98E0E32B5748250074962D /* Authentication */ = {
@@ -950,6 +977,7 @@
 				EE2EE4632B64499C009C0DD2 /* ConfirmationViewController.swift in Sources */,
 				EED210532B5BECB600039A98 /* RestaurantDetailsViewController.swift in Sources */,
 				EEAB7CA42B6BC2200004FCC2 /* ReservationViewModel.swift in Sources */,
+				EE9084DC2B7817AD00350884 /* MyOrdersViewController.swift in Sources */,
 				EE9084D62B78159600350884 /* MyCreditCardsViewController.swift in Sources */,
 				EE337F4B2B56B177004DBA6B /* LogInWithEmailViewModel.swift in Sources */,
 				EE53F1802B5AA8530019853F /* CuisineButton.swift in Sources */,

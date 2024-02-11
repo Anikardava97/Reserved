@@ -280,6 +280,7 @@ final class CheckoutViewController: UIViewController {
         let totalPrice = viewModel.totalPrice ?? 0
         if viewModel.creditCardManager.balance >= totalPrice {
             viewModel.creditCardManager.balance -= totalPrice
+            
             let successViewController = PaymentSuccessViewController(selectedProducts: selectedProducts, selectedRestaurant: selectedRestaurant, selectedDate: selectedDate, selectedTime: selectedTime, selectedGuests: selectedGuests)
             
             navigationController?.pushViewController(successViewController, animated: true)
@@ -288,6 +289,15 @@ final class CheckoutViewController: UIViewController {
         }
     }
     
+    private func saveOrder() {
+        ReservationManager.shared.storeReservation(
+            restaurantName: selectedRestaurant.name,
+            reservationDate: selectedDate,
+            reservationTime: selectedTime,
+            guestsCount: selectedGuests,
+            foodItems: selectedProducts)
+    }
+
     // MARK: - Actions
     @objc private func paymentStackViewDidTap() {
         if viewModel.creditCardManager.cards.isEmpty {
@@ -320,6 +330,7 @@ final class CheckoutViewController: UIViewController {
         
         let confirmAction = UIAlertAction(title: "Yes", style: .default) { [weak self] _ in
             self?.checkBalanceAndProceedWithPayment()
+            self?.saveOrder()
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         

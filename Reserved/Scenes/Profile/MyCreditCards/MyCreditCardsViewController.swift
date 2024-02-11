@@ -20,25 +20,11 @@ final class MyCreditCardsViewController: UIViewController {
         stackView.layoutMargins = UIEdgeInsets(top: 24, left: 16, bottom: 24, right: 16)
         return stackView
     }()
-    
-    private lazy var cardsAndBalanceStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [myCreditCardsLabel, balanceLabel])
-        stackView.distribution = .equalSpacing
-        return stackView
-    }()
-    
+
     private let myCreditCardsLabel: UILabel = {
         let label = UILabel()
         label.text = "My Credit Cards"
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        label.textColor = .white
-        return label
-    }()
-    
-    private lazy var balanceLabel: UILabel = {
-        let label = UILabel()
-        label.text = String(format: "$%.2f", creditCardManager?.balance ?? 0)
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         label.textColor = .white
         return label
     }()
@@ -89,14 +75,14 @@ final class MyCreditCardsViewController: UIViewController {
     
     private func setupSubviews() {
         view.addSubview(mainStackView)
-        mainStackView.addArrangedSubview(cardsAndBalanceStackView)
+        mainStackView.addArrangedSubview(myCreditCardsLabel)
         mainStackView.addArrangedSubview(tableView)
         view.addSubview(addButton)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: view.topAnchor),
+            mainStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
             mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mainStackView.bottomAnchor.constraint(equalTo: addButton.topAnchor, constant: -24),
@@ -114,6 +100,7 @@ final class MyCreditCardsViewController: UIViewController {
         tableView.register(MyCreditCardsTableViewCell.self, forCellReuseIdentifier: "myCreditCardsTableViewCell")
     }
     
+    // MARK: - Actions
     @objc private func addCardButtonDidTap() {
         let addCardViewController = AddCardViewController()
         addCardViewController.creditCardManager = self.creditCardManager

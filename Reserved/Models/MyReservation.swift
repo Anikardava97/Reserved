@@ -12,4 +12,6 @@ struct MyReservation: Codable {
     var reservationDate: String
     var reservationTime: String
     var guestsCount: Int
+    var foodItems: [FoodItem]?
+    var gift: FoodItem?
 }

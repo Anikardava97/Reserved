@@ -226,6 +226,7 @@ final class PaymentSuccessViewController: UIViewController {
                 UIView.animate(withDuration: 0.5) {
                     cell.transform = CGAffineTransform.identity
                     self.navigateToGiftDetailViewController()
+                    self.saveOrder()
                 }
             }
         }
@@ -236,6 +237,16 @@ final class PaymentSuccessViewController: UIViewController {
         let giftDetailViewController = GiftDetailViewController()
         giftDetailViewController.configure(with: giftItem)
         navigationController?.pushViewController(giftDetailViewController, animated: true)
+    }
+    
+    private func saveOrder() {
+        ReservationManager.shared.storeReservation(
+            restaurantName: selectedRestaurant.name,
+            reservationDate: selectedDate,
+            reservationTime: selectedTime,
+            guestsCount: selectedGuests,
+            foodItems: selectedProducts,
+            gift: giftItem)
     }
     
     // MARK: - Actions
