@@ -24,16 +24,19 @@ final class ReservationManager {
     weak var delegate: ReservationManagerDelegate?
     
     // MARK: - Methods
-    func storeReservation(restaurantName: String, reservationDate: String, reservationTime: String, guestsCount: Int) {
-        let newReservation = MyReservation(
-            restaurantName: restaurantName,
-            reservationDate: reservationDate,
-            reservationTime: reservationTime,
-            guestsCount: guestsCount
-        )
-        myReservations.append(newReservation)
-        delegate?.reservationManagerDidUpdateReservations()
+    func storeReservation(restaurantName: String, reservationDate: String, reservationTime: String, guestsCount: Int, foodItems: [FoodItem]? = nil, gift: FoodItem? = nil) {
+        if let index = myReservations.firstIndex(where: { $0.restaurantName == restaurantName && $0.reservationDate == reservationDate && $0.reservationTime == reservationTime }) {
+            var reservationToUpdate = myReservations[index]
+            reservationToUpdate.guestsCount = guestsCount
+            reservationToUpdate.foodItems = foodItems
+            reservationToUpdate.gift = gift
+            myReservations[index] = reservationToUpdate
+        } else {
+            let newReservation = MyReservation(restaurantName: restaurantName, reservationDate: reservationDate, reservationTime: reservationTime, guestsCount: guestsCount, foodItems: foodItems, gift: gift)
+            myReservations.append(newReservation)
+        }
         saveReservationsForCurrentUser()
+        delegate?.reservationManagerDidUpdateReservations()
     }
     
     func cancelReservation(atIndex index: Int) {
