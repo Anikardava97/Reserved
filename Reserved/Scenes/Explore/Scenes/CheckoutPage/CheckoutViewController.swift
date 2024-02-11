@@ -203,13 +203,13 @@ final class CheckoutViewController: UIViewController {
             chevronImageView.image = UIImage(systemName: "chevron.down")
             paymentButton.isEnabled = true
             paymentButton.backgroundColor = .customAccentColor
-            paymentButton.titleLabel?.textColor = .white
+            paymentButton.setTitleColor(.white, for: .normal)
         } else {
             paymentLabel.text = "Add new card"
             chevronImageView.image = UIImage(systemName: "chevron.right")
             paymentButton.isEnabled = false
             paymentButton.backgroundColor = .customAccentColor.withAlphaComponent(0.6)
-            paymentButton.titleLabel?.textColor = .gray
+            paymentButton.setTitleColor(.white.withAlphaComponent(0.6), for: .disabled)
         }
     }
     
@@ -297,7 +297,7 @@ final class CheckoutViewController: UIViewController {
             guestsCount: selectedGuests,
             foodItems: selectedProducts)
     }
-
+    
     // MARK: - Actions
     @objc private func paymentStackViewDidTap() {
         if viewModel.creditCardManager.cards.isEmpty {

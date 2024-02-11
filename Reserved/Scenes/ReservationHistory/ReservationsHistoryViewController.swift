@@ -37,15 +37,9 @@ final class ReservationsHistoryViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showReservationsHistory()
-        ReservationManager.shared.delegate = self
     }
     
     // MARK: - Methods
-    private func updateReservationBadgeCount() {
-        let count = ReservationManager.shared.myReservations.count
-        self.tabBarController?.tabBar.items?[2].badgeValue = count > 0 ? "\(count)" : nil
-    }
-    
     private func showReservationsHistory() {
         DispatchQueue.main.async { [weak self] in
             self?.scrollStackViewContainer.arrangedSubviews.forEach { $0.removeFromSuperview() }
@@ -200,6 +194,7 @@ final class ReservationsHistoryViewController: UIViewController {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    // MARK: - Actions
     @objc private func cancelReservation(_ sender: UIButton) {
         let index = sender.tag
         if index < ReservationManager.shared.myReservations.count {
@@ -209,7 +204,6 @@ final class ReservationsHistoryViewController: UIViewController {
             alertController.addAction(UIAlertAction(title: "Confirm", style: .destructive) { [weak self] _ in
                 ReservationManager.shared.cancelReservation(atIndex: index)
                 self?.showReservationsHistory()
-                self?.updateReservationBadgeCount()
             })
             present(alertController, animated: true, completion: nil)
         } else {
@@ -218,9 +212,3 @@ final class ReservationsHistoryViewController: UIViewController {
     }
 }
 
-// MARK: - Extension: ReservationManagerDelegate
-extension ReservationsHistoryViewController: ReservationManagerDelegate {
-    func reservationManagerDidUpdateReservations() {
-        updateReservationBadgeCount()
-    }
-}

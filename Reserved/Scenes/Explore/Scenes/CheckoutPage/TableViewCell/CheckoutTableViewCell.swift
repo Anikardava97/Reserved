@@ -102,7 +102,6 @@ final class CheckoutTableViewCell: UITableViewCell {
         layer.shadowOpacity = 0.1
         layer.masksToBounds = false
     }
- 
     
     // MARK: - Configuration
     func configure(with product: FoodItem) {

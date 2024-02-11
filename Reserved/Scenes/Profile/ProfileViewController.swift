@@ -267,9 +267,7 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        FavoritesManager.shared.delegate = self
         updateFavoritesLabel()
-        ReservationManager.shared.delegate = self
         updateReservationsLabel()
         updateProgressView()
     }
@@ -365,15 +363,6 @@ final class ProfileViewController: UIViewController {
     }
 }
 
-// MARK: - Extensions:
-extension ProfileViewController: FavoritesManagerDelegate {
-    func favoritesManagerDidUpdateFavorites() {
-        updateFavoritesLabel()
-    }
-}
 
-extension ProfileViewController: ReservationManagerDelegate {
-    func reservationManagerDidUpdateReservations() {
-        updateReservationsLabel()
-    }
-}
+
+

@@ -172,7 +172,11 @@ final class OrderFoodViewController: UIViewController {
         let totalPrice = viewModel.totalPrice ?? 0
         checkoutButton.isEnabled = totalPrice > 0
         checkoutButton.backgroundColor = totalPrice > 0 ? .customAccentColor : .customAccentColor.withAlphaComponent(0.6)
-        checkoutButton.titleLabel?.textColor = totalPrice > 0 ? .white : .gray
+        if checkoutButton.isEnabled {
+            checkoutButton.setTitleColor(.white, for: .normal)
+        } else {
+            checkoutButton.setTitleColor(.white.withAlphaComponent(0.6), for: .disabled)
+        }
     }
     
     // MARK: - Actions

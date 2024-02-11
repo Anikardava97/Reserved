@@ -14,6 +14,7 @@ protocol FavoritesViewModelDelegate: AnyObject {
 final class FavoritesViewModel {
     // MARK: - Properties
     weak var delegate: FavoritesViewModelDelegate?
+    
     private var favorites: [Restaurant] {
         didSet {
             self.onFavoritesUpdated?()
@@ -21,6 +22,10 @@ final class FavoritesViewModel {
     }
     
     var onFavoritesUpdated: (() -> Void)?
+    
+    var numberOfFavorites: Int {
+        return favorites.count
+    }
     
     // MARK: - Init
     init(favorites: [Restaurant] = []) {
@@ -43,10 +48,6 @@ final class FavoritesViewModel {
     
     func isFavorite(restaurant: Restaurant) -> Bool {
         return FavoritesManager.shared.isFavorite(restaurant: restaurant)
-    }
-    
-    var numberOfFavorites: Int {
-        return favorites.count
     }
     
     func favoriteAt(index: Int) -> Restaurant {

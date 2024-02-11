@@ -70,7 +70,7 @@ final class OpenHoursViewController: UIViewController {
         animationView.stop()
     }
     
-    // MARK: - Private Methods
+    // MARK: - Methods
     private func setup() {
         setupBackground()
         setupSubviews()

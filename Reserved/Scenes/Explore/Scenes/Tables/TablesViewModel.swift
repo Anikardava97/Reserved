@@ -17,8 +17,6 @@ final class TablesViewModel {
                        "Table8", "Table4","Table12", "Table9",
                        "Table6", "Table10", "Table1", "Table7"]
     
-    
-    
     var selectedRestaurant: Restaurant?
     var selectedDate: String?
     var selectedTime: String?

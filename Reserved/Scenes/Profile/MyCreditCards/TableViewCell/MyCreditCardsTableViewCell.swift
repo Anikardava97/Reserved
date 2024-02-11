@@ -14,7 +14,7 @@ protocol MyCreditCardsTableViewCellDelegate: AnyObject {
 final class MyCreditCardsTableViewCell: UITableViewCell {
     // MARK: - Properties
     weak var delegate: MyCreditCardsTableViewCellDelegate?
-
+    
     private lazy var mainStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [cardInfoStackView, deleteCardImageView])
         stackView.spacing = 12
@@ -63,7 +63,7 @@ final class MyCreditCardsTableViewCell: UITableViewCell {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(deleteCardDidTap))
         imageView.addGestureRecognizer(tapGesture)
         return imageView
-
+        
     }()
     
     // MARK: - Init
@@ -119,6 +119,7 @@ final class MyCreditCardsTableViewCell: UITableViewCell {
         layer.masksToBounds = false
     }
     
+    // MARK: - Actions
     @objc private func deleteCardDidTap() {
         delegate?.removeCard(for: self)
     }

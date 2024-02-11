@@ -14,8 +14,8 @@ protocol AddCardViewControllerDelegate: AnyObject {
 
 final class AddCardViewController: UIViewController {
     // MARK: - Methods
-    var creditCardManager: CreditCardManager!
     private var animationView: LottieAnimationView!
+    var creditCardManager: CreditCardManager!
     var cardAddedSuccessfully: (() -> Void)?
     weak var delegate: AddCardViewControllerDelegate?
     
@@ -160,7 +160,7 @@ final class AddCardViewController: UIViewController {
         addCardButton.isEnabled = isValid
         
         addCardButton.backgroundColor = isValid ? .customAccentColor : .customAccentColor.withAlphaComponent(0.6)
-        addCardButton.setTitleColor(isValid ? .white : .gray, for: .normal)
+        addCardButton.setTitleColor(isValid ? .white : .white.withAlphaComponent(0.6), for: .normal)
     }
     
     private func setupAnimationView() {
