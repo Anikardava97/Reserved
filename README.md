@@ -11,6 +11,7 @@ Reserved offers a comprehensive set of features designed to enhance the dining r
 - User Accounts: Secure login system for customers;
 - Restaurant Listings: Browse and search for restaurants by location, cuisine, or availability.
 - Reservation System: Easy-to-use interface for making and managing reservations;
+- Order Food: Users can select dishes and place orders;
 - Favorites: Users can add restaurants to their favorites list for quick access in the future, simplifying the process of rebooking at preferred venues;
 - Reservation Cancellations: The system allows for hassle-free cancellation of reservations, providing flexibility and convenience to the users;
 - Loyalty Rewards: Users earn badges and rewards for successful reservations. Frequent users can enjoy discounts and special offers as part of a loyalty program, enhancing customer retention and satisfaction.
@@ -20,8 +21,12 @@ Reserved offers a comprehensive set of features designed to enhance the dining r
 ![Details](https://github.com/Anikardava97/Reserved/assets/145837570/5fb4bfb4-f817-4191-b350-255ff91d712b)
 
 ## Reserve
-![Reresvation](https://github.com/Anikardava97/Reserved/assets/145837570/f34a1db1-1cdd-434d-8574-b5193bd2ad93)
+![Reservation](https://github.com/Anikardava97/Reserved/assets/145837570/f34a1db1-1cdd-434d-8574-b5193bd2ad93)
 ![Confirmation](https://github.com/Anikardava97/Reserved/assets/145837570/49773d83-250a-4c42-8b90-04c68bf29416)
+
+## Order and Recieve a Gift
+![Select dishes](https://github.com/Anikardava97/Reserved/assets/145837570/951ded94-b20a-428b-a762-1c57cdbc50a0)
+![gift](https://github.com/Anikardava97/Reserved/assets/145837570/cca87a09-4ce3-4c2f-8d97-6c6e481f0814)
 
 ## Clone
 
