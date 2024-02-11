@@ -27,7 +27,6 @@ final class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        FavoritesManager.shared.delegate = self
         
         viewModel.onFavoritesUpdated = { [weak self] in
             guard let self = self else { return }
@@ -43,7 +42,6 @@ final class FavoritesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.loadFavorites()
-        FavoritesManager.shared.delegate = self
     }
     
     // MARK: - Private Methods
@@ -135,13 +133,6 @@ extension FavoritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedRestaurant = viewModel.favoriteAt(index: indexPath.row)
         viewModel.navigateToRestaurantDetails(with: selectedRestaurant)
-    }
-}
-
-// MARK: - Extension: FavoritesManagerDelegate
-extension FavoritesViewController: FavoritesManagerDelegate {
-    func favoritesManagerDidUpdateFavorites() {
-        updateFavoritesBadgeCount()
     }
 }
 

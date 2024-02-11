@@ -57,7 +57,7 @@ final class RestaurantHoursManager {
         }
     }
     
-     func isRestaurantOpen(from restaurant: Restaurant) -> Bool {
+    func isRestaurantOpen(from restaurant: Restaurant) -> Bool {
         let day = currentDayOfWeek()
         let openHours = restaurant.openHours
         let now = Date()
@@ -105,7 +105,7 @@ final class RestaurantHoursManager {
         return isNowBetween(startTime: startTime, endTime: endTime, currentDate: now, dateFormatter: dateFormatter)
     }
     
-     func isNowBetween(startTime: String, endTime: String, currentDate: Date, dateFormatter: DateFormatter) -> Bool {
+    func isNowBetween(startTime: String, endTime: String, currentDate: Date, dateFormatter: DateFormatter) -> Bool {
         guard let start = dateFormatter.date(from: startTime),
               let end = dateFormatter.date(from: endTime) else { return false }
         

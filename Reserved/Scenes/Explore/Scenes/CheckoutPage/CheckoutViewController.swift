@@ -297,7 +297,7 @@ final class CheckoutViewController: UIViewController {
             guestsCount: selectedGuests,
             foodItems: selectedProducts)
     }
-
+    
     // MARK: - Actions
     @objc private func paymentStackViewDidTap() {
         if viewModel.creditCardManager.cards.isEmpty {

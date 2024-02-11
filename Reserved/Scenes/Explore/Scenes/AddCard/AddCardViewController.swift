@@ -14,8 +14,8 @@ protocol AddCardViewControllerDelegate: AnyObject {
 
 final class AddCardViewController: UIViewController {
     // MARK: - Methods
-    var creditCardManager: CreditCardManager!
     private var animationView: LottieAnimationView!
+    var creditCardManager: CreditCardManager!
     var cardAddedSuccessfully: (() -> Void)?
     weak var delegate: AddCardViewControllerDelegate?
     

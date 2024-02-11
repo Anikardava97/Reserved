@@ -197,7 +197,7 @@ final class FoodCollectionViewCell: UICollectionViewCell {
     // MARK: - Configuration
     func configure(with product: FoodItem) {
         self.tag = product.id
-
+        
         if let imageURL = product.image {
             setImage(from: imageURL, forProductId: product.id)
         }

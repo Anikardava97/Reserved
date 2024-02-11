@@ -13,7 +13,6 @@ final class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabs()
-        assignDelegatesToManagers()
         setupUI()
     }
     
@@ -32,17 +31,6 @@ final class TabBarController: UITabBarController {
         let profile = createNavigationController(title: "Profile", image: UIImage(systemName: "person.fill"), viewController: ProfileViewController())
         
         setViewControllers([restaurants, mapHostingController, reservations, favourites, profile], animated: true)
-    }
-    
-    // MARK: - Assign Delegates to Managers
-    func assignDelegatesToManagers() {
-        if let reservationsViewController = viewControllers?.first(where: { $0 is ReservationsHistoryViewController }) as? ReservationsHistoryViewController {
-            ReservationManager.shared.delegate = reservationsViewController
-        }
-        
-        if let favouritesViewController = viewControllers?.first(where: { $0 is FavoritesViewController }) as? FavoritesViewController {
-            FavoritesManager.shared.delegate = favouritesViewController
-        }
     }
     
     // MARK: - NavigationController Setup

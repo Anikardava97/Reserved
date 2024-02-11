@@ -8,10 +8,6 @@
 import UIKit
 import FirebaseAuth
 
-protocol ReservationManagerDelegate: AnyObject {
-    func reservationManagerDidUpdateReservations()
-}
-
 final class ReservationManager {
     // MARK: - Shared Instance
     static let shared = ReservationManager()
@@ -21,7 +17,6 @@ final class ReservationManager {
     
     // MARK: - Properties
     var myReservations: [MyReservation] = []
-    weak var delegate: ReservationManagerDelegate?
     
     // MARK: - Methods
     func storeReservation(restaurantName: String, reservationDate: String, reservationTime: String, guestsCount: Int, foodItems: [FoodItem]? = nil, gift: FoodItem? = nil) {
@@ -36,7 +31,6 @@ final class ReservationManager {
             myReservations.append(newReservation)
         }
         saveReservationsForCurrentUser()
-        delegate?.reservationManagerDidUpdateReservations()
     }
     
     func cancelReservation(atIndex index: Int) {
@@ -45,7 +39,6 @@ final class ReservationManager {
             return
         }
         myReservations.remove(at: index)
-        delegate?.reservationManagerDidUpdateReservations()
         saveReservationsForCurrentUser()
     }
     
@@ -54,12 +47,12 @@ final class ReservationManager {
     }
     
     private func updateBadgeCounts() {
-           DispatchQueue.main.async {
-               guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
-               guard let tabBarController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController as? TabBarController else { return }
-               tabBarController.updateBadgeCounts()
-           }
-       }
+        DispatchQueue.main.async {
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+            guard let tabBarController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController as? TabBarController else { return }
+            tabBarController.updateBadgeCounts()
+        }
+    }
 }
 
 // MARK: - Extension: Save and Load Reservations
