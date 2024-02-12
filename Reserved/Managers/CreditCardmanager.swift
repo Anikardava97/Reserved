@@ -12,8 +12,9 @@ final class CreditCardManager {
     // MARK: - Shared Instance
     static let shared = CreditCardManager()
     
-    var balance: Double
+    // MARK: - Properties
     var cards: [CreditCard]
+    var balance: Double
     
     // MARK: - Init
     init(initialBalance: Double = 100) {

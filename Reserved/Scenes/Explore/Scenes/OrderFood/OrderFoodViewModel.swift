@@ -15,7 +15,7 @@ protocol OrderFoodViewModelDelegate: AnyObject {
 
 final class OrderFoodViewModel {
     // MARK: - Properties
-    private let baseURL = Constants.URLs.restaurantFoodItemsURL
+    private let restaurantFoodItemsURL = Constants.URLs.restaurantFoodItemsURL
     weak var delegate: OrderFoodViewModelDelegate?
     
     var foodItems: [FoodItem]?
@@ -24,9 +24,10 @@ final class OrderFoodViewModel {
         let total = foodItems.reduce(0) { $0 + $1.price * Double($1.selectedAmount ?? 0) }
         return (total * 100).rounded() / 100
     }
+    
     // MARK: - Methods
     func fetchFoodItems(for restaurant: Restaurant) {
-        let restaurantURL = baseURL + "?restaurantId=\(restaurant.id)"
+        let restaurantURL = restaurantFoodItemsURL + "?restaurantId=\(restaurant.id)"
         
         NetworkManager.shared.fetch(from: restaurantURL) { [weak self] (result: Result<FoodResponse, NetworkError>) in
             switch result {

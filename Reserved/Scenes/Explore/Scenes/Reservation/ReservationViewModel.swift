@@ -62,15 +62,12 @@ final class ReservationViewModel {
     func validateReservation(selectedDate: Date?, selectedTimeText: String?, selectedGuests: Int?, reservations: [Reservation]?) -> ValidationResult {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm:ss"
         
         guard let selectedDate, let selectedTimeText, let selectedGuests, let reservations else { return .failure }
-        
         let formattedDate = dateFormatter.string(from: selectedDate)
         let formattedTime = timeFormatter.string(from: timeFormatter.date(from: selectedTimeText + ":00") ?? Date())
-        
         let reservedTables = reservations.filter { reservation in
             return reservation.date == formattedDate
             && reservation.time == formattedTime && reservation.guestCount == selectedGuests
@@ -98,7 +95,6 @@ final class ReservationViewModel {
               let closeTime = dateFormatter.date(from: closeTimeStr) else {
             return false
         }
-        
         let now = Date()
         let calendar = Calendar.current
         let openDateTime = calendar.date(bySettingHour: calendar.component(.hour, from: openTime),
@@ -110,7 +106,6 @@ final class ReservationViewModel {
                                           minute: calendar.component(.minute, from: closeTime),
                                           second: 0,
                                           of: now)!
-        
         if closeTime < openTime {
             closeDateTime = calendar.date(byAdding: .day, value: 1, to: closeDateTime)!
         }

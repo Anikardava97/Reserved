@@ -7,11 +7,11 @@
 
 import UIKit
 
-class AllRestaurantsTableViewCell: UITableViewCell {
+final class AllRestaurantsTableViewCell: UITableViewCell {
     // MARK: - Properties
+    var favoriteButtonDidTap: (() -> Void)?
     private var restaurant: Restaurant?
     private var restaurantId: Int?
-    var favoriteButtonDidTap: (() -> Void)?
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -25,7 +25,6 @@ class AllRestaurantsTableViewCell: UITableViewCell {
     
     private let restaurantImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 12
         imageView.clipsToBounds = true
         return imageView
@@ -42,7 +41,6 @@ class AllRestaurantsTableViewCell: UITableViewCell {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, ratingStackView, cuisineAndOpenNowStackView])
         stackView.axis = .vertical
         stackView.spacing = 12
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
@@ -58,7 +56,6 @@ class AllRestaurantsTableViewCell: UITableViewCell {
     private lazy var ratingStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [starImageView, ratingLabel])
         stackView.spacing = 6
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
@@ -67,7 +64,6 @@ class AllRestaurantsTableViewCell: UITableViewCell {
         imageView.image = UIImage(systemName: "star.fill")
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .yellow
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -84,7 +80,6 @@ class AllRestaurantsTableViewCell: UITableViewCell {
         let stackView = UIStackView(arrangedSubviews: [cuisineLabel, openNowLabel])
         stackView.axis = .vertical
         stackView.spacing = 4
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
@@ -109,7 +104,7 @@ class AllRestaurantsTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        setupView()
+        setupCellAppearance()
         addSubviews()
         setupConstraints()
         setupFavoriteButtonAction()
@@ -122,7 +117,6 @@ class AllRestaurantsTableViewCell: UITableViewCell {
     // MARK: - CellLifeCycle
     override func prepareForReuse() {
         super.prepareForReuse()
-        
         restaurantImageView.image = nil
         titleLabel.text = nil
         ratingLabel.text = nil
@@ -132,7 +126,7 @@ class AllRestaurantsTableViewCell: UITableViewCell {
     }
     
     // MARK: - Private Methods
-    private func setupView() {
+    private func setupCellAppearance() {
         layer.borderColor = UIColor.gray.withAlphaComponent(0.1).cgColor
         layer.borderWidth = 1.0
         layer.cornerRadius = 12
@@ -182,8 +176,8 @@ class AllRestaurantsTableViewCell: UITableViewCell {
     
     private func setOpenStatusLabel(for restaurant: Restaurant) {
         let isOpen = RestaurantHoursManager.shared.isRestaurantOpen(from: restaurant)
-         openNowLabel.text = isOpen ? "Open Now" : "Closed"
-         openNowLabel.textColor = isOpen ? .systemGreen : .white
+        openNowLabel.text = isOpen ? "Open Now" : "Closed"
+        openNowLabel.textColor = isOpen ? .systemGreen : .white
     }
     
     private func setImage(from url: String, for currentRestaurantId: Int) {
@@ -196,7 +190,7 @@ class AllRestaurantsTableViewCell: UITableViewCell {
         }
     }
     
-    // MARK: - Configure
+    // MARK: - Configuration
     func configure(with restaurant: Restaurant, isFavorite: Bool) {
         self.restaurant = restaurant
         self.restaurantId = restaurant.id

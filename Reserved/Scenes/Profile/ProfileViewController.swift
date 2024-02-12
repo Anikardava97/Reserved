@@ -343,12 +343,10 @@ final class ProfileViewController: UIViewController {
     // MARK: - Actions
     @objc private func signOutDidTap() {
         let alert = UIAlertController(title: "Sign Out", message: "Are you sure you want to sign out?", preferredStyle: .alert)
-        
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Sign Out", style: .destructive, handler: { [weak self] _ in
             self?.confirmSignOut()
         }))
-        
         present(alert, animated: true)
     }
     

@@ -48,7 +48,7 @@ final class RestaurantImagesCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    // MARK: - Configure
+    // MARK: - Configuration
     func configure(with imageURL: String) {
         NetworkManager.shared.downloadImage(from: imageURL) { [weak self] image in
             DispatchQueue.main.async {

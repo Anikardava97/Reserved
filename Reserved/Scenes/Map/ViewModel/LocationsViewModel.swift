@@ -22,12 +22,12 @@ final class LocationsViewModel: ObservableObject {
         }
     }
     let mapSpan = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-    private let baseURL = "https://mocki.io/v1/980db280-b83b-4799-93d9-3e4ef34ee78a"
+    private let restaurantsLocationsURL = Constants.URLs.restaurantsLocationsURL
     
     
     // MARK: - Methods
     func fetchRestaurantsLocations() {
-        NetworkManager.shared.fetch(from: baseURL) { [weak self] (result: Result<LocationResponse, NetworkError>) in
+        NetworkManager.shared.fetch(from: restaurantsLocationsURL) { [weak self] (result: Result<LocationResponse, NetworkError>) in
             switch result {
             case .success(let fetchedLocations):
                 self?.locations = fetchedLocations.locations
@@ -62,16 +62,13 @@ final class LocationsViewModel: ObservableObject {
     }
     
     func nextButtonDidTap() {
-        guard let currentIndex = locations.firstIndex(where: { $0 == mapLocation }) else {
-            return
-        }
+        guard let currentIndex = locations.firstIndex(where: { $0 == mapLocation }) else { return }
         let nextIndex = currentIndex + 1
         guard locations.indices.contains(nextIndex) else {
             guard let firstLocation = locations.first else { return }
             showNextLocation(location: firstLocation)
             return
         }
-        
         let nextLocation = locations[nextIndex]
         showNextLocation(location: nextLocation)
     }

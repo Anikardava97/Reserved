@@ -52,6 +52,11 @@ final class ReservationsHistoryViewController: UIViewController {
         view.backgroundColor = .customBackgroundColor
     }
     
+    private func setupScrollView() {
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     private func setupSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(scrollStackViewContainer)
@@ -70,11 +75,6 @@ final class ReservationsHistoryViewController: UIViewController {
             scrollStackViewContainer.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             scrollStackViewContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
-    }
-    
-    private func setupScrollView() {
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func showReservationsHistory() {
@@ -111,7 +111,7 @@ final class ReservationsHistoryViewController: UIViewController {
         view.addSubview(reminderButton)
         
         NSLayoutConstraint.activate([
-            reminderButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            reminderButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             reminderButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 24),
             reminderButton.widthAnchor.constraint(equalToConstant: 30),
             reminderButton.heightAnchor.constraint(equalToConstant: 30)
@@ -237,9 +237,7 @@ final class ReservationsHistoryViewController: UIViewController {
                 self?.showReservationsHistory()
             })
             present(alertController, animated: true, completion: nil)
-        } else {
-            print("Invalid reservation index.")
-        }
+        } else { print("Invalid reservation index.") }
     }
     
     @objc private func setReminder(_ sender: UIButton) {

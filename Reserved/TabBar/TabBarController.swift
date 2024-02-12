@@ -45,7 +45,7 @@ final class TabBarController: UITabBarController {
     // MARK: - SetupUI
     private func setupUI() {
         tabBar.tintColor = UIColor.customAccentColor
-        tabBar.unselectedItemTintColor = .white.withAlphaComponent(0.4)
+        tabBar.unselectedItemTintColor = .white
         tabBar.standardAppearance = createTabBarAppearance()
         tabBar.scrollEdgeAppearance = createTabBarScrollEdgeAppearance()
     }
@@ -62,6 +62,7 @@ final class TabBarController: UITabBarController {
         return tabBarScrollEdgeAppearance
     }
     
+    // MARK: - Update Badge Count
     func updateBadgeCounts() {
         let reservationsCount = ReservationManager.shared.myReservations.count
         let favoritesCount = FavoritesManager.shared.favoriteRestaurants.count

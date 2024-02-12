@@ -35,7 +35,6 @@ final class NavigationManager {
             let hostingController = UIHostingController(rootView: rootView)
             window.rootViewController = UINavigationController(rootViewController: hostingController)
         }
-        
         window.makeKeyAndVisible()
     }
     

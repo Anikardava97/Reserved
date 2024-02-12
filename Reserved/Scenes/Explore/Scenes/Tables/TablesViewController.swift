@@ -32,9 +32,9 @@ final class TablesViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .customBackgroundColor
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isPagingEnabled = true
+        collectionView.backgroundColor = .customBackgroundColor
         return collectionView
     }()
     
@@ -44,16 +44,16 @@ final class TablesViewController: UIViewController {
         setup()
     }
     
-    // MARK: - Private Methods
+    // MARK: - Methods
+    func setup(with viewModel: TablesViewModel) {
+        self.viewModel = viewModel
+    }
+    
     private func setup() {
         setupBackground()
         setupSubviews()
         setupConstraints()
         setupCollectionView()
-    }
-    
-    func setup(with viewModel: TablesViewModel) {
-        self.viewModel = viewModel
     }
     
     private func setupBackground() {
@@ -166,7 +166,6 @@ extension TablesViewController: UICollectionViewDelegate {
         
         confirmationAlert.addAction(confirmAction)
         confirmationAlert.addAction(cancelAction)
-        
         present(confirmationAlert, animated: true, completion: nil)
     }
     

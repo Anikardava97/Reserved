@@ -10,6 +10,7 @@ import UIKit
 final class CustomTextField: UITextField {
     // MARK: - Properties
     private let paddingWidth: CGFloat = 44
+    
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .center
@@ -54,8 +55,10 @@ final class CustomTextField: UITextField {
     
     // MARK: - Configure
     func configure(placeholder: String?, keyboardType: UIKeyboardType, icon: UIImage?) {
-        attributedPlaceholder = NSAttributedString(string: placeholder ?? "",
-                                                   attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.6)])
+        attributedPlaceholder = NSAttributedString(
+            string: placeholder ?? "",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.6)]
+        )
         self.keyboardType = keyboardType
         iconImageView.image = icon
     }

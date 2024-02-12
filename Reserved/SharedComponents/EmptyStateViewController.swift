@@ -126,6 +126,7 @@ class EmptyStateViewController: UIViewController {
         animationView.play()
     }
     
+    // MARK: - Actions
     @objc private func exploreButtonDidTap() {
         if let tabBarController = self.tabBarController {
             tabBarController.selectedIndex = 0

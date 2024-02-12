@@ -10,8 +10,8 @@ import Lottie
 
 final class OpenHoursViewController: UIViewController {
     // MARK: - Properties
-    private var animationView: LottieAnimationView!
     var restaurant: Restaurant?
+    private var animationView: LottieAnimationView!
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -38,9 +38,7 @@ final class OpenHoursViewController: UIViewController {
     
     private lazy var daySchedules: [DaySchedule] = {
         var schedules: [DaySchedule] = []
-        
         if let restaurant = restaurant {
-            
             schedules.append(DaySchedule(day: "Monday", hours: "\(restaurant.openHours.monday.startTime.rawValue) - \(restaurant.openHours.monday.endTime.rawValue)"))
             
             schedules.append(DaySchedule(day: "Tuesday", hours: "\(restaurant.openHours.tuesday.startTime.rawValue) - \(restaurant.openHours.tuesday.endTime.rawValue)"))
@@ -55,7 +53,6 @@ final class OpenHoursViewController: UIViewController {
             
             schedules.append(DaySchedule(day: "Sunday", hours: "\(restaurant.openHours.sunday.startTime.rawValue) - \(restaurant.openHours.sunday.endTime.rawValue)"))
         }
-        
         return schedules
     }()
     
@@ -106,7 +103,6 @@ final class OpenHoursViewController: UIViewController {
                 dayLabel.textColor = .customGreenColor
                 timeLabel.textColor = .customGreenColor
             }
-            
             dayScheduleStackView.addArrangedSubview(dayLabel)
             dayScheduleStackView.addArrangedSubview(timeLabel)
             
@@ -126,7 +122,6 @@ final class OpenHoursViewController: UIViewController {
         timeLabel.textColor = .white.withAlphaComponent(0.8)
         timeLabel.text = daySchedule.hours
         timeLabel.font = UIFont.systemFont(ofSize: 14)
-        
         return (dayLabel, timeLabel)
     }
     
@@ -136,7 +131,6 @@ final class OpenHoursViewController: UIViewController {
         animationView.loopMode = .loop
         animationView.animationSpeed = 1.0
         mainStackView.addArrangedSubview(animationView)
-        
         animationView.play()
     }
 }
