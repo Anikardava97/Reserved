@@ -40,6 +40,43 @@ final class ReservationsHistoryViewController: UIViewController {
     }
     
     // MARK: - Methods
+    private func setup() {
+        setupBackground()
+        setupScrollView()
+        setupSubviews()
+        setupConstraints()
+        requestNotificationPermissions()
+    }
+    
+    private func setupBackground() {
+        view.backgroundColor = .customBackgroundColor
+    }
+    
+    private func setupSubviews() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(scrollStackViewContainer)
+    }
+    
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            scrollStackViewContainer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            scrollStackViewContainer.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            scrollStackViewContainer.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            scrollStackViewContainer.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            scrollStackViewContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
+    }
+    
+    private func setupScrollView() {
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     private func showReservationsHistory() {
         DispatchQueue.main.async { [weak self] in
             self?.scrollStackViewContainer.arrangedSubviews.forEach { $0.removeFromSuperview() }
@@ -61,6 +98,24 @@ final class ReservationsHistoryViewController: UIViewController {
     
     private func configureDetailsSection(with reservation: MyReservation, index: Int) -> UIView {
         let view = createSectionWrapperView()
+        
+        let reminderButton = UIButton()
+        if let reminderIcon = UIImage(systemName: "bell.fill") {
+            reminderButton.setImage(reminderIcon, for: .normal)
+        }
+        reminderButton.tintColor = .white.withAlphaComponent(0.8)
+        reminderButton.addTarget(self, action: #selector(setReminder(_:)), for: .touchUpInside)
+        reminderButton.tag = index
+        reminderButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(reminderButton)
+        
+        NSLayoutConstraint.activate([
+            reminderButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            reminderButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 24),
+            reminderButton.widthAnchor.constraint(equalToConstant: 30),
+            reminderButton.heightAnchor.constraint(equalToConstant: 30)
+        ])
         
         let cancelButton = UIButton()
         cancelButton.setTitle("Cancel Reservation", for: .normal)
@@ -158,40 +213,16 @@ final class ReservationsHistoryViewController: UIViewController {
         }
     }
     
-    private func setup() {
-        setupBackground()
-        setupScrollView()
-        setupSubviews()
-        setupConstraints()
-    }
-    
-    private func setupBackground() {
-        view.backgroundColor = .customBackgroundColor
-    }
-    
-    private func setupSubviews() {
-        view.addSubview(scrollView)
-        scrollView.addSubview(scrollStackViewContainer)
-    }
-    
-    private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            scrollStackViewContainer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            scrollStackViewContainer.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            scrollStackViewContainer.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            scrollStackViewContainer.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            scrollStackViewContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
-        ])
-    }
-    
-    private func setupScrollView() {
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
+    private func requestNotificationPermissions() {
+        NotificationManager.shared.requestAuthorization { granted in
+            DispatchQueue.main.async {
+                if granted {
+                    print("Notifications permission granted.")
+                } else {
+                    print("Notifications permission denied.")
+                }
+            }
+        }
     }
     
     // MARK: - Actions
@@ -209,6 +240,20 @@ final class ReservationsHistoryViewController: UIViewController {
         } else {
             print("Invalid reservation index.")
         }
+    }
+    
+    @objc private func setReminder(_ sender: UIButton) {
+        let index = sender.tag
+        guard index < ReservationManager.shared.myReservations.count else { return }
+        
+        let reservation = ReservationManager.shared.myReservations[index]
+        let alertController = UIAlertController(title: "Set Reminder 🔔", message: "Do you want to set a reminder for this reservation?", preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alertController.addAction(UIAlertAction(title: "Yes", style: .default) { _ in
+            NotificationManager.shared.scheduleNotification(for: reservation)
+        })
+        present(alertController, animated: true)
     }
 }
 

@@ -192,7 +192,7 @@ class ConfirmationViewController: UIViewController {
         animationView = .init(name: "Animation - 1706349327749")
         animationView.frame = view.frame.offsetBy(dx: 0, dy: -160)
         animationView.contentMode = .scaleAspectFit
-        animationView.loopMode = .repeat(2)
+        animationView.loopMode = .repeat(3)
         animationView.animationSpeed = 0.5
         view.addSubview(animationView)
         animationView.play()

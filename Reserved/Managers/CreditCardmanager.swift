@@ -9,7 +9,7 @@ import Foundation
 import FirebaseAuth
 
 final class CreditCardManager {
-    // MARK: - Properties
+    // MARK: - Shared Instance
     static let shared = CreditCardManager()
     
     var balance: Double
