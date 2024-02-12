@@ -112,6 +112,7 @@
 		EEDABB832B591C9600A918EC /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDABB822B591C9600A918EC /* Utilities.swift */; };
 		EEDABB852B591C9600A918EC /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDABB842B591C9600A918EC /* SignInGoogleHelper.swift */; };
 		EEDABB872B591C9600A918EC /* GoogleSignInResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDABB862B591C9600A918EC /* GoogleSignInResultModel.swift */; };
+		EEE2C1992B79F3B700180470 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE2C1982B79F3B700180470 /* NotificationManager.swift */; };
 		EEEC43482B5D4CE900E9F87D /* ReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEC43472B5D4CE900E9F87D /* ReservationViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -228,6 +229,7 @@
 		EEDABB822B591C9600A918EC /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		EEDABB842B591C9600A918EC /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
 		EEDABB862B591C9600A918EC /* GoogleSignInResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInResultModel.swift; sourceTree = "<group>"; };
+		EEE2C1982B79F3B700180470 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		EEEC43472B5D4CE900E9F87D /* ReservationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -597,6 +599,7 @@
 				EED210612B5C6FCF00039A98 /* RestaurantHoursManager.swift */,
 				EEAB7CAF2B6FB37F0004FCC2 /* AlertManager.swift */,
 				EE6DA21C2B7650DA0016F283 /* CreditCardmanager.swift */,
+				EEE2C1982B79F3B700180470 /* NotificationManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -961,6 +964,7 @@
 				EEAB7C9F2B6ABCBE0004FCC2 /* ImageCacheManager.swift in Sources */,
 				EE487F712B666770001E8CEA /* LocationDetailsView.swift in Sources */,
 				EE8EB9092B5A539000C6FEB9 /* FavoritesViewController.swift in Sources */,
+				EEE2C1992B79F3B700180470 /* NotificationManager.swift in Sources */,
 				EE487F772B677F53001E8CEA /* EmptyStateViewController.swift in Sources */,
 				EE487F7D2B6797B4001E8CEA /* MyReservation.swift in Sources */,
 				EE53F1822B5AB3B50019853F /* TopRestaurantCollectionViewCell.swift in Sources */,
