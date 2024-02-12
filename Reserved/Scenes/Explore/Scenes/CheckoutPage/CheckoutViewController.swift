@@ -11,10 +11,10 @@ final class CheckoutViewController: UIViewController {
     // MARK: - Properties
     private var selectedProducts: [FoodItem]
     private let selectedRestaurant: Restaurant
+    let viewModel: CheckoutViewModel
     var selectedDate: String
     var selectedTime: String
     var selectedGuests: Int
-    let viewModel: CheckoutViewModel
     var newCardAdded = false
     
     private let mainStackView: UIStackView = {
@@ -280,8 +280,12 @@ final class CheckoutViewController: UIViewController {
         let totalPrice = viewModel.totalPrice ?? 0
         if viewModel.creditCardManager.balance >= totalPrice {
             viewModel.creditCardManager.balance -= totalPrice
-            
-            let successViewController = PaymentSuccessViewController(selectedProducts: selectedProducts, selectedRestaurant: selectedRestaurant, selectedDate: selectedDate, selectedTime: selectedTime, selectedGuests: selectedGuests)
+            let successViewController = PaymentSuccessViewController(
+                selectedProducts: selectedProducts,
+                selectedRestaurant: selectedRestaurant,
+                selectedDate: selectedDate,
+                selectedTime: selectedTime,
+                selectedGuests: selectedGuests)
             
             navigationController?.pushViewController(successViewController, animated: true)
         } else {
@@ -341,7 +345,7 @@ final class CheckoutViewController: UIViewController {
     }
 }
 
-// MARK:  Extension: UITableViewDataSource
+// MARK: - Extension: UITableViewDataSource
 extension CheckoutViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return selectedProducts.count
@@ -362,7 +366,7 @@ extension CheckoutViewController: UITableViewDelegate {
     }
 }
 
-// MARK:  Extension: AddCardViewControllerDelegate
+// MARK: - Extension: AddCardViewControllerDelegate
 extension CheckoutViewController: AddCardViewControllerDelegate {
     func didAddNewCard() {
         newCardAdded = true

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TablesCollectionViewCell: UICollectionViewCell {
+final class TablesCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
     private var isAvailable = false
     
@@ -35,7 +35,7 @@ class TablesCollectionViewCell: UICollectionViewCell {
         tableImageView.image = nil
     }
     
-    // MARK: - Private Methods
+    // MARK: - Methods
     private func addSubview() {
         contentView.addSubview(tableImageView)
     }

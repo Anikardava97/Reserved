@@ -106,22 +106,24 @@ final class OrderFoodViewController: UIViewController {
     // MARK: - ViewLifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let selectedRestaurant = selectedRestaurant else {
-            return
-        }
+        guard let selectedRestaurant = selectedRestaurant else { return }
         viewModel.fetchFoodItems(for: selectedRestaurant)
+        hideBackButton()
         setup()
-        self.navigationItem.hidesBackButton = true
         updateCheckoutButtonState()
     }
     
     // MARK: - Private Methods
+    private func hideBackButton() {
+        navigationItem.setHidesBackButton(true, animated: false)
+    }
+    
     private func setup() {
         setupViewModelDelegate()
         setupBackground()
-        setupCollectionView()
         setupSubviews()
         setupConstraints()
+        setupCollectionView()
         setupTableView()
     }
     
@@ -133,19 +135,12 @@ final class OrderFoodViewController: UIViewController {
         view.backgroundColor = .customBackgroundColor
     }
     
-    private func setupCollectionView() {
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.register(FoodCollectionViewCell.self, forCellWithReuseIdentifier: "foodItemsCollectionViewCell")
-    }
-    
     private func setupSubviews() {
         view.addSubview(mainStackView)
         mainStackView.addArrangedSubview(headerLabel)
         mainStackView.addArrangedSubview(viewToggleSegmentedControl)
         mainStackView.addArrangedSubview(collectionView)
         mainStackView.addArrangedSubview(tableView)
-        tableView.isHidden = true
         mainStackView.addArrangedSubview(checkoutStackView)
     }
     
@@ -162,7 +157,14 @@ final class OrderFoodViewController: UIViewController {
         ])
     }
     
+    private func setupCollectionView() {
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(FoodCollectionViewCell.self, forCellWithReuseIdentifier: "foodItemsCollectionViewCell")
+    }
+    
     private func setupTableView() {
+        tableView.isHidden = true
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(FoodTableViewCell.self, forCellReuseIdentifier: "foodItemsTableViewCell")
@@ -253,7 +255,7 @@ extension OrderFoodViewController: FoodCollectionViewCellDelegate {
     }
 }
 
-// MARK:  Extension: UITableViewDataSource
+// MARK: - Extension: UITableViewDataSource
 extension OrderFoodViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.foodItems?.count ?? 0
@@ -300,7 +302,7 @@ extension OrderFoodViewController: FoodTableViewCellDelegate {
     }
 }
 
-// MARK:  Extension: OrderFoodViewModelDelegate
+// MARK: - Extension: OrderFoodViewModelDelegate
 extension OrderFoodViewController: OrderFoodViewModelDelegate {
     func fetchedFood(_ foodItems: [FoodItem]) {
         DispatchQueue.main.async {
@@ -322,7 +324,6 @@ extension OrderFoodViewController: OrderFoodViewModelDelegate {
         DispatchQueue.main.async {
             self.updateCheckoutButtonState()
             self.totalPriceLabel.text = "Total Price :  \(self.viewModel.totalPrice ?? 0) $"
-            
             self.collectionView.reloadData()
             self.tableView.reloadData()
         }

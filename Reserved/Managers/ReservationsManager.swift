@@ -19,25 +19,39 @@ final class ReservationManager {
     var myReservations: [MyReservation] = []
     
     // MARK: - Methods
-    func storeReservation(restaurantName: String, reservationDate: String, reservationTime: String, guestsCount: Int, foodItems: [FoodItem]? = nil, gift: FoodItem? = nil) {
-        if let index = myReservations.firstIndex(where: { $0.restaurantName == restaurantName && $0.reservationDate == reservationDate && $0.reservationTime == reservationTime }) {
+    func storeReservation(
+        restaurantName: String,
+        reservationDate: String,
+        reservationTime: String,
+        guestsCount: Int,
+        foodItems: [FoodItem]? = nil,
+        gift: FoodItem? = nil
+    ) {
+        if let index = myReservations.firstIndex(where: {
+            $0.restaurantName == restaurantName &&
+            $0.reservationDate == reservationDate &&
+            $0.reservationTime == reservationTime
+        }) {
             var reservationToUpdate = myReservations[index]
             reservationToUpdate.guestsCount = guestsCount
             reservationToUpdate.foodItems = foodItems
             reservationToUpdate.gift = gift
             myReservations[index] = reservationToUpdate
         } else {
-            let newReservation = MyReservation(restaurantName: restaurantName, reservationDate: reservationDate, reservationTime: reservationTime, guestsCount: guestsCount, foodItems: foodItems, gift: gift)
+            let newReservation = MyReservation(
+                restaurantName: restaurantName,
+                reservationDate: reservationDate,
+                reservationTime: reservationTime,
+                guestsCount: guestsCount,
+                foodItems: foodItems,
+                gift: gift)
             myReservations.append(newReservation)
         }
         saveReservationsForCurrentUser()
     }
     
     func cancelReservation(atIndex index: Int) {
-        guard index >= 0 && index < myReservations.count else {
-            print("Invalid reservation index.")
-            return
-        }
+        guard index >= 0 && index < myReservations.count else { return }
         myReservations.remove(at: index)
         saveReservationsForCurrentUser()
     }

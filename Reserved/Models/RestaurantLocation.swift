@@ -9,10 +9,12 @@ import Foundation
 import MapKit
 import CoreLocation
 
+// MARK: - Location Response
 struct LocationResponse: Decodable {
     let locations: [RestaurantLocation]
 }
 
+// MARK: - RestaurantLocation
 struct RestaurantLocation: Decodable, Identifiable, Equatable {
     let id: Int
     let name: String

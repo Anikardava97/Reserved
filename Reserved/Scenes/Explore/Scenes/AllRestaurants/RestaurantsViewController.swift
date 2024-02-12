@@ -325,7 +325,7 @@ extension RestaurantsViewController: RestaurantsViewModelDelegate {
             self.present(alert, animated: true)
         }
     }
-
+    
     func navigateToRestaurantDetails(with restaurant: Restaurant) {
         let restaurantDetailsViewController = RestaurantDetailsViewController()
         restaurantDetailsViewController.configure(with: restaurant)

@@ -113,7 +113,7 @@ final class FavoriteRestaurantsTableViewCell: UITableViewCell {
         cuisineLabel.text = nil
     }
     
-    // MARK: - Private Methods
+    // MARK: - Methods
     private func setupView() {
         layer.borderColor = UIColor.gray.withAlphaComponent(0.1).cgColor
         layer.borderWidth = 1.0
@@ -173,7 +173,7 @@ final class FavoriteRestaurantsTableViewCell: UITableViewCell {
         }
     }
     
-    // MARK: - Configure
+    // MARK: - Configuration
     func configure(with restaurant: Restaurant) {
         self.restaurant = restaurant
         titleLabel.text = restaurant.name

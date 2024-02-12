@@ -42,7 +42,8 @@ final class FavoritesManager {
     private func updateBadgeCounts() {
         DispatchQueue.main.async {
             guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
-            guard let tabBarController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController as? TabBarController else { return }
+            guard let tabBarController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController as? TabBarController
+            else { return }
             tabBarController.updateBadgeCounts()
         }
     }

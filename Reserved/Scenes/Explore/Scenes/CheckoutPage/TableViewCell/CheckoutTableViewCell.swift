@@ -68,7 +68,6 @@ final class CheckoutTableViewCell: UITableViewCell {
     // MARK: - CellLifeCycle
     override func prepareForReuse() {
         super.prepareForReuse()
-        
         productTitleLabel.text = nil
         productPriceLabel.text = nil
         selectedQuantityLabel.text = nil
@@ -84,7 +83,7 @@ final class CheckoutTableViewCell: UITableViewCell {
             mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     

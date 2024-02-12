@@ -84,14 +84,18 @@ final class GiftDetailViewController: UIViewController {
     // MARK: - ViewLifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideBackButton()
         setup()
         configureViews()
-        self.navigationItem.hidesBackButton = true
     }
     
     // MARK: - Methods
     func configure(with giftItem: FoodItem) {
         self.giftItem = giftItem
+    }
+    
+    private func hideBackButton() {
+        navigationItem.setHidesBackButton(true, animated: false)
     }
     
     private func setup() {
@@ -118,7 +122,7 @@ final class GiftDetailViewController: UIViewController {
             mainStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             
             giftImageView.widthAnchor.constraint(equalToConstant: 180),
-            giftImageView.heightAnchor.constraint(equalToConstant: 180),
+            giftImageView.heightAnchor.constraint(equalToConstant: 180)
         ])
     }
     

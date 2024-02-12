@@ -14,14 +14,14 @@ protocol PaymentSuccessViewModelDelegate: AnyObject {
 
 final class PaymentSuccessViewModel {
     // MARK: - Properties
-    private let baseURL = Constants.URLs.restaurantFoodItemsURL
+    private let restaurantFoodItemsURL = Constants.URLs.restaurantFoodItemsURL
     weak var delegate: PaymentSuccessViewModelDelegate?
     
     var foodItems: [FoodItem]?
     
     // MARK: - Methods
     func fetchFoodItems(for restaurant: Restaurant) {
-        let restaurantURL = baseURL + "?restaurantId=\(restaurant.id)"
+        let restaurantURL = restaurantFoodItemsURL + "?restaurantId=\(restaurant.id)"
         
         NetworkManager.shared.fetch(from: restaurantURL) { [weak self] (result: Result<FoodResponse, NetworkError>) in
             switch result {

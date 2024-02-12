@@ -38,7 +38,6 @@ final class Utilities {
         if let presented = controller?.presentedViewController {
             return topViewController(controller: presented)
         }
-        
         return controller
     }
 }

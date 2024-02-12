@@ -107,13 +107,17 @@ final class PaymentSuccessViewController: UIViewController {
     // MARK: - ViewLifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.hidesBackButton = true
         viewModel.fetchFoodItems(for: selectedRestaurant)
+        hideBackButton()
         setup()
         setupAnimationView()
     }
     
     // MARK: - Methods
+    private func hideBackButton() {
+        navigationItem.setHidesBackButton(true, animated: false)
+    }
+    
     private func setup() {
         setupViewModelDelegate()
         setupBackground()
@@ -148,6 +152,12 @@ final class PaymentSuccessViewController: UIViewController {
         ])
     }
     
+    private func setupCollectionView() {
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(RandomFoodCollectionViewCell.self, forCellWithReuseIdentifier: "randomFoodCollectionViewCell")
+    }
+    
     private func setupAnimationView() {
         animationView = .init(name: "Animation - 1707550934898")
         animationView.contentMode = .scaleAspectFit
@@ -177,12 +187,6 @@ final class PaymentSuccessViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(animationViewDidTap))
         animationView.isUserInteractionEnabled = true
         animationView.addGestureRecognizer(tapGesture)
-    }
-    
-    private func setupCollectionView() {
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.register(RandomFoodCollectionViewCell.self, forCellWithReuseIdentifier: "randomFoodCollectionViewCell")
     }
     
     private func spinCollectionView() {
@@ -267,9 +271,7 @@ extension PaymentSuccessViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
             let foodItem = viewModel.foodItems?[indexPath.row],
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "randomFoodCollectionViewCell", for: indexPath) as? RandomFoodCollectionViewCell else {
-            return UICollectionViewCell()
-        }
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "randomFoodCollectionViewCell", for: indexPath) as? RandomFoodCollectionViewCell else { return UICollectionViewCell() }
         cell.configure(with: foodItem)
         return cell
     }
@@ -284,7 +286,7 @@ extension PaymentSuccessViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK:  Extension: PaymentSuccessViewModelDelegate
+// MARK:  Extension: - PaymentSuccessViewModelDelegate
 extension PaymentSuccessViewController: PaymentSuccessViewModelDelegate {
     func fetchedFood(_ foodItems: [FoodItem]) {
         DispatchQueue.main.async {

@@ -19,6 +19,8 @@ final class FavoritesViewController: UIViewController {
     
     private var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = .customBackgroundColor
+        tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -27,15 +29,11 @@ final class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        
         viewModel.onFavoritesUpdated = { [weak self] in
             guard let self = self else { return }
             self.tableView.reloadData()
-            if self.viewModel.numberOfFavorites == 0 {
-                self.showEmptyState()
-            } else {
-                self.hideEmptyState()
-            }
+            if self.viewModel.numberOfFavorites == 0 { self.showEmptyState() }
+            else { self.hideEmptyState() }
         }
     }
     
@@ -69,9 +67,9 @@ final class FavoritesViewController: UIViewController {
     private func setup() {
         setupViewModelDelegate()
         setupBackground()
-        setupTableView()
         setupSubviews()
         setupConstraints()
+        setupTableView()
     }
     
     private func setupViewModelDelegate() {
@@ -99,9 +97,6 @@ final class FavoritesViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(FavoriteRestaurantsTableViewCell.self, forCellReuseIdentifier: "favoriteRestaurantsCell")
-        
-        tableView.backgroundColor = .customBackgroundColor
-        tableView.showsVerticalScrollIndicator = false
     }
 }
 
@@ -112,9 +107,7 @@ extension FavoritesViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteRestaurantsCell", for: indexPath) as? FavoriteRestaurantsTableViewCell else {
-            return UITableViewCell()
-        }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteRestaurantsCell", for: indexPath) as? FavoriteRestaurantsTableViewCell else { return UITableViewCell() }
         let restaurant = viewModel.favoriteAt(index: indexPath.row)
         cell.configure(with: restaurant)
         cell.onFavoriteDidTap = { [weak self] in
@@ -124,7 +117,7 @@ extension FavoritesViewController: UITableViewDataSource {
     }
 }
 
-// MARK: - Extension: TableViewDelegate
+// MARK:  Extension: TableViewDelegate
 extension FavoritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         UITableView.automaticDimension

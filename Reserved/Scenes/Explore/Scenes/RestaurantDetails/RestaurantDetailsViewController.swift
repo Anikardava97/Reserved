@@ -36,6 +36,7 @@ final class RestaurantDetailsViewController: UIViewController {
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
@@ -154,7 +155,6 @@ final class RestaurantDetailsViewController: UIViewController {
     private lazy var openStatusAndChevronStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [openStatusStackView, chevronImageView])
         stackView.distribution = .equalSpacing
-        
         stackView.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openHoursDidTap))
         stackView.addGestureRecognizer(tapGesture)

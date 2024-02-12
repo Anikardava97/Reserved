@@ -8,7 +8,7 @@
 import UIKit
 import Lottie
 
-class ConfirmationViewController: UIViewController {
+final class ConfirmationViewController: UIViewController {
     // MARK: - Properties
     private var animationView: LottieAnimationView!
     private var waitLabel: UILabel?
@@ -45,15 +45,6 @@ class ConfirmationViewController: UIViewController {
         return label
     }()
     
-    private func createSectionWrapperView() -> UIView {
-        let view = UIView()
-        view.backgroundColor = .darkGray.withAlphaComponent(0.1)
-        view.layer.cornerRadius = 10
-        view.clipsToBounds = true
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }
-    
     private lazy var detailsSectionView: UIView = {
         let view = createSectionWrapperView()
         
@@ -77,6 +68,94 @@ class ConfirmationViewController: UIViewController {
         ])
         return view
     }()
+    
+    private lazy var exploreButton: UIButton = {
+        let button = MainButtonComponent(
+            text: "Explore More",
+            textColor: UIColor.white,
+            backgroundColor: UIColor.customAccentColor
+        )
+        button.addTarget(self, action: #selector(exploreButtonDidTap), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var orderFoodButton: SecondaryButtonComponent = {
+        let button = SecondaryButtonComponent(text: "Order Food")
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(orderFoodButtonDidTap), for: .touchUpInside)
+        button.isHidden = true
+        return button
+    }()
+    
+    // MARK: - ViewLifeCycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        hideBackButton()
+        setupBackground()
+        setupLoaderAnimationView()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) { [weak self] in
+            self?.animationView.stop()
+            self?.animationView.isHidden = true
+            self?.waitLabel?.isHidden = true
+            self?.setup()
+            self?.userCompletedReservation()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) { [weak self] in
+            self?.showOrderFoodAlert()
+        }
+    }
+    
+    // MARK: - Methods
+    private func hideBackButton() {
+        navigationItem.setHidesBackButton(true, animated: false)
+    }
+    
+    private func setupBackground() {
+        view.backgroundColor = .customBackgroundColor
+    }
+    
+    private func setup() {
+        setupConfettiAnimationView()
+        setupSubviews()
+        setupConstraints()
+    }
+    
+    private func setupConfettiAnimationView() {
+        animationView = .init(name: "Animation - 1706349327749")
+        animationView.frame = view.frame.offsetBy(dx: 0, dy: -160)
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .repeat(2)
+        animationView.animationSpeed = 0.5
+        view.addSubview(animationView)
+        animationView.play()
+    }
+    
+    private func setupSubviews() {
+        view.addSubview(mainStackView)
+        mainStackView.addArrangedSubview(successLabel)
+        mainStackView.addArrangedSubview(reservationDetailsTitleLabel)
+        mainStackView.addArrangedSubview(detailsSectionView)
+        mainStackView.addArrangedSubview(exploreButton)
+        mainStackView.addArrangedSubview(orderFoodButton)
+    }
+    
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            mainStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 48),
+            mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+        ])
+    }
+    
+    private func createSectionWrapperView() -> UIView {
+        let view = UIView()
+        view.backgroundColor = .darkGray.withAlphaComponent(0.1)
+        view.layer.cornerRadius = 10
+        view.clipsToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }
     
     private func createLabelWithIcon(title: String, value: String, iconName: String) -> UIView {
         let containerView = UIView()
@@ -112,49 +191,6 @@ class ConfirmationViewController: UIViewController {
         return containerView
     }
     
-    private lazy var exploreButton: UIButton = {
-        let button = MainButtonComponent(
-            text: "Explore More",
-            textColor: UIColor.white,
-            backgroundColor: UIColor.customAccentColor
-        )
-        button.addTarget(self, action: #selector(exploreButtonDidTap), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var orderFoodButton: SecondaryButtonComponent = {
-        let button = SecondaryButtonComponent(text: "Order Food")
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(orderFoodButtonDidTap), for: .touchUpInside)
-        button.isHidden = true
-        return button
-    }()
-    
-    // MARK: - ViewLifeCycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationItem.setHidesBackButton(true, animated: false)
-        setupLoaderAnimationView()
-        view.backgroundColor = .customBackgroundColor
-        DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) { [weak self] in
-            self?.animationView.stop()
-            self?.animationView.isHidden = true
-            self?.waitLabel?.isHidden = true
-            self?.setup()
-            self?.userCompletedReservation()
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) { [weak self] in
-            self?.showOrderFoodAlert()
-        }
-    }
-    
-    // MARK: - Private Methods
-    private func setup() {
-        setupConfettiAnimationView()
-        setupSubviews()
-        setupConstraints()
-    }
-    
     private func setupLoaderAnimationView() {
         animationView = .init(name: "Animation - 1706348887513")
         let animationViewWidth: CGFloat = 100
@@ -184,35 +220,7 @@ class ConfirmationViewController: UIViewController {
             label.centerXAnchor.constraint(equalTo: animationView.centerXAnchor),
             label.topAnchor.constraint(equalTo: animationView.bottomAnchor, constant: 16),
         ])
-        
         self.waitLabel = label
-    }
-    
-    private func setupConfettiAnimationView() {
-        animationView = .init(name: "Animation - 1706349327749")
-        animationView.frame = view.frame.offsetBy(dx: 0, dy: -160)
-        animationView.contentMode = .scaleAspectFit
-        animationView.loopMode = .repeat(3)
-        animationView.animationSpeed = 0.5
-        view.addSubview(animationView)
-        animationView.play()
-    }
-    
-    private func setupSubviews() {
-        view.addSubview(mainStackView)
-        mainStackView.addArrangedSubview(successLabel)
-        mainStackView.addArrangedSubview(reservationDetailsTitleLabel)
-        mainStackView.addArrangedSubview(detailsSectionView)
-        mainStackView.addArrangedSubview(exploreButton)
-        mainStackView.addArrangedSubview(orderFoodButton)
-    }
-    
-    private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            mainStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 48),
-            mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-        ])
     }
     
     private func userCompletedReservation() {

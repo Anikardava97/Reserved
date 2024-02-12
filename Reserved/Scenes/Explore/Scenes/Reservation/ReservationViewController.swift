@@ -227,12 +227,13 @@ final class ReservationViewController: UIViewController {
         return button
     }()
     
-    // MARK: - Body
+    // MARK: - ViewLifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
     
+    // MARK: - Methods
     private func setup() {
         setupBackground()
         setupSelectedRestaurantImageAndName()
@@ -248,9 +249,7 @@ final class ReservationViewController: UIViewController {
     
     private func setupSelectedRestaurantImageAndName() {
         if let restaurant = viewModel.selectedRestaurant {
-            if let imageURL = viewModel.restaurantImageURL {
-                setRestaurantImage(from: imageURL)
-            }
+            if let imageURL = viewModel.restaurantImageURL { setRestaurantImage(from: imageURL) }
             setFormattedRestaurantName(restaurant.name.uppercased())
         }
     }
@@ -271,6 +270,7 @@ final class ReservationViewController: UIViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(scrollStackViewContainer)
         scrollStackViewContainer.addArrangedSubview(mainStackView)
+        
         mainStackView.addArrangedSubview(restaurantImageView)
         mainStackView.addArrangedSubview(dateSectionView)
         mainStackView.addArrangedSubview(timeSectionView)
@@ -368,21 +368,6 @@ final class ReservationViewController: UIViewController {
         selectTimeButton.addTarget(self, action: #selector(selectTimeButtonDidTap), for: .touchUpInside)
     }
     
-    @objc private func nextButtonDidTap() {
-        let validation = viewModel.validateReservation(
-            selectedDate: viewModel.selectedDate,
-            selectedTimeText: selectTimeButton.title(for: .normal),
-            selectedGuests: Int(guestCountLabel.text ?? "2"),
-            reservations: viewModel.selectedRestaurant?.reservations
-        )
-        
-        switch validation {
-        case .success:
-            performReservation()
-        case .failure:
-            AlertManager.shared.showAlert(from: self, type: .noAvailableTables)        }
-    }
-    
     private func performReservation() {
         guard let selectedDate = selectDateButton.title(for: .normal),
               let selectedTime = selectTimeButton.title(for: .normal),
@@ -395,7 +380,6 @@ final class ReservationViewController: UIViewController {
             selectedTime: selectedTime,
             selectedGuests: selectedGuests
         )
-        
         let tablesViewController = TablesViewController()
         tablesViewController.setup(with: tablesViewModel)
         navigationController?.pushViewController(tablesViewController, animated: true)
@@ -421,6 +405,21 @@ final class ReservationViewController: UIViewController {
     }
     
     // MARK: - Actions
+    @objc private func nextButtonDidTap() {
+        let validation = viewModel.validateReservation(
+            selectedDate: viewModel.selectedDate,
+            selectedTimeText: selectTimeButton.title(for: .normal),
+            selectedGuests: Int(guestCountLabel.text ?? "2"),
+            reservations: viewModel.selectedRestaurant?.reservations
+        )
+        switch validation {
+        case .success:
+            performReservation()
+        case .failure:
+            AlertManager.shared.showAlert(from: self, type: .noAvailableTables)
+        }
+    }
+    
     @objc private func selectDateButtonDidTap() {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .inline
@@ -446,7 +445,6 @@ final class ReservationViewController: UIViewController {
             self.viewModel.selectedDate = datePicker.date
             self.dateDidChange(datePicker: datePicker)
         }))
-        
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -478,7 +476,6 @@ final class ReservationViewController: UIViewController {
                 AlertManager.shared.showAlert(from: self, type: .invalidTime)
             }
         }))
-        
         self.present(alert, animated: true, completion: nil)
     }
     

@@ -11,12 +11,13 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     // MARK: - Shared Instance
     static let shared = NotificationManager()
     
-    // MARK: - Methods
+    // MARK: - Init
     private override init() {
         super.init()
         UNUserNotificationCenter.current().delegate = self
     }
     
+    // MARK: - Methods
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
         let options: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(options: options) { granted, _ in
@@ -27,7 +28,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     func scheduleNotification(for reservation: MyReservation) {
         let content = UNMutableNotificationContent()
         content.title = "Reservation Reminder 😳"
-        content.body = "Don't forget that we are waiting for you at \(reservation.restaurantName) at \(reservation.reservationTime)"
+        content.body = "Don't forget that we are waiting for you at \(reservation.restaurantName) at \(reservation.reservationTime)❤️"
         content.sound = .default
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 120, repeats: false)
@@ -49,7 +50,9 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         completionHandler([.banner, .sound, .badge])
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
         completionHandler()
     }
 }

@@ -82,12 +82,11 @@ final class MyCreditCardsTableViewCell: UITableViewCell {
     // MARK: - CellLifeCycle
     override func prepareForReuse() {
         super.prepareForReuse()
-        
         cardNameLabel.text = nil
         cardNumberLabel.text = nil
     }
     
-    // MARK: - Private Methods
+    // MARK: - Methods
     private func addSubview() {
         contentView.addSubview(mainStackView)
     }

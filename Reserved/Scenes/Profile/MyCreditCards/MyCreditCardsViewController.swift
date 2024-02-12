@@ -109,7 +109,7 @@ final class MyCreditCardsViewController: UIViewController {
     }
 }
 
-// MARK:  Extension: UITableViewDataSource
+// MARK: - Extension: UITableViewDataSource
 extension MyCreditCardsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return creditCardManager?.cards.count ?? 0
@@ -117,9 +117,7 @@ extension MyCreditCardsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "myCreditCardsTableViewCell", for: indexPath) as? MyCreditCardsTableViewCell,
-              let card = creditCardManager?.cards[indexPath.row] else {
-            return UITableViewCell()
-        }
+              let card = creditCardManager?.cards[indexPath.row] else { return UITableViewCell() }
         cell.configure(with: card)
         cell.delegate = self
         return cell
@@ -144,7 +142,7 @@ extension MyCreditCardsViewController: MyCreditCardsTableViewCellDelegate {
     }
 }
 
-// MARK:  Extension: AddCardViewControllerDelegate
+// MARK: - Extension: AddCardViewControllerDelegate
 extension MyCreditCardsViewController: AddCardViewControllerDelegate {
     func didAddNewCard() {
         creditCardManager?.loadCardsForCurrentUser()

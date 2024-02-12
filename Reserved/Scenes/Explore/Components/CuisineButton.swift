@@ -61,7 +61,6 @@ final class CuisineButton: UIButton {
             nameLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 6),
             nameLabel.trailingAnchor.constraint(equalTo: customView.trailingAnchor, constant: -18)
         ])
-        
         customView.layer.cornerRadius = 8
     }
     

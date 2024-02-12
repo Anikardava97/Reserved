@@ -104,7 +104,7 @@ final class MyOrdersViewController: UIViewController {
     }
 }
 
-// MARK:  Extension: UITableViewDataSource
+// MARK: - Extension: UITableViewDataSource
 extension MyOrdersViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return ReservationManager.shared.myReservations.count
@@ -163,7 +163,6 @@ extension MyOrdersViewController: UITableViewDelegate {
             giftLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
             giftLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -8)
         ])
-        
         return headerView
     }
     

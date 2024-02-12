@@ -9,9 +9,9 @@ import UIKit
 
 final class TopRestaurantCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
+    var favoriteButtonDidTap: (() -> Void)?
     private var restaurant: Restaurant?
     private var restaurantId: Int?
-    var favoriteButtonDidTap: (() -> Void)?
     
     private let restaurantImageView: UIImageView = {
         let imageView = UIImageView()
@@ -64,8 +64,8 @@ final class TopRestaurantCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         addSubview()
         setupConstraints()
-        setupFavoriteButtonAction()
         setupCellAppearance()
+        setupFavoriteButtonAction()
     }
     
     required init?(coder: NSCoder) {
@@ -75,7 +75,6 @@ final class TopRestaurantCollectionViewCell: UICollectionViewCell {
     // MARK: - CellLifeCycle
     override func prepareForReuse() {
         super.prepareForReuse()
-        
         restaurantImageView.image = nil
         titleLabel.text = nil
         cuisineLabel.text = nil

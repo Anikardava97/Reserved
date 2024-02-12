@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - RestaurantResponse
+// MARK: - Restaurant Response
 struct RestaurantResponse: Decodable {
     let restaurants: [Restaurant]
 }
@@ -27,7 +27,6 @@ class Restaurant: Codable {
     var phoneNumber: String
     var reviewStars: Double
     var reservations: [Reservation]?
-    
     
     init(id: Int, name: String, cuisine: String, mainImageURL: String?, images: [String]? = nil, openHours: OpenHours, location: Location, description: String, websiteURL: String, menuURL: String, phoneNumber: String, reviewStars: Double, reservations: [Reservation]? = nil) {
         self.id = id

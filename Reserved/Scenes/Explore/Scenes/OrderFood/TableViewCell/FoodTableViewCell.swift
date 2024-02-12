@@ -107,7 +107,6 @@ final class FoodTableViewCell: UITableViewCell {
     // MARK: - CellLifeCycle
     override func prepareForReuse() {
         super.prepareForReuse()
-        
         productImageView.image = nil
         productTitleLabel.text = nil
         productPriceLabel.text = nil

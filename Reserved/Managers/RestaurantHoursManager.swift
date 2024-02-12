@@ -101,7 +101,6 @@ final class RestaurantHoursManager {
         default:
             return false
         }
-        
         return isNowBetween(startTime: startTime, endTime: endTime, currentDate: now, dateFormatter: dateFormatter)
     }
     
@@ -117,7 +116,6 @@ final class RestaurantHoursManager {
         let calendar = Calendar.current
         let startDateTimeComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: start)
         let adjustedEndDateTimeComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: adjustedEndTime)
-        
         let startDateTime = calendar.date(bySettingHour: startDateTimeComponents.hour!, minute: startDateTimeComponents.minute!, second: 0, of: currentDate)!
         let adjustedEndDateTime = calendar.date(bySettingHour: adjustedEndDateTimeComponents.hour!, minute: adjustedEndDateTimeComponents.minute!, second: 0, of: currentDate)!
         

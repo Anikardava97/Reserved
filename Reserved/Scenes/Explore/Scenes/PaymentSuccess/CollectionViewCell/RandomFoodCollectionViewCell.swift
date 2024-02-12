@@ -48,7 +48,6 @@ final class RandomFoodCollectionViewCell: UICollectionViewCell {
     // MARK: - CellLifeCycle
     override func prepareForReuse() {
         super.prepareForReuse()
-        
         productImageView.image = nil
         productTitleLabel.text = nil
     }

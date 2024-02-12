@@ -16,7 +16,7 @@ protocol RestaurantsViewModelDelegate: AnyObject {
 
 final class RestaurantsViewModel {
     // MARK: - Properties
-    private let baseURL = Constants.URLs.restaurantsListURL
+    private let restaurantsListURL = Constants.URLs.restaurantsListURL
     private var restaurants: [Restaurant]?
     weak var delegate: RestaurantsViewModelDelegate?
     
@@ -26,7 +26,7 @@ final class RestaurantsViewModel {
     }
     
     private func fetchRestaurants() {
-        NetworkManager.shared.fetch(from: baseURL) { [weak self] (result: Result<RestaurantResponse, NetworkError>) in
+        NetworkManager.shared.fetch(from: restaurantsListURL) { [weak self] (result: Result<RestaurantResponse, NetworkError>) in
             switch result {
             case .success(let fetchedRestaurants):
                 self?.restaurants = fetchedRestaurants.restaurants

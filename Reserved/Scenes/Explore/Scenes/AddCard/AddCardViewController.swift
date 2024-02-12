@@ -142,7 +142,7 @@ final class AddCardViewController: UIViewController {
             nameTextField.heightAnchor.constraint(equalToConstant: 48),
             cardNumberTextField.heightAnchor.constraint(equalToConstant: 48),
             expiryDateTextField.heightAnchor.constraint(equalToConstant: 48),
-            cvcTextField.heightAnchor.constraint(equalToConstant: 48),
+            cvcTextField.heightAnchor.constraint(equalToConstant: 48)
         ])
     }
     
@@ -158,7 +158,6 @@ final class AddCardViewController: UIViewController {
     private func updateAddCardButtonState() {
         let isValid = allFieldsAreValid()
         addCardButton.isEnabled = isValid
-        
         addCardButton.backgroundColor = isValid ? .customAccentColor : .customAccentColor.withAlphaComponent(0.6)
         addCardButton.setTitleColor(isValid ? .white : .white.withAlphaComponent(0.6), for: .normal)
     }
@@ -178,7 +177,7 @@ final class AddCardViewController: UIViewController {
             animationView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             animationView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             animationView.widthAnchor.constraint(equalToConstant: 220),
-            animationView.heightAnchor.constraint(equalToConstant: 220),
+            animationView.heightAnchor.constraint(equalToConstant: 220)
         ])
         animationView.play()
         
@@ -212,7 +211,6 @@ final class AddCardViewController: UIViewController {
     
     @objc func addCardButtonDidTap() {
         guard allFieldsAreValid() else { return }
-        
         let newCard = CreditCard(
             name: nameTextField.text ?? "",
             number: cardNumberTextField.text?.replacingOccurrences(of: " ", with: "") ?? "",
@@ -221,7 +219,6 @@ final class AddCardViewController: UIViewController {
         )
         creditCardManager.addCard(newCard)
         delegate?.didAddNewCard()
-        
         setupAnimationView()
         DispatchQueue.main.asyncAfter(deadline: .now() + 6) { [weak self] in
             self?.navigationController?.popViewController(animated: true)
@@ -263,27 +260,17 @@ extension AddCardViewController: UITextFieldDelegate {
         case 2:
             let fullText = (textField.text ?? "") as NSString
             let updatedText = fullText.replacingCharacters(in: range, with: string)
-            
-            guard string.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil, updatedText.count <= 5 else {
-                return false
-            }
-            
+            guard string.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil, updatedText.count <= 5 else { return false }
             var newText = updatedText.replacingOccurrences(of: "/", with: "")
-            if newText.count > 2 {
-                newText = String(newText.prefix(2)) + "/" + newText.dropFirst(2)
-            }
+            if newText.count > 2 { newText = String(newText.prefix(2)) + "/" + newText.dropFirst(2) }
             if newText.count >= 5 {
                 let yearString = String(newText.suffix(2))
                 let currentYear = Calendar.current.component(.year, from: Date()) % 100
-                if let year = Int(yearString), year < currentYear {
-                    return false
-                }
+                if let year = Int(yearString), year < currentYear { return false }
             }
             if newText.count >= 2 {
                 let monthString = String(newText.prefix(2))
-                if let month = Int(monthString), month > 12 || month == 0 {
-                    return false
-                }
+                if let month = Int(monthString), month > 12 || month == 0 { return false }
             }
             textField.text = newText
             return false

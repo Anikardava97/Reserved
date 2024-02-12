@@ -7,10 +7,12 @@
 
 import UIKit
 
+// MARK: - Food Response
 struct FoodResponse: Codable {
     let foodItems: [FoodItem]
 }
 
+// MARK: - FoodItem
 struct FoodItem: Codable {
     let id: Int
     let name: String
